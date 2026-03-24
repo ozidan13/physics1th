@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics - Lesson 9: Light & EM Waves</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'], arabic: ['Cairo', 'sans-serif'] } } } }</script>
+    <style>
+        body {
+            background: #020617;
+            color: #E2E8F0;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 15% 20%, rgba(139, 92, 246, 0.07) 0%, transparent 30%), radial-gradient(circle at 85% 80%, rgba(236, 72, 153, 0.06) 0%, transparent 30%)
+        }
+
+        .glass-card {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease
+        }
+
+        .glass-card:hover {
+            border-color: rgba(167, 139, 250, 0.4);
+            box-shadow: 0 10px 40px -10px rgba(139, 92, 246, 0.15);
+            transform: translateY(-4px)
+        }
+
+        .glass-header {
+            background: rgba(2, 6, 23, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05)
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #a78bfa 0%, #f472b6 60%, #fb923c 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent
+        }
+
+        .formula-box {
+            background: rgba(139, 92, 246, 0.06);
+            border: 1px solid rgba(139, 92, 246, 0.22);
+            border-radius: 12px;
+            padding: 1.4rem;
+            text-align: center;
+            font-size: 1.2rem;
+            margin: 1rem 0;
+            color: #f8fafc;
+            overflow-x: auto;
+        }
+
+        .answer-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+            background: rgba(139, 92, 246, 0.05);
+            border-radius: 0.5rem
+        }
+
+        .answer-container.show {
+            max-height: 300px;
+            padding: 1rem;
+            margin-top: 1rem;
+            border: 1px solid rgba(139, 92, 246, 0.3)
+        }
+
+        .definition-box {
+            background: rgba(139, 92, 246, 0.05);
+            border-left: 4px solid #a78bfa;
+            border-radius: 0.5rem;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0
+        }
+
+        .definition-box strong {
+            color: #c4b5fd
+        }
+
+        .note-box {
+            background: rgba(244, 63, 94, 0.05);
+            border-left: 4px solid #f43f5e;
+            border-radius: 0.5rem;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0
+        }
+
+        .note-box .note-title {
+            color: #f43f5e;
+            font-weight: 700;
+            font-size: .9rem;
+            margin-bottom: .5rem
+        }
+
+        .egyptian-expl {
+            direction: rtl;
+            text-align: right;
+            font-family: 'Cairo', sans-serif;
+            background: rgba(139, 92, 246, 0.05);
+            border: 1px solid rgba(139, 92, 246, 0.15);
+            border-right: 4px solid #8b5cf6;
+            border-radius: .75rem;
+            padding: 1.25rem 1.5rem;
+            margin: 1.25rem 0;
+            line-height: 2;
+            color: #e2e8f0;
+            box-shadow: 0 4px 20px -5px rgba(139, 92, 246, 0.1);
+        }
+
+        .egyptian-expl .expl-header {
+            color: #c4b5fd;
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: .75rem;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            justify-content: flex-end
+        }
+
+        .highlight-text {
+            color: #fca5a5;
+            font-weight: 600;
+        }
+
+        .spectrum-band {
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .spectrum-band:hover {
+            transform: scale(1.02);
+            filter: brightness(1.2);
+            z-index: 10;
+            box-shadow: 0 0 20px rgba(255,255,255,0.2);
+        }
+
+        .custom-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255,255,255,0.1);
+            outline: none;
+            margin-top: 1rem;
+        }
+
+        .custom-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #a78bfa;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(167,139,250,0.5);
+            transition: all 0.2s;
+        }
+
+        .custom-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+
+<body class="antialiased font-sans flex flex-col min-h-screen">
+
+    <nav class="fixed top-0 w-full z-50 glass-header">
+        <div class="container mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <a href="index.html"
+                    class="w-8 h-8 rounded bg-gradient-to-br from-violet-500 to-pink-500 flex items-center justify-center text-white font-bold text-xs">⚛</a>
+                <span class="font-bold text-lg text-slate-200">Lesson<span class="text-violet-400">09</span></span>
+            </div>
+            <div class="hidden lg:flex gap-5 text-sm font-medium text-slate-400">
+                <a href="#em-waves" class="hover:text-violet-400 transition">EM Waves</a>
+                <a href="#speed" class="hover:text-violet-400 transition">Speed of Light</a>
+                <a href="#spectrum" class="hover:text-violet-400 transition">EM Spectrum</a>
+                <a href="#quiz"
+                    class="px-5 py-2 rounded-full bg-violet-600/10 text-violet-400 border border-violet-500/20 hover:bg-violet-600 hover:text-white transition">Quiz</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow pt-24">
+
+        <!-- HERO -->
+        <header class="relative pb-16 px-6">
+            <div class="container mx-auto text-center" data-aos="fade-up">
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700 text-xs font-mono text-violet-400 mb-6">
+                    <span class="w-2 h-2 rounded-full bg-violet-500 animate-pulse"></span> UNIT 4 — LESSON 4
+                </div>
+                <h1 class="text-5xl md:text-7xl font-black mb-3 tracking-tight text-white">Light &<br><span
+                        class="text-gradient">EM Waves</span></h1>
+                <p class="text-lg text-slate-400 max-w-2xl mx-auto mb-1">Unit Four: Waves</p>
+                <p class="text-slate-400 mb-2">بشمهندس أسامة زينهم</p>
+
+                <!-- 3D Electromagnetic Wave Animation -->
+                <div class="max-w-2xl mx-auto mt-8 bg-slate-900/50 rounded-2xl p-6 border border-slate-800 relative overflow-hidden">
+                    <div class="absolute top-4 left-4 text-xs font-mono text-slate-500">ELECTRIC & MAGNETIC FIELDS</div>
+                    <svg viewBox="0 0 600 200" class="w-full">
+                        <!-- Axes -->
+                        <line x1="50" y1="100" x2="550" y2="100" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+                        <line x1="100" y1="20" x2="100" y2="180" stroke="#475569" stroke-width="2" />
+                        <!-- Diagonal axis for Z -->
+                        <line x1="60" y1="140" x2="140" y2="60" stroke="#475569" stroke-width="2" />
+                        
+                        <text x="540" y="90" fill="#94a3b8" font-size="12">Direction of Travel</text>
+                        <text x="90" y="30" fill="#a78bfa" font-size="12">Electric Field (E)</text>
+                        <text x="145" y="65" fill="#f472b6" font-size="12">Magnetic Field (B)</text>
+
+                        <!-- Electric Field (Vertical Sine Wave) -->
+                        <path id="eField" d="" fill="none" stroke="#a78bfa" stroke-width="3" />
+                        
+                        <!-- Magnetic Field (Diagonal Sine Wave) -->
+                        <path id="bField" d="" fill="none" stroke="#f472b6" stroke-width="3" />
+
+                        <!-- E-field Vectors -->
+                        <g id="eVectors" stroke="#a78bfa" stroke-width="1.5" opacity="0.6"></g>
+                        <!-- B-field Vectors -->
+                        <g id="bVectors" stroke="#f472b6" stroke-width="1.5" opacity="0.6"></g>
+                    </svg>
+                </div>
+            </div>
+        </header>
+
+        <!-- INTRODUCTION TO EM WAVES -->
+        <section id="em-waves" class="py-10 px-6">
+            <div class="container mx-auto max-w-4xl">
+                <div class="glass-card rounded-2xl p-8 border-t-4 border-t-violet-500" data-aos="fade-up">
+                    <h2 class="text-3xl font-black text-white mb-6"><i class="fas fa-wave-square text-violet-400 mr-2"></i> Electromagnetic Waves</h2>
+                    
+                    <div class="definition-box">
+                        <strong>Electromagnetic Waves</strong> are vibrating electric and magnetic fields in phase, perpendicular to each other, and perpendicular to the direction of their propagation.
+                    </div>
+
+                    <p class="text-slate-300 mt-4 mb-4">By the end of the 19th century, several types of electromagnetic waves were discovered:</p>
+                    <div class="grid md:grid-cols-2 gap-4 text-sm text-slate-300 mb-6">
+                        <div class="bg-slate-800/40 p-4 rounded-xl border border-slate-700">
+                            <strong>1) Radio Waves</strong><br>
+                            Discovered by Heinrich Hertz while investigating electrical sparks.
+                        </div>
+                        <div class="bg-slate-800/40 p-4 rounded-xl border border-slate-700">
+                            <strong>2) Infrared & Ultraviolet</strong><br>
+                            These lie just beyond the red and violet ends of the visible spectrum.
+                        </div>
+                        <div class="bg-slate-800/40 p-4 rounded-xl border border-slate-700">
+                            <strong>3) X-rays</strong><br>
+                            Discovered by Wilhelm Röntgen, produced when electrons collide with a metal target.
+                        </div>
+                        <div class="bg-slate-800/40 p-4 rounded-xl border border-slate-700">
+                            <strong>4) γ-rays (Gamma)</strong><br>
+                            Discovered by Henri Becquerel while investigating radioactive substances.
+                        </div>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-violet-400 mb-3"><i class="fas fa-list-ul mr-2"></i> Properties of Electromagnetic Waves</h3>
+                    <ul class="space-y-3 mb-6 text-slate-300">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check text-emerald-400 mt-1"></i>
+                            <p>They are vibrating electric and magnetic fields that move through space or a medium.</p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check text-emerald-400 mt-1"></i>
+                            <p>They are <strong>transverse waves only</strong>.</p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check text-emerald-400 mt-1"></i>
+                            <p>They <strong class="text-pink-400">do not need a material medium</strong> to travel through (they can travel in a vacuum).</p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check text-emerald-400 mt-1"></i>
+                            <p>They propagate in a vacuum (free space) at the <strong>same speed (c) = $3 \times 10^8$ m/s</strong>, but vary in frequency and wavelength. They travel slower in material media.</p>
+                        </li>
+                    </ul>
+
+                    <div class="egyptian-expl mt-6">
+                        <div class="expl-header"><i class="fas fa-comment-dots"></i> الفيزياء ببساطة</div>
+                        الموجات الكهرومغناطيسية <strong class="text-violet-400">(EM Waves)</strong> مختلفة تماماً عن الصوت!<br>
+                        دي مش محتاجة هوا أو مية عشان تتنقل.. دي تقدر تمشي في الفراغ (Vacuum) عادي جداً، عشان كدا ضوء الشمس بيوصلنا.<br><br>
+                        الموجة دي عبارة عن مجال كهربائي ومجال مغناطيسي، الاتنين متعامدين على بعض (90 درجة) ومتعامدين على اتجاه انتشار الموجة. وعشان كدا هي موجات <strong>عرضية (Transverse) فقط</strong>.<br>
+                        سرعتهم في الفراغ ثابتة مستحيل تتغير، وهي سرعة الضوء $c = 3 \times 10^8 \text{ m/s}$.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SPEED OF LIGHT & RAYS -->
+        <section id="speed" class="py-10 px-6 bg-slate-900/50">
+            <div class="container mx-auto max-w-4xl">
+                <div class="glass-card rounded-2xl p-8 border-l-4 border-l-pink-500" data-aos="fade-up">
+                    <h2 class="text-3xl font-black text-white mb-6"><i class="fas fa-bolt text-pink-400 mr-2"></i> Light & The Speed of Light</h2>
+                    
+                    <div class="definition-box bg-slate-800 border-l-pink-500 mb-6">
+                        <strong>Light</strong> is an Electromagnetic wave that occupies a small range in the electromagnetic spectrum.<br>
+                        • Range of wavelength of visible light is between <strong>400 nm and 700 nm</strong>.<br>
+                        • Visible light consists of 7 colors (Red, Orange, Yellow, Green, Blue, Indigo, Violet).
+                    </div>
+
+                    <p class="text-slate-300 leading-relaxed mb-4">
+                        James Clerk Maxwell showed that the speed $c$ of electromagnetic radiation in a vacuum was independent of the frequency. All types travel at the same speed in a vacuum: <strong class="text-pink-400">$3 \times 10^8$ m/s</strong>.
+                    </p>
+                    
+                    <div class="formula-box my-6 border-pink-500/30 bg-pink-500/5 text-pink-300">
+                        $$ c = f \lambda $$
+                    </div>
+                    
+                    <div class="note-box mt-6">
+                        <div class="note-title"><i class="fas fa-exclamation-triangle mr-1"></i> Crucial Physics Rule</div>
+                        <p class="text-slate-300 text-sm">
+                            When light travels from a vacuum into a material medium (like glass or water), its <strong>speed decreases</strong>, but its <strong class="text-pink-400">frequency remains the same</strong>. Since $c = f\lambda$, if the speed decreases while frequency is constant, the <strong>wavelength must decrease</strong>.
+                        </p>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-white mt-8 mb-3">Light Rays vs Wavefronts</h3>
+                    <p class="text-slate-300 mb-4 text-sm">
+                        To describe light direction, we use <strong>rays</strong>. A ray is an imaginary line along the direction of travel of the wave. Rays are always straight lines <strong>normal (perpendicular) to the wavefronts</strong>.
+                    </p>
+
+                    <!-- Wavefront to Ray SVG -->
+                    <div class="bg-slate-800 rounded-xl p-4 border border-slate-700 max-w-lg mx-auto mb-6">
+                        <svg viewBox="0 0 400 150" class="w-full">
+                            <!-- Wavefronts (Lines) -->
+                            <line x1="100" y1="20" x2="100" y2="130" stroke="#94a3b8" stroke-width="2" />
+                            <line x1="140" y1="20" x2="140" y2="130" stroke="#94a3b8" stroke-width="2" />
+                            <line x1="180" y1="20" x2="180" y2="130" stroke="#94a3b8" stroke-width="2" />
+                            <line x1="220" y1="20" x2="220" y2="130" stroke="#94a3b8" stroke-width="2" />
+                            
+                            <!-- Ray -->
+                            <line x1="80" y1="75" x2="320" y2="75" stroke="#f472b6" stroke-width="4" marker-end="url(#arrow-pink)" />
+                            
+                            <!-- 90 degree angle -->
+                            <rect x="220" y="75" width="10" height="10" fill="none" stroke="#f472b6" stroke-width="1.5" />
+                            
+                            <text x="160" y="15" fill="#94a3b8" font-size="12" text-anchor="middle">Wavefronts</text>
+                            <text x="280" y="65" fill="#f472b6" font-size="12" font-weight="bold">Light Ray</text>
+                        </svg>
+                    </div>
+
+                    <div class="egyptian-expl mt-6">
+                        <div class="expl-header"><i class="fas fa-comment-dots"></i> سرعة الضوء والأوساط</div>
+                        قانون مهم جداً بييجي في الامتحانات كتير: لما الضوء يدخل جوة إزاز أو مية، سرعته بتقل.<br>
+                        طب إيه اللي بيحصل للتردد ($f$) والطول الموجي ($\lambda$)؟<br>
+                        <strong>التردد ثابت مبيتغيرش أبداً</strong> لأنه بيعتمد على المصدر اللي طلّع الضوء.<br>
+                        وبما إن السرعة قلت والتردد ثابت، يبقى إجباري <strong>الطول الموجي يقل</strong>.<br>
+                        $v \downarrow = f (\text{constant}) \cdot \lambda \downarrow$
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ELECTROMAGNETIC SPECTRUM -->
+        <section id="spectrum" class="py-10 px-6">
+            <div class="container mx-auto max-w-6xl">
+                <div class="text-center mb-8" data-aos="fade-up">
+                    <span
+                        class="inline-block px-4 py-1 rounded-full bg-orange-500/10 text-orange-400 text-xs font-mono border border-orange-500/20 mb-4">THE SPECTRUM</span>
+                    <h2 class="text-3xl font-black text-white">The Electromagnetic Spectrum</h2>
+                    <p class="text-slate-400 mt-2">All electromagnetic waves travel at light speed, but vary immensely in frequency, production, and use.</p>
+                </div>
+
+                <!-- Frequency visualizer slider -->
+                <div class="glass-card rounded-2xl p-6 mb-8 text-center" data-aos="fade-up">
+                    <p class="text-slate-300 font-bold mb-2">Explore the Spectrum</p>
+                    <input type="range" id="spectrumSlider" min="0" max="6" value="3" class="custom-slider max-w-2xl mx-auto">
+                    
+                    <div id="spectrumDisplay" class="mt-6 p-6 rounded-xl border border-slate-700 bg-slate-800 transition-colors duration-500">
+                        <h3 id="specTitle" class="text-2xl font-black mb-2 text-white">Visible Light</h3>
+                        <p id="specWavelength" class="text-slate-400 font-mono text-sm mb-4">Wavelength: 700 nm to 400 nm</p>
+                        <p id="specDesc" class="text-slate-300 text-sm max-w-2xl mx-auto">It is the most familiar form of electromagnetic waves, detected by the human eye.</p>
+                        
+                        <div class="grid grid-cols-2 gap-4 mt-6 max-w-xl mx-auto text-left text-sm">
+                            <div class="bg-black/30 p-3 rounded text-slate-300">
+                                <strong class="text-slate-500 block text-xs uppercase mb-1">Production</strong>
+                                <span id="specProd">Electrons in atoms emit light when moving to lower energy levels.</span>
+                            </div>
+                            <div class="bg-black/30 p-3 rounded text-slate-300">
+                                <strong class="text-slate-500 block text-xs uppercase mb-1">Detection</strong>
+                                <span id="specDet">The eye, Photocells, Photographic film.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grid of all types (detailed) -->
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="spectrumCards">
+                    <!-- Cards will be generated via JS for clean code -->
+                </div>
+
+            </div>
+        </section>
+
+        <!-- QUIZ -->
+        <section id="quiz" class="py-16 px-6 relative">
+            <div class="container mx-auto max-w-5xl">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <span
+                        class="inline-block px-4 py-1 rounded-full bg-sky-500/10 text-sky-400 text-xs font-mono border border-sky-500/20 mb-4">ASSESSMENT</span>
+                    <h2 class="text-4xl font-black text-white mb-2">Test Your Knowledge</h2>
+                    <p class="text-slate-400">Conceptual questions for Light and the EM Spectrum</p>
+                </div>
+                <div id="quiz-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t border-slate-800 py-8 text-center text-sm text-slate-500 bg-slate-900">
+        <p>Physics Year 1 (STEM) © 2026 — Prepared by <span class="text-violet-400">Osama Zinhom</span></p>
+        <p class="mt-2 text-slate-400 font-mono text-xs">Unit 4: Waves</p>
+        <div class="mt-4 flex justify-center gap-4">
+            <a href="lect08.html" class="text-slate-400 hover:text-white transition group"><span class="text-violet-400 group-hover:-translate-x-1 inline-block transition">←</span> Lesson 8</a>
+            <span class="text-slate-700">|</span>
+            <a href="index.html" class="text-slate-400 hover:text-white transition">Home</a>
+        </div>
+    </footer>
+
+    <!-- SVG Definitions -->
+    <svg width="0" height="0">
+        <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569" />
+            </marker>
+            <marker id="arrow-pink" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="#f472b6" />
+            </marker>
+        </defs>
+    </svg>
+
+    <script>
+        AOS.init({ duration: 600, once: true, offset: 60 });
+
+        // 3D EM Wave Animation
+        const eField = document.getElementById('eField');
+        const bField = document.getElementById('bField');
+        const eVectors = document.getElementById('eVectors');
+        const bVectors = document.getElementById('bVectors');
+        
+        let tEM = 0;
+        function drawEMWave() {
+            tEM += 0.05;
+            let dE = "M 100 100", dB = "M 100 100";
+            let vE = "", vB = "";
+            
+            for(let x = 0; x <= 450; x += 5) {
+                // E-field oscillates Y (up/down)
+                const yE = 50 * Math.sin(0.04 * x - tEM);
+                dE += ` L ${100 + x} ${100 - yE}`;
+                
+                // B-field oscillates Z (diagonal to simulate 3D)
+                // We project Z onto X,Y plane -> diagonal lines
+                const magB = 50 * Math.sin(0.04 * x - tEM);
+                // project down-left to up-right
+                const bDx = magB * 0.5;
+                const bDy = magB * 0.5;
+                dB += ` L ${100 + x - bDx} ${100 + bDy}`;
+                
+                // Draw vectors every 15 units
+                if(x % 15 === 0 && x > 0) {
+                    vE += `<line x1="${100+x}" y1="100" x2="${100+x}" y2="${100-yE}" />`;
+                    vB += `<line x1="${100+x}" y1="100" x2="${100+x-bDx}" y2="${100+bDy}" />`;
+                }
+            }
+            
+            eField.setAttribute('d', dE);
+            bField.setAttribute('d', dB);
+            eVectors.innerHTML = vE;
+            bVectors.innerHTML = vB;
+            
+            requestAnimationFrame(drawEMWave);
+        }
+        drawEMWave();
+
+        // Spectrum Data matching content.md exactly
+        const spectrumData = [
+            {
+                name: "Radio Waves",
+                wl: "> 0.1 m",
+                desc: "Produced by accelerated motion of charges in conducting wires. Used in radio, TV, cellular phones (AM, FM, UHF ranges).",
+                prod: "Rapid acceleration and decelerations of electrons in aerials",
+                det: "Receiver's aerials",
+                color: "#ef4444" // red
+            },
+            {
+                name: "Microwaves",
+                wl: "0.1 m to 1 mm",
+                desc: "Produced by special vacuum tubes (klystrons, magnetrons). Used for radar, aircraft navigation, and microwave ovens.",
+                prod: "Klystron valve or magnetron valve",
+                det: "Point contact diodes",
+                color: "#f97316" // orange
+            },
+            {
+                name: "Infrared Waves",
+                wl: "1 mm to 700 nm",
+                desc: "Produced by hot bodies and molecules (heat waves). Absorbed by water molecules. Used in remote switches, Earth satellites, therapy.",
+                prod: "Vibration of atoms and molecules",
+                det: "Thermopiles, Bolometer, Infrared film",
+                color: "#fbbf24" // yellow/amber
+            },
+            {
+                name: "Visible Light",
+                wl: "700 nm to 400 nm",
+                desc: "The only part detected by human eyes. Emitted/reflected from objects around us providing info. Snakes see IR, insects see UV.",
+                prod: "Electrons in atoms emit light when moving to lower energy levels",
+                det: "The eye, Photocells, Photographic film",
+                color: "#4ade80" // green (representing rainbow)
+            },
+            {
+                name: "Ultraviolet (UV)",
+                wl: "400 nm to 1 nm",
+                desc: "Produced by special lamps and very hot bodies (like the Sun). Large quantities are harmful, causes tanning. Stopped by ordinary glass.",
+                prod: "Inner shell electrons moving to lower energy levels",
+                det: "Photocells, Photographic film",
+                color: "#0ea5e9" // sky blue
+            },
+            {
+                name: "X-rays",
+                wl: "1 nm to 10⁻³ nm",
+                desc: "Generated by bombarding a metal target with high energy electrons. Used as a diagnostic tool in medicine, can damage tissue.",
+                prod: "X-ray tubes or inner shell electrons",
+                det: "Photographic film, Geiger tubes, Ionisation chamber",
+                color: "#6366f1" // indigo
+            },
+            {
+                name: "Gamma Rays",
+                wl: "< 10⁻³ nm",
+                desc: "High frequency radiation produced in nuclear reactions and emitted by radioactive nuclei. Used to destroy cancer cells.",
+                prod: "Radioactive decay of the nucleus",
+                det: "Photographic film, Geiger tubes, Ionisation chamber",
+                color: "#a855f7" // purple
+            }
+        ];
+
+        // Setup Slider logic
+        const slider = document.getElementById('spectrumSlider');
+        const dTitle = document.getElementById('specTitle');
+        const dWl = document.getElementById('specWavelength');
+        const dDesc = document.getElementById('specDesc');
+        const dProd = document.getElementById('specProd');
+        const dDet = document.getElementById('specDet');
+        const displayRegion = document.getElementById('spectrumDisplay');
+
+        function updateSpectrum(index) {
+            const data = spectrumData[index];
+            dTitle.innerText = data.name;
+            dTitle.style.color = data.color;
+            dWl.innerText = "Wavelength Range: " + data.wl;
+            dDesc.innerText = data.desc;
+            dProd.innerText = data.prod;
+            dDet.innerText = data.det;
+            displayRegion.style.borderColor = data.color;
+            displayRegion.style.boxShadow = `0 0 30px ${data.color}20`;
+        }
+        
+        slider.addEventListener('input', (e) => {
+            updateSpectrum(parseInt(e.target.value));
+        });
+        updateSpectrum(3); // init with visible light
+
+        // Generate Cards beneath
+        const cardsContainer = document.getElementById('spectrumCards');
+        spectrumData.forEach((item, i) => {
+            const card = document.createElement('div');
+            card.className = "glass-card p-5 rounded-xl border-l-4";
+            card.style.borderLeftColor = item.color;
+            card.setAttribute('data-aos', 'fade-up');
+            card.setAttribute('data-aos-delay', (i * 50).toString());
+            
+            card.innerHTML = `
+                <h3 class="text-xl font-bold mb-1" style="color: ${item.color}">${item.name}</h3>
+                <p class="font-mono text-xs text-slate-400 mb-3">${item.wl}</p>
+                <p class="text-sm text-slate-300 mb-4">${item.desc}</p>
+                <div class="text-xs text-slate-400">
+                    <p class="mb-1"><strong class="text-slate-500">Source:</strong> ${item.prod}</p>
+                    <p><strong class="text-slate-500">Detector:</strong> ${item.det}</p>
+                </div>
+            `;
+            cardsContainer.appendChild(card);
+        });
+
+        const questions = [
+            { text: "Electromagnetic waves are:", ans: 1, expl: "They consist of oscillating electric and magnetic fields perpendicular to propagation.", opts: ["Longitudinal waves only", "Transverse waves only", "Both depending on medium", "Mechanical waves"] },
+            { text: "Which property is TRUE for all EM waves in a vacuum?", ans: 2, expl: "They all travel at the speed of light c = 3 × 10⁸ m/s in free space.", opts: ["Same frequency", "Same wavelength", "Same speed", "Same energy"] },
+            { text: "When light travels from a vacuum into glass, its:", ans: 1, expl: "Frequency depends only on the source, so it remains constant. But since speed decreases, wavelength also decreases.", opts: ["Frequency decreases", "Frequency remains the same", "Speed increases", "Wavelength remains the same"] },
+            { text: "Which electromagnetic wave is produced by radioactive decay of the nucleus?", ans: 3, expl: "Gamma rays are produced by nuclear reactions and radioactive decay.", opts: ["X-rays", "Radio waves", "Microwaves", "Gamma rays"] },
+            { text: "Which of the following describes a Light Ray?", ans: 0, expl: "Rays are imaginary lines along the direction of travel, normal (perpendicular) to the wavefronts.", opts: ["An imaginary line normal to the wavefronts", "A wave with parallel E and M fields", "A particle of mass moving at speed c", "A line parallel to the wavefronts"] },
+            { text: "Microwave ovens heat food by matching the microwaves to the resonant frequency of:", ans: 1, expl: "It matches the resonant frequency of water molecules to increase their kinetic energy (heat).", opts: ["Carbon dioxide molecules", "Water molecules", "Glass plates", "Air molecules inside"] },
+            { text: "Which waves are produced by bombarding a metal target with high energy electrons?", ans: 2, expl: "Wilhelm Röntgen discovered X-rays are produced when electrons collide with a metal target like tungsten.", opts: ["Gamma rays", "Ultraviolet rays", "X-rays", "Infrared Waves"] },
+            { text: "Ozone layer depletion is highly concerning because the layer protects us from:", ans: 0, expl: "Most UV radiation is absorbed in the ozone layer. UV causes sunburn and skin damage.", opts: ["Ultraviolet (UV) radiation", "Infrared radiation", "X-rays from space", "Microwaves"] }
+        ];
+
+        const quizGrid = document.getElementById('quiz-grid');
+        questions.forEach((q, i) => {
+            const c = document.createElement('div');
+            c.className = "glass-card p-6 rounded-xl hover:bg-slate-800/80 transition flex flex-col";
+            c.innerHTML = `<div class="mb-3"><span class="text-sm font-mono text-violet-500">Q${i + 1}</span></div><p class="text-base font-semibold text-white mb-5">${q.text}</p><div class="grid gap-2 mb-4 text-sm text-slate-300">${q.opts.map((o, j) => `<div onclick="chk(this,${j},${q.ans})" class="p-3 rounded bg-slate-900/50 border border-slate-700 hover:bg-slate-800 cursor-pointer transition">${String.fromCharCode(65 + j)}) ${o}</div>`).join('')}</div><div class="mt-auto"><button onclick="this.nextElementSibling.classList.toggle('show')" class="text-xs text-slate-500 hover:text-violet-400 font-bold uppercase tracking-wider cursor-pointer"><i class="fas fa-eye mr-1"></i>Show Answer</button><div class="answer-container"><p class="text-violet-400 font-bold mb-1">Correct: ${String.fromCharCode(65 + q.ans)}</p><p class="text-xs text-slate-300">${q.expl}</p></div></div>`;
+            quizGrid.appendChild(c);
+        });
+        function chk(el, sel, cor) { const p = el.parentElement; Array.from(p.children).forEach(c => { c.classList.remove('bg-emerald-500/20', 'border-emerald-500', 'bg-red-500/20', 'border-red-500'); c.classList.add('bg-slate-900/50', 'border-slate-700'); }); if (sel === cor) { el.classList.add('bg-emerald-500/20', 'border-emerald-500'); } else { el.classList.add('bg-red-500/20', 'border-red-500'); } el.classList.remove('bg-slate-900/50', 'border-slate-700'); }
+    </script>
+</body>
+
+</html>
