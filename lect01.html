@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics - Lesson 1: Newton's Laws of Motion</title>
+    <meta name="description"
+        content="Newton's Laws of Motion - Force, Inertia, Momentum, Mass vs Weight, Action-Reaction">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        neon: { green: '#10B981', blue: '#3B82F6', purple: '#8B5CF6', red: '#ef4444', amber: '#f59e0b' },
+                        dark: { bg: '#020617', card: '#0F172A', border: '#1E293B' }
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'], arabic: ['Cairo', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+                    animation: { 'float': 'float 3s ease-in-out infinite', 'spin-slow': 'spin 8s linear infinite' },
+                    keyframes: { float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } } }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #020617;
+            color: #E2E8F0;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 10% 20%, rgba(16, 185, 129, 0.05) 0%, transparent 20%), radial-gradient(circle at 90% 80%, rgba(59, 130, 246, 0.05) 0%, transparent 20%);
+        }
+
+        .glass-card {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(16, 185, 129, 0.4);
+            box-shadow: 0 10px 40px -10px rgba(16, 185, 129, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .glass-header {
+            background: rgba(2, 6, 23, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #34d399 0%, #60a5fa 50%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        ul.custom-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul.custom-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        ul.custom-list li::before {
+            content: "•";
+            color: #10B981;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        .formula-box {
+            background: rgba(16, 185, 129, 0.05);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 1.3rem;
+            margin: 1rem 0;
+        }
+
+        .answer-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.3s ease;
+            background: rgba(16, 185, 129, 0.05);
+            border-radius: 0.5rem;
+        }
+
+        .answer-container.show {
+            max-height: 200px;
+            padding: 1rem;
+            margin-top: 1rem;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .custom-table tr:nth-child(even) {
+            background-color: rgba(30, 41, 59, 0.3);
+        }
+
+        .custom-table td,
+        .custom-table th {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .custom-table th {
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.75rem;
+            color: #94A3B8;
+        }
+
+        .note-box {
+            background: rgba(251, 191, 36, 0.05);
+            border-left: 4px solid #fbbf24;
+            border-radius: 0.5rem;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0;
+        }
+
+        .note-box .note-title {
+            color: #fbbf24;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .definition-box {
+            background: rgba(59, 130, 246, 0.05);
+            border-left: 4px solid #3b82f6;
+            border-radius: 0.5rem;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0;
+        }
+
+        .definition-box strong {
+            color: #60a5fa;
+        }
+
+        .egyptian-expl {
+            direction: rtl;
+            text-align: right;
+            font-family: 'Cairo', sans-serif;
+            background: rgba(251, 191, 36, 0.04);
+            border: 1px solid rgba(251, 191, 36, 0.15);
+            border-right: 4px solid #f59e0b;
+            border-radius: 0.75rem;
+            padding: 1.25rem 1.5rem;
+            margin: 1.25rem 0;
+            line-height: 2;
+            color: #cbd5e1;
+        }
+
+        .egyptian-expl .expl-header {
+            color: #fbbf24;
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            justify-content: flex-end;
+        }
+
+        .egyptian-expl .expl-header i {
+            color: #f59e0b;
+        }
+    </style>
+</head>
+
+<body class="antialiased font-sans flex flex-col min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full z-50 glass-header">
+        <div class="container mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <a href="index.html"
+                    class="w-8 h-8 rounded bg-gradient-to-br from-emerald-500 to-blue-600 flex items-center justify-center text-white font-bold shadow-lg shadow-emerald-500/20 text-xs">⚛</a>
+                <span class="font-bold text-lg tracking-wide text-slate-200">Lesson<span
+                        class="text-emerald-500">01</span></span>
+            </div>
+            <div class="hidden lg:flex gap-6 text-sm font-medium text-slate-400">
+                <a href="#hero" class="hover:text-emerald-400 transition">Intro</a>
+                <a href="#force" class="hover:text-emerald-400 transition">Force</a>
+                <a href="#first-law" class="hover:text-emerald-400 transition">1st Law</a>
+                <a href="#inertia" class="hover:text-emerald-400 transition">Inertia</a>
+                <a href="#momentum" class="hover:text-emerald-400 transition">Momentum</a>
+                <a href="#mass-weight" class="hover:text-emerald-400 transition">Mass & Weight</a>
+                <a href="#third-law" class="hover:text-emerald-400 transition">3rd Law</a>
+                <a href="#quiz"
+                    class="px-5 py-2 rounded-full bg-emerald-600/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-600 hover:text-white transition">Quiz</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow pt-24">
+
+        <!-- ===== HERO ===== -->
+        <header id="hero" class="relative pb-20 px-6">
+            <div class="container mx-auto text-center relative z-10" data-aos="fade-up">
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700 text-xs font-mono text-emerald-400 mb-6">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    UNIT 3 — LESSON 1
+                </div>
+                <h1 class="text-5xl md:text-7xl font-black mb-2 tracking-tight leading-tight text-white">
+                    Newton's Laws of<br><span class="text-gradient">Motion</span>
+                </h1>
+                <div class="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed mb-8">
+                    <p>Unit Three: Motion and Force</p>
+                    <p> بشمهندس أسامة زينهم</p>
+                    <p style="color: #10b981; font-size: 1.2rem; font-weight: bold; margin-top: 1rem; "><a
+                            href="https://chat.whatsapp.com/FWUBrybJ3RO4MfUyX9MoPD?mode=gi_t" target="_blank"
+                            style="color: #10b981; font-size: 1.2rem; font-weight: bold; margin-top: 1rem; ">انضم لجروب
+                            الشرح
+                            واتساب</a></p>
+
+                </div>
+                <!-- Animated Force Vector SVG -->
+                <div class="max-w-lg mx-auto">
+                    <svg viewBox="0 0 500 140" class="w-full">
+                        <!-- Ground -->
+                        <line x1="50" y1="100" x2="450" y2="100" stroke="#334155" stroke-width="2"
+                            stroke-dasharray="6,4" />
+                        <!-- Block -->
+                        <rect x="200" y="60" width="80" height="40" rx="6" fill="#1e293b" stroke="#10b981"
+                            stroke-width="2">
+                            <animate attributeName="x" values="200;220;200" dur="3s" repeatCount="indefinite" />
+                        </rect>
+                        <text x="240" y="85" text-anchor="middle" fill="#10b981" font-size="14" font-weight="bold">
+                            <animate attributeName="x" values="240;260;240" dur="3s" repeatCount="indefinite" />
+                            m
+                        </text>
+                        <!-- Force Arrow -->
+                        <line x1="280" y1="80" x2="370" y2="80" stroke="#ef4444" stroke-width="3"
+                            marker-end="url(#arrowRed)">
+                            <animate attributeName="x1" values="280;300;280" dur="3s" repeatCount="indefinite" />
+                            <animate attributeName="x2" values="370;390;370" dur="3s" repeatCount="indefinite" />
+                        </line>
+                        <text x="340" y="72" fill="#ef4444" font-size="13" font-weight="bold">
+                            <animate attributeName="x" values="340;360;340" dur="3s" repeatCount="indefinite" />
+                            F →
+                        </text>
+                        <!-- Acceleration label -->
+                        <text x="340" y="130" fill="#60a5fa" font-size="11" text-anchor="middle">
+                            <animate attributeName="x" values="340;360;340" dur="3s" repeatCount="indefinite" />
+                            acceleration (a)
+                        </text>
+                        <defs>
+                            <marker id="arrowRed" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#ef4444" />
+                            </marker>
+                            <marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#10b981" />
+                            </marker>
+                            <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#3b82f6" />
+                            </marker>
+                            <marker id="arrowWhite" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#e2e8f0" />
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+        </header>
+
+        <!-- ===== INTRODUCTION ===== -->
+        <section class="py-12 px-6 bg-slate-900/30">
+            <div class="container mx-auto max-w-5xl">
+                <div class="glass-card p-8 rounded-2xl border-l-4 border-l-emerald-500" data-aos="fade-right">
+                    <h2 class="text-2xl font-bold text-white mb-4"><i
+                            class="fas fa-book-open text-emerald-400 mr-2"></i>Introduction</h2>
+                    <p class="text-slate-300 leading-relaxed mb-4">The previous chapter dealt with the description of
+                        linear motion in one direction (straight line) by studying the concepts of displacement,
+                        velocity and acceleration without getting into the reasons beyond.</p>
+                    <p class="text-slate-300 leading-relaxed">In this chapter, we will discuss <strong
+                            class="text-white">why objects move with acceleration</strong> as a result of an external
+                        effect (force), this effect can change the velocity of the object. The relationship between
+                        force and acceleration will be discussed by studying <strong class="text-emerald-400">Newton's
+                            laws of motion</strong> that are considered as basic laws in physics.</p>
+                    <div class="egyptian-expl" data-aos="fade-left">
+
+                        <p>في الفصل اللي فات اتكلمنا عن الحركة في خط مستقيم — يعني إزاحة وسرعة وعجلة — بس مكنّاش بنسأل
+                            <strong style="color:#fbbf24">"ليه" الجسم بيتحرك أو بيسرّع</strong>. دلوقتي في الفصل ده،
+                            هنعرف إن السبب هو <strong style="color:#10b981">القوة (Force)</strong>. لما قوة خارجية تأثر
+                            على جسم، بتغيّر سرعته. العلاقة بين القوة والعجلة هندرسها من خلال <strong
+                                style="color:#60a5fa">قوانين نيوتن للحركة</strong> — وهي من أهم القوانين الأساسية في
+                            الفيزياء.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== THE CONCEPT OF FORCE ===== -->
+        <section id="force" class="py-20 px-6">
+            <div class="container mx-auto max-w-5xl">
+                <h2 class="text-3xl font-bold text-white mb-8 flex items-center gap-3" data-aos="fade-up">
+                    <i class="fas fa-hand-fist text-emerald-500"></i> The Concept of Force (F)
+                </h2>
+                <div class="glass-card p-8 rounded-2xl mb-8" data-aos="fade-up">
+                    <div class="definition-box">
+                        <strong>Force:</strong> An external effect that affects the object, it changes or attempts to
+                        change its state or direction.
+                    </div>
+                    <div class="definition-box mt-4">
+                        <strong>OR:</strong> It is an action which produces or tends to produce a change in a body's
+                        state of rest or motion.
+                    </div>
+                    <p class="text-slate-300 mt-4">Force <strong class="text-white">(F)</strong> is a <strong
+                            class="text-emerald-400">derived vector quantity</strong>, its measuring unit is <strong
+                            class="text-white">Newton (N)</strong> and measured by a <strong class="text-white">spring
+                            balance</strong>.</p>
+                    <p class="text-slate-300 mt-3">Force can make a stationary object move, speed up or slow down a
+                        moving object, or change its direction. Examples include pushing a door, pulling a drawer, or
+                        kicking a ball. Each of these actions applies a force to the object.</p>
+                    <div class="egyptian-expl">
+
+                        <p><strong style="color:#fbbf24">القوة (F)</strong> هي تأثير خارجي بيأثر على الجسم وبيغيّر أو
+                            بيحاول يغيّر حالته (سواء ساكن أو متحرك) أو اتجاهه. ببساطة: أي حاجة بتزقّها أو بتشدّها — دي
+                            قوة! 💪</p>
+                        <p style="margin-top:0.5rem">القوة <strong style="color:#10b981">كمية متجهة مشتقة</strong> —
+                            يعني ليها مقدار واتجاه. وحدة قياسها <strong style="color:#60a5fa">نيوتن (N)</strong>
+                            وبنقيسها بـ <strong style="color:#60a5fa">الميزان الزنبركي (Spring Balance)</strong>.</p>
+                    </div>
+                    <!-- Force SVG Animation -->
+                    <div class="mt-6 flex justify-center">
+                        <svg viewBox="0 0 400 160" class="w-full max-w-md">
+                            <!-- Resting object -->
+                            <rect x="50" y="80" width="60" height="40" rx="5" fill="#1e293b" stroke="#64748b"
+                                stroke-width="1.5" />
+                            <text x="80" y="105" text-anchor="middle" fill="#94a3b8" font-size="11">At rest</text>
+                            <!-- Arrow showing force applied -->
+                            <line x1="260" y1="100" x2="340" y2="100" stroke="#10b981" stroke-width="3"
+                                marker-end="url(#arrowGreen)" />
+                            <text x="300" y="90" text-anchor="middle" fill="#10b981" font-size="12"
+                                font-weight="bold">F</text>
+                            <!-- Moving object -->
+                            <rect y="80" width="60" height="40" rx="5" fill="#1e293b" stroke="#10b981" stroke-width="2">
+                                <animate attributeName="x" values="180;220;180" dur="2s" repeatCount="indefinite" />
+                            </rect>
+                            <text y="105" text-anchor="middle" fill="#10b981" font-size="11" font-weight="bold">
+                                <animate attributeName="x" values="210;250;210" dur="2s" repeatCount="indefinite" />
+                                Moving!
+                            </text>
+                            <!-- Spring balance icon -->
+                            <rect x="140" y="15" width="120" height="50" rx="8" fill="#0f172a" stroke="#f59e0b"
+                                stroke-width="1.5" />
+                            <text x="200" y="35" text-anchor="middle" fill="#f59e0b" font-size="10"
+                                font-weight="bold">Spring Balance</text>
+                            <text x="200" y="52" text-anchor="middle" fill="#fbbf24" font-size="14"
+                                font-weight="bold">⚖️ Newton (N)</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== NEWTON'S FIRST LAW ===== -->
+        <section id="first-law" class="py-20 px-6 bg-slate-900/30">
+            <div class="container mx-auto max-w-5xl">
+                <h2 class="text-3xl font-bold text-white mb-8 flex items-center gap-3" data-aos="fade-up">
+                    <i
+                        class="fas fa-1 text-blue-500 bg-blue-500/20 w-10 h-10 rounded-full flex items-center justify-center text-lg"></i>
+                    Newton's First Law
+                </h2>
+
+                <div class="glass-card p-8 rounded-2xl mb-8" data-aos="fade-up">
+                    <p class="text-slate-300 leading-relaxed mb-4">It is known that a rolling object on the floor would
+                        move for a certain distance, slowing down, and then stops due to presence of <strong
+                            class="text-amber-400">friction forces</strong> that slow it down till stop. If these forces
+                        do not exist, the object would keep moving with the same velocity in the same direction and
+                        would not stop. This principle is known as Newton's First Law of motion.</p>
+
+                    <div class="definition-box">
+                        <strong>Statement of Newton's First Law:</strong> "A static object keeps its state of rest, and
+                        a moving object keeps its state of motion at uniform velocity in a straight line unless acted
+                        upon by a resultant force."
+                    </div>
+
+                    <p class="text-slate-300 mt-4">That is mean, if the resultant force acting on the object is zero,
+                        the velocity of the object does not change, therefore the acceleration by which the object is
+                        moving equals zero.</p>
+
+                    <div class="formula-box">$$\sum F = \text{zero}$$</div>
+
+                    <div class="egyptian-expl">
+
+                        <p>تخيل كورة بتتدحرج على الأرض — هتفضل تبطّئ لحد ما توقف بسبب <strong
+                                style="color:#f59e0b">الاحتكاك</strong>. بس لو مفيش احتكاك خالص؟ الكورة هتفضل ماشية بنفس
+                            السرعة في نفس الاتجاه <strong style="color:#10b981">للأبد!</strong> 🎱</p>
+                        <p style="margin-top:0.5rem">ده بالظبط <strong style="color:#60a5fa">قانون نيوتن الأول</strong>:
+                            الجسم الساكن يفضل ساكن، والجسم المتحرك يفضل متحرك بسرعة ثابتة في خط مستقيم — إلا لو أثرت
+                            عليه <strong style="color:#ef4444">قوة محصلة (resultant force)</strong>.</p>
+                        <p style="margin-top:0.5rem">يعني لو محصلة القوى = صفر ← السرعة مبتتغيرش ← العجلة = صفر ✅</p>
+                    </div>
+
+                    <!-- Rolling Ball Animation -->
+                    <div class="mt-6 bg-slate-900/60 p-4 rounded-xl">
+                        <p class="text-sm text-slate-400 mb-3 text-center font-bold">Ball rolling on surfaces with
+                            different friction:</p>
+                        <svg viewBox="0 0 500 200" class="w-full">
+                            <!-- HIGH FRICTION -->
+                            <text x="30" y="30" fill="#ef4444" font-size="11" font-weight="bold">High Friction</text>
+                            <line x1="30" y1="50" x2="470" y2="50" stroke="#ef4444" stroke-width="2"
+                                stroke-dasharray="4,2" />
+                            <circle r="10" fill="#ef4444" cy="40">
+                                <animate attributeName="cx" values="50;150;150" dur="3s" repeatCount="indefinite" />
+                                <animate attributeName="opacity" values="1;1;0.3" dur="3s" repeatCount="indefinite" />
+                            </circle>
+                            <text x="170" y="44" fill="#ef4444" font-size="9">STOPS quickly ✗</text>
+                            <!-- LOW FRICTION -->
+                            <text x="30" y="90" fill="#f59e0b" font-size="11" font-weight="bold">Low Friction</text>
+                            <line x1="30" y1="110" x2="470" y2="110" stroke="#f59e0b" stroke-width="2"
+                                stroke-dasharray="4,2" />
+                            <circle r="10" fill="#f59e0b" cy="100">
+                                <animate attributeName="cx" values="50;300;300" dur="4s" repeatCount="indefinite" />
+                                <animate attributeName="opacity" values="1;1;0.3" dur="4s" repeatCount="indefinite" />
+                            </circle>
+                            <text x="320" y="104" fill="#f59e0b" font-size="9">Stops later</text>
+                            <!-- NO FRICTION -->
+                            <text x="30" y="150" fill="#10b981" font-size="11" font-weight="bold">No Friction</text>
+                            <line x1="30" y1="170" x2="470" y2="170" stroke="#10b981" stroke-width="2" />
+                            <circle r="10" fill="#10b981" cy="160">
+                                <animate attributeName="cx" values="50;460;50" dur="5s" repeatCount="indefinite" />
+                            </circle>
+                            <text x="250" y="195" fill="#10b981" font-size="9" text-anchor="middle">Keeps moving
+                                forever! ✓ (Newton's 1st Law)</text>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Book on Table Example -->
+                <div class="glass-card p-8 rounded-2xl mb-8" data-aos="fade-up">
+                    <h3 class="text-xl font-bold text-white mb-4">Example: Book on a Table</h3>
+                    <p class="text-slate-300 mb-4">The book of Physics (the object) which is placed on a horizontal
+                        table (contact case) under effect of two forces, one of them is <strong
+                            class="text-emerald-400">weight of the book</strong> affects downward and the other the
+                        force by which the table affects the book. It is a <strong class="text-blue-400">normal
+                            force</strong> affects the object by the surface when they in contact case.</p>
+                    <div class="flex justify-center">
+                        <svg viewBox="0 0 300 220" class="w-full max-w-sm">
+                            <!-- Table -->
+                            <rect x="60" y="130" width="180" height="12" rx="3" fill="#334155" />
+                            <rect x="70" y="142" width="10" height="50" fill="#334155" />
+                            <rect x="220" y="142" width="10" height="50" fill="#334155" />
+                            <!-- Book -->
+                            <rect x="110" y="100" width="80" height="30" rx="4" fill="#1e293b" stroke="#10b981"
+                                stroke-width="2" />
+                            <text x="150" y="120" text-anchor="middle" fill="#10b981" font-size="10"
+                                font-weight="bold">Book</text>
+                            <!-- Weight arrow (down) -->
+                            <line x1="150" y1="130" x2="150" y2="190" stroke="#ef4444" stroke-width="2.5"
+                                marker-end="url(#arrowRed)" />
+                            <text x="170" y="170" fill="#ef4444" font-size="11" font-weight="bold">W = mg</text>
+                            <text x="170" y="185" fill="#ef4444" font-size="9">(Weight↓)</text>
+                            <!-- Normal force arrow (up) -->
+                            <line x1="150" y1="100" x2="150" y2="40" stroke="#3b82f6" stroke-width="2.5"
+                                marker-end="url(#arrowBlue)" />
+                            <text x="170" y="60" fill="#3b82f6" font-size="11" font-weight="bold">F_N</text>
+                            <text x="170" y="75" fill="#3b82f6" font-size="9">(Normal↑)</text>
+                            <!-- Equilibrium label -->
+                            <text x="150" y="20" text-anchor="middle" fill="#fbbf24" font-size="11"
+                                font-weight="bold">ΣF = 0 (Equilibrium)</text>
+                        </svg>
+                    </div>
+                    <div class="egyptian-expl mt-4">
+
+                        <p>لما كتاب بيبقى على الترابيزة ومش بيتحرك، ده معناه إن فيه قوتين متساويين في المقدار ومتعاكسين
+                            في الاتجاه: ‫<strong style="color:#ef4444">وزن الكتاب (W = mg) لتحت</strong>‬ و ‫<strong
+                                style="color:#3b82f6">قوة رد فعل الترابيزة (القوة العمودية F_N) لفوق</strong>‬. محصلة
+                            القوى = صفر → الكتاب في حالة اتزان! ⚖️</p>
+                    </div>
+                </div>
+
+                <!-- Friction & Distance -->
+                <div class="glass-card p-8 rounded-2xl mb-8" data-aos="fade-up">
+                    <h3 class="text-xl font-bold text-white mb-4"><i
+                            class="fas fa-arrows-left-right text-amber-400 mr-2"></i>Friction Force & Distance Covered
+                    </h3>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="bg-red-500/5 border border-red-500/20 rounded-xl p-4 text-center">
+                            <i class="fas fa-arrow-up text-red-400 text-2xl mb-2"></i>
+                            <p class="text-red-400 font-bold text-sm">Friction Increases</p>
+                            <p class="text-slate-400 text-xs mt-1">→ Distance covered <strong
+                                    class="text-red-400">decreases</strong></p>
+                        </div>
+                        <div class="bg-amber-500/5 border border-amber-500/20 rounded-xl p-4 text-center">
+                            <i class="fas fa-arrow-down text-amber-400 text-2xl mb-2"></i>
+                            <p class="text-amber-400 font-bold text-sm">Friction Decreases</p>
+                            <p class="text-slate-400 text-xs mt-1">→ Distance covered <strong
+                                    class="text-amber-400">increases</strong></p>
+                        </div>
+                        <div class="bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-4 text-center">
+                            <i class="fas fa-ban text-emerald-400 text-2xl mb-2"></i>
+                            <p class="text-emerald-400 font-bold text-sm">No Friction</p>
+                            <p class="text-slate-400 text-xs mt-1">→ Object continues in <strong
+                                    class="text-emerald-400">straight line at constant velocity</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== INERTIA ===== -->
+        <section id="inertia" class="py-20 px-6">
+            <div class="container mx-auto max-w-5xl">
+                <h2 class="text-3xl font-bold text-white mb-8 flex items-center gap-3" data-aos="fade-up">
+                    <i class="fas fa-shield-halved text-purple-500"></i> Inertia
+                </h2>
+                <div class="glass-card p-8 rounded-2xl mb-8" data-aos="fade-up">
+                    <p class="text-slate-300 mb-4">Newton's First Law is related to the concept of <strong
+                            class="text-purple-400">inertia</strong>. Accordingly, it is called <strong
+                            class="text-white">(Law of Inertia)</strong>.</p>
+                    <div class="definition-box" style="border-left-color: #8b5cf6;">
+                        <strong style="color: #a78bfa;">Inertia:</strong> It is the tendency of an object to keep either
+                        its state of rest or state of motion at its original velocity uniformly in a straight line.
+                    </div>
+                    <p class="text-slate-300 mt-4">This means that the tendency of a static object to remain in a state
+                        of rest and the tendency of a moving object to continue moving at its original velocity in a
+                        straight line. This means that <strong class="text-white">objects resist changing its static or
+                            dynamic state</strong>.</p>
+                    <div class="egyptian-expl">
+
+                        <p><strong style="color:#a78bfa">القصور الذاتي (Inertia)</strong> يعني إن الجسم بيقاوم أي تغيير
+                            في حالته. لو ساكن عايز يفضل ساكن، ولو متحرك عايز يفضل متحرك! عشان كده القانون الأول اسمه
+                            كمان <strong style="color:#fbbf24">قانون القصور الذاتي</strong>.</p>
+                        <p style="margin-top:0.5rem">مثال: لو أنت واقف في أوتوبيس وفجأة فرمل — جسمك بيندفع لقدام لأن
+                            جسمك كان متحرك وعايز يفضل متحرك (قصور ذاتي). عشان كده لازم نلبس <strong
+                                style="color:#ef4444">حزام الأمان! 🟠</strong></p>
+                    </div>
+
+                    <h4 class="text-lg font-bold text-white mt-6 mb-3">Daily Observations of Inertia:</h4>
+
+                    <!-- Car braking animation -->
+                    <div class="bg-slate-900/60 p-4 rounded-xl mb-4">
+                        <p class="text-sm text-purple-400 font-bold mb-2">1. Driver rushes forward when stopping
+                            suddenly</p>
+                        <svg viewBox="0 0 500 120" class="w-full">
+                            <rect x="100" y="50" width="120" height="50" rx="8" fill="#1e293b" stroke="#8b5cf6"
+                                stroke-width="2" />
+                            <circle cx="130" cy="100" r="12" fill="#334155" stroke="#64748b" stroke-width="2" />
+                            <circle cx="190" cy="100" r="12" fill="#334155" stroke="#64748b" stroke-width="2" />
+                            <text x="160" y="80" text-anchor="middle" fill="#8b5cf6" font-size="11"
+                                font-weight="bold">CAR</text>
+                            <!-- Driver stick figure leaning forward -->
+                            <circle cx="145" cy="38" r="8" fill="none" stroke="#ef4444" stroke-width="2">
+                                <animate attributeName="cx" values="145;160;145" dur="2s" repeatCount="indefinite" />
+                            </circle>
+                            <line x1="145" y1="46" x2="145" y2="50" stroke="#ef4444" stroke-width="2">
+                                <animate attributeName="x1" values="145;160;145" dur="2s" repeatCount="indefinite" />
+                                <animate attributeName="x2" values="145;155;145" dur="2s" repeatCount="indefinite" />
+                            </line>
+                            <!-- STOP sign -->
+                            <text x="80" y="80" fill="#ef4444" font-size="16" font-weight="bold">🛑</text>
+                            <!-- Inertia arrow -->
+                            <line x1="170" y1="35" x2="230" y2="35" stroke="#fbbf24" stroke-width="2"
+                                stroke-dasharray="4,2" marker-end="url(#arrowWhite)">
+                                <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite" />
+                            </line>
+                            <text x="250" y="39" fill="#fbbf24" font-size="9">Inertia →</text>
+                            <text x="300" y="80" fill="#94a3b8" font-size="9">Therefore: Seat belt should be
+                                fastened!</text>
+                            <text x="300" y="95" fill="#f59e0b" font-size="16">🔗</text>
+                        </svg>
+                    </div>
+
+                    <ul class="custom-list text-slate-300 space-y-3">
+                        <li><strong class="text-white">2.</strong> Passengers suddenly rush <strong
+                                class="text-purple-400">back</strong> when the vehicle is suddenly moving.</li>
+                        <li><strong class="text-white">3.</strong> Passengers rush towards the car door when the car is
+                            traveling in a <strong class="text-purple-400">circular curve</strong>.</li>
+                    </ul>
+
+                    <div class="note-box mt-6">
+                        <div class="note-title"><i class="fas fa-lightbulb mr-1"></i> Important Notes</div>
+                        <p class="text-slate-300 text-sm mb-2">The possibility of stopping objects moving under the
+                            effect of inertia depends on the <strong class="text-white">mass</strong> and <strong
+                                class="text-white">speed</strong> of these objects:</p>
+                        <ul class="custom-list text-slate-300 text-sm">
+                            <li>A big truck is hard to stop while a small bike is easier to stop assuming they are
+                                moving at the same velocity.</li>
+                            <li>It is difficult to stop the car if its velocity is high, while it is easy to stop if its
+                                velocity is low.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== LINEAR MOMENTUM ===== -->
+        <section id="momentum" class="py-20 px-6 bg-slate-900/30">
+            <div class="container mx-auto max-w-5xl">
+                <h2 class="text-3xl font-bold text-white mb-8 flex items-center gap-3" data-aos="fade-up">
+                    <i class="fas fa-forward text-sky-500"></i> Some Concepts Related to Force
+                </h2>
+
+                <!-- Linear Momentum -->
+                <div class="glass-card p-8 rounded-2xl mb-8" data-aos="fade-up">
+                    <h3 class="text-xl font-bold text-white mb-4">1. Linear Momentum</h3>
+                    <p class="text-slate-300 mb-4">Linear momentum ($P_L$) is a <strong class="text-sky-400">derived
+                            vector quantity</strong>, its measuring unit is <strong
+                            class="text-white">(kg·m/s)</strong>.</p>
+                    <div class="formula-box">$$P_L = m \times v$$</div>
+                    <p class="text-slate-400 text-sm text-center">Momentum = mass × velocity</p>
+                    <div class="egyptian-expl">
+
+                        <p><strong style="color:#38bdf8">كمية الحركة الخطية</strong> = الكتلة × السرعة. يعني لو عربية
+                            تقيلة ماشية ببطء، ممكن يكون ليها نفس كمية الحركة بتاعت كورة خفيفة بتجري بسرعة! 🚗🏀</p>
+                        <p style="margin-top:0.5rem">كمية الحركة <strong style="color:#10b981">كمية متجهة
+                                مشتقة</strong>، وحدتها <strong style="color:#fbbf24">kg·m/s</strong>.</p>
+                    </div>
+                    <!-- Momentum comparison SVG -->
+                    <div class="mt-6 flex justify-center">
+                        <svg viewBox="0 0 460 130" class="w-full max-w-lg">
+                            <!-- Small ball, fast -->
+                            <circle cx="80" cy="40" r="15" fill="#3b82f6" />
+                            <text x="80" y="44" text-anchor="middle" fill="white" font-size="9">m</text>
+                            <line x1="95" y1="40" x2="160" y2="40" stroke="#3b82f6" stroke-width="2"
+                                marker-end="url(#arrowBlue)" />
+                            <text x="130" y="30" fill="#3b82f6" font-size="9">v (fast)</text>
+                            <text x="200" y="44" fill="#60a5fa" font-size="11" font-weight="bold">P = m × v</text>
+                            <!-- Big ball, slow -->
+                            <circle cx="80" cy="100" r="25" fill="#10b981" />
+                            <text x="80" y="104" text-anchor="middle" fill="white" font-size="10">M</text>
+                            <line x1="105" y1="100" x2="140" y2="100" stroke="#10b981" stroke-width="2"
+                                marker-end="url(#arrowGreen)" />
+                            <text x="125" y="90" fill="#10b981" font-size="9">v (slow)</text>
+                            <text x="200" y="104" fill="#34d399" font-size="11" font-weight="bold">P = M × v</text>
+                            <!-- Can be equal -->
+                            <text x="350" y="70" fill="#fbbf24" font-size="12" font-weight="bold"
+                                text-anchor="middle">Can have</text>
+                            <text x="350" y="86" fill="#fbbf24" font-size="12" font-weight="bold"
+                                text-anchor="middle">same momentum!</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== MASS VS WEIGHT ===== -->
+        <section id="mass-weight" class="py-20 px-6">
+            <div class="container mx-auto max-w-5xl">
+                <h2 class="text-3xl font-bold text-white mb-8 flex items-center gap-3" data-aos="fade-up">
+                    <i class="fas fa-weight-hanging text-amber-500"></i> 2. Mass and Weight
+                </h2>
+                <div class="glass-card p-8 rounded-2xl mb-8" data-aos="fade-up">
+                    <div class="definition-box mb-4">
+                        <strong>Mass (m):</strong> Resistance of the object to change its Kinematic state. Measured in
+                        <strong>Kilogram (kg)</strong> using a beam balance or digital balance. <em
+                            class="text-sky-400">It does not change from place to place.</em>
+                    </div>
+                    <div class="definition-box" style="border-left-color: #ef4444;">
+                        <strong style="color: #f87171;">Weight ($F_g$):</strong> It is the force of gravity acting on
+                        the object and its direction is towards the Earth's center. Measured in <strong>Newton
+                            (N)</strong> using a spring balance. <em class="text-amber-400">It changes from one place to
+                            another according to the acceleration due to gravity.</em>
+                    </div>
+                    <div class="formula-box mt-4">$$F_g = m \times g$$</div>
+                    <div class="egyptian-expl">
+
+                        <p><strong style="color:#60a5fa">الكتلة (m)</strong> = مقاومة الجسم لتغيير حالته الحركية،
+                            بنقيسها بالكيلوجرام (kg) بالميزان ذو الكفتين. <strong style="color:#fbbf24">الكتلة مبتتغيرش
+                                من مكان لمكان</strong>.</p>
+                        <p style="margin-top:0.5rem"><strong style="color:#f87171">الوزن (Fₗ)</strong> = قوة جذب الأرض
+                            للجسم، بنقيسه بالنيوتن (N) بالميزان الزنبركي. <strong style="color:#ef4444">الوزن بيتغير من
+                                مكان لمكان</strong> على حسب عجلة الجاذبية (g).</p>
+                        <p style="margin-top:0.5rem">مثال: شخص كتلته 70 kg على الأرض وزنه ≈ 686 N، بس على القمر وزنه ≈
+                            112 N بس. الكتلة فاضلة 70 kg في الحالتين! 🌍🌙</p>
+                    </div>
+
+                    <!-- Comparison Table -->
+                    <div class="overflow-x-auto mt-6">
+                        <table class="w-full text-left custom-table text-sm text-slate-300">
+                            <thead class="bg-slate-800">
+                                <tr>
+                                    <th>Quantity</th>
+                                    <th>Symbol</th>
+                                    <th>Formula</th>
+                                    <th>Unit</th>
+                                    <th>Key Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-red-400 font-bold">Weight</td>
+                                    <td>$F_g$</td>
+                                    <td>$F_g = mg$</td>
+                                    <td>Newton (N)</td>
+                                    <td>Changes by location (gravity varies). Measured by spring balance.</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-blue-400 font-bold">Mass</td>
+                                    <td>$m$</td>
+                                    <td>—</td>
+                                    <td>Kilogram (kg)</td>
+                                    <td>Does NOT change by location. Measured by beam/digital balance.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Earth vs Moon SVG -->
+                    <div class="mt-6 flex justify-center">
+                        <svg viewBox="0 0 500 160" class="w-full max-w-lg">
+                            <!-- Earth -->
+                            <circle cx="120" cy="120" r="50" fill="#1e3a5f" stroke="#3b82f6" stroke-width="2" />
+                            <text x="120" y="115" text-anchor="middle" fill="#60a5fa" font-size="11"
+                                font-weight="bold">Earth</text>
+                            <text x="120" y="130" text-anchor="middle" fill="#94a3b8" font-size="9">g = 9.8 m/s²</text>
+                            <!-- Person on Earth -->
+                            <circle cx="120" cy="55" r="8" fill="#10b981" />
+                            <text x="120" y="45" text-anchor="middle" fill="#10b981" font-size="9" font-weight="bold">70
+                                kg</text>
+                            <text x="120" y="35" text-anchor="middle" fill="#ef4444" font-size="8">W ≈ 686 N</text>
+                            <!-- Moon -->
+                            <circle cx="380" cy="120" r="35" fill="#1e293b" stroke="#94a3b8" stroke-width="2" />
+                            <text x="380" y="118" text-anchor="middle" fill="#cbd5e1" font-size="10"
+                                font-weight="bold">Moon</text>
+                            <text x="380" y="132" text-anchor="middle" fill="#94a3b8" font-size="8">g = 1.6 m/s²</text>
+                            <!-- Person on Moon -->
+                            <circle cx="380" cy="72" r="8" fill="#10b981" />
+                            <text x="380" y="62" text-anchor="middle" fill="#10b981" font-size="9" font-weight="bold">70
+                                kg</text>
+                            <text x="380" y="52" text-anchor="middle" fill="#fbbf24" font-size="8">W ≈ 112 N</text>
+                            <!-- Arrow between -->
+                            <line x1="180" y1="90" x2="330" y2="90" stroke="#64748b" stroke-width="1.5"
+                                stroke-dasharray="6,4" />
+                            <text x="255" y="85" text-anchor="middle" fill="#fbbf24" font-size="10"
+                                font-weight="bold">Same mass</text>
+                            <text x="255" y="100" text-anchor="middle" fill="#ef4444" font-size="10"
+                                font-weight="bold">Different weight!</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== NEWTON'S THIRD LAW ===== -->
+        <section id="third-law" class="py-20 px-6 bg-slate-900/30">
+            <div class="container mx-auto max-w-5xl">
+                <h2 class="text-3xl font-bold text-white mb-8 flex items-center gap-3" data-aos="fade-up">
+                    <i
+                        class="fas fa-3 text-rose-500 bg-rose-500/20 w-10 h-10 rounded-full flex items-center justify-center text-lg"></i>
+                    Newton's Third Law
+                </h2>
+
+                <div class="glass-card p-8 rounded-2xl mb-8" data-aos="fade-up">
+                    <p class="text-slate-300 leading-relaxed mb-4">Newton formulated an explanation for the above
+                        mentioned situations through his third law of motion that studies the nature of forces acting on
+                        objects. He noticed that forces act in <strong class="text-rose-400">pairs of equal magnitude
+                            and opposite directions</strong>.</p>
+
+                    <h3 class="text-lg font-bold text-white mt-6 mb-3">From Daily Observations:</h3>
+
+                    <!-- 1. Kicking Ball SVG -->
+                    <div class="bg-slate-900/60 p-4 rounded-xl mb-4">
+                        <p class="text-sm text-rose-400 font-bold mb-2">1. Kicking a Football</p>
+                        <p class="text-slate-400 text-sm mb-3">When the player kicks a football, the forward force that
+                            your foot exerts on the ball launches it into its trajectory, but you also feel the force
+                            the ball exerts back on your foot.</p>
+                        <svg viewBox="0 0 500 120" class="w-full">
+                            <!-- Foot -->
+                            <rect x="80" y="50" width="60" height="30" rx="5" fill="#1e293b" stroke="#a78bfa"
+                                stroke-width="2" />
+                            <text x="110" y="70" text-anchor="middle" fill="#a78bfa" font-size="10">Foot</text>
+                            <!-- Ball -->
+                            <circle cx="200" cy="65" r="20" fill="#1e293b" stroke="#10b981" stroke-width="2">
+                                <animate attributeName="cx" values="200;240;200" dur="2s" repeatCount="indefinite" />
+                            </circle>
+                            <text y="69" text-anchor="middle" fill="#10b981" font-size="10">Ball
+                                <animate attributeName="x" values="200;240;200" dur="2s" repeatCount="indefinite" />
+                            </text>
+                            <!-- Action arrow (foot → ball) -->
+                            <line x1="140" y1="55" x2="175" y2="55" stroke="#ef4444" stroke-width="2.5"
+                                marker-end="url(#arrowRed)" />
+                            <text x="155" y="48" fill="#ef4444" font-size="9" text-anchor="middle">F(foot→ball)</text>
+                            <!-- Reaction arrow (ball → foot) -->
+                            <line x1="175" y1="78" x2="140" y2="78" stroke="#3b82f6" stroke-width="2.5"
+                                marker-end="url(#arrowBlue)" />
+                            <text x="157" y="92" fill="#3b82f6" font-size="9" text-anchor="middle">F(ball→foot)</text>
+                            <!-- Labels -->
+                            <text x="330" y="50" fill="#ef4444" font-size="11" font-weight="bold">Action →</text>
+                            <text x="330" y="70" fill="#3b82f6" font-size="11" font-weight="bold">← Reaction</text>
+                            <text x="330" y="90" fill="#fbbf24" font-size="9">Equal magnitude, opposite direction</text>
+                        </svg>
+                    </div>
+
+                    <ul class="custom-list text-slate-300 space-y-3 mb-4">
+                        <li><strong class="text-white">2.</strong> The rifle bounces back when the bullet goes out from
+                            it.</li>
+                        <li><strong class="text-white">3.</strong> The idea of operation of the rocket is based on
+                            Newton's third law, where a huge mass of flaming gases rushes from the bottom of the rocket,
+                            and the reaction of the rocket is to rush upwards.</li>
+                    </ul>
+
+                    <!-- Rocket SVG -->
+                    <div class="bg-slate-900/60 p-4 rounded-xl mb-4">
+                        <p class="text-sm text-rose-400 font-bold mb-2">Rocket Propulsion</p>
+                        <svg viewBox="0 0 300 200" class="w-full max-w-xs mx-auto">
+                            <!-- Rocket body -->
+                            <rect x="125" y="30" width="50" height="80" rx="10" fill="#1e293b" stroke="#60a5fa"
+                                stroke-width="2">
+                                <animate attributeName="y" values="30;20;30" dur="1.5s" repeatCount="indefinite" />
+                            </rect>
+                            <polygon points="150,10 125,40 175,40" fill="#3b82f6">
+                                <animate attributeName="points"
+                                    values="150,10 125,40 175,40;150,0 125,30 175,30;150,10 125,40 175,40" dur="1.5s"
+                                    repeatCount="indefinite" />
+                            </polygon>
+                            <!-- Flames -->
+                            <polygon points="135,115 150,160 165,115" fill="#ef4444" opacity="0.8">
+                                <animate attributeName="points"
+                                    values="135,115 150,160 165,115;130,110 150,170 170,110;135,115 150,160 165,115"
+                                    dur="0.3s" repeatCount="indefinite" />
+                                <animate attributeName="opacity" values="0.8;0.4;0.8" dur="0.3s"
+                                    repeatCount="indefinite" />
+                            </polygon>
+                            <polygon points="140,115 150,145 160,115" fill="#f59e0b">
+                                <animate attributeName="points"
+                                    values="140,115 150,145 160,115;138,110 150,150 162,110;140,115 150,145 160,115"
+                                    dur="0.2s" repeatCount="indefinite" />
+                            </polygon>
+                            <!-- Gas arrow down (action) -->
+                            <line x1="150" y1="160" x2="150" y2="195" stroke="#ef4444" stroke-width="3"
+                                marker-end="url(#arrowRed)">
+                                <animate attributeName="opacity" values="1;0.5;1" dur="0.5s" repeatCount="indefinite" />
+                            </line>
+                            <text x="195" y="185" fill="#ef4444" font-size="10">Gases ↓ (Action)</text>
+                            <!-- Rocket arrow up (reaction) -->
+                            <line x1="150" y1="30" x2="150" y2="0" stroke="#3b82f6" stroke-width="3"
+                                marker-end="url(#arrowBlue)">
+                                <animate attributeName="y2" values="0;-5;0" dur="1.5s" repeatCount="indefinite" />
+                            </line>
+                            <text x="195" y="15" fill="#3b82f6" font-size="10">Rocket ↑ (Reaction)</text>
+                        </svg>
+                    </div>
+
+                    <!-- 4. Car wheels -->
+                    <div class="bg-slate-900/60 p-4 rounded-xl mb-6">
+                        <p class="text-sm text-rose-400 font-bold mb-2">4. Car Motion on Road</p>
+                        <p class="text-slate-400 text-sm mb-3">Consider the motion of a car on the way to school. A car
+                            is equipped with wheels that spin. As the wheels spin, they grip the road and push the road
+                            backwards. Since forces result from mutual interactions, the road must also be pushing the
+                            wheels forward. The size of the force on the road equals the size of the force on the wheels
+                            (or car); the direction of the force on the road (backwards) is opposite the direction of
+                            the force on the wheels (forwards). For every action, there is an equal (in size) and
+                            opposite (in direction) reaction. Action-reaction force pairs make it possible for cars to
+                            move along a roadway surface.</p>
+                        <svg viewBox="0 0 500 100" class="w-full">
+                            <!-- Road -->
+                            <rect x="0" y="70" width="500" height="30" fill="#1e293b" rx="4" />
+                            <line x1="0" y1="70" x2="500" y2="70" stroke="#334155" stroke-width="2" />
+                            <!-- Car body -->
+                            <rect x="150" y="35" width="120" height="35" rx="8" fill="#0f172a" stroke="#10b981"
+                                stroke-width="2">
+                                <animate attributeName="x" values="150;170;150" dur="3s" repeatCount="indefinite" />
+                            </rect>
+                            <!-- Wheels -->
+                            <circle cy="70" r="10" fill="#334155" stroke="#64748b" stroke-width="2">
+                                <animate attributeName="cx" values="175;195;175" dur="3s" repeatCount="indefinite" />
+                                <animateTransform attributeName="transform" type="rotate" values="0;360" dur="1s"
+                                    repeatCount="indefinite" />
+                            </circle>
+                            <circle cy="70" r="10" fill="#334155" stroke="#64748b" stroke-width="2">
+                                <animate attributeName="cx" values="245;265;245" dur="3s" repeatCount="indefinite" />
+                            </circle>
+                            <!-- Wheel pushes road BACKWARD -->
+                            <line y1="85" x2="150" y2="85" stroke="#ef4444" stroke-width="2"
+                                marker-end="url(#arrowRed)">
+                                <animate attributeName="x1" values="200;220;200" dur="3s" repeatCount="indefinite" />
+                            </line>
+                            <text y="98" fill="#ef4444" font-size="8">
+                                <animate attributeName="x" values="140;160;140" dur="3s" repeatCount="indefinite" />
+                                ← Wheel pushes road (Action)
+                            </text>
+                            <!-- Road pushes car FORWARD -->
+                            <line y1="55" x2="340" y2="55" stroke="#3b82f6" stroke-width="2"
+                                marker-end="url(#arrowBlue)">
+                                <animate attributeName="x1" values="270;290;270" dur="3s" repeatCount="indefinite" />
+                                <animate attributeName="x2" values="340;360;340" dur="3s" repeatCount="indefinite" />
+                            </line>
+                            <text y="48" fill="#3b82f6" font-size="8">
+                                <animate attributeName="x" values="290;310;290" dur="3s" repeatCount="indefinite" />
+                                Road pushes car → (Reaction)
+                            </text>
+                        </svg>
+                    </div>
+
+                    <!-- Statement -->
+                    <div class="definition-box" style="border-left-color: #ef4444;">
+                        <strong style="color: #f87171;">Newton's Third Law Statement:</strong> When an object <span
+                            class="text-rose-400">A</span> acts on another object <span class="text-rose-400">B</span>
+                        by a force, the second object <span class="text-rose-400">B</span> acts on object <span
+                            class="text-rose-400">A</span> by a force equal in magnitude and opposite in direction.
+                    </div>
+                    <div class="definition-box mt-2" style="border-left-color: #ef4444;">
+                        <strong style="color: #f87171;">OR:</strong> For every action there is a reaction equal in
+                        magnitude and opposite in direction.
+                    </div>
+
+                    <div class="formula-box mt-4">$$F_{A \text{ on } B} = - F_{B \text{ on } A}$$</div>
+
+                    <div class="egyptian-expl">
+
+                        <p><strong style="color:#f87171">قانون نيوتن الثالث</strong>: لكل فعل رد فعل مساوي له في المقدار
+                            ومضاد له في الاتجاه.</p>
+                        <p style="margin-top:0.5rem">فكّر فيها كده: لما بتشوط الكورة — رجلك بتأثر على الكورة بقوة لقدام،
+                            والكورة بتأثر على رجلك بنفس القوة بس <strong style="color:#3b82f6">لورا</strong>. عشان كده
+                            بتحس بالضربة في رجلك! ⚽</p>
+                        <p style="margin-top:0.5rem">والصاروخ بيشتغل بنفس المبدأ: الغازات بتندفع لتحت (فعل)، فالصاروخ
+                            بيندفع لفوق (رد فعل)! 🚀</p>
+                        <p style="margin-top:0.5rem"><strong style="color:#fbbf24">سؤال مهم:</strong> ليه الفعل ورد
+                            الفعل مش بيلغوا بعض؟ عشان الاتزان محتاج القوتين يأثروا على <strong style="color:#ef4444">نفس
+                                الجسم</strong>، بس الفعل ورد الفعل بيأثروا على <strong style="color:#ef4444">جسمين
+                                مختلفين!</strong></p>
+                    </div>
+
+                    <div class="note-box mt-6">
+                        <div class="note-title"><i class="fas fa-exclamation-circle mr-1"></i> Important Notes</div>
+                        <ul class="custom-list text-slate-300 text-sm space-y-2">
+                            <li><strong class="text-white">1.</strong> In every interaction, there is a pair of forces
+                                acting on the two interacting objects. The size of the forces on the first object equals
+                                the size of the force on the second object. The direction of the force on the first
+                                object is opposite to the direction of the force on the second object. Forces always
+                                come in pairs — equal and opposite action-reaction force pairs.</li>
+                            <li><strong class="text-white">No single force</strong> exists in the universe. Action and
+                                reaction are paired; originate and vanish together.</li>
+                            <li>Action and reaction are of the <strong class="text-white">same type</strong>; if the
+                                action is a gravitational force, reaction is a gravitational force, as well.</li>
+                            <li><strong class="text-white">2.</strong> Why cannot say that resultant of the action and
+                                reaction are at equilibrium? For two forces to be at equilibrium, they must be equal,
+                                opposite, having one line of action and <strong class="text-amber-400">act on the same
+                                    body</strong>. All these conditions except the last one may be applied on action and
+                                reaction; since they may <strong class="text-rose-400">act on different bodies</strong>.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== EXERCISE ===== -->
+        <section class="py-20 px-6">
+            <div class="container mx-auto max-w-5xl">
+                <h2 class="text-3xl font-bold text-white mb-8 flex items-center gap-3" data-aos="fade-up">
+                    <i class="fas fa-pencil text-amber-500"></i> Exercise
+                </h2>
+                <div class="glass-card p-8 rounded-2xl border-2 border-amber-500/20" data-aos="fade-up">
+                    <h3 class="text-lg font-bold text-white mb-4">Study the following scenario, then answer the
+                        questions below:</h3>
+                    <!-- Elephant & Girl SVG -->
+                    <div class="bg-slate-900/60 p-4 rounded-xl mb-6">
+                        <svg viewBox="0 0 500 150" class="w-full">
+                            <!-- Girl on skates -->
+                            <circle cx="120" cy="50" r="15" fill="#a78bfa" stroke="#8b5cf6" stroke-width="2" />
+                            <text x="120" y="54" text-anchor="middle" fill="white" font-size="8">Girl</text>
+                            <rect x="105" y="65" width="30" height="40" rx="5" fill="#1e293b" stroke="#8b5cf6"
+                                stroke-width="1.5" />
+                            <circle cx="110" cy="115" r="8" fill="#334155" stroke="#64748b" stroke-width="1.5" />
+                            <circle cx="130" cy="115" r="8" fill="#334155" stroke="#64748b" stroke-width="1.5" />
+                            <text x="120" y="140" text-anchor="middle" fill="#a78bfa" font-size="8">Roller skates</text>
+                            <!-- Rope -->
+                            <line x1="135" y1="80" x2="280" y2="80" stroke="#fbbf24" stroke-width="2"
+                                stroke-dasharray="6,3" />
+                            <!-- Elephant -->
+                            <ellipse cx="340" cy="70" rx="55" ry="35" fill="#1e293b" stroke="#64748b"
+                                stroke-width="2" />
+                            <text x="340" y="68" text-anchor="middle" fill="#94a3b8" font-size="10">Elephant</text>
+                            <text x="340" y="82" text-anchor="middle" fill="#64748b" font-size="8">🐘</text>
+                            <circle cx="300" cy="115" r="10" fill="#334155" stroke="#64748b" stroke-width="1.5" />
+                            <circle cx="380" cy="115" r="10" fill="#334155" stroke="#64748b" stroke-width="1.5" />
+                            <text x="340" y="140" text-anchor="middle" fill="#94a3b8" font-size="8">Skateboard</text>
+                            <!-- Action arrow -->
+                            <line x1="145" y1="60" x2="200" y2="60" stroke="#ef4444" stroke-width="2"
+                                marker-end="url(#arrowRed)" />
+                            <text x="170" y="53" fill="#ef4444" font-size="8" text-anchor="middle">Action</text>
+                            <!-- Reaction arrow -->
+                            <line x1="280" y1="60" x2="220" y2="60" stroke="#3b82f6" stroke-width="2"
+                                marker-end="url(#arrowBlue)" />
+                            <text x="250" y="53" fill="#3b82f6" font-size="8" text-anchor="middle">Reaction</text>
+                            <!-- Acceleration labels -->
+                            <text x="80" y="30" fill="#10b981" font-size="9">Greater acceleration →</text>
+                            <text x="340" y="30" fill="#f59e0b" font-size="9" text-anchor="middle">Less acceleration
+                                →</text>
+                        </svg>
+                    </div>
+
+                    <ol class="text-slate-300 space-y-3 list-decimal pl-6">
+                        <li>What is the relation between the force acting on the elephant and that on the man?</li>
+                        <li>Why are not action on the elephant and reaction on the man at equilibrium?</li>
+                        <li>If the elephant's mass is <strong class="text-white">6</strong> times heavier than the man's
+                            mass, calculate the acceleration by which the elephant moves giving that the man moves at an
+                            acceleration $2 \text{ m/s}^2$. Why is the elephant acceleration negative?</li>
+                    </ol>
+
+                    <button onclick="document.getElementById('exercise-answer').classList.toggle('show')"
+                        class="mt-4 text-xs flex items-center gap-2 text-slate-500 hover:text-emerald-400 font-bold uppercase tracking-wider transition cursor-pointer">
+                        <i class="fas fa-eye"></i> Show Hints
+                    </button>
+                    <div id="exercise-answer" class="answer-container">
+                        <p class="text-emerald-400 font-bold text-sm mb-2">Hints:</p>
+                        <p class="text-xs text-slate-300">1. By Newton's 3rd Law: $F_{elephant} = -F_{man}$ (equal
+                            magnitude, opposite direction)</p>
+                        <p class="text-xs text-slate-300">2. They act on <strong>different bodies</strong>, so
+                            equilibrium conditions don't apply.</p>
+                        <p class="text-xs text-slate-300">3. Since $F = ma$ and forces are equal: $M \times a_{elephant}
+                            = m \times a_{man}$. If $M = 6m$: $6m \times a_e = m \times 2$, so $a_e = \frac{1}{3} \text{
+                            m/s}^2$. The elephant's acceleration is negative because it moves in the opposite direction
+                            to the defined positive direction.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== QUIZ ===== -->
+        <section id="quiz" class="py-24 px-6 bg-slate-900 border-t border-slate-800 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-emerald-600/5 rounded-full blur-3xl"></div>
+            <div class="container mx-auto max-w-5xl relative z-10">
+                <div class="text-center mb-16" data-aos="fade-up">
+                    <span
+                        class="inline-block py-1 px-3 rounded bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono mb-4">ASSESSMENT</span>
+                    <h2 class="text-4xl font-bold text-white">Knowledge Check</h2>
+                    <p class="text-slate-400 mt-2">Test your understanding of Newton's Laws of Motion.</p>
+                </div>
+                <div id="quiz-grid" class="grid md:grid-cols-2 gap-6"></div>
+            </div>
+        </section>
+
+        <script>
+            const questions = [
+                { text: "What is Force?", ans: 0, expl: "Force is an external effect that changes or attempts to change an object's state or direction.", opts: ["An external effect that changes an object's state or direction", "Weight of an object", "Speed of an object", "The mass of an object"] },
+                { text: "What is the measuring unit of Force?", ans: 1, expl: "Force is measured in Newton (N) using a spring balance.", opts: ["Kilogram", "Newton (N)", "Joule", "Meter/second"] },
+                { text: "What does Newton's First Law state?", ans: 2, expl: "A body stays at rest or in uniform motion unless an external resultant force acts on it.", opts: ["F = ma", "For every action there is a reaction", "An object stays at rest or uniform motion unless acted upon by a resultant force", "Energy cannot be created or destroyed"] },
+                { text: "Newton's First Law is also called:", ans: 0, expl: "Because it relates to the concept of inertia — the tendency to resist change.", opts: ["Law of Inertia", "Law of Gravity", "Law of Conservation", "Law of Momentum"] },
+                { text: "What is Inertia?", ans: 3, expl: "Inertia is the tendency to keep the current state of rest or motion.", opts: ["A type of energy", "Friction force", "Weight of object", "Tendency of object to keep its state of rest or motion"] },
+                { text: "If friction increases, the distance covered:", ans: 1, expl: "Higher friction means the object decelerates faster and covers less distance.", opts: ["Increases", "Decreases", "Stays the same", "Becomes infinite"] },
+                { text: "With no friction, a moving object will:", ans: 2, expl: "Newton's First Law — without net force, the object maintains constant velocity.", opts: ["Stop immediately", "Accelerate", "Continue at constant velocity in a straight line", "Change direction"] },
+                { text: "What is linear momentum?", ans: 0, expl: "P = m × v; momentum is mass times velocity, a vector quantity.", opts: ["P = m × v", "P = m × a", "P = F × d", "P = m × g"] },
+                { text: "Mass is measured using:", ans: 1, expl: "Mass is measured using a beam balance or digital balance.", opts: ["Spring balance", "Beam balance or digital balance", "Thermometer", "Voltmeter"] },
+                { text: "Weight changes from place to place because:", ans: 2, expl: "Weight = mg, and g varies by location (e.g., Earth vs Moon).", opts: ["Mass changes", "Volume changes", "Acceleration due to gravity (g) changes", "Temperature changes"] },
+                { text: "Newton's Third Law states:", ans: 3, expl: "For every action, there is an equal and opposite reaction.", opts: ["ΣF = 0", "F = ma", "P = mv", "For every action there is an equal and opposite reaction"] },
+                { text: "Why are action and reaction NOT in equilibrium?", ans: 1, expl: "Equilibrium requires forces to act on the same body. Action and reaction act on different bodies.", opts: ["They are not equal", "They act on different bodies", "They are in the same direction", "They have different magnitudes"] },
+
+                // ── Conceptual Law Questions ──
+                { text: "A car moves at constant velocity on a straight road. What can we conclude about the net force?", ans: 2, expl: "Constant velocity means zero acceleration. By Newton's First Law, if acceleration = 0, then the resultant force ΣF = 0.", opts: ["A net force acts forward on the car", "Friction is completely absent", "The resultant force is zero (ΣF = 0)", "The car has no momentum"] },
+                { text: "A rifle recoils (kicks back) when a bullet is fired. Which law best explains this?", ans: 1, expl: "The rifle exerts a force on the bullet (action) and the bullet exerts an equal and opposite force back on the rifle (reaction) — Newton's Third Law.", opts: ["Newton's First Law — inertia", "Newton's Third Law — action-reaction", "Newton's Second Law — F = ma", "Law of Conservation of Mass"] },
+                { text: "When a rocket ejects gases downward, it moves upward. The gases and the rocket represent:", ans: 0, expl: "Gases pushing down = action; rocket moving up = reaction. These are an action-reaction pair per Newton's Third Law.", opts: ["An action-reaction pair (Newton's 3rd Law)", "Inertia of the rocket (Newton's 1st Law)", "F = ma applied to one body (Newton's 2nd Law)", "A balanced force system in equilibrium"] },
+                { text: "A passenger in a bus leans backward when the bus suddenly accelerates forward. This is due to:", ans: 3, expl: "The passenger's body tends to stay at rest (inertia) while the bus accelerates forward, making the passenger appear to lean backward — Newton's First Law.", opts: ["Newton's Third Law reaction force", "High friction between seat and passenger", "The passenger's weight increasing", "Inertia — the body resists the change (Newton's 1st Law)"] },
+                { text: "Two objects interact. Object A exerts force F on object B. What force does B exert on A?", ans: 1, expl: "Newton's Third Law: B exerts a force equal in magnitude but opposite in direction to F on A. F_A→B = −F_B→A.", opts: ["Half of F in the same direction", "A force equal to F in the opposite direction", "Twice F in the opposite direction", "Zero — the heavier object feels no reaction"] },
+                { text: "Which of the following correctly distinguishes mass from weight?", ans: 3, expl: "Mass is constant everywhere; it's measured by beam balance in kg. Weight = mg changes with location and is measured by spring balance in Newtons.", opts: ["Mass is measured in Newtons; weight in kg", "Both mass and weight change with location", "Mass changes on the Moon; weight does not", "Mass is constant (kg, beam balance); weight varies (N, spring balance)"] },
+
+                // ── Calculation Questions ──
+                { text: "🔢 A net force of 30 N acts on a 6 kg object. What is its acceleration?", ans: 1, expl: "Using F = ma: a = F ÷ m = 30 ÷ 6 = 5 m/s²", opts: ["3 m/s²", "5 m/s²", "0.2 m/s²", "180 m/s²"] },
+                { text: "🔢 An object has mass 4 kg and velocity 10 m/s. What is its linear momentum?", ans: 2, expl: "P = m × v = 4 × 10 = 40 kg·m/s", opts: ["14 kg·m/s", "2.5 kg·m/s", "40 kg·m/s", "400 kg·m/s"] },
+                { text: "🔢 A person weighs 588 N on Earth (g = 9.8 m/s²). What is their mass?", ans: 0, expl: "W = mg → m = W ÷ g = 588 ÷ 9.8 = 60 kg", opts: ["60 kg", "5760 kg", "9.8 kg", "588 kg"] },
+                { text: "🔢 A 60 kg person stands on the Moon where g = 1.6 m/s². What is their weight on the Moon?", ans: 3, expl: "W_moon = mg = 60 × 1.6 = 96 N. (Compare: on Earth W = 60 × 9.8 = 588 N)", opts: ["588 N", "37.5 N", "600 N", "96 N"] },
+                { text: "🔢 A girl (50 kg) on roller skates pushes an elephant (300 kg). The girl accelerates at 3 m/s². Find the elephant's acceleration.", ans: 2, expl: "Action force = 50 × 3 = 150 N. By Newton's 3rd Law, elephant feels same 150 N. a_elephant = 150 ÷ 300 = 0.5 m/s² (opposite direction).", opts: ["3 m/s²", "18 m/s²", "0.5 m/s²", "6 m/s²"] },
+                { text: "🔢 A 10 kg object moving at 5 m/s is brought to rest in 2 seconds by a braking force. What is the magnitude of that force?", ans: 1, expl: "a = Δv ÷ t = (0 − 5) ÷ 2 = −2.5 m/s². F = ma = 10 × 2.5 = 25 N.", opts: ["50 N", "25 N", "2.5 N", "100 N"] }
+            ];
+
+            const grid = document.getElementById('quiz-grid');
+            questions.forEach((q, i) => {
+                const card = document.createElement('div');
+                card.className = "glass-card p-6 rounded-xl hover:bg-slate-800/80 group transition flex flex-col";
+                card.innerHTML = `
+        <div class="flex justify-between items-start mb-4">
+            <span class="text-sm font-mono text-emerald-500">Q${i + 1}</span>
+        </div>
+        <p class="text-lg font-semibold text-white mb-6">${q.text}</p>
+        <div class="grid gap-2 mb-4 text-sm text-slate-300">
+            ${q.opts.map((opt, j) => `
+                <div onclick="checkAnswer(this, ${j}, ${q.ans})"
+                     class="p-3 rounded bg-slate-900/50 border border-slate-700 hover:bg-slate-800 transition cursor-pointer">
+                    ${String.fromCharCode(65 + j)}) ${opt}
+                </div>
+            `).join('')}
+        </div>
+        <div class="mt-auto">
+            <button onclick="this.nextElementSibling.classList.toggle('show')" class="text-xs flex items-center gap-2 text-slate-500 hover:text-emerald-400 font-bold uppercase tracking-wider transition cursor-pointer mt-2">
+                <i class="fas fa-eye"></i> Show Answer
+            </button>
+            <div class="answer-container">
+                <p class="text-emerald-400 font-bold mb-1">Correct: ${String.fromCharCode(65 + q.ans)}</p>
+                <p class="text-xs text-slate-300">${q.expl}</p>
+            </div>
+        </div>
+    `;
+                grid.appendChild(card);
+            });
+
+            function checkAnswer(el, selected, correct) {
+                const parent = el.parentElement;
+                Array.from(parent.children).forEach(child => {
+                    child.classList.remove('bg-emerald-500/20', 'border-emerald-500', 'bg-red-500/20', 'border-red-500');
+                    child.classList.add('bg-slate-900/50', 'border-slate-700');
+                });
+                if (selected === correct) {
+                    el.classList.remove('bg-slate-900/50', 'border-slate-700');
+                    el.classList.add('bg-emerald-500/20', 'border-emerald-500');
+                } else {
+                    el.classList.remove('bg-slate-900/50', 'border-slate-700');
+                    el.classList.add('bg-red-500/20', 'border-red-500');
+                }
+            }
+        </script>
+
+    </main>
+
+    <footer class="py-12 border-t border-slate-800 bg-black/50 text-center">
+        <p class="text-slate-500 font-medium">Physics Year 1 (STEM) — Lesson 1: Newton's Laws of Motion</p>
+        <p class="text-slate-600 text-sm mt-1">Prepared by Osama Zinhom</p>
+    </footer>
+
+    <script>
+        AOS.init({ duration: 800, once: true });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سكريبت الشرح - درس 1: قوانين نيوتن للحركة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #0a0a1a, #0f1a2e, #0a1628);
+            min-height: 100vh;
+            margin: 0;
+            padding: 2rem 1rem;
+            color: #e0e0e0;
+            direction: rtl;
+        }
+
+        .container {
+            max-width: 920px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #fff;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 30px rgba(16, 185, 129, 0.4);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #64748b;
+            font-size: 0.95rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            border-color: rgba(16, 185, 129, 0.35);
+            box-shadow: 0 8px 32px rgba(16, 185, 129, 0.10);
+            transform: translateY(-2px);
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #34d399;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .section-title::before {
+            content: "🎬";
+        }
+
+        .section-title .toggle-icon {
+            margin-right: auto;
+            margin-left: 0;
+            color: #64748b;
+            font-size: 0.85rem;
+            transition: transform 0.3s;
+        }
+
+        .section-title.collapsed .toggle-icon {
+            transform: rotate(-90deg);
+        }
+
+        .script-body {
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .script-text {
+            font-size: 1.12rem;
+            line-height: 2.2;
+            color: #f0f4f8;
+            background: rgba(0, 0, 0, 0.25);
+            padding: 1.2rem 1.5rem;
+            border-radius: 10px;
+            border-right: 4px solid #10b981;
+        }
+
+        .note {
+            font-size: 0.92rem;
+            color: #fbbf24;
+            margin-top: 1rem;
+            padding: 0.6rem 1.1rem;
+            background: rgba(251, 191, 36, 0.07);
+            border-radius: 8px;
+            border-right: 3px solid #fbbf24;
+            line-height: 1.8;
+        }
+
+        .note::before {
+            content: "📌 ملاحظة: ";
+            font-weight: bold;
+        }
+
+        .law-box {
+            font-size: 0.95rem;
+            color: #e0f2fe;
+            margin-top: 1rem;
+            padding: 0.8rem 1.2rem;
+            background: rgba(59, 130, 246, 0.08);
+            border-radius: 8px;
+            border-right: 3px solid #3b82f6;
+            line-height: 1.9;
+        }
+
+        .law-box::before {
+            content: "📖 القانون: ";
+            font-weight: bold;
+            color: #60a5fa;
+        }
+
+        .formula-note {
+            font-size: 0.95rem;
+            color: #d1fae5;
+            margin-top: 1rem;
+            padding: 0.8rem 1.2rem;
+            background: rgba(16, 185, 129, 0.07);
+            border-radius: 8px;
+            border-right: 3px solid #10b981;
+            line-height: 1.9;
+        }
+
+        .formula-note::before {
+            content: "🔢 المعادلة: ";
+            font-weight: bold;
+            color: #34d399;
+        }
+
+        .example-box {
+            font-size: 0.95rem;
+            color: #fde68a;
+            margin-top: 1rem;
+            padding: 0.8rem 1.2rem;
+            background: rgba(245, 158, 11, 0.07);
+            border-radius: 8px;
+            border-right: 3px solid #f59e0b;
+            line-height: 1.9;
+        }
+
+        .example-box::before {
+            content: "💡 مثال من الحياة: ";
+            font-weight: bold;
+        }
+
+        .highlight {
+            color: #34d399;
+            font-weight: 700;
+        }
+
+        .hl-blue {
+            color: #60a5fa;
+            font-weight: 700;
+        }
+
+        .hl-amber {
+            color: #fbbf24;
+            font-weight: 700;
+        }
+
+        .hl-red {
+            color: #f87171;
+            font-weight: 700;
+        }
+
+        .hl-purple {
+            color: #a78bfa;
+            font-weight: 700;
+        }
+
+        .english {
+            direction: ltr;
+            display: inline-block;
+            font-family: 'Segoe UI', sans-serif;
+            color: #93c5fd;
+            font-style: italic;
+        }
+
+        .pause {
+            color: #fb923c;
+            font-size: 0.82rem;
+            display: block;
+            margin: 0.5rem 0;
+            font-style: italic;
+        }
+
+        .symbol-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0.8rem;
+            font-size: 0.9rem;
+        }
+
+        .symbol-table th {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            padding: 0.6rem 1rem;
+            text-align: right;
+            border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .symbol-table td {
+            padding: 0.55rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            line-height: 1.6;
+        }
+
+        .symbol-table tr:nth-child(even) td {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        a.back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            padding: 0.7rem 1.4rem;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 8px;
+            color: #34d399;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        a.back-btn:hover {
+            background: rgba(16, 185, 129, 0.25);
+            color: #fff;
+        }
+
+        .section-divider {
+            text-align: center;
+            color: #475569;
+            font-size: 0.8rem;
+            margin: 1rem 0 1.5rem;
+            letter-spacing: 0.1em;
+        }
+
+        .section-divider::before,
+        .section-divider::after {
+            content: " ── ";
+        }
+
+        .step-list {
+            padding-right: 1.2rem;
+            margin: 0.5rem 0;
+        }
+
+        .step-list li {
+            margin-bottom: 0.5rem;
+            line-height: 1.9;
+        }
+
+        .toc {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 12px;
+            padding: 1.2rem 1.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .toc h3 {
+            color: #34d399;
+            font-size: 1rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .toc a {
+            display: block;
+            color: #94a3b8;
+            text-decoration: none;
+            padding: 0.25rem 0;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .toc a:hover {
+            color: #34d399;
+        }
+
+        .toc a::before {
+            content: "• ";
+            color: #10b981;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <a href="lect01.html" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع للدرس</a>
+        <a href="index.html" class="back-btn" style="margin-right:0.75rem"><i class="fas fa-home"></i> الصفحة الرئيسية</a>
+
+        <h1>📜 سكريبت الشرح — الدرس الأول</h1>
+        <p class="subtitle">قوانين نيوتن للحركة · الوحدة الثالثة: الحركة والقوة · بشمهندس أسامة زينهم</p>
+
+        <!-- Table of Contents -->
+        <div class="toc">
+            <h3>📋 محتويات الدرس</h3>
+            <a href="#intro">المقدمة والترحيب</a>
+            <a href="#force">مفهوم القوة (F)</a>
+            <a href="#first-law">قانون نيوتن الأول — قانون القصور الذاتي</a>
+            <a href="#inertia">القصور الذاتي (Inertia)</a>
+            <a href="#momentum">كمية الحركة الخطية (P)</a>
+            <a href="#mass-weight">الكتلة والوزن</a>
+            <a href="#third-law">قانون نيوتن الثالث — الفعل ورد الفعل</a>
+            <a href="#summary">ملخص الدرس والخاتمة</a>
+        </div>
+
+        <!-- ───────── OPENING ───────── -->
+        <div class="section" id="intro">
+            <div class="section-title" onclick="toggleSection(this)">
+                المقدمة والترحيب
+                <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
+            </div>
+            <div class="script-body">
+                <div class="script-text">
+                    السلام عليكم ورحمة الله وبركاته 🌟
+                    <span class="pause">[وقفة — ابتسامة وترحيب]</span>
+                    أهلاً وسهلاً بيكم في الدرس الأول من وحدة الحركة والقوة.
+                    <br><br>
+                    النهارداه هنتكلم عن موضوع مهم جداً: <span class="highlight">قوانين نيوتن للحركة</span>.
+                    <br>
+                    اللي هيجاوبنا على سؤال مهم جداً: <span class="hl-amber">ليه الأجسام بتتحرك أصلاً؟ ومين اللي بيخليها تتحرك أو وقف؟</span>
+                    <span class="pause">[وقفة]</span>
+                    في الفصل اللي فات، اتكلمنا عن الحركة في خط مستقيم — إزاحة، سرعة، وعجلة. بس كنا بنوصف الحركة بس من غير ما نسأل <span class="hl-red">ليه</span>.
+                    <br><br>
+                    دلوقتي إحنا هنعرف السبب — وهو اللي اسمه <span class="highlight">القوة (Force)</span>!
+                </div>
+            </div>
+        </div>
+
+        <!-- ───────── FORCE ───────── -->
+        <div class="section-divider" id="force">القوة</div>
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">
+                مفهوم القوة (F) — Force
+                <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
+            </div>
+            <div class="script-body">
+                <div class="script-text">
+                    طيب، إيه هي <span class="highlight">القوة</span>؟
+                    <span class="pause">[وقفة]</span>
+                    القوة — <span class="english">Force</span> — هي <span class="hl-amber">تأثير خارجي</span> بيأثر على الجسم ويغيّر حالته.
+                    <br>
+                    يعني ممكن تخلّيه يتحرك، أو تغيّر سرعته، أو تغيّر اتجاهه.
+                    <span class="pause">[وقفة]</span>
+                    ببساطة كده: أي حاجة بتزقّها أو بتشدّها — <span class="hl-red">دي قوة!</span> 💪
+                </div>
+
+                <div class="law-box">
+                    تعريف القوة: هي <strong>تأثير خارجي يؤثر على الجسم فيغير أو يحاول أن يغير حالته أو اتجاهه.</strong>
+                    <br>أو: هي فعل ينتج أو يحاول أن ينتج تغييراً في حالة سكون الجسم أو حركته.
+                </div>
+
+                <div class="script-text" style="margin-top:1rem">
+                    خلونا نفهم الكلمات الصعبة دي واحدة واحدة:
+                    <span class="pause">[وقفة]</span>
+                    <ul class="step-list">
+                        <li><span class="hl-amber">تأثير خارجي</span>: يعني القوة بتيجي من برّه الجسم — مش من جوّاه.</li>
+                        <li><span class="hl-amber">تغيير الحالة</span>: إما تخليه يتحرك لو كان واقف، أو تغيّر سرعته لو كان متحرك، أو تغيّر اتجاهه.</li>
+                        <li><span class="hl-amber">يحاول</span>: حتى لو الجسم ما اتحركش (زي حيطة ما بتتحركش لما تدفعها)، القوة لسه موجودة!</li>
+                    </ul>
+                </div>
+
+                <div class="formula-note">
+                    رمز القوة: <strong>F</strong> (من كلمة Force)
+                    <br>وحدة قياسها: <strong>نيوتن (N)</strong>
+                    <br>نوعها: <strong>كمية متجهة مشتقة</strong> — يعني ليها مقدار (رقم) واتجاه (يمين، شمال، فوق، تحت...)
+                    <br>بتتقاس بـ: <strong>الميزان الزنبركي (Spring Balance)</strong>
+                </div>
+
+                <div class="script-text" style="margin-top:1rem">
+                    كده بقى عارفين إيه القوة. خلونا نتكلم عن أول قانون اكتشفه نيوتن عشان يفسّر الحركة...
+                </div>
+            </div>
+        </div>
+
+        <!-- ───────── FIRST LAW ───────── -->
+        <div class="section-divider" id="first-law">قانون نيوتن الأول</div>
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">
+                قانون نيوتن الأول — قانون القصور الذاتي
+                <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
+            </div>
+            <div class="script-body">
+                <div class="script-text">
+                    تخيل معايا كده: دحرجت كورة على الأرض...
+                    <span class="pause">[وقفة]</span>
+                    الكورة بدأت تبطّئ ومشيت مسافة وبعدين وقفت.
+                    <br>
+                    ليه وقفت؟ ليه ما فضلتيش ماشية؟
+                    <span class="pause">[وقفة]</span>
+                    السبب هو <span class="hl-amber">قوة الاحتكاك</span> — الأرض بتكبّح الكورة وتوقفها.
+                    <br><br>
+                    طيب لو مفيش احتكاك خالص؟ الكورة هتفضل ماشية <span class="highlight">للأبد!</span> 🎱
+                    <span class="pause">[وقفة — اسمح للفكرة تاخد وقتها]</span>
+                    ده بالظبط اللي قاله <span class="hl-amber">إسحاق نيوتن</span> في قانونه الأول!
+                </div>
+
+                <div class="law-box">
+                    <strong>نص القانون الأول لنيوتن:</strong>
+                    <br>«الجسم الساكن يفضل ساكن، والجسم المتحرك يفضل متحرك بسرعة ثابتة في خط مستقيم — إلا إذا أثرت عليه قوة محصلة خارجية.»
+                </div>
+
+                <div class="script-text" style="margin-top:1rem">
+                    خلينا نفهم الكلمات الصعبة دي:
+                    <span class="pause">[وقفة]</span>
+                    <ul class="step-list">
+                        <li><span class="hl-amber">ساكن</span> = واقف في مكانه مش بيتحرك.</li>
+                        <li><span class="hl-amber">سرعة ثابتة</span> = سرعته مش بتزيد ولا بتنقص — ماشي بنفس السرعة دايماً.</li>
+                        <li><span class="hl-amber">خط مستقيم</span> = مش بيلف ومش بيلوي — اتجاهه مستقيم.</li>
+                        <li><span class="hl-amber">قوة محصلة</span> = جمع كل القوى اللي بتأثر على الجسم. لو كانوا بيلغوا بعض يبقى المحصلة صفر.</li>
+                    </ul>
+                </div>
+
+                <div class="formula-note">
+                    الشرط: لو <strong>ΣF = صفر</strong> (مجموع القوى = صفر)
+                    <br>النتيجة: السرعة مبتتغيرش ← العجلة = صفر
+                    <br>
+                    <br>الرمز <strong>Σ</strong> (سيجما) معناه «مجموع كل».
+                    <br>يعني ΣF = مجموع كل القوى المؤثرة على الجسم.
+                </div>
+
+                <div class="example-box">
+                    كتاب على الترابيزة مش بيتحرك — وزنه نازل لتحت وقوة الترابيزة دافعاه لفوق. المحصلة = صفر. فهو ساكن!
+                    <br><br>
+                    السيارة ماشية بسرعة ثابتة — قوة المحرك لقدام بتتساوى مع قوة الاحتكاك للورا. المحصلة = صفر. ماشية بدون عجلة!
+                </div>
+
+                <div class="note">
+                    القانون ده اسمه كمان <strong>قانون القصور الذاتي (Law of Inertia)</strong> — وهنفهم إيه يعني قصور ذاتي دلوقتي.
+                </div>
+            </div>
+        </div>
+
+        <!-- ───────── INERTIA ───────── -->
+        <div class="section-divider" id="inertia">القصور الذاتي</div>
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">
+                القصور الذاتي (Inertia) — مقاومة التغيير
+                <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
+            </div>
+            <div class="script-body">
+                <div class="script-text">
+                    عارفين الناس اللي صعب تغيّر رأيهم أو عاداتهم؟
+                    <span class="pause">[وقفة — ربط بالحياة]</span>
+                    الأجسام زيّهم بالظبط! — قاوم أي تغيير في حالتها.
+                    <br>
+                    ده اللي بنسميه <span class="highlight">القصور الذاتي (Inertia)</span>.
+                </div>
+
+                <div class="law-box">
+                    <strong>تعريف القصور الذاتي:</strong>
+                    <br>هو ميل الجسم للاحتفاظ بحالته — إما السكون أو الحركة بسرعة ثابتة في خط مستقيم.
+                </div>
+
+                <div class="script-text" style="margin-top:1rem">
+                    يعني إيه بالتفصيل؟
+                    <span class="pause">[وقفة]</span>
+                    <ul class="step-list">
+                        <li><span class="hl-amber">لو الجسم ساكن</span> → بيحب يفضل ساكن ومبيتحركش إلا لو حاجة تحركه.</li>
+                        <li><span class="hl-amber">لو الجسم متحرك</span> → بيحب يفضل ماشي بنفس السرعة في نفس الاتجاه إلا لو حاجة تغيّره.</li>
+                    </ul>
+                    <span class="pause">[وقفة]</span>
+                    ودي ظاهرة بنشوفها في حياتنا كل يوم...
+                </div>
+
+                <div class="example-box">
+                    🚌 <strong>مثال 1 — الفرملة المفاجئة:</strong>
+                    <br>لو ركبت أوتوبيس وفجأة فرمل — جسمك بيندفع للأمام. ليه؟
+                    <br>لأن جسمك كان ماشي والقصور الذاتي خلّاه عايز يفضل ماشي حتى لو الأوتوبيس وقف!
+                    <br>عشان كده لازم تربط حزام الأمان 🟠
+                    <br><br>
+                    🚌 <strong>مثال 2 — الانطلاق المفاجئ:</strong>
+                    <br>الأوتوبيس بيتحرك فجأة — جسمك بينكفئ للورا. ليه؟
+                    <br>لأن جسمك كان واقف والقصور الذاتي خلّاه عايز يفضل واقف!
+                    <br><br>
+                    🔄 <strong>مثال 3 — المنحنى:</strong>
+                    <br>السيارة بتلف في منحنى — جسمك بيتحرك ناحية الباب. ليه؟
+                    <br>لأن جسمك بيحاول يفضل ماشي في خط مستقيم بدل ما يلف مع السيارة!
+                </div>
+
+                <div class="note">
+                    القصور الذاتي بيكبر مع <strong>الكتلة والسرعة:</strong>
+                    <br>• الشاحنة الكبيرة أصعب في الإيقاف من العجلة الصغيرة عند نفس السرعة.
+                    <br>• السيارة بسرعة 120 كم/ساعة أصعب في الإيقاف من سيارة بسرعة 30 كم/ساعة.
+                </div>
+            </div>
+        </div>
+
+        <!-- ───────── MOMENTUM ───────── -->
+        <div class="section-divider" id="momentum">كمية الحركة الخطية</div>
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">
+                كمية الحركة الخطية (Linear Momentum — P)
+                <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
+            </div>
+            <div class="script-body">
+                <div class="script-text">
+                    سؤال سريع: إيه أخطر على نفسك — كرة صغيرة بتجري بسرعة، ولا طوبة كبيرة بتمشي ببطء؟
+                    <span class="pause">[وقفة — خلّي الطلاب يفكروا]</span>
+                    ممكن يكون الجوابين متساويين في الخطر! وده لأن الاتنين ممكن يكون ليهم نفس <span class="highlight">كمية الحركة</span>.
+                    <span class="pause">[وقفة]</span>
+                    <span class="highlight">كمية الحركة الخطية (P)</span> هي الكمية اللي بتجمع بين الكتلة والسرعة في كمية واحدة.
+                </div>
+
+                <div class="formula-note">
+                    <strong>المعادلة:</strong>
+                    <br><strong style="font-size:1.2rem">P = m × v</strong>
+                    <br><br>
+                    <table class="symbol-table">
+                        <tr>
+                            <th>الرمز</th>
+                            <th>الاسم</th>
+                            <th>الوحدة</th>
+                            <th>المعنى</th>
+                        </tr>
+                        <tr>
+                            <td><strong style="color:#34d399">P</strong></td>
+                            <td>كمية الحركة الخطية</td>
+                            <td>kg·m/s</td>
+                            <td>كمية الحركة الكلية للجسم</td>
+                        </tr>
+                        <tr>
+                            <td><strong style="color:#60a5fa">m</strong></td>
+                            <td>الكتلة</td>
+                            <td>kg (كيلوجرام)</td>
+                            <td>كمية المادة في الجسم</td>
+                        </tr>
+                        <tr>
+                            <td><strong style="color:#f87171">v</strong></td>
+                            <td>السرعة</td>
+                            <td>m/s (متر/ثانية)</td>
+                            <td>مقدار التغيير في المكان مع الزمن</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="script-text" style="margin-top:1rem">
+                    كمية الحركة كمية متجهة — يعني ليها مقدار واتجاه زي السرعة تماماً.
+                    <span class="pause">[وقفة]</span>
+                    ودي فكرة مهمة جداً: لو الجسم بيتحرك في اتجاهين مختلفين، كميات الحركة بتتقابل ببعض!
+                </div>
+
+                <div class="example-box">
+                    عربية كتلتها 1000 kg ماشية بسرعة 20 m/s:
+                    <br>P = 1000 × 20 = <strong>20,000 kg·m/s</strong>
+                    <br><br>
+                    كورة كتلتها 0.5 kg لو بتجري بسرعة 40,000 m/s (مش مستحيل في الفيزياء!) هيكون ليها:
+                    <br>P = 0.5 × 40,000 = <strong>20,000 kg·m/s</strong> — نفس كمية الحركة!
+                </div>
+            </div>
+        </div>
+
+        <!-- ───────── MASS VS WEIGHT ───────── -->
+        <div class="section-divider" id="mass-weight">الكتلة والوزن</div>
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">
+                الكتلة والوزن — الفرق المهم!
+                <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
+            </div>
+            <div class="script-body">
+                <div class="script-text">
+                    سؤال: هل وزنك على القمر هيكون نفس وزنك على الأرض؟
+                    <span class="pause">[وقفة — اسمح للطلاب يجاوبوا]</span>
+                    لأه! وزنك هيبقى أقل بكتير على القمر. بس كتلتك هتفضل نفسها!
+                    <br>
+                    ليه؟ لأن الكتلة والوزن حاجتين مختلفتين تماماً.
+                    <span class="pause">[وقفة]</span>
+                    خلينا نفهمهم كويس...
+                </div>
+
+                <div class="law-box">
+                    <strong>الكتلة (m — Mass):</strong>
+                    <br>هي مقاومة الجسم لتغيير حالته الحركية. بنقيسها بالكيلوجرام (kg) بالميزان ذو الكفتين أو الميزان الرقمي.
+                    <br>🔑 الكتلة <strong>لا تتغير</strong> من مكان لآخر — نفسها على الأرض وعلى القمر وفي الفضاء!
+                </div>
+
+                <div class="law-box" style="border-right-color:#ef4444; background:rgba(239,68,68,0.07);">
+                    <strong style="color:#f87171">الوزن (Fg — Weight):</strong>
+                    <br>هو قوة جذب الأرض (أو أي كوكب) للجسم، واتجاهها دايماً نازل لأسفل نحو مركز الأرض. بنقيسه بالنيوتن (N) بالميزان الزنبركي.
+                    <br>🔑 الوزن <strong>يتغير</strong> من مكان لآخر حسب عجلة الجاذبية (g).
+                </div>
+
+                <div class="formula-note">
+                    <strong>معادلة الوزن:</strong>
+                    <br><strong style="font-size:1.15rem">Fg = m × g</strong>
+                    <br><br>
+                    <table class="symbol-table">
+                        <tr>
+                            <th>الرمز</th>
+                            <th>الاسم</th>
+                            <th>القيمة / الوحدة</th>
+                        </tr>
+                        <tr>
+                            <td><strong style="color:#f87171">Fg</strong></td>
+                            <td>الوزن (Weight)</td>
+                            <td>نيوتن (N)</td>
+                        </tr>
+                        <tr>
+                            <td><strong style="color:#60a5fa">m</strong></td>
+                            <td>الكتلة (Mass)</td>
+                            <td>كيلوجرام (kg)</td>
+                        </tr>
+                        <tr>
+                            <td><strong style="color:#34d399">g</strong></td>
+                            <td>عجلة الجاذبية الأرضية</td>
+                            <td>على الأرض = 9.8 m/s² ≈ 10 m/s²</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="script-text" style="margin-top:1rem">
+                    طيب على القمر، عجلة الجاذبية g = 1.6 m/s² بس. لذلك...
+                    <span class="pause">[وقفة]</span>
+                    شخص كتلته 70 kg على الأرض: Fg = 70 × 9.8 = <span class="hl-red">686 نيوتن</span>
+                    <br>
+                    نفس الشخص على القمر: Fg = 70 × 1.6 = <span class="hl-amber">112 نيوتن</span> بس!
+                    <br>
+                    الكتلة <span class="highlight">فاضلت 70 kg</span> في الحالتين.
+                </div>
+
+                <div class="note">
+                    الفرق بين الكتلة والوزن: <br>
+                    • الكتلة بتتقاس بالميزان ذو الكفتين (Balance) — وحدتها kg <br>
+                    • الوزن بيتقاس بالميزان الزنبركي (Spring Balance) — وحدته Newton (N)
+                </div>
+            </div>
+        </div>
+
+        <!-- ───────── THIRD LAW ───────── -->
+        <div class="section-divider" id="third-law">قانون نيوتن الثالث</div>
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">
+                قانون نيوتن الثالث — الفعل ورد الفعل
+                <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
+            </div>
+            <div class="script-body">
+                <div class="script-text">
+                    آخر قانون في درسنا النهارده هو الأكتر إثارة!
+                    <span class="pause">[وقفة]</span>
+                    لما بتشوط كورة بقدمك — بتحس إن قدمك بتأثر عليها. ولكن هل الكورة بتأثر على قدمك؟
+                    <span class="pause">[وقفة — اسمح للطلاب يفكروا]</span>
+                    أيوه! ده بالظبط قانون نيوتن الثالث. الكورة بتأثر على قدمك بنفس القوة!
+                </div>
+
+                <div class="law-box">
+                    <strong>نص قانون نيوتن الثالث:</strong>
+                    <br>«عندما يؤثر جسم (A) على جسم (B) بقوة، فإن الجسم (B) يؤثر على جسم (A) بقوة مساوية في المقدار ومضادة في الاتجاه.»
+                    <br><br>
+                    أو ببساطة: <strong>لكل فعل رد فعل مساوٍ له في المقدار ومضاد له في الاتجاه.</strong>
+                </div>
+
+                <div class="formula-note">
+                    <strong>المعادلة:</strong>
+                    <br><strong style="font-size:1.15rem">F(A على B) = ‒ F(B على A)</strong>
+                    <br><br>
+                    العلامة (‒) تعني عكس الاتجاه. المقدار واحد بس الاتجاه معاكس.
+                </div>
+
+                <div class="script-text" style="margin-top:1rem">
+                    خلينا نشوف أمثلة من حياتنا:
+                    <span class="pause">[وقفة]</span>
+                    ⚽ <strong>تشوت الكورة:</strong> قدمك بتأثر على الكورة للأمام (الفعل)، والكورة بتأثر على قدمك للورا (رد الفعل) — عشان كده بتحس بالضربة في رجلك!
+                    <span class="pause">[وقفة]</span>
+                    🔫 <strong>البندقية:</strong> لما تنطلق الرصاصة للأمام (الفعل)، البندقية بترجع للورا (رد الفعل) — واللي بنسميه الارتداد.
+                    <span class="pause">[وقفة]</span>
+                    🚀 <strong>الصاروخ:</strong> الغازات بتندفع من تحت للأسفل (الفعل)، والصاروخ بيتحرك لفوق (رد الفعل)!
+                    <span class="pause">[وقفة]</span>
+                    🚗 <strong>العجلات على الطريق:</strong> عجلة السيارة بتدفع الأرض للورا (الفعل)، والأرض بتدفع السيارة للأمام (رد الفعل) — ده اللي بيخلي السيارة تتحرك!
+                </div>
+
+                <div class="note">
+                    <strong>سؤال مهم جداً في الامتحانات:</strong>
+                    <br>ليه الفعل ورد الفعل مش بيلغوا بعض؟
+                    <br><br>
+                    الجواب: لأن الاتزان محتاج القوتين يأثروا على <strong>نفس الجسم</strong>. أما الفعل ورد الفعل فبيأثروا على <strong>جسمين مختلفين</strong>!
+                    <br>• الفعل على الجسم B
+                    <br>• رد الفعل على الجسم A
+                    <br>إذن مستحيل يلغوا بعض!
+                </div>
+
+                <div class="note" style="border-right-color:#a78bfa; background:rgba(139,92,246,0.07); color:#c4b5fd;">
+                    <strong style="color:#a78bfa">💜 ملاحظات الامتحان:</strong>
+                    <br>• الفعل ورد الفعل دايماً في نفس اللحظة — بيظهروا مع بعض ويختفوا مع بعض.
+                    <br>• الفعل ورد الفعل من نفس النوع — لو الفعل قوة جاذبية، رد الفعل قوة جاذبية.
+                    <br>• في الكون مفيش قوة واحدة منفردة — القوى دايماً بتيجي في أزواج!
+                </div>
+            </div>
+        </div>
+
+        <!-- ───────── WORKED EXAMPLE ───────── -->
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">
+                🖊️ مثال محلول — تمرين الفيلة والبنت
+                <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
+            </div>
+            <div class="script-body">
+                <div class="script-text">
+                    خلينا نحل التمرين اللي في الدرس خطوة بخطوة:
+                    <span class="pause">[وقفة]</span>
+                    <strong>السيناريو:</strong> بنت على عربية سكيت ربطت حبل بفيل على سكيت تاني — كل منهم بيشد التاني.
+                </div>
+
+                <div class="script-text" style="margin-top:1rem; background: rgba(16,185,129,0.06); border-right-color:#34d399;">
+                    <strong style="color:#34d399;">السؤال الأول: ما العلاقة بين القوة المؤثرة على الفيل وتلك المؤثرة على البنت؟</strong>
+                    <span class="pause">[وقفة]</span>
+                    بتطبيق <span class="hl-amber">قانون نيوتن الثالث</span>:
+                    <br>القوة اللي البنت بتمارسها على الفيل (الفعل) = بالظبط نفس القوة اللي الفيل بيمارسها على البنت (رد الفعل)، بس في اتجاه عكسي.
+                    <br><br>
+                    <span class="hl-red">F البنت على الفيل = ‒ F الفيل على البنت</span>
+                </div>
+
+                <div class="script-text" style="margin-top:1rem; background: rgba(59,130,246,0.06); border-right-color:#3b82f6;">
+                    <strong style="color:#60a5fa;">السؤال الثاني: ليه الفعل ورد الفعل مش في حالة اتزان؟</strong>
+                    <span class="pause">[وقفة]</span>
+                    الإجابة: لأن شرط الاتزان يقول إن القوتين لازم يأثروا على <span class="hl-amber">نفس الجسم</span>.
+                    <br>بس هنا:
+                    <br>• قوة البنت على الفيل بتأثر على <span class="hl-red">الفيل</span>
+                    <br>• قوة الفيل على البنت بتأثر على <span class="hl-purple">البنت</span>
+                    <br>إذن هما على <strong>جسمين مختلفين</strong> ← مش اتزان!
+                </div>
+
+                <div class="script-text" style="margin-top:1rem; background: rgba(251,191,36,0.06); border-right-color:#f59e0b;">
+                    <strong style="color:#fbbf24;">السؤال الثالث: كتلة الفيل 6 أمثال كتلة البنت. البنت بتتحرك بعجلة 2 m/s². إيه عجلة الفيل؟</strong>
+                    <span class="pause">[وقفة]</span>
+                    <strong>الحل خطوة بخطوة:</strong>
+                    <br>
+                    1. القوتان متساويتان (قانون 3): F = F
+                    <br>
+                    2. F = m × a
+                    <br>
+                    3. إذن: m_بنت × a_بنت = M_فيل × a_فيل
+                    <br>
+                    4. نسمي كتلة البنت m → كتلة الفيل M = 6m
+                    <br>
+                    5. m × 2 = 6m × a_فيل
+                    <br>
+                    6. a_فيل = (m × 2) ÷ (6m) = 2 ÷ 6 = <span class="hl-red">1/3 m/s² ≈ 0.33 m/s²</span>
+                    <br><br>
+                    <strong>ليه العجلة سالبة؟</strong>
+                    <br>لأن الفيل بيتحرك في الاتجاه المعاكس للبنت — لو البنت ماشية لليمين، الفيل ماشي لليسار.
+                    <br>وفي الفيزياء، الاتجاه المعاكس بيبقى سالب!
+                </div>
+            </div>
+        </div>
+
+        <!-- ───────── SUMMARY ───────── -->
+        <div class="section-divider" id="summary">الملخص</div>
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">
+                ملخص الدرس والخاتمة
+                <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
+            </div>
+            <div class="script-body">
+                <div class="script-text">
+                    تمام يا جماعة، خلصنا الدرس الأول!
+                    <span class="pause">[وقفة — ابتسامة]</span>
+                    خلونا نلخص أهم نقط الدرس:
+                </div>
+
+                <div class="formula-note">
+                    <strong>ملخص المفاهيم والرموز:</strong>
+                    <br><br>
+                    <table class="symbol-table">
+                        <tr>
+                            <th>المفهوم</th>
+                            <th>الرمز</th>
+                            <th>المعادلة</th>
+                            <th>الوحدة</th>
+                        </tr>
+                        <tr>
+                            <td>القوة</td>
+                            <td>F</td>
+                            <td>—</td>
+                            <td>نيوتن (N)</td>
+                        </tr>
+                        <tr>
+                            <td>القانون الأول (ΣF=0)</td>
+                            <td>ΣF</td>
+                            <td>ΣF = 0 → a = 0</td>
+                            <td>—</td>
+                        </tr>
+                        <tr>
+                            <td>كمية الحركة</td>
+                            <td>P</td>
+                            <td>P = m × v</td>
+                            <td>kg·m/s</td>
+                        </tr>
+                        <tr>
+                            <td>الوزن</td>
+                            <td>Fg</td>
+                            <td>Fg = m × g</td>
+                            <td>نيوتن (N)</td>
+                        </tr>
+                        <tr>
+                            <td>القانون الثالث</td>
+                            <td>F_A,B</td>
+                            <td>F(A→B) = −F(B→A)</td>
+                            <td>—</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="script-text" style="margin-top:1rem">
+                    الدرس ده كله بيقولنا حاجة واحدة مهمة:
+                    <span class="pause">[وقفة]</span>
+                    <span class="highlight">القوة هي السبب وراء كل تغيير في الحركة!</span>
+                    <br>من قانون نيوتن الأول عرفنا إن الجسم بيقاوم التغيير (القصور الذاتي).
+                    <br>ومن قانون نيوتن الثالث عرفنا إن القوى دايماً بتيجي في أزواج.
+                    <span class="pause">[وقفة]</span>
+                    المهم دلوقتي تراجع الأمثلة وتحل الكويز اللي في الدرس لحد ما كل حاجة تبقى زي الفل!
+                    <br><br>
+                    شكراً لمتابعتكم 🎓 وإلى اللقاء في الدرس الجاي إن شاء الله.
+                    <br>السلام عليكم ورحمة الله وبركاته.
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align:center; margin-top:2rem; color:#475569; font-size:0.85rem; padding-bottom:2rem;">
+            فيزياء — الصف الأول ثانوي (STEM) · الوحدة 3 · الدرس 1<br>
+            بشمهندس أسامة زينهم
+        </div>
+
+    </div>
+
+    <script>
+        function toggleSection(titleEl) {
+            const body = titleEl.nextElementSibling;
+            const icon = titleEl.querySelector('.toggle-icon i');
+            const isOpen = body.style.maxHeight && body.style.maxHeight !== '0px';
+
+            if (isOpen) {
+                body.style.maxHeight = '0px';
+                body.style.overflow = 'hidden';
+                icon.className = 'fas fa-chevron-left';
+            } else {
+                body.style.maxHeight = body.scrollHeight + 200 + 'px';
+                body.style.overflow = 'visible';
+                icon.className = 'fas fa-chevron-down';
+            }
+        }
+
+        // Open all sections by default
+        document.querySelectorAll('.script-body').forEach(body => {
+            body.style.maxHeight = 'none';
+            body.style.overflow = 'visible';
+        });
+
+        // Smooth scroll for TOC links
+        document.querySelectorAll('.toc a').forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+</body>
+
+</html>

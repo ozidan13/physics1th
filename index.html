@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics Year 1 (STEM) - Course Portal</title>
+    <meta name="description" content="Physics Year 1 STEM course portal covering Motion & Force and Waves.">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@300;400;600;800&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e1b4b 100%);
+            min-height: 100vh;
+            color: #e2e8f0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(16, 185, 129, 0.08) 0%, transparent 25%),
+                radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.08) 0%, transparent 25%),
+                radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.05) 0%, transparent 35%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Animated particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: rgba(59, 130, 246, 0.4);
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-10vh) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 4rem 0 3rem;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .logo-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #10b981, #3b82f6);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: white;
+            box-shadow: 0 10px 40px rgba(16, 185, 129, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-icon::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%) rotate(45deg);
+            }
+
+            100% {
+                transform: translateX(100%) rotate(45deg);
+            }
+        }
+
+        /* Hero SVG */
+        .hero-svg {
+            max-width: 500px;
+            margin: 1.5rem auto;
+            display: block;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #34d399, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #94a3b8;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Section Title */
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #f8fafc;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-title i {
+            color: #10b981;
+        }
+
+        .unit-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .unit-badge.green {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #34d399;
+        }
+
+        .unit-badge.blue {
+            background: rgba(59, 130, 246, 0.15);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #60a5fa;
+        }
+
+        /* Lecture Grid */
+        .lectures-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .lecture-card {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .lecture-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .lecture-card.green-accent::before {
+            background: linear-gradient(90deg, #10b981, #34d399);
+        }
+
+        .lecture-card.blue-accent::before {
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+        }
+
+        .lecture-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(16, 185, 129, 0.4);
+            box-shadow: 0 20px 60px rgba(16, 185, 129, 0.12);
+        }
+
+        .lecture-card:hover::before {
+            opacity: 1;
+        }
+
+        .lecture-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #10b981, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .lecture-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #f8fafc;
+            margin-bottom: 0.5rem;
+        }
+
+        .lecture-desc {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        .lecture-links {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .lecture-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1rem;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 10px;
+            color: #34d399;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .lecture-link:hover {
+            background: #10b981;
+            color: white;
+            border-color: #10b981;
+        }
+
+        /* Coming Soon Card */
+        .lecture-card.coming-soon {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .lecture-card.coming-soon:hover {
+            transform: none;
+            box-shadow: none;
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .coming-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: rgba(251, 191, 36, 0.15);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 20px;
+            color: #fbbf24;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        /* Competencies area */
+        .competencies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .comp-card {
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
+            padding: 1.25rem;
+            display: flex;
+            align-items: start;
+            gap: 0.75rem;
+            transition: all 0.3s;
+        }
+
+        .comp-card:hover {
+            border-color: rgba(16, 185, 129, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .comp-card i {
+            color: #10b981;
+            font-size: 1.2rem;
+            margin-top: 0.15rem;
+        }
+
+        .comp-card p {
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: auto;
+            text-align: center;
+            padding: 2rem;
+            color: #64748b;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        footer span {
+            color: #10b981;
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            header {
+                padding: 2rem 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                        <circle cx="18" cy="18" r="6" stroke="white" stroke-width="2" fill="none">
+                            <animateTransform attributeName="transform" type="rotate" from="0 18 18" to="360 18 18"
+                                dur="8s" repeatCount="indefinite" />
+                        </circle>
+                        <circle cx="18" cy="18" r="3" fill="white" />
+                        <ellipse cx="18" cy="18" rx="16" ry="6" stroke="white" stroke-width="1.5" fill="none"
+                            transform="rotate(-30 18 18)">
+                            <animateTransform attributeName="transform" type="rotate" from="-30 18 18" to="330 18 18"
+                                dur="12s" repeatCount="indefinite" />
+                        </ellipse>
+                        <ellipse cx="18" cy="18" rx="16" ry="6" stroke="white" stroke-width="1.5" fill="none"
+                            transform="rotate(30 18 18)">
+                            <animateTransform attributeName="transform" type="rotate" from="30 18 18" to="-330 18 18"
+                                dur="15s" repeatCount="indefinite" />
+                        </ellipse>
+                    </svg>
+                </div>
+            </div>
+            <h1>Physics — Year 1 (STEM)</h1>
+            <p class="subtitle">
+                A comprehensive student guide covering Motion & Force and Waves — Newton's Laws, Work, Energy, Power,
+                Wave Types, Sound, Light, and Optics.
+            </p>
+            <p> بشمهندس أسامة زينهم</p>
+            <p style="color: #10b981; font-size: 1.2rem; font-weight: bold; margin-top: 1rem; "><a
+                    href="https://chat.whatsapp.com/FWUBrybJ3RO4MfUyX9MoPD?mode=gi_t" target="_blank"
+                    style="color: #10b981; font-size: 1.2rem; font-weight: bold; margin-top: 1rem; ">انضم لجروب الشرح
+                    واتساب</a></p>
+
+            <!-- Hero SVG: Atom + wave animation -->
+            <svg class="hero-svg" viewBox="0 0 500 120">
+                <!-- Moving particle along a wave -->
+                <path d="M0,60 Q62.5,10 125,60 T250,60 T375,60 T500,60" fill="none" stroke="#1e293b" stroke-width="2" />
+                <path d="M0,60 Q62.5,10 125,60 T250,60 T375,60 T500,60" fill="none" stroke="url(#waveGrad)"
+                    stroke-width="2.5" stroke-dasharray="8,4">
+                    <animate attributeName="stroke-dashoffset" from="0" to="-48" dur="2s" repeatCount="indefinite" />
+                </path>
+                <circle r="6" fill="#34d399">
+                    <animateMotion dur="4s" repeatCount="indefinite"
+                        path="M0,60 Q62.5,10 125,60 T250,60 T375,60 T500,60" />
+                </circle>
+                <defs>
+                    <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#10b981" />
+                        <stop offset="50%" stop-color="#3b82f6" />
+                        <stop offset="100%" stop-color="#8b5cf6" />
+                    </linearGradient>
+                </defs>
+                <text x="250" y="110" text-anchor="middle" fill="#475569" font-size="12"
+                    font-family="Inter, sans-serif">Prepared by Osama Zinhom</text>
+            </svg>
+        </header>
+
+        <main>
+            <!-- UNIT 3 -->
+            <div style="margin-bottom: 1rem;">
+                <span class="unit-badge green">UNIT 3</span>
+            </div>
+            <h2 class="section-title"><i class="fas fa-rocket"></i> Motion and Force</h2>
+
+            <div class="lectures-grid">
+                <!-- Lesson 1 -->
+                <div class="lecture-card green-accent">
+                    <div class="lecture-number">01</div>
+                    <div class="lecture-title">Newton's Laws of Motion</div>
+                    <div class="lecture-desc">Introduction to forces, Newton's First Law (Law of Inertia), Momentum,
+                        Mass vs Weight, and Newton's Third Law (Action-Reaction).</div>
+                    <div class="lecture-links">
+                        <a href="lect01.html" class="lecture-link">
+                            <i class="fas fa-play-circle"></i> Start Lesson
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Lesson 2 -->
+                <div class="lecture-card green-accent coming-soon">
+                    <div class="lecture-number">02</div>
+                    <div class="lecture-title">Newton's Second Law</div>
+                    <div class="lecture-desc">The relationship between force, mass, and acceleration. F = ma, solved
+                        examples, and applications.</div>
+                    <span class="coming-badge">Coming Soon</span>
+                </div>
+
+                <!-- Lesson 3 -->
+                <div class="lecture-card green-accent coming-soon">
+                    <div class="lecture-number">03</div>
+                    <div class="lecture-title">Work</div>
+                    <div class="lecture-desc">The scientific meaning of work, W = Fd cos θ, measuring units (Joule),
+                        conditions for work, and solved examples.</div>
+                    <span class="coming-badge">Coming Soon</span>
+                </div>
+
+                <!-- Lesson 4 -->
+                <div class="lecture-card green-accent coming-soon">
+                    <div class="lecture-number">04</div>
+                    <div class="lecture-title">Energy & Energy Forms</div>
+                    <div class="lecture-desc">Kinetic energy (KE = ½mv²), Potential energy (PE = mgh), and various forms
+                        of energy including thermal, chemical, and nuclear.</div>
+                    <span class="coming-badge">Coming Soon</span>
+                </div>
+
+                <!-- Lesson 5 -->
+                <div class="lecture-card green-accent coming-soon">
+                    <div class="lecture-number">05</div>
+                    <div class="lecture-title">Power</div>
+                    <div class="lecture-desc">Rate of doing work, P = W/t, measuring units (Watt), average power, kWh,
+                        and horsepower.</div>
+                    <span class="coming-badge">Coming Soon</span>
+                </div>
+            </div>
+
+            <!-- UNIT 4 -->
+            <div style="margin-bottom: 1rem; margin-top: 2rem;">
+                <span class="unit-badge blue">UNIT 4</span>
+            </div>
+            <h2 class="section-title" style="color: #f8fafc;"><i class="fas fa-wave-square" style="color: #3b82f6;"></i>
+                Waves</h2>
+
+            <div class="lectures-grid">
+                <!-- Lesson 1 -->
+                <div class="lecture-card blue-accent coming-soon">
+                    <div class="lecture-number">06</div>
+                    <div class="lecture-title">Types of Waves</div>
+                    <div class="lecture-desc">Mechanical vs Electromagnetic waves, wave characteristics (displacement,
+                        amplitude, wavelength, period, frequency).</div>
+                    <span class="coming-badge">Coming Soon</span>
+                </div>
+
+                <!-- Lesson 2 -->
+                <div class="lecture-card blue-accent coming-soon">
+                    <div class="lecture-number">07</div>
+                    <div class="lecture-title">Types of Mechanical Waves</div>
+                    <div class="lecture-desc">Longitudinal and transverse waves, compressions & rarefactions, crests &
+                        troughs, wave energy transfer.</div>
+                    <span class="coming-badge">Coming Soon</span>
+                </div>
+
+                <!-- Lesson 3 -->
+                <div class="lecture-card blue-accent coming-soon">
+                    <div class="lecture-number">08</div>
+                    <div class="lecture-title">Sound Waves</div>
+                    <div class="lecture-desc">Sound as longitudinal mechanical wave, frequency ranges, intensity,
+                        standing waves, and harmonics.</div>
+                    <span class="coming-badge">Coming Soon</span>
+                </div>
+
+                <!-- Lesson 4 -->
+                <div class="lecture-card blue-accent coming-soon">
+                    <div class="lecture-number">09</div>
+                    <div class="lecture-title">Light</div>
+                    <div class="lecture-desc">Electromagnetic spectrum, properties of EM waves, radio waves, microwaves,
+                        infrared, visible light, UV, X-rays, gamma rays.</div>
+                    <span class="coming-badge">Coming Soon</span>
+                </div>
+
+                <!-- Lesson 5 -->
+                <div class="lecture-card blue-accent coming-soon">
+                    <div class="lecture-number">10</div>
+                    <div class="lecture-title">Reflection & Refraction</div>
+                    <div class="lecture-desc">Laws of reflection, Snell's law, refractive index, bending of light
+                        between media of different densities.</div>
+                    <span class="coming-badge">Coming Soon</span>
+                </div>
+
+                <!-- Lesson 6 -->
+                <div class="lecture-card blue-accent coming-soon">
+                    <div class="lecture-number">11</div>
+                    <div class="lecture-title">Total Internal Reflection</div>
+                    <div class="lecture-desc">Critical angle, total internal reflection, optical fibers — structure,
+                        functions, and applications.</div>
+                    <span class="coming-badge">Coming Soon</span>
+                </div>
+            </div>
+
+            <!-- Skills overview -->
+            <h2 class="section-title" style="margin-top: 2rem;"><i class="fas fa-bullseye"></i> Skills You Will Gain
+            </h2>
+
+            <div class="competencies-grid">
+                <div class="comp-card">
+                    <i class="fas fa-check-circle"></i>
+                    <p>Apply the relation between force, mass, and acceleration</p>
+                </div>
+                <div class="comp-card">
+                    <i class="fas fa-check-circle"></i>
+                    <p>Explain the action and reaction phenomenon</p>
+                </div>
+                <div class="comp-card">
+                    <i class="fas fa-check-circle"></i>
+                    <p>Explain the scientific meaning of Work and deduce that it is a scalar quantity</p>
+                </div>
+                <div class="comp-card">
+                    <i class="fas fa-check-circle"></i>
+                    <p>Apply the relation between work and force (W = Fd cos θ)</p>
+                </div>
+                <div class="comp-card">
+                    <i class="fas fa-check-circle"></i>
+                    <p>Compare between kinetic energy and potential energy</p>
+                </div>
+                <div class="comp-card">
+                    <i class="fas fa-check-circle"></i>
+                    <p>Differentiate between energy and power, and deduce units of power</p>
+                </div>
+                <div class="comp-card">
+                    <i class="fas fa-check-circle"></i>
+                    <p>Differentiate between mechanical and electromagnetic waves</p>
+                </div>
+                <div class="comp-card">
+                    <i class="fas fa-check-circle"></i>
+                    <p>Define wave parameters: frequency, period, wavelength</p>
+                </div>
+                <div class="comp-card">
+                    <i class="fas fa-check-circle"></i>
+                    <p>Identify Law of Reflection and index of refraction</p>
+                </div>
+                <div class="comp-card">
+                    <i class="fas fa-check-circle"></i>
+                    <p>Determine critical angle for total internal reflection</p>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Physics Year 1 (STEM) &copy; 2026 — Prepared by <span>Osama Zinhom</span></p>
+            <p style="margin-top: 0.5rem; font-size: 0.8rem;">Administration and Operation Unit of Applied Technology
+                Schools — Science Development Office</p>
+        </footer>
+    </div>
+
+    <script>
+        // Animated particles
+        const container = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.left = Math.random() * 100 + '%';
+            p.style.animationDuration = (8 + Math.random() * 12) + 's';
+            p.style.animationDelay = Math.random() * 10 + 's';
+            p.style.width = p.style.height = (2 + Math.random() * 4) + 'px';
+            const colors = ['rgba(16,185,129,0.4)', 'rgba(59,130,246,0.4)', 'rgba(139,92,246,0.3)'];
+            p.style.background = colors[Math.floor(Math.random() * colors.length)];
+            container.appendChild(p);
+        }
+    </script>
+</body>
+
+</html>
