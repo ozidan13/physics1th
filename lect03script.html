@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سكريبت الشرح - درس 3: الشغل</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <style>
+        *{box-sizing:border-box}
+        body{font-family:'Cairo',sans-serif;background:linear-gradient(135deg,#0a0a1a,#140e28,#0a1628);min-height:100vh;margin:0;padding:2rem 1rem;color:#e0e0e0;direction:rtl}
+        .container{max-width:920px;margin:0 auto}
+        h1{text-align:center;color:#fff;font-size:2rem;margin-bottom:0.5rem;text-shadow:0 0 30px rgba(139,92,246,0.4)}
+        .subtitle{text-align:center;color:#64748b;font-size:0.95rem;margin-bottom:2.5rem}
+        .section{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:1.5rem 2rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);transition:all 0.3s ease}
+        .section:hover{border-color:rgba(139,92,246,0.35);box-shadow:0 8px 32px rgba(139,92,246,0.10);transform:translateY(-2px)}
+        .section-title{font-size:1.2rem;font-weight:700;color:#a78bfa;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem;cursor:pointer;user-select:none}
+        .section-title::before{content:"🎬"}
+        .section-title .toggle-icon{margin-right:auto;margin-left:0;color:#64748b;font-size:0.85rem;transition:transform 0.3s}
+        .script-body{overflow:hidden;transition:max-height 0.4s ease}
+        .script-text{font-size:1.12rem;line-height:2.2;color:#f0f4f8;background:rgba(0,0,0,0.25);padding:1.2rem 1.5rem;border-radius:10px;border-right:4px solid #8b5cf6}
+        .note{font-size:0.92rem;color:#fbbf24;margin-top:1rem;padding:0.6rem 1.1rem;background:rgba(251,191,36,0.07);border-radius:8px;border-right:3px solid #fbbf24;line-height:1.8}
+        .note::before{content:"📌 ملاحظة: ";font-weight:bold}
+        .law-box{font-size:0.95rem;color:#ede9fe;margin-top:1rem;padding:0.8rem 1.2rem;background:rgba(139,92,246,0.08);border-radius:8px;border-right:3px solid #8b5cf6;line-height:1.9}
+        .law-box::before{content:"📖 التعريف: ";font-weight:bold;color:#a78bfa}
+        .formula-note{font-size:0.95rem;color:#d1fae5;margin-top:1rem;padding:0.8rem 1.2rem;background:rgba(16,185,129,0.07);border-radius:8px;border-right:3px solid #10b981;line-height:1.9}
+        .formula-note::before{content:"🔢 المعادلة: ";font-weight:bold;color:#34d399}
+        .example-box{font-size:0.95rem;color:#fde68a;margin-top:1rem;padding:0.8rem 1.2rem;background:rgba(245,158,11,0.07);border-radius:8px;border-right:3px solid #f59e0b;line-height:1.9}
+        .example-box::before{content:"💡 مثال: ";font-weight:bold}
+        .solved-box{font-size:0.95rem;color:#c4b5fd;margin-top:1rem;padding:0.8rem 1.2rem;background:rgba(139,92,246,0.07);border-radius:8px;border-right:3px solid #8b5cf6;line-height:1.9}
+        .solved-box::before{content:"🖊️ حل: ";font-weight:bold;color:#a78bfa}
+        .highlight{color:#a78bfa;font-weight:700}
+        .hl-green{color:#34d399;font-weight:700}
+        .hl-amber{color:#fbbf24;font-weight:700}
+        .hl-red{color:#f87171;font-weight:700}
+        .english{direction:ltr;display:inline-block;font-family:'Segoe UI',sans-serif;color:#c4b5fd;font-style:italic}
+        .pause{color:#fb923c;font-size:0.82rem;display:block;margin:0.5rem 0;font-style:italic}
+        .symbol-table{width:100%;border-collapse:collapse;margin-top:0.8rem;font-size:0.9rem}
+        .symbol-table th{background:rgba(139,92,246,0.15);color:#a78bfa;padding:0.6rem 1rem;text-align:right;border-bottom:1px solid rgba(139,92,246,0.2)}
+        .symbol-table td{padding:0.55rem 1rem;border-bottom:1px solid rgba(255,255,255,0.05);line-height:1.6}
+        .symbol-table tr:nth-child(even) td{background:rgba(255,255,255,0.03)}
+        a.back-btn{display:inline-flex;align-items:center;gap:0.5rem;margin-bottom:2rem;padding:0.7rem 1.4rem;background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.3);border-radius:8px;color:#a78bfa;text-decoration:none;font-size:0.9rem;transition:all 0.3s}
+        a.back-btn:hover{background:rgba(139,92,246,0.25);color:#fff}
+        .section-divider{text-align:center;color:#475569;font-size:0.8rem;margin:1rem 0 1.5rem;letter-spacing:0.1em}
+        .section-divider::before,.section-divider::after{content:" ── "}
+        .step-list{padding-right:1.2rem;margin:0.5rem 0}
+        .step-list li{margin-bottom:0.5rem;line-height:1.9}
+        .toc{background:rgba(15,23,42,0.6);border:1px solid rgba(139,92,246,0.2);border-radius:12px;padding:1.2rem 1.8rem;margin-bottom:2rem}
+        .toc h3{color:#a78bfa;font-size:1rem;margin-bottom:0.8rem}
+        .toc a{display:block;color:#94a3b8;text-decoration:none;padding:0.25rem 0;font-size:0.9rem;transition:color 0.2s}
+        .toc a:hover{color:#a78bfa}
+        .toc a::before{content:"• ";color:#8b5cf6}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="lect03.html" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع للدرس</a>
+        <a href="index.html" class="back-btn" style="margin-right:0.75rem"><i class="fas fa-home"></i> الصفحة الرئيسية</a>
+
+        <h1>📜 سكريبت الشرح — الدرس الثالث</h1>
+        <p class="subtitle">الشغل (Work) · الوحدة الثالثة: الحركة والقوة · بشمهندس أسامة زينهم</p>
+
+        <div class="toc">
+            <h3>📋 محتويات الدرس</h3>
+            <a href="#intro">المقدمة — الفرق بين الشغل في الحياة والفيزياء</a>
+            <a href="#definition">تعريف الشغل — شروطه</a>
+            <a href="#formula">المعادلة W = Fd cos θ — شرح كل رمز</a>
+            <a href="#cases">الحالات الثلاثة المهمة (0° و 90° و 180°)</a>
+            <a href="#unit">وحدة القياس — الجول</a>
+            <a href="#ex1">مثال 1 — سحب صندوق بزاوية</a>
+            <a href="#ex2">مثال 2 — الجاذبية: طالع ونازل</a>
+            <a href="#ex3">مثال 3 — البنت والولد: شيل أفقي ورفع رأسي</a>
+            <a href="#think">فكّر! — أسئلة ذكية</a>
+            <a href="#summary">الملخص والخاتمة</a>
+        </div>
+
+        <!-- INTRO -->
+        <div class="section" id="intro">
+            <div class="section-title" onclick="toggleSection(this)">المقدمة — الشغل في حياتنا والشغل في الفيزياء<span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+            <div class="script-body">
+                <div class="script-text">
+                    السلام عليكم ورحمة الله وبركاته 🌟
+                    <span class="pause">[وقفة — ابتسامة وترحيب]</span>
+                    أهلاً بيكم في الدرس الثالث — النهارده هنتكلم عن موضوع <span class="highlight">الشغل (Work)</span>.
+                    <br><br>
+                    كلمة "شغل" بنستخدمها كل يوم:
+                    <ul class="step-list">
+                        <li>"عندي شغل كتير" ← يعني مهام أو واجبات</li>
+                        <li>"بروح الشغل الصبح" ← يعني الوظيفة</li>
+                        <li>"اشتغلت جامد النهارده" ← يعني بذلت مجهود</li>
+                    </ul>
+                    <span class="pause">[وقفة]</span>
+                    بس في <span class="hl-red">الفيزياء</span>، كلمة "شغل" ليها معنى <strong>مختلف تماماً</strong> عن المعنى العادي!
+                    <br><br>
+                    في الفيزياء، ممكن تتعب جداً جداً بس الشغل الفيزيائي يطلع <span class="hl-amber">صفر!</span>
+                    <br>ازاي؟ هنعرف دلوقتي...
+                </div>
+            </div>
+        </div>
+
+        <!-- DEFINITION -->
+        <div class="section-divider" id="definition">تعريف الشغل</div>
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">تعريف الشغل — شروطه<span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+            <div class="script-body">
+                <div class="law-box">
+                    <strong>الشغل (Work):</strong> هو اللي بيحصل لما <strong style="color:#f87171">قوة (F)</strong> تأثر على جسم وتخليه <strong style="color:#34d399">يتحرك مسافة (d)</strong> في اتجاه القوة أو مركبتها.
+                    <br><br>
+                    بالإنجليزي: <span class="english">"When a force acts upon an object to cause a displacement, work is done."</span>
+                </div>
+
+                <div class="script-text" style="margin-top:1rem">
+                    يعني عشان نقول إن "فيه شغل اتعمل" لازم يتحقق <span class="hl-amber">شرطين مع بعض</span>:
+                    <span class="pause">[وقفة — أكّد على الكلام]</span>
+                    <ul class="step-list">
+                        <li><span class="hl-red">الشرط الأول:</span> لازم تكون فيه <strong>قوة (Force)</strong> مؤثرة على الجسم.</li>
+                        <li><span class="hl-green">الشرط الثاني:</span> لازم الجسم <strong>يتحرك (Displacement)</strong> في اتجاه القوة أو مركبة القوة.</li>
+                    </ul>
+                    <span class="pause">[وقفة]</span>
+                    لو الشرط الأول موجود بس التاني مش موجود → <span class="hl-amber">مفيش شغل!</span>
+                    <br>لو الشرط التاني موجود بس الأول مش موجود → برضو <span class="hl-amber">مفيش شغل!</span>
+                </div>
+
+                <div class="example-box">
+                    <strong>أمثلة على شغل فيزيائي ✅:</strong>
+                    <br>• بقرة بتسحب محراث في الأرض (قوة + حركة = شغل ✅)
+                    <br>• أب بيدفع عربية سوبر ماركت في الممر ✅
+                    <br>• طالب بيرفع حقيبته على كتفه ✅
+                    <br>• كتاب بيسقط من على الترابيزة (الجاذبية عملت شغل عليه) ✅
+                </div>
+
+                <div class="note">
+                    <strong>مش شغل في الفيزياء ❌:</strong>
+                    <br>• مدرس بيدفع حيطة بكل قوته — الحيطة ما اتحركتش → الشغل = صفر!
+                    <br>• بنت شايلة جردل ثقيل وماشية أفقي — القوة لفوق بس الحركة جنب (عمودية) → الشغل = صفر!
+                    <br><br>
+                    <strong style="color:#f87171">مهم جداً:</strong> التعب الجسماني مش معناه شغل فيزيائي! ممكن تتعب جداً والشغل يطلع صفر لو الجسم ما اتحركش في اتجاه القوة.
+                </div>
+            </div>
+        </div>
+
+        <!-- FORMULA -->
+        <div class="section-divider" id="formula">المعادلة</div>
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">المعادلة W = Fd cos θ — كل رمز ومعناه<span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+            <div class="script-body">
+                <div class="formula-note">
+                    <strong style="font-size:1.4rem;display:block;text-align:center;margin-bottom:0.5rem">W = F × d × cos θ</strong>
+                </div>
+
+                <div class="script-text" style="margin-top:1rem">
+                    خلينا نشرح كل رمز بالتفصيل:
+                    <span class="pause">[وقفة]</span>
+                    <table class="symbol-table">
+                        <tr><th>الرمز</th><th>الاسم</th><th>الوحدة</th><th>المعنى بالتفصيل</th></tr>
+                        <tr><td><strong style="color:#a78bfa">W</strong></td><td>الشغل (Work)</td><td>جول (J)</td><td>الطاقة اللي القوة نقلتها للجسم عن طريق تحريكه. كمية قياسية — يعني ليها مقدار بس (مالهاش اتجاه).</td></tr>
+                        <tr><td><strong style="color:#f87171">F</strong></td><td>القوة (Force)</td><td>نيوتن (N)</td><td>القوة المؤثرة على الجسم. لازم تكون موجودة عشان يبقى فيه شغل.</td></tr>
+                        <tr><td><strong style="color:#34d399">d</strong></td><td>الإزاحة (Displacement)</td><td>متر (m)</td><td>المسافة اللي الجسم اتحركها. لازم تكون أكبر من صفر.</td></tr>
+                        <tr><td><strong style="color:#fbbf24">θ</strong></td><td>الزاوية (Theta)</td><td>درجة (°)</td><td>الزاوية بين اتجاه القوة واتجاه الإزاحة. دي اللي بتحدد الشغل موجب ولا سالب ولا صفر!</td></tr>
+                        <tr><td><strong style="color:#60a5fa">cos θ</strong></td><td>جيب تمام الزاوية</td><td>—</td><td>دالة رياضية بتحول الزاوية لرقم بين −1 و +1. هي اللي بتحدد "قد إيه من القوة بيعمل شغل فعلاً".</td></tr>
+                    </table>
+                </div>
+
+                <div class="script-text" style="margin-top:1rem">
+                    <span class="highlight">ليه بنضرب في cos θ؟</span>
+                    <span class="pause">[وقفة — ده السؤال المهم]</span>
+                    <br><br>
+                    تخيل إنك بتسحب صندوق بحبل. لو الحبل مايل لفوق — مش كل القوة بتاعتك بتروح في تحريك الصندوق أفقياً!
+                    <br>جزء من القوة بيسحب الصندوق <span class="hl-green">جنب (أفقياً)</span> ← ده اللي بيعمل شغل.
+                    <br>وجزء تاني بيسحب الصندوق <span class="hl-amber">لفوق</span> ← ده مش بيعمل شغل في الاتجاه الأفقي.
+                    <br><br>
+                    المركبة الأفقية = <span class="english">F cos θ</span>
+                    <br>المركبة الرأسية = <span class="english">F sin θ</span>
+                    <br><br>
+                    الشغل بيعتمد بس على <span class="highlight">المركبة في اتجاه الحركة</span> = F cos θ
+                    <br>عشان كده: <span class="english">W = (F cos θ) × d = F × d × cos θ</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3 SPECIAL CASES -->
+        <div class="section-divider" id="cases">الحالات الثلاثة</div>
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">الحالات الثلاثة المهمة للزاوية θ<span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+            <div class="script-body">
+                <div class="script-text">
+                    فيه 3 حالات أساسية لازم تحفظوها:
+                    <span class="pause">[وقفة]</span>
+                </div>
+
+                <div class="formula-note">
+                    <strong style="color:#34d399">الحالة 1: θ = 0° (القوة في نفس اتجاه الحركة)</strong>
+                    <br>cos 0° = 1 → W = F × d × 1 = <strong>+Fd (شغل موجب ✅)</strong>
+                    <br>مثال: لما بتدفع صندوق قدامك — القوة والحركة في نفس الاتجاه.
+                </div>
+
+                <div class="formula-note" style="background:rgba(251,191,36,0.07);border-color:#fbbf24">
+                    <strong style="color:#fbbf24">الحالة 2: θ = 90° (القوة عمودية على الحركة)</strong>
+                    <br>cos 90° = 0 → W = F × d × 0 = <strong>صفر! ❌</strong>
+                    <br>مثال: لما تشيل حقيبة وتمشي أفقي — القوة لفوق بس الحركة جنب → مفيش شغل!
+                </div>
+
+                <div class="formula-note" style="background:rgba(239,68,68,0.07);border-color:#ef4444">
+                    <strong style="color:#f87171">الحالة 3: θ = 180° (القوة عكس اتجاه الحركة)</strong>
+                    <br>cos 180° = −1 → W = F × d × (−1) = <strong>−Fd (شغل سالب 🔻)</strong>
+                    <br>مثال: الاحتكاك — بيكون دايماً عكس اتجاه الحركة فالشغل بتاعه سالب.
+                </div>
+
+                <div class="script-text" style="margin-top:1rem">
+                    <span class="hl-red">إيه معنى شغل سالب؟</span>
+                    <span class="pause">[وقفة]</span>
+                    <br>الشغل <span class="hl-green">الموجب</span> = القوة بتدي الجسم طاقة (بتسرّعه).
+                    <br>الشغل <span class="hl-red">السالب</span> = القوة بتاخد طاقة من الجسم (بتبطّئه).
+                    <br>مثلاً: الاحتكاك بيحول طاقة الحركة لحرارة — فالجسم يبطّئ ← شغل سالب.
+                </div>
+            </div>
+        </div>
+
+        <!-- UNIT -->
+        <div class="section-divider" id="unit">وحدة القياس</div>
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">وحدة الشغل — الجول (Joule)<span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+            <div class="script-body">
+                <div class="script-text">
+                    الشغل كمية <span class="highlight">قياسية مشتقة (Derived Scalar)</span>.
+                    <span class="pause">[وقفة]</span>
+                    <br><strong>قياسية</strong> = ليها مقدار بس ومالهاش اتجاه (بس ممكن تكون + أو −).
+                    <br><strong>مشتقة</strong> = وحدتها مشتقة من وحدات تانية (نيوتن × متر).
+                </div>
+                <div class="law-box">
+                    <strong>الجول (Joule):</strong> هو الشغل المبذول بواسطة قوة مقدارها <strong style="color:#f87171">1 نيوتن</strong> لتحريك جسم مسافة <strong style="color:#34d399">1 متر</strong> في اتجاه القوة.
+                    <br><br>
+                    <span class="english">1 J = 1 N × 1 m = 1 kg·m²/s²</span>
+                </div>
+                <div class="note">
+                    الوحدة اتسمت كده تكريماً للعالم الإنجليزي <strong>جيمس بريسكوت جول (James Prescott Joule)</strong> اللي درس العلاقة بين الحرارة والشغل الميكانيكي.
+                </div>
+            </div>
+        </div>
+
+        <!-- EXAMPLE 1 -->
+        <div class="section-divider" id="ex1">مثال 1</div>
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">🖊️ مثال 1 — سحب صندوق بزاوية 30°<span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+            <div class="script-body">
+                <div class="script-text">
+                    <strong>السؤال:</strong> صندوق بيتسحب بقوة <span class="highlight">25 N</span> على مسافة <span class="highlight">15 m</span>. الزاوية بين القوة والإزاحة = <span class="highlight">30°</span>. أوجد الشغل.
+                </div>
+                <div class="solved-box">
+                    <strong>الخطوة 1:</strong> نكتب المعطيات:
+                    <br>F = 25 N, d = 15 m, θ = 30°
+                    <br><br>
+                    <strong>الخطوة 2:</strong> نطبق المعادلة:
+                    <br>W = F × d × cos θ
+                    <br>W = 25 × 15 × cos 30°
+                    <br>W = 25 × 15 × 0.866
+                    <br>W = <span class="highlight">324.76 J</span>
+                    <br><br>
+                    <strong style="color:#34d399">الملاحظة:</strong> مش كل الـ25 N عملوا شغل — بس المركبة الأفقية (25 × cos30° = 21.65 N) هي اللي حركت الصندوق فعلاً.
+                </div>
+            </div>
+        </div>
+
+        <!-- EXAMPLE 2 -->
+        <div class="section-divider" id="ex2">مثال 2</div>
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">🖊️ مثال 2 — شغل الجاذبية: طالع ونازل<span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+            <div class="script-body">
+                <div class="script-text">
+                    <strong>السؤال:</strong> جسم كتلته <span class="highlight">2 kg</span> اترمى لفوق ووصل ارتفاع <span class="highlight">5 m</span> وبعدين رجع تاني. (g = 10) احسب:
+                    <br>أ) شغل الجاذبية وهو طالع
+                    <br>ب) شغل الجاذبية وهو نازل
+                    <br>ج) المجموع الكلي
+                </div>
+                <div class="solved-box">
+                    أولاً: القوة = الوزن = mg = 2 × 10 = <span class="hl-red">20 N</span> (لتحت دايماً)
+                    <br><br>
+                    <strong style="color:#f87171">أ) وهو طالع:</strong>
+                    <br>• الجاذبية لتحت ↓ والحركة لفوق ↑ → الزاوية = 180°
+                    <br>• W = 20 × 5 × cos 180° = 20 × 5 × (−1) = <span class="hl-red">−100 J</span>
+                    <br>• سالب! يعني الجاذبية بتقاوم الحركة لفوق وبتبطّئ الجسم.
+                    <br><br>
+                    <strong style="color:#34d399">ب) وهو نازل:</strong>
+                    <br>• الجاذبية لتحت ↓ والحركة لتحت ↓ → الزاوية = 0°
+                    <br>• W = 20 × 5 × cos 0° = 20 × 5 × 1 = <span class="hl-green">+100 J</span>
+                    <br>• موجب! يعني الجاذبية بتساعد الحركة وبتسرّع الجسم.
+                    <br><br>
+                    <strong style="color:#a78bfa">ج) المجموع:</strong>
+                    <br>W_total = −100 + 100 = <span class="highlight">0 J</span>
+                    <br>• الجسم رجع لنفس المكان → الشغل الكلي = صفر!
+                </div>
+                <div class="note">
+                    ده بيوضح إن الجاذبية قوة <strong>محافظة (Conservative Force)</strong> — يعني لو الجسم رجع لنقطة البداية، الشغل الكلي = صفر.
+                </div>
+            </div>
+        </div>
+
+        <!-- EXAMPLE 3 -->
+        <div class="section-divider" id="ex3">مثال 3</div>
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">🖊️ مثال 3 — البنت والولد: شيل أفقي ورفع رأسي<span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+            <div class="script-body">
+                <div class="script-text">
+                    <strong>السؤال:</strong> بنت شايلة جردل كتلته <span class="highlight">300 g</span> وماشية <span class="highlight">10 m</span> أفقي. ولد رافع نفس الجردل <span class="highlight">10 cm</span> رأسي. (g = 10) احسب الشغل في كل حالة.
+                </div>
+                <div class="solved-box">
+                    <strong style="color:#f87171">البنت (شيل أفقي):</strong>
+                    <br>• القوة اللي بتبذلها = لفوق (عشان تسند الجردل ضد الجاذبية)
+                    <br>• الحركة = أفقية (جنب)
+                    <br>• الزاوية بين القوة والحركة = 90°
+                    <br>• cos 90° = 0
+                    <br>• <span class="hl-red">W = 0 J</span> ← مفيش شغل!
+                    <br><br>
+                    <strong style="color:#34d399">الولد (رفع رأسي):</strong>
+                    <br>• F = mg = 0.3 × 10 = 3 N
+                    <br>• d = 10 cm = 0.1 m
+                    <br>• القوة لفوق والحركة لفوق → θ = 0°
+                    <br>• W = 3 × 0.1 × cos 0° = <span class="hl-green">0.3 J</span>
+                </div>
+                <div class="note">
+                    البنت اتعبت أكتر بس الشغل الفيزيائي = صفر! الولد عمل شغل 0.3 جول بس.
+                    <br><strong style="color:#fbbf24">الخلاصة:</strong> الشغل مش عن التعب — الشغل عن العلاقة بين اتجاه القوة واتجاه الحركة.
+                </div>
+            </div>
+        </div>
+
+        <!-- THINKING -->
+        <div class="section-divider" id="think">فكّر!</div>
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">🧠 فكّر! — أسئلة ذكية<span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+            <div class="script-body">
+                <div class="script-text">
+                    <strong style="color:#a78bfa">السؤال 1:</strong> صاروخ بيتسارع في الفضاء — هل الصاروخ بيعمل شغل؟
+                    <br><span class="hl-green">الجواب: أيوا! ✅</span> — فيه قوة دفع (thrust) وفيه إزاحة في نفس الاتجاه → شغل موجب.
+                    <br><br>
+                    <strong style="color:#a78bfa">السؤال 2:</strong> جرسون (ويتر) شايل صينية أكل على إيده وماشي في المطعم بسرعة ثابتة — هل بيعمل شغل على الصينية؟
+                    <br><span class="hl-red">الجواب: لا! ❌</span> — القوة اللي بيبذلها لفوق (عشان يشيل الصينية)، بس الحركة أفقية. الزاوية = 90° → cos 90° = 0 → الشغل = صفر.
+                </div>
+            </div>
+        </div>
+
+        <!-- SUMMARY -->
+        <div class="section-divider" id="summary">الملخص</div>
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">ملخص الدرس والخاتمة<span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+            <div class="script-body">
+                <div class="script-text">
+                    خلصنا الدرس الثالث يا جماعة 🎓
+                    <span class="pause">[وقفة]</span>
+                </div>
+                <div class="formula-note">
+                    <table class="symbol-table">
+                        <tr><th>المفهوم</th><th>المعادلة / القيمة</th><th>المعنى</th></tr>
+                        <tr><td>الشغل</td><td>W = F × d × cos θ</td><td>القوة × الإزاحة × جيب تمام الزاوية</td></tr>
+                        <tr><td>الوحدة</td><td>جول (J) = N·m</td><td>1 نيوتن × 1 متر</td></tr>
+                        <tr><td>θ = 0°</td><td>W = +Fd</td><td>شغل موجب (القوة مع الحركة)</td></tr>
+                        <tr><td>θ = 90°</td><td>W = 0</td><td>مفيش شغل (القوة عمودية)</td></tr>
+                        <tr><td>θ = 180°</td><td>W = −Fd</td><td>شغل سالب (القوة ضد الحركة)</td></tr>
+                        <tr><td>نوع الكمية</td><td>Scalar (قياسية)</td><td>ليها مقدار بس، مالهاش اتجاه</td></tr>
+                    </table>
+                </div>
+                <div class="script-text" style="margin-top:1rem">
+                    المهم تفتكروا: <span class="highlight">الشغل مش عن التعب — الشغل عن القوة والحركة في نفس الاتجاه!</span>
+                    <br><br>
+                    حلوا الكويز في الدرس عشان تتأكدوا إنكم فاهمين كل حاجة.
+                    <br>شكراً لمتابعتكم 🎓 إلى اللقاء في الدرس الجاي: الطاقة وأشكالها!
+                    <br>السلام عليكم.
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align:center;margin-top:2rem;color:#475569;font-size:0.85rem;padding-bottom:2rem">
+            فيزياء — الصف الأول ثانوي (STEM) · الوحدة 3 · الدرس 3<br>بشمهندس أسامة زينهم
+        </div>
+    </div>
+    <script>
+        function toggleSection(t){const b=t.nextElementSibling,i=t.querySelector('.toggle-icon i'),o=b.style.maxHeight&&b.style.maxHeight!=='0px';if(o){b.style.maxHeight='0px';b.style.overflow='hidden';i.className='fas fa-chevron-left'}else{b.style.maxHeight=b.scrollHeight+200+'px';b.style.overflow='visible';i.className='fas fa-chevron-down'}}
+        document.querySelectorAll('.script-body').forEach(b=>{b.style.maxHeight='none';b.style.overflow='visible'});
+        document.querySelectorAll('.toc a').forEach(l=>{l.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(l.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})});
+    </script>
+</body>
+</html>

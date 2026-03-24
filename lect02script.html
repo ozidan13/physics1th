@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سكريبت الشرح - درس 2: قانون نيوتن الثاني</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: 'Cairo', sans-serif; background: linear-gradient(135deg, #0a0a1a, #0f1a2e, #0a1628); min-height: 100vh; margin: 0; padding: 2rem 1rem; color: #e0e0e0; direction: rtl; }
+        .container { max-width: 920px; margin: 0 auto; }
+        h1 { text-align: center; color: #fff; font-size: 2rem; margin-bottom: 0.5rem; text-shadow: 0 0 30px rgba(59,130,246,0.4); }
+        .subtitle { text-align: center; color: #64748b; font-size: 0.95rem; margin-bottom: 2.5rem; }
+        .section { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 1.5rem 2rem; margin-bottom: 1.5rem; backdrop-filter: blur(10px); transition: all 0.3s ease; }
+        .section:hover { border-color: rgba(59,130,246,0.35); box-shadow: 0 8px 32px rgba(59,130,246,0.10); transform: translateY(-2px); }
+        .section-title { font-size: 1.2rem; font-weight: 700; color: #60a5fa; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; user-select: none; }
+        .section-title::before { content: "🎬"; }
+        .section-title .toggle-icon { margin-right: auto; margin-left: 0; color: #64748b; font-size: 0.85rem; transition: transform 0.3s; }
+        .script-body { overflow: hidden; transition: max-height 0.4s ease; }
+        .script-text { font-size: 1.12rem; line-height: 2.2; color: #f0f4f8; background: rgba(0,0,0,0.25); padding: 1.2rem 1.5rem; border-radius: 10px; border-right: 4px solid #3b82f6; }
+        .note { font-size: 0.92rem; color: #fbbf24; margin-top: 1rem; padding: 0.6rem 1.1rem; background: rgba(251,191,36,0.07); border-radius: 8px; border-right: 3px solid #fbbf24; line-height: 1.8; }
+        .note::before { content: "📌 ملاحظة: "; font-weight: bold; }
+        .law-box { font-size: 0.95rem; color: #e0f2fe; margin-top: 1rem; padding: 0.8rem 1.2rem; background: rgba(59,130,246,0.08); border-radius: 8px; border-right: 3px solid #3b82f6; line-height: 1.9; }
+        .law-box::before { content: "📖 القانون: "; font-weight: bold; color: #60a5fa; }
+        .formula-note { font-size: 0.95rem; color: #d1fae5; margin-top: 1rem; padding: 0.8rem 1.2rem; background: rgba(16,185,129,0.07); border-radius: 8px; border-right: 3px solid #10b981; line-height: 1.9; }
+        .formula-note::before { content: "🔢 المعادلة: "; font-weight: bold; color: #34d399; }
+        .example-box { font-size: 0.95rem; color: #fde68a; margin-top: 1rem; padding: 0.8rem 1.2rem; background: rgba(245,158,11,0.07); border-radius: 8px; border-right: 3px solid #f59e0b; line-height: 1.9; }
+        .example-box::before { content: "💡 مثال: "; font-weight: bold; }
+        .solved-box { font-size: 0.95rem; color: #c4b5fd; margin-top: 1rem; padding: 0.8rem 1.2rem; background: rgba(139,92,246,0.07); border-radius: 8px; border-right: 3px solid #8b5cf6; line-height: 1.9; }
+        .solved-box::before { content: "🖊️ حل: "; font-weight: bold; color: #a78bfa; }
+        .highlight { color: #60a5fa; font-weight: 700; }
+        .hl-green { color: #34d399; font-weight: 700; }
+        .hl-amber { color: #fbbf24; font-weight: 700; }
+        .hl-red { color: #f87171; font-weight: 700; }
+        .hl-purple { color: #a78bfa; font-weight: 700; }
+        .english { direction: ltr; display: inline-block; font-family: 'Segoe UI', sans-serif; color: #93c5fd; font-style: italic; }
+        .pause { color: #fb923c; font-size: 0.82rem; display: block; margin: 0.5rem 0; font-style: italic; }
+        .symbol-table { width: 100%; border-collapse: collapse; margin-top: 0.8rem; font-size: 0.9rem; }
+        .symbol-table th { background: rgba(59,130,246,0.15); color: #60a5fa; padding: 0.6rem 1rem; text-align: right; border-bottom: 1px solid rgba(59,130,246,0.2); }
+        .symbol-table td { padding: 0.55rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); line-height: 1.6; }
+        .symbol-table tr:nth-child(even) td { background: rgba(255,255,255,0.03); }
+        a.back-btn { display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; padding: 0.7rem 1.4rem; background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.3); border-radius: 8px; color: #60a5fa; text-decoration: none; font-size: 0.9rem; transition: all 0.3s; }
+        a.back-btn:hover { background: rgba(59,130,246,0.25); color: #fff; }
+        .section-divider { text-align: center; color: #475569; font-size: 0.8rem; margin: 1rem 0 1.5rem; letter-spacing: 0.1em; }
+        .section-divider::before, .section-divider::after { content: " ── "; }
+        .step-list { padding-right: 1.2rem; margin: 0.5rem 0; }
+        .step-list li { margin-bottom: 0.5rem; line-height: 1.9; }
+        .toc { background: rgba(15,23,42,0.6); border: 1px solid rgba(59,130,246,0.2); border-radius: 12px; padding: 1.2rem 1.8rem; margin-bottom: 2rem; }
+        .toc h3 { color: #60a5fa; font-size: 1rem; margin-bottom: 0.8rem; }
+        .toc a { display: block; color: #94a3b8; text-decoration: none; padding: 0.25rem 0; font-size: 0.9rem; transition: color 0.2s; }
+        .toc a:hover { color: #60a5fa; }
+        .toc a::before { content: "• "; color: #3b82f6; }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <a href="lect02.html" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع للدرس</a>
+        <a href="index.html" class="back-btn" style="margin-right:0.75rem"><i class="fas fa-home"></i> الصفحة الرئيسية</a>
+
+        <h1>📜 سكريبت الشرح — الدرس الثاني</h1>
+        <p class="subtitle">قانون نيوتن الثاني · الوحدة الثالثة: الحركة والقوة · بشمهندس أسامة زينهم</p>
+
+        <!-- TOC -->
+        <div class="toc">
+            <h3>📋 محتويات الدرس</h3>
+            <a href="#intro">المقدمة — مراجعة سريعة</a>
+            <a href="#statement">نص القانون الثاني لنيوتن</a>
+            <a href="#fma">المعادلة F = ma — الرموز والوحدات</a>
+            <a href="#relations">العلاقات — القوة والكتلة والعجلة</a>
+            <a href="#insights">استنتاجات من القانون الثاني</a>
+            <a href="#ex1">مثال محلول 1 — مقارنة جسمين</a>
+            <a href="#ex2">مثال محلول 2 — إيجاد القوة</a>
+            <a href="#ex3">مثال محلول 3 — إيجاد العجلة</a>
+            <a href="#summary">الملخص والخاتمة</a>
+        </div>
+
+        <!-- ───── INTRO ───── -->
+        <div class="section" id="intro">
+            <div class="section-title" onclick="toggleSection(this)">المقدمة — مراجعة سريعة من الدرس الأول<span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+            <div class="script-body">
+                <div class="script-text">
+                    السلام عليكم ورحمة الله وبركاته 🌟
+                    <span class="pause">[وقفة — ابتسامة وترحيب]</span>
+                    أهلاً بيكم في الدرس الثاني من وحدة الحركة والقوة.
+                    <br><br>
+                    خلونا نراجع بسرعة اللي اتعلمناه في الدرس الأول:
+                    <span class="pause">[وقفة]</span>
+                    <ul class="step-list">
+                        <li>عرفنا إن <span class="highlight">القوة</span> هي تأثير خارجي بيغيّر حالة الجسم.</li>
+                        <li>قانون نيوتن الأول قالنا: لو <span class="hl-green">المحصلة = صفر</span>، الجسم مش بيتسارع.</li>
+                        <li>عرفنا <span class="hl-amber">القصور الذاتي</span> — الجسم بيقاوم التغيير.</li>
+                        <li>عرفنا <span class="hl-red">كمية الحركة P = mv</span> والفرق بين الكتلة والوزن.</li>
+                    </ul>
+                    <span class="pause">[وقفة]</span>
+                    طيب السؤال المهم النهارده: <span class="hl-amber">لو المحصلة مش صفر — يعني فيه قوة محصلة فعلاً بتأثر على الجسم — إيه اللي هيحصل؟</span>
+                    <br>الجواب: الجسم <span class="hl-red">هيتسارع!</span> وقانون نيوتن الثاني بيقولنا بالظبط العجلة دي قد إيه.
+                </div>
+            </div>
+        </div>
+
+        <!-- ───── STATEMENT ───── -->
+        <div class="section-divider" id="statement">نص القانون</div>
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">نص قانون نيوتن الثاني<span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+            <div class="script-body">
+                <div class="script-text">
+                    نيوتن لاحظ إن لما بتدفع عربية تسوق بقوة أكبر، بتتسارع أكتر. ولما العربية تكون محملة (أثقل)، بتتسارع أقل.
+                    <span class="pause">[وقفة]</span>
+                    من الملاحظات دي، صاغ القانون الثاني:
+                </div>
+
+                <div class="law-box">
+                    <strong>النص الأول:</strong> «القوة المحصلة المؤثرة على جسم تساوي معدل التغير في كمية حركته بالنسبة للزمن.»
+                    <br><br>
+                    <strong>النص الثاني (الأبسط):</strong> «القوة المحصلة المؤثرة على جسم تساوي حاصل ضرب كتلة الجسم في عجلته.»
+                </div>
+
+                <div class="script-text" style="margin-top:1rem">
+                    خلينا نفهم كل كلمة:
+                    <span class="pause">[وقفة]</span>
+                    <ul class="step-list">
+                        <li><span class="hl-amber">القوة المحصلة</span> = مجموع كل القوى المؤثرة على الجسم (ΣF). مش قوة واحدة — كل القوى مع بعض.</li>
+                        <li><span class="hl-amber">معدل التغير في كمية الحركة</span> = يعني كمية الحركة بتتغير بقد إيه في الثانية الواحدة.</li>
+                        <li><span class="hl-amber">الكتلة × العجلة</span> = ده الشكل المبسط واللي هنستخدمه أكتر.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ───── F = ma ───── -->
+        <div class="section-divider" id="fma">المعادلة</div>
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">المعادلة F = ma — الرموز والوحدات<span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+            <div class="script-body">
+                <div class="formula-note">
+                    <strong style="font-size:1.3rem; display:block; text-align:center; margin-bottom:0.5rem;">F = m × a</strong>
+                    <br>أو بالصيغة الأصلية:
+                    <strong style="display:block; text-align:center; margin-top:0.3rem;">F = ΔP / Δt</strong>
+                </div>
+
+                <div class="script-text" style="margin-top:1rem">
+                    خلينا نشرح كل رمز لوحده:
+                    <span class="pause">[وقفة]</span>
+                    <table class="symbol-table">
+                        <tr><th>الرمز</th><th>الاسم بالعربي</th><th>الاسم بالإنجليزي</th><th>الوحدة</th><th>المعنى</th></tr>
+                        <tr><td><strong style="color:#60a5fa">F</strong></td><td>القوة المحصلة</td><td>Resultant Force</td><td>نيوتن (N)</td><td>مجموع كل القوى المؤثرة على الجسم</td></tr>
+                        <tr><td><strong style="color:#34d399">m</strong></td><td>الكتلة</td><td>Mass</td><td>كيلوجرام (kg)</td><td>كمية المادة في الجسم — مبتتغيرش</td></tr>
+                        <tr><td><strong style="color:#f87171">a</strong></td><td>العجلة (التسارع)</td><td>Acceleration</td><td>م/ث² (m/s²)</td><td>معدل تغير السرعة — كل ثانية السرعة بتزيد قد إيه</td></tr>
+                        <tr><td><strong style="color:#a78bfa">ΔP</strong></td><td>التغير في كمية الحركة</td><td>Change in Momentum</td><td>kg·m/s</td><td>الفرق بين كمية الحركة الأولى والأخيرة</td></tr>
+                        <tr><td><strong style="color:#fbbf24">Δt</strong></td><td>الزمن</td><td>Time interval</td><td>ثانية (s)</td><td>المدة الزمنية اللي القوة اتأثرت فيها</td></tr>
+                    </table>
+                </div>
+
+                <div class="script-text" style="margin-top:1rem">
+                    <span class="highlight">ملحوظة مهمة:</span> المعادلة دي ممكن نقلبها بـ3 طرق:
+                    <span class="pause">[وقفة]</span>
+                    <ul class="step-list">
+                        <li>عاوز تعرف <span class="highlight">القوة</span>؟ → <span class="english">F = m × a</span></li>
+                        <li>عاوز تعرف <span class="hl-red">العجلة</span>؟ → <span class="english">a = F ÷ m</span></li>
+                        <li>عاوز تعرف <span class="hl-green">الكتلة</span>؟ → <span class="english">m = F ÷ a</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ───── RELATIONSHIPS ───── -->
+        <div class="section-divider" id="relations">العلاقات</div>
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">العلاقات بين القوة والكتلة والعجلة<span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+            <div class="script-body">
+                <div class="script-text">
+                    من المعادلة <span class="english">a = F/m</span> نستنتج حاجتين مهمين جداً:
+                    <span class="pause">[وقفة]</span>
+                    <strong style="color:#60a5fa">العلاقة الأولى: العجلة والقوة (عند ثبات الكتلة)</strong>
+                    <br>لو الكتلة ثابتة — كل ما القوة تزيد، العجلة تزيد. علاقة <span class="hl-green">طردية</span>!
+                    <br>يعني: ادفع أقوى ← تسارع أكبر 🚀
+                </div>
+
+                <div class="example-box">
+                    تخيل إنك بتدفع عربية سوبر ماركت فاضية:
+                    <br>• دفعة خفيفة → تتحرك ببطء (عجلة صغيرة)
+                    <br>• دفعة قوية → تتحرك بسرعة (عجلة كبيرة)
+                    <br>الكتلة واحدة — اللي اتغير هو القوة!
+                </div>
+
+                <div class="script-text" style="margin-top:1rem">
+                    <strong style="color:#f87171">العلاقة الثانية: العجلة والكتلة (عند ثبات القوة)</strong>
+                    <br>لو القوة ثابتة — كل ما الكتلة تزيد، العجلة تقل. علاقة <span class="hl-red">عكسية</span>!
+                    <br>يعني: الجسم الأثقل أصعب في تسارعه 🏋️
+                </div>
+
+                <div class="example-box">
+                    بنفس القوة:
+                    <br>• عربية سوبر ماركت فاضية → تتحرك بسهولة (كتلة صغيرة → عجلة كبيرة)
+                    <br>• عربية سوبر ماركت مليانة علب → صعب تتحرك (كتلة كبيرة → عجلة صغيرة)
+                    <br>القوة واحدة — اللي اتغير هو الكتلة!
+                </div>
+
+                <div class="note">
+                    في الرسم البياني: لو رسمنا العجلة (a) على المحور الرأسي والقوة (F) على المحور الأفقي — هنلاقي خط مستقيم يبدأ من الأصل. ميل الخط = 1/m. يعني الخط الأكثر ميلاً = كتلة أقل!
+                </div>
+            </div>
+        </div>
+
+        <!-- ───── INSIGHTS ───── -->
+        <div class="section-divider" id="insights">استنتاجات</div>
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">استنتاجات مهمة من القانون الثاني<span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+            <div class="script-body">
+                <div class="script-text">
+                    القانون الثاني بيقولنا حاجات مهمة جداً عن العالم:
+                    <span class="pause">[وقفة]</span>
+                    <ul class="step-list">
+                        <li>تحريك أو إيقاف <span class="highlight">قطار ثقيل</span> أصعب بكتير من <span class="hl-green">عجلة خفيفة</span> — لأن كتلته أكبر بكتير فمحتاجين قوة أكبر لنفس العجلة.</li>
+                        <li>أي جسم بيتسارع لازم يكون فيه <span class="hl-red">قوة محصلة</span> بتأثر عليه. مفيش تسارع من غير قوة!</li>
+                        <li>لما الجسم <span class="hl-amber">بيسقط</span> بيتسارع بعجلة الجاذبية g — وده معناه إن الجاذبية دي قوة اسمها <strong>الوزن (Fg = mg)</strong>.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ───── EXAMPLE 1 ───── -->
+        <div class="section-divider" id="ex1">مثال 1</div>
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">🖊️ مثال محلول 1 — مقارنة جسمين بنفس القوة<span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+            <div class="script-body">
+                <div class="script-text">
+                    <strong>السؤال:</strong> قوتان متساويتان بتأثران على جسمين: الأول كتلته <span class="highlight">10 kg</span> وبيتحرك بعجلة <span class="highlight">5 m/s²</span>، والثاني كتلته <span class="hl-red">25 kg</span>. أوجد عجلة الجسم الثاني.
+                </div>
+
+                <div class="solved-box">
+                    <strong>الحل خطوة بخطوة:</strong>
+                    <br><br>
+                    <strong>الخطوة 1:</strong> نحسب القوة على الجسم الأول.
+                    <br>F = m₁ × a₁ = 10 × 5 = <span class="highlight">50 N</span>
+                    <br><br>
+                    <strong>الخطوة 2:</strong> القوتان متساويتان → القوة على الجسم الثاني = 50 N كمان.
+                    <br><br>
+                    <strong>الخطوة 3:</strong> نحسب عجلة الجسم الثاني.
+                    <br>a₂ = F / m₂ = 50 / 25 = <span class="hl-red">2 m/s²</span>
+                    <br><br>
+                    <strong style="color:#34d399">الملاحظة:</strong> الجسم الأثقل (25 kg) اتسارع أقل (2 بدل 5) بنفس القوة — وده بيأكد إن العلاقة بين العجلة والكتلة <strong>عكسية</strong>.
+                </div>
+            </div>
+        </div>
+
+        <!-- ───── EXAMPLE 2 ───── -->
+        <div class="section-divider" id="ex2">مثال 2</div>
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">🖊️ مثال محلول 2 — إيجاد القوة المطلوبة<span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+            <div class="script-body">
+                <div class="script-text">
+                    <strong>السؤال:</strong> ما القوة المطلوبة لتحريك سيارة كتلتها <span class="highlight">1.6 × 10³ kg</span> (يعني 1600 kg) بعجلة <span class="highlight">2 m/s²</span>؟
+                </div>
+
+                <div class="solved-box">
+                    <strong>الحل:</strong>
+                    <br>F = m × a = 1600 × 2 = <span class="hl-red">3200 N = 3.2 × 10³ N</span>
+                    <br><br>
+                    يعني محتاجين قوة 3200 نيوتن عشان السيارة تتسارع بـ 2 م/ث².
+                </div>
+            </div>
+        </div>
+
+        <!-- ───── EXAMPLE 3 ───── -->
+        <div class="section-divider" id="ex3">مثال 3</div>
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">🖊️ مثال محلول 3 — إيجاد العجلة<span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+            <div class="script-body">
+                <div class="script-text">
+                    <strong>السؤال:</strong> سيارة كتلتها <span class="highlight">5000 kg</span> بدأت حركتها من السكون تحت تأثير قوة <span class="highlight">4000 N</span>. أوجد العجلة.
+                </div>
+
+                <div class="solved-box">
+                    <strong>الحل:</strong>
+                    <br>a = F / m = 4000 / 5000 = <span class="hl-red">0.8 m/s²</span>
+                    <br><br>
+                    يعني كل ثانية سرعتها بتزيد 0.8 متر/ثانية.
+                    <br>بعد 10 ثواني سرعتها = 0.8 × 10 = <span class="hl-green">8 m/s</span> (حوالي 29 كم/ساعة).
+                </div>
+            </div>
+        </div>
+
+        <!-- ───── SUMMARY ───── -->
+        <div class="section-divider" id="summary">الملخص</div>
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">ملخص الدرس والخاتمة<span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+            <div class="script-body">
+                <div class="script-text">
+                    تمام يا جماعة، خلصنا الدرس الثاني! 🎓
+                    <span class="pause">[وقفة]</span>
+                    خلونا نلخص:
+                </div>
+
+                <div class="formula-note">
+                    <strong>ملخص:</strong>
+                    <br><br>
+                    <table class="symbol-table">
+                        <tr><th>المفهوم</th><th>المعادلة</th><th>المعنى</th></tr>
+                        <tr><td>القانون الثاني</td><td>F = m × a</td><td>القوة = الكتلة × العجلة</td></tr>
+                        <tr><td>إيجاد العجلة</td><td>a = F / m</td><td>العجلة = القوة ÷ الكتلة</td></tr>
+                        <tr><td>إيجاد الكتلة</td><td>m = F / a</td><td>الكتلة = القوة ÷ العجلة</td></tr>
+                        <tr><td>العلاقة الطردية</td><td>a ∝ F</td><td>كل ما القوة تزيد، العجلة تزيد</td></tr>
+                        <tr><td>العلاقة العكسية</td><td>a ∝ 1/m</td><td>كل ما الكتلة تزيد، العجلة تقل</td></tr>
+                    </table>
+                </div>
+
+                <div class="script-text" style="margin-top:1rem">
+                    المهم تفتكروا: <span class="highlight">F = ma</span> هي أهم معادلة في الفيزياء الكلاسيكية!
+                    <span class="pause">[وقفة]</span>
+                    راجعوا الأمثلة وحلوا الكويز اللي في الدرس لحد ما كل حاجة تبقى واضحة.
+                    <br><br>
+                    شكراً لمتابعتكم 🎓 وإلى اللقاء في الدرس الجاي إن شاء الله.
+                    <br>السلام عليكم ورحمة الله وبركاته.
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align:center; margin-top:2rem; color:#475569; font-size:0.85rem; padding-bottom:2rem;">
+            فيزياء — الصف الأول ثانوي (STEM) · الوحدة 3 · الدرس 2<br>بشمهندس أسامة زينهم
+        </div>
+    </div>
+
+    <script>
+        function toggleSection(titleEl) {
+            const body = titleEl.nextElementSibling;
+            const icon = titleEl.querySelector('.toggle-icon i');
+            const isOpen = body.style.maxHeight && body.style.maxHeight !== '0px';
+            if (isOpen) {
+                body.style.maxHeight = '0px';
+                body.style.overflow = 'hidden';
+                icon.className = 'fas fa-chevron-left';
+            } else {
+                body.style.maxHeight = body.scrollHeight + 200 + 'px';
+                body.style.overflow = 'visible';
+                icon.className = 'fas fa-chevron-down';
+            }
+        }
+        document.querySelectorAll('.script-body').forEach(body => { body.style.maxHeight = 'none'; body.style.overflow = 'visible'; });
+        document.querySelectorAll('.toc a').forEach(link => {
+            link.addEventListener('click', e => { e.preventDefault(); const t = document.querySelector(link.getAttribute('href')); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+        });
+    </script>
+</body>
+
+</html>

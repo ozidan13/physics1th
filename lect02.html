@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics - Lesson 2: Newton's Second Law</title>
+    <meta name="description"
+        content="Newton's Second Law - F=ma, Force-Mass-Acceleration relationship, Solved Examples">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        neon: { green: '#10B981', blue: '#3B82F6', purple: '#8B5CF6', red: '#ef4444', amber: '#f59e0b' },
+                        dark: { bg: '#020617', card: '#0F172A', border: '#1E293B' }
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'], arabic: ['Cairo', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+                    animation: { 'float': 'float 3s ease-in-out infinite', 'spin-slow': 'spin 8s linear infinite' },
+                    keyframes: { float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } } }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #020617;
+            color: #E2E8F0;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.05) 0%, transparent 20%), radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 20%);
+        }
+
+        .glass-card {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(59, 130, 246, 0.4);
+            box-shadow: 0 10px 40px -10px rgba(59, 130, 246, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .glass-header {
+            background: rgba(2, 6, 23, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #60a5fa 0%, #34d399 50%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        ul.custom-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul.custom-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        ul.custom-list li::before {
+            content: "•";
+            color: #3b82f6;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        .formula-box {
+            background: rgba(59, 130, 246, 0.05);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 1.3rem;
+            margin: 1rem 0;
+        }
+
+        .answer-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.3s ease;
+            background: rgba(59, 130, 246, 0.05);
+            border-radius: 0.5rem;
+        }
+
+        .answer-container.show {
+            max-height: 200px;
+            padding: 1rem;
+            margin-top: 1rem;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .custom-table tr:nth-child(even) {
+            background-color: rgba(30, 41, 59, 0.3);
+        }
+
+        .custom-table td,
+        .custom-table th {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .custom-table th {
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.75rem;
+            color: #94A3B8;
+        }
+
+        .note-box {
+            background: rgba(251, 191, 36, 0.05);
+            border-left: 4px solid #fbbf24;
+            border-radius: 0.5rem;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0;
+        }
+
+        .note-box .note-title {
+            color: #fbbf24;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .definition-box {
+            background: rgba(59, 130, 246, 0.05);
+            border-left: 4px solid #3b82f6;
+            border-radius: 0.5rem;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0;
+        }
+
+        .definition-box strong {
+            color: #60a5fa;
+        }
+
+        .egyptian-expl {
+            direction: rtl;
+            text-align: right;
+            font-family: 'Cairo', sans-serif;
+            background: rgba(251, 191, 36, 0.04);
+            border: 1px solid rgba(251, 191, 36, 0.15);
+            border-right: 4px solid #f59e0b;
+            border-radius: 0.75rem;
+            padding: 1.25rem 1.5rem;
+            margin: 1.25rem 0;
+            line-height: 2;
+            color: #cbd5e1;
+        }
+
+        .egyptian-expl .expl-header {
+            color: #fbbf24;
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            justify-content: flex-end;
+        }
+
+        .egyptian-expl .expl-header i {
+            color: #f59e0b;
+        }
+    </style>
+</head>
+
+<body class="antialiased font-sans flex flex-col min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full z-50 glass-header">
+        <div class="container mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <a href="index.html"
+                    class="w-8 h-8 rounded bg-gradient-to-br from-blue-500 to-emerald-600 flex items-center justify-center text-white font-bold shadow-lg shadow-blue-500/20 text-xs">⚛</a>
+                <span class="font-bold text-lg tracking-wide text-slate-200">Lesson<span
+                        class="text-blue-500">02</span></span>
+            </div>
+            <div class="hidden lg:flex gap-6 text-sm font-medium text-slate-400">
+                <a href="#hero" class="hover:text-blue-400 transition">Intro</a>
+                <a href="#review" class="hover:text-blue-400 transition">Review</a>
+                <a href="#second-law" class="hover:text-blue-400 transition">2nd Law</a>
+                <a href="#fma" class="hover:text-blue-400 transition">F = ma</a>
+                <a href="#examples" class="hover:text-blue-400 transition">Examples</a>
+                <a href="#exercises" class="hover:text-blue-400 transition">Exercises</a>
+                <a href="#quiz"
+                    class="px-5 py-2 rounded-full bg-blue-600/10 text-blue-400 border border-blue-500/20 hover:bg-blue-600 hover:text-white transition">Quiz</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow pt-24">
+
+        <!-- ===== HERO ===== -->
+        <header id="hero" class="relative pb-20 px-6">
+            <div class="container mx-auto text-center relative z-10" data-aos="fade-up">
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700 text-xs font-mono text-blue-400 mb-6">
+                    <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+                    UNIT 3 — LESSON 2
+                </div>
+                <h1 class="text-5xl md:text-7xl font-black mb-2 tracking-tight leading-tight text-white">
+                    Newton's Second<br><span class="text-gradient">Law</span>
+                </h1>
+                <div class="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed mb-8">
+                    <p>Unit Three: Motion and Force</p>
+                    <p> بشمهندس أسامة زينهم</p>
+                    <p style="color: #3b82f6; font-size: 1.2rem; font-weight: bold; margin-top: 1rem;">
+                        <a href="https://chat.whatsapp.com/FWUBrybJ3RO4MfUyX9MoPD?mode=gi_t" target="_blank"
+                            style="color: #3b82f6;">انضم لجروب الشرح واتساب</a>
+                    </p>
+                </div>
+
+                <!-- Animated F=ma SVG -->
+                <div class="max-w-lg mx-auto">
+                    <svg viewBox="0 0 500 140" class="w-full">
+                        <line x1="50" y1="100" x2="450" y2="100" stroke="#334155" stroke-width="2"
+                            stroke-dasharray="6,4" />
+                        <!-- Cart -->
+                        <rect x="180" y="55" width="100" height="45" rx="6" fill="#1e293b" stroke="#3b82f6"
+                            stroke-width="2">
+                            <animate attributeName="x" values="180;220;180" dur="4s" repeatCount="indefinite" />
+                        </rect>
+                        <text x="230" y="82" text-anchor="middle" fill="#3b82f6" font-size="16" font-weight="bold">
+                            <animate attributeName="x" values="230;270;230" dur="4s" repeatCount="indefinite" />
+                            m
+                        </text>
+                        <!-- Wheels -->
+                        <circle cx="200" cy="102" r="7" fill="#0f172a" stroke="#60a5fa" stroke-width="2">
+                            <animate attributeName="cx" values="200;240;200" dur="4s" repeatCount="indefinite" />
+                        </circle>
+                        <circle cx="260" cy="102" r="7" fill="#0f172a" stroke="#60a5fa" stroke-width="2">
+                            <animate attributeName="cx" values="260;300;260" dur="4s" repeatCount="indefinite" />
+                        </circle>
+                        <!-- Force Arrow -->
+                        <line x1="280" y1="77" x2="380" y2="77" stroke="#ef4444" stroke-width="3"
+                            marker-end="url(#arrowRed2)">
+                            <animate attributeName="x1" values="280;320;280" dur="4s" repeatCount="indefinite" />
+                            <animate attributeName="x2" values="380;420;380" dur="4s" repeatCount="indefinite" />
+                        </line>
+                        <text x="340" y="68" fill="#ef4444" font-size="13" font-weight="bold">
+                            <animate attributeName="x" values="340;380;340" dur="4s" repeatCount="indefinite" />
+                            F →
+                        </text>
+                        <!-- Acceleration label -->
+                        <text x="230" y="42" fill="#34d399" font-size="12" font-weight="bold" text-anchor="middle">
+                            <animate attributeName="x" values="230;270;230" dur="4s" repeatCount="indefinite" />
+                            a = F/m
+                        </text>
+                        <defs>
+                            <marker id="arrowRed2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6"
+                                markerHeight="6" orient="auto-start-reverse">
+                                <path d="M 0 0 L 10 5 L 0 10 z" fill="#ef4444" />
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+        </header>
+
+        <!-- ===== REVIEW ===== -->
+        <section id="review" class="py-16 px-6">
+            <div class="container mx-auto max-w-4xl">
+                <div class="glass-card rounded-2xl p-8" data-aos="fade-up">
+                    <h2 class="text-2xl font-bold text-white mb-4"><i class="fas fa-backward text-blue-500"></i> Quick
+                        Review from Lesson 1</h2>
+                    <p class="text-slate-300 leading-relaxed mb-4">We have learnt that when no resultant force affects the object, it does not move at acceleration. Consequently, when a resultant force acts on the object (<strong class="text-blue-400">ΣF ≠ 0</strong>), it moves at acceleration. Accordingly, its velocity changes and it acquires acceleration (<strong class="text-red-400">a ≠ 0</strong>).</p>
+                    <p class="text-slate-300 leading-relaxed">Newton defined the factors affecting such acceleration through his second law.</p>
+                    <div class="egyptian-expl">
+
+                        في الدرس اللي فات عرفنا إن لو مفيش قوة محصلة على الجسم (المحصلة = صفر)، فالجسم مش هيتسارع —
+                        هيفضل واقف أو يمشي بسرعة ثابتة.
+                        <br>طيب لو المحصلة مش صفر؟ الجسم <strong style="color:#f87171">هيتسارع!</strong> والقانون الثاني
+                        لنيوتن بيقولنا بالظبط العجلة هتكون قد إيه.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== NEWTON'S SECOND LAW ===== -->
+        <section id="second-law" class="py-16 px-6">
+            <div class="container mx-auto max-w-4xl">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <span
+                        class="inline-block px-4 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs font-mono border border-blue-500/20 mb-4">CORE
+                        CONCEPT</span>
+                    <h2 class="text-4xl font-black text-white">Newton's Second Law</h2>
+                </div>
+
+                <div class="glass-card rounded-2xl p-8" data-aos="fade-up">
+                    <div class="definition-box">
+                        <strong>"The resultant force acting on an object is equal to the time rate of change in the momentum of that body."</strong>
+                        <br><br>
+                        <strong>OR</strong>
+                        <br><br>
+                        <strong>"The resultant force acting on an object is equal to the product of the object's mass and its acceleration."</strong>
+                    </div>
+
+                    <div class="note-box mt-4">
+                        <div class="note-title">📝 Note</div>
+                        <p class="text-slate-300 text-sm">"When a resultant force affects an object, the object acquires an acceleration which is <strong class="text-blue-400">directly proportional</strong> to the resultant force and <strong class="text-red-400">inversely proportional</strong> to the object mass."</p>
+                        <p class="text-slate-400 text-sm mt-2">1- The acceleration is inversely proportional to the mass of the object at constant the resultant force.</p>
+                        <p class="text-slate-400 text-sm">2- The acceleration is directly proportional to the resultant force acting on the object at constant the mass of the object.</p>
+                    </div>
+
+                    <div class="formula-box my-6">
+                        $$ F = \frac{\Delta P}{\Delta t} = m \cdot a $$
+                    </div>
+
+                    <div class="egyptian-expl">
+
+                        القانون الثاني بيقول: <strong style="color:#60a5fa">القوة المحصلة = الكتلة × العجلة</strong>
+                        <br>
+                        يعني لو عاوز تعرف الجسم هيتسارع بقد إيه، اقسم القوة على الكتلة!
+                        <br>
+                        ولو عاوز تعرف القوة المطلوبة، اضرب الكتلة في العجلة!
+                    </div>
+
+                    <table class="custom-table w-full mt-6 text-sm">
+                        <thead>
+                            <tr>
+                                <th class="text-left">Symbol</th>
+                                <th class="text-left">Name</th>
+                                <th class="text-left">Unit</th>
+                                <th class="text-left">Meaning</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-blue-400 font-bold">F</td>
+                                <td>Resultant Force</td>
+                                <td>Newton (N)</td>
+                                <td>Total net force on the object</td>
+                            </tr>
+                            <tr>
+                                <td class="text-emerald-400 font-bold">m</td>
+                                <td>Mass</td>
+                                <td>Kilogram (kg)</td>
+                                <td>Amount of matter</td>
+                            </tr>
+                            <tr>
+                                <td class="text-red-400 font-bold">a</td>
+                                <td>Acceleration</td>
+                                <td>m/s²</td>
+                                <td>Rate of velocity change</td>
+                            </tr>
+                            <tr>
+                                <td class="text-purple-400 font-bold">ΔP</td>
+                                <td>Change in Momentum</td>
+                                <td>kg·m/s</td>
+                                <td>Change in (mass × velocity)</td>
+                            </tr>
+                            <tr>
+                                <td class="text-amber-400 font-bold">Δt</td>
+                                <td>Time interval</td>
+                                <td>s (seconds)</td>
+                                <td>Duration of force application</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== F = ma RELATIONSHIPS ===== -->
+        <section id="fma" class="py-16 px-6">
+            <div class="container mx-auto max-w-4xl">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <span
+                        class="inline-block px-4 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs font-mono border border-blue-500/20 mb-4">RELATIONSHIPS</span>
+                    <h2 class="text-3xl font-black text-white">How F, m, and a Are Related</h2>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                    <!-- More Force = More Acceleration -->
+                    <div class="glass-card rounded-2xl p-6" data-aos="fade-right">
+                        <h3 class="text-lg font-bold text-blue-400 mb-3"><i class="fas fa-arrows-alt-h"></i> Force ↑ →
+                            Acceleration ↑</h3>
+                        <p class="text-slate-300 text-sm mb-4">At constant mass, acceleration is <strong
+                                class="text-blue-400">directly proportional</strong> to the resultant force.</p>
+                        <svg viewBox="0 0 300 180" class="w-full">
+                            <!-- Axes -->
+                            <line x1="50" y1="150" x2="280" y2="150" stroke="#475569" stroke-width="1.5" />
+                            <line x1="50" y1="150" x2="50" y2="20" stroke="#475569" stroke-width="1.5" />
+                            <text x="165" y="175" text-anchor="middle" fill="#94a3b8" font-size="12">F (Force)</text>
+                            <text x="20" y="85" text-anchor="middle" fill="#94a3b8" font-size="12"
+                                transform="rotate(-90,20,85)">a (Accel)</text>
+                            <!-- Line -->
+                            <line x1="50" y1="145" x2="260" y2="30" stroke="#3b82f6" stroke-width="2.5" />
+                            <text x="200" y="55" fill="#60a5fa" font-size="11" font-weight="bold">a ∝ F</text>
+                        </svg>
+                        <div class="note-box text-sm">
+                            <div class="note-title">Push harder → Accelerate faster!</div>
+                            <p class="text-slate-400">Push a shopping cart gently → slow acceleration. Push hard → fast
+                                acceleration.</p>
+                        </div>
+                    </div>
+
+                    <!-- More Mass = Less Acceleration -->
+                    <div class="glass-card rounded-2xl p-6" data-aos="fade-left">
+                        <h3 class="text-lg font-bold text-red-400 mb-3"><i class="fas fa-weight-hanging"></i> Mass ↑ →
+                            Acceleration ↓</h3>
+                        <p class="text-slate-300 text-sm mb-4">At constant force, acceleration is <strong
+                                class="text-red-400">inversely proportional</strong> to the mass.</p>
+                        <svg viewBox="0 0 300 180" class="w-full">
+                            <line x1="50" y1="150" x2="280" y2="150" stroke="#475569" stroke-width="1.5" />
+                            <line x1="50" y1="150" x2="50" y2="20" stroke="#475569" stroke-width="1.5" />
+                            <text x="165" y="175" text-anchor="middle" fill="#94a3b8" font-size="12">m (Mass)</text>
+                            <text x="20" y="85" text-anchor="middle" fill="#94a3b8" font-size="12"
+                                transform="rotate(-90,20,85)">a (Accel)</text>
+                            <!-- Inverse curve -->
+                            <path d="M60,35 Q100,50 130,80 Q170,115 260,140" fill="none" stroke="#ef4444"
+                                stroke-width="2.5" />
+                            <text x="180" y="85" fill="#f87171" font-size="11" font-weight="bold">a ∝ 1/m</text>
+                        </svg>
+                        <div class="note-box text-sm">
+                            <div class="note-title">Heavier → Harder to accelerate!</div>
+                            <p class="text-slate-400">Empty cart → easy to push. Loaded cart → much harder with same
+                                push.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rearranged formulas -->
+                <div class="glass-card rounded-2xl p-8" data-aos="fade-up">
+                    <h3 class="text-xl font-bold text-white mb-4"><i class="fas fa-exchange-alt text-blue-500"></i>
+                        Three Ways to Use F = ma</h3>
+                    <div class="grid md:grid-cols-3 gap-4 text-center">
+                        <div class="bg-slate-800/40 rounded-xl p-4 border border-blue-500/20">
+                            <p class="text-sm text-slate-400 mb-2">Find Force</p>
+                            <p class="text-2xl font-bold text-blue-400">$F = m \times a$</p>
+                        </div>
+                        <div class="bg-slate-800/40 rounded-xl p-4 border border-red-500/20">
+                            <p class="text-sm text-slate-400 mb-2">Find Acceleration</p>
+                            <p class="text-2xl font-bold text-red-400">$a = \dfrac{F}{m}$</p>
+                        </div>
+                        <div class="bg-slate-800/40 rounded-xl p-4 border border-emerald-500/20">
+                            <p class="text-sm text-slate-400 mb-2">Find Mass</p>
+                            <p class="text-2xl font-bold text-emerald-400">$m = \dfrac{F}{a}$</p>
+                        </div>
+                    </div>
+                    <div class="egyptian-expl mt-4">
+
+                        المعادلة F = ma ممكن نقلبها بـ3 طرق حسب المطلوب:
+                        <br>• عاوز القوة؟ اضرب الكتلة في العجلة.
+                        <br>• عاوز العجلة؟ اقسم القوة على الكتلة.
+                        <br>• عاوز الكتلة؟ اقسم القوة على العجلة.
+                    </div>
+                </div>
+
+                <!-- Interactive SVG: Push strength demo -->
+                <div class="glass-card rounded-2xl p-8 mt-8" data-aos="fade-up">
+                    <h3 class="text-xl font-bold text-white mb-4"><i class="fas fa-hand-pointer text-blue-500"></i>
+                        Interactive: Effect of Force on Acceleration</h3>
+                    <svg viewBox="0 0 500 200" class="w-full mb-4" id="pushSvg">
+                        <rect x="0" y="0" width="500" height="200" fill="#0f172a" rx="12" />
+                        <!-- Ground -->
+                        <line x1="20" y1="160" x2="480" y2="160" stroke="#334155" stroke-width="2" />
+                        <!-- Box -->
+                        <rect id="pushBox" x="60" y="115" width="60" height="45" rx="5" fill="#1e293b" stroke="#3b82f6"
+                            stroke-width="2" />
+                        <text id="pushBoxLabel" x="90" y="142" text-anchor="middle" fill="#60a5fa" font-size="14"
+                            font-weight="bold">5 kg</text>
+                        <!-- Force arrow -->
+                        <line id="forceArrow" x1="120" y1="137" x2="200" y2="137" stroke="#ef4444" stroke-width="3"
+                            marker-end="url(#arrowRed2)" />
+                        <text id="forceLabel" x="160" y="125" text-anchor="middle" fill="#ef4444" font-size="12"
+                            font-weight="bold">F = 10 N</text>
+                        <!-- Accel label -->
+                        <text id="accelLabel" x="90" y="105" text-anchor="middle" fill="#34d399" font-size="13"
+                            font-weight="bold">a = 2 m/s²</text>
+                    </svg>
+                    <div class="flex items-center gap-4 justify-center">
+                        <label class="text-sm text-slate-400">Force (N):</label>
+                        <input type="range" id="forceSlider" min="5" max="50" value="10"
+                            class="w-48 accent-blue-500 cursor-pointer">
+                        <span id="forceVal" class="text-blue-400 font-mono font-bold">10 N</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== REAL-WORLD INSIGHTS ===== -->
+        <section class="py-12 px-6">
+            <div class="container mx-auto max-w-4xl">
+                <div class="glass-card rounded-2xl p-8" data-aos="fade-up">
+                    <h3 class="text-xl font-bold text-white mb-4"><i class="fas fa-lightbulb text-amber-400"></i> What
+                        Newton's 2nd Law Tells Us</h3>
+                    <ul class="custom-list text-slate-300 space-y-2">
+                        <li>Moving or stopping a <strong class="text-blue-400">heavy train</strong> is much more
+                            difficult than a <strong class="text-emerald-400">light bicycle</strong> (more mass → more
+                            force needed for same acceleration).</li>
+                        <li>Any object that accelerates must have a <strong class="text-red-400">net force</strong>
+                            acting on it.</li>
+                        <li>When an object falls, it accelerates at $g ≈ 9.8\;\text{m/s}^2$ — this means <strong
+                                class="text-amber-400">gravity is a force</strong> ($F_g = mg$).</li>
+                    </ul>
+                    <div class="egyptian-expl">
+
+                        • القطر الكبير صعب تحركه أو توقفه مقارنة بالعجلة — لأن كتلته أكبر بكتير.
+                        <br>• أي جسم بيتسارع لازم يكون فيه قوة محصلة بتأثر عليه.
+                        <br>• الجسم اللي بيسقط بيتسارع بعجلة الجاذبية g — وده معناه إن الجاذبية دي قوة (الوزن = mg).
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== SOLVED EXAMPLES ===== -->
+        <section id="examples" class="py-16 px-6">
+            <div class="container mx-auto max-w-4xl">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <span
+                        class="inline-block px-4 py-1 rounded-full bg-amber-500/10 text-amber-400 text-xs font-mono border border-amber-500/20 mb-4">SOLVED
+                        EXAMPLES</span>
+                    <h2 class="text-3xl font-black text-white">Step-by-Step Solutions</h2>
+                </div>
+
+                <!-- Example 1 -->
+                <div class="glass-card rounded-2xl p-8 mb-6" data-aos="fade-up">
+                    <h3 class="text-lg font-bold text-amber-400 mb-4"><i class="fas fa-pen"></i> Example 1 — Comparing
+                        Two Objects</h3>
+                    <p class="text-slate-300 mb-4">Two equal forces act on two objects: the first has mass <strong
+                            class="text-blue-400">10 kg</strong> and moves with acceleration <strong
+                            class="text-blue-400">5 m/s²</strong>. The second has mass <strong class="text-red-400">25
+                            kg</strong>. What is the acceleration of the second object?</p>
+                    <div
+                        class="bg-slate-800/40 rounded-xl p-4 border border-slate-700 text-sm text-slate-200 space-y-2">
+                        <p><strong class="text-amber-400">Given:</strong> $m_1 = 10\;\text{kg}$, $a_1 =
+                            5\;\text{m/s}^2$, $m_2 = 25\;\text{kg}$, Forces are equal ($F_1 = F_2$)</p>
+                        <p><strong class="text-amber-400">Find:</strong> $a_2 = ?$</p>
+                        <p><strong class="text-amber-400">Solution:</strong></p>
+                        <p>Since $F_1 = F_2$ → $m_1 a_1 = m_2 a_2$</p>
+                        <p>$$\frac{m_1}{m_2} = \frac{a_2}{a_1} \quad\Rightarrow\quad a_2 = a_1 \times \frac{m_1}{m_2} =
+                            5 \times \frac{10}{25} = \boxed{2\;\text{m/s}^2}$$</p>
+                    </div>
+                    <div class="egyptian-expl">
+
+                        لما القوة واحدة على جسمين مختلفين في الكتلة، الجسم الأثقل هيتسارع أقل.
+                        <br>الجسم اللي كتلته 25 kg (أكبر 2.5 مرة) هيتسارع 2 m/s² بدل 5 — يعني أقل 2.5 مرة!
+                    </div>
+                </div>
+
+                <!-- Example 2 -->
+                <div class="glass-card rounded-2xl p-8 mb-6" data-aos="fade-up">
+                    <h3 class="text-lg font-bold text-amber-400 mb-4"><i class="fas fa-pen"></i> Example 2 — Finding
+                        Force</h3>
+                    <p class="text-slate-300 mb-4">What force is required for a car of mass <strong
+                            class="text-blue-400">$1.6 \times 10^3$ kg</strong> to move with a positive acceleration of
+                        <strong class="text-blue-400">2 m/s²</strong>?
+                    </p>
+                    <div
+                        class="bg-slate-800/40 rounded-xl p-4 border border-slate-700 text-sm text-slate-200 space-y-2">
+                        <p><strong class="text-amber-400">Given:</strong> $m = 1.6 \times 10^3\;\text{kg} =
+                            1600\;\text{kg}$, $a = 2\;\text{m/s}^2$</p>
+                        <p><strong class="text-amber-400">Find:</strong> $F = ?$</p>
+                        <p><strong class="text-amber-400">Solution:</strong></p>
+                        <p>$$F = m \times a = 1600 \times 2 = \boxed{3200\;\text{N} = 3.2 \times 10^3\;\text{N}}$$</p>
+                    </div>
+                </div>
+
+                <!-- Example 3 -->
+                <div class="glass-card rounded-2xl p-8 mb-6" data-aos="fade-up">
+                    <h3 class="text-lg font-bold text-amber-400 mb-4"><i class="fas fa-pen"></i> Example 3 — Finding
+                        Acceleration</h3>
+                    <p class="text-slate-300 mb-4">A car of mass <strong class="text-blue-400">5000 kg</strong> starts
+                        from rest under a force of <strong class="text-blue-400">4000 N</strong>. Calculate the
+                        acceleration.</p>
+                    <div
+                        class="bg-slate-800/40 rounded-xl p-4 border border-slate-700 text-sm text-slate-200 space-y-2">
+                        <p><strong class="text-amber-400">Given:</strong> $m = 5000\;\text{kg}$, $F = 4000\;\text{N}$
+                        </p>
+                        <p><strong class="text-amber-400">Find:</strong> $a = ?$</p>
+                        <p><strong class="text-amber-400">Solution:</strong></p>
+                        <p>$$a = \frac{F}{m} = \frac{4000}{5000} = \boxed{0.8\;\text{m/s}^2}$$</p>
+                    </div>
+                    <div class="egyptian-expl">
+
+                        عربية كتلتها 5000 kg بتتأثر بقوة 4000 N.
+                        <br>العجلة = القوة ÷ الكتلة = 4000 ÷ 5000 = 0.8 m/s²
+                        <br>يعني كل ثانية سرعتها بتزيد 0.8 m/s!
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== EXERCISES ===== -->
+        <section id="exercises" class="py-16 px-6">
+            <div class="container mx-auto max-w-4xl">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <span
+                        class="inline-block px-4 py-1 rounded-full bg-purple-500/10 text-purple-400 text-xs font-mono border border-purple-500/20 mb-4">EXERCISES</span>
+                    <h2 class="text-3xl font-black text-white">Practice Problems</h2>
+                </div>
+
+                <div class="glass-card rounded-2xl p-8 mb-6" data-aos="fade-up">
+                    <h3 class="text-lg font-bold text-purple-400 mb-4"><i class="fas fa-question-circle"></i> Exercise 1
+                        — Graph Interpretation</h3>
+                    <p class="text-slate-300 mb-4">The graph below shows the relationship between acceleration ($a$) and
+                        force ($F$) for two objects A and B. Which object has the greater mass? Why?</p>
+                    <svg viewBox="0 0 300 200" class="w-full max-w-sm mx-auto mb-4">
+                        <rect width="300" height="200" fill="#0f172a" rx="8" />
+                        <line x1="40" y1="170" x2="280" y2="170" stroke="#475569" stroke-width="1.5" />
+                        <line x1="40" y1="170" x2="40" y2="20" stroke="#475569" stroke-width="1.5" />
+                        <text x="160" y="195" text-anchor="middle" fill="#94a3b8" font-size="11">F (Force)</text>
+                        <text x="15" y="95" text-anchor="middle" fill="#94a3b8" font-size="11"
+                            transform="rotate(-90,15,95)">a (Acceleration)</text>
+                        <!-- Line A (steeper) -->
+                        <line x1="40" y1="165" x2="240" y2="30" stroke="#3b82f6" stroke-width="2" />
+                        <text x="230" y="25" fill="#60a5fa" font-size="12" font-weight="bold">A</text>
+                        <!-- Line B (less steep) -->
+                        <line x1="40" y1="165" x2="260" y2="90" stroke="#ef4444" stroke-width="2" />
+                        <text x="260" y="85" fill="#f87171" font-size="12" font-weight="bold">B</text>
+                    </svg>
+                    <div class="note-box text-sm">
+                        <div class="note-title">💡 Hint</div>
+                        <p class="text-slate-400">Slope = $a/F = 1/m$. Steeper slope → smaller mass. Object <strong
+                                class="text-red-400">B</strong> has the greater mass because its line is less steep
+                            (smaller slope → larger mass).</p>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-2xl p-8" data-aos="fade-up">
+                    <h3 class="text-lg font-bold text-purple-400 mb-4"><i class="fas fa-question-circle"></i> Exercise 2
+                        — Force Comparison</h3>
+                    <p class="text-slate-300 mb-4">A force $F$ acts on an object and accelerates it at acceleration $a$.
+                        When another force acts on the <em>same object</em> and accelerates it at $5a$. What do you
+                        conclude about the two forces?</p>
+                    <div class="note-box text-sm">
+                        <div class="note-title">💡 Hint</div>
+                        <p class="text-slate-400">Since $F = ma$ and mass is constant: if $a_2 = 5a_1$, then $F_2 =
+                            5F_1$. The second force is <strong>5 times</strong> the first force.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== QUIZ ===== -->
+        <section id="quiz" class="py-16 px-6">
+            <div class="container mx-auto max-w-5xl">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <span
+                        class="inline-block px-4 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs font-mono border border-blue-500/20 mb-4">ASSESSMENT</span>
+                    <h2 class="text-4xl font-black text-white mb-2">Test Your Knowledge</h2>
+                    <p class="text-slate-400">24 questions — conceptual + calculation</p>
+                </div>
+                <div id="quiz-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 py-8 text-center text-sm text-slate-500">
+        <p>Physics Year 1 (STEM) © 2026 — Prepared by <span class="text-blue-400">Osama Zinhom</span></p>
+        <p class="mt-2"><a href="lect01.html" class="text-blue-400 hover:underline">← Lesson 1</a> · <a
+                href="index.html" class="text-slate-400 hover:text-white">Home</a> · <a href="lect02script.html"
+                class="text-amber-400 hover:underline">📜 سكريبت الشرح</a></p>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        AOS.init({ duration: 600, once: true, offset: 60 });
+
+        // Force slider interactive
+        const slider = document.getElementById('forceSlider');
+        if (slider) {
+            slider.addEventListener('input', function () {
+                const F = parseInt(this.value);
+                const m = 5;
+                const a = (F / m).toFixed(1);
+                document.getElementById('forceVal').textContent = F + ' N';
+                document.getElementById('forceLabel').textContent = 'F = ' + F + ' N';
+                document.getElementById('accelLabel').textContent = 'a = ' + a + ' m/s²';
+                const arrowLen = 80 + (F - 5) * 3;
+                document.getElementById('forceArrow').setAttribute('x2', 120 + arrowLen);
+            });
+        }
+
+        // Quiz
+        const questions = [
+            { text: "Newton's Second Law relates:", ans: 2, expl: "F = ma relates force, mass, and acceleration.", opts: ["Force and velocity", "Mass and weight", "Force, mass, and acceleration", "Momentum and energy"] },
+            { text: "What is the SI unit of Force?", ans: 1, expl: "Force is measured in Newtons (N). 1 N = 1 kg·m/s².", opts: ["Joule", "Newton (N)", "Watt", "Pascal"] },
+            { text: "If the resultant force on an object is NOT zero, the object will:", ans: 0, expl: "ΣF ≠ 0 means the object accelerates (velocity changes).", opts: ["Accelerate", "Stay at rest", "Move at constant velocity", "Lose mass"] },
+            { text: "Acceleration is directly proportional to:", ans: 1, expl: "a = F/m. At constant mass, more force → more acceleration.", opts: ["Mass", "Resultant force (at constant mass)", "Weight only", "Volume"] },
+            { text: "Acceleration is inversely proportional to:", ans: 0, expl: "a = F/m. At constant force, more mass → less acceleration.", opts: ["Mass (at constant force)", "Force", "Time", "Velocity"] },
+            { text: "Why is it harder to stop a train than a bicycle at the same speed?", ans: 2, expl: "The train has much more mass, so more force is needed to change its velocity (F = ma).", opts: ["The train is faster", "The train has more friction", "The train has much more mass", "The bicycle is lighter on Earth only"] },
+            { text: "The formula F = ΔP/Δt means:", ans: 3, expl: "Force equals the rate of change of momentum over time.", opts: ["Force equals mass times velocity", "Force equals weight", "Force equals energy per meter", "Force equals rate of change of momentum"] },
+            { text: "When an object falls freely, the force acting on it is:", ans: 1, expl: "The gravitational force Fg = mg causes the free-fall acceleration g ≈ 9.8 m/s².", opts: ["Zero", "Gravity (Fg = mg)", "Air resistance only", "Normal force"] },
+
+            // Conceptual
+            { text: "A car moves in a straight line and its speed increases steadily. This means:", ans: 2, expl: "Increasing speed means positive acceleration, which requires a net force (F = ma).", opts: ["No force acts on it", "Only friction acts on it", "A net force acts in the direction of motion", "The mass is decreasing"] },
+            { text: "Two identical forces push two different objects. Object X (light) accelerates more than Object Y (heavy). Why?", ans: 0, expl: "a = F/m. Same F, smaller m → larger a.", opts: ["Object X has less mass", "Object X has more friction", "Object Y is moving faster", "Object X has a different shape"] },
+            { text: "If a net force of F produces acceleration a, what force produces acceleration 3a on the same object?", ans: 2, expl: "F = ma. For 3a: F₂ = m(3a) = 3(ma) = 3F.", opts: ["F/3", "F", "3F", "9F"] },
+            { text: "A 1 kg object and a 100 kg object are both dropped. Ignoring air resistance, their accelerations are:", ans: 1, expl: "Both accelerate at g ≈ 9.8 m/s². Gravity force differs but a = F/m = mg/m = g for both.", opts: ["Different — the heavy one is faster", "The same (g ≈ 9.8 m/s²)", "Zero for the lighter one", "Depends on their shapes"] },
+
+            // Calculations
+            { text: "🔢 F = 30 N, m = 6 kg. Find acceleration.", ans: 1, expl: "a = F/m = 30/6 = 5 m/s².", opts: ["3 m/s²", "5 m/s²", "180 m/s²", "0.2 m/s²"] },
+            { text: "🔢 m = 1600 kg, a = 2 m/s². Find the force.", ans: 0, expl: "F = ma = 1600 × 2 = 3200 N.", opts: ["3200 N", "800 N", "1600 N", "6400 N"] },
+            { text: "🔢 F = 4000 N, m = 5000 kg. Find acceleration.", ans: 2, expl: "a = F/m = 4000/5000 = 0.8 m/s².", opts: ["0.5 m/s²", "4 m/s²", "0.8 m/s²", "8 m/s²"] },
+            { text: "🔢 An object (m = 10 kg) has acceleration 5 m/s². Another object (m = 25 kg) feels the same force. Find a₂.", ans: 1, expl: "F = 10×5 = 50 N. a₂ = 50/25 = 2 m/s².", opts: ["5 m/s²", "2 m/s²", "12.5 m/s²", "0.4 m/s²"] },
+            { text: "🔢 What is the weight of a 70 kg person? (g = 9.8 m/s²)", ans: 3, expl: "Fg = mg = 70 × 9.8 = 686 N.", opts: ["70 N", "700 N", "9.8 N", "686 N"] },
+            { text: "🔢 A 2 kg ball is hit with a force of 100 N. What is its acceleration?", ans: 0, expl: "a = F/m = 100/2 = 50 m/s².", opts: ["50 m/s²", "200 m/s²", "0.02 m/s²", "5 m/s²"] },
+            { text: "🔢 A car (m = 1200 kg) brakes with force 6000 N. Find the deceleration.", ans: 2, expl: "a = F/m = 6000/1200 = 5 m/s² (deceleration).", opts: ["0.2 m/s²", "72 m/s²", "5 m/s²", "50 m/s²"] },
+            { text: "🔢 What force gives a 0.5 kg ball an acceleration of 20 m/s²?", ans: 1, expl: "F = ma = 0.5 × 20 = 10 N.", opts: ["40 N", "10 N", "0.025 N", "100 N"] },
+            { text: "🔢 A rocket (m = 5000 kg) produces thrust of 75000 N. Find acceleration.", ans: 0, expl: "a = F/m = 75000/5000 = 15 m/s².", opts: ["15 m/s²", "150 m/s²", "1.5 m/s²", "375 m/s²"] },
+            { text: "🔢 m = 8 kg. Object accelerates from 0 to 12 m/s in 4 s. Find force.", ans: 2, expl: "a = Δv/Δt = 12/4 = 3 m/s². F = ma = 8×3 = 24 N.", opts: ["96 N", "12 N", "24 N", "3 N"] },
+            { text: "🔢 Two forces act: 50 N right, 20 N left, on a 6 kg object. Find acceleration.", ans: 1, expl: "Net F = 50−20 = 30 N. a = 30/6 = 5 m/s² to the right.", opts: ["11.67 m/s²", "5 m/s²", "3.33 m/s²", "70 m/s²"] },
+            { text: "🔢 A 500 kg elevator accelerates upward at 2 m/s². Find the cable tension. (g=10)", ans: 3, expl: "T − mg = ma → T = m(g+a) = 500(10+2) = 6000 N.", opts: ["5000 N", "1000 N", "4000 N", "6000 N"] }
+        ];
+
+        const grid = document.getElementById('quiz-grid');
+        questions.forEach((q, i) => {
+            const card = document.createElement('div');
+            card.className = "glass-card p-6 rounded-xl hover:bg-slate-800/80 group transition flex flex-col";
+            card.innerHTML = `
+                <div class="flex justify-between items-start mb-4">
+                    <span class="text-sm font-mono text-blue-500">Q${i + 1}</span>
+                </div>
+                <p class="text-lg font-semibold text-white mb-6">${q.text}</p>
+                <div class="grid gap-2 mb-4 text-sm text-slate-300">
+                    ${q.opts.map((opt, j) => `
+                        <div onclick="checkAnswer(this, ${j}, ${q.ans})"
+                             class="p-3 rounded bg-slate-900/50 border border-slate-700 hover:bg-slate-800 transition cursor-pointer">
+                            ${String.fromCharCode(65 + j)}) ${opt}
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="mt-auto">
+                    <button onclick="this.nextElementSibling.classList.toggle('show')" class="text-xs flex items-center gap-2 text-slate-500 hover:text-blue-400 font-bold uppercase tracking-wider transition cursor-pointer mt-2">
+                        <i class="fas fa-eye"></i> Show Answer
+                    </button>
+                    <div class="answer-container">
+                        <p class="text-blue-400 font-bold mb-1">Correct: ${String.fromCharCode(65 + q.ans)}</p>
+                        <p class="text-xs text-slate-300">${q.expl}</p>
+                    </div>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+
+        function checkAnswer(el, selected, correct) {
+            const parent = el.parentElement;
+            Array.from(parent.children).forEach(child => {
+                child.classList.remove('bg-emerald-500/20', 'border-emerald-500', 'bg-red-500/20', 'border-red-500');
+                child.classList.add('bg-slate-900/50', 'border-slate-700');
+            });
+            if (selected === correct) {
+                el.classList.remove('bg-slate-900/50', 'border-slate-700');
+                el.classList.add('bg-emerald-500/20', 'border-emerald-500');
+            } else {
+                el.classList.remove('bg-slate-900/50', 'border-slate-700');
+                el.classList.add('bg-red-500/20', 'border-red-500');
+            }
+        }
+    </script>
+</body>
+
+</html>

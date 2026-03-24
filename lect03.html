@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics - Lesson 3: Work</title>
+    <meta name="description" content="Work in Physics - W=Fd cosθ, Joule, Conditions for Work, Solved Examples">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: {
+            colors: { neon: { green: '#10B981', blue: '#3B82F6', purple: '#8B5CF6', red: '#ef4444', amber: '#f59e0b' }, dark: { bg: '#020617', card: '#0F172A', border: '#1E293B' } },
+            fontFamily: { sans: ['Inter','sans-serif'], arabic: ['Cairo','sans-serif'], mono: ['JetBrains Mono','monospace'] },
+            animation: { 'float': 'float 3s ease-in-out infinite' },
+            keyframes: { float: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } } }
+        }}}
+    </script>
+    <style>
+        body { background-color: #020617; color: #E2E8F0; overflow-x: hidden; background-image: radial-gradient(circle at 15% 25%, rgba(139,92,246,0.06) 0%, transparent 20%), radial-gradient(circle at 85% 75%, rgba(16,185,129,0.05) 0%, transparent 20%); }
+        .glass-card { background: rgba(15,23,42,0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.08); transition: all 0.3s cubic-bezier(0.4,0,0.2,1); }
+        .glass-card:hover { border-color: rgba(139,92,246,0.4); box-shadow: 0 10px 40px -10px rgba(139,92,246,0.15); transform: translateY(-4px); }
+        .glass-header { background: rgba(2,6,23,0.85); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .text-gradient { background: linear-gradient(135deg, #a78bfa 0%, #34d399 50%, #60a5fa 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        ul.custom-list { list-style: none; padding-left: 0; }
+        ul.custom-list li { position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem; }
+        ul.custom-list li::before { content: "•"; color: #8b5cf6; font-weight: bold; display: inline-block; width: 1em; margin-left: -1em; }
+        .formula-box { background: rgba(139,92,246,0.05); border: 1px solid rgba(139,92,246,0.2); border-radius: 12px; padding: 1.5rem; text-align: center; font-size: 1.3rem; margin: 1rem 0; }
+        .answer-container { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out, padding 0.3s ease; background: rgba(139,92,246,0.05); border-radius: 0.5rem; }
+        .answer-container.show { max-height: 250px; padding: 1rem; margin-top: 1rem; border: 1px solid rgba(139,92,246,0.3); }
+        .custom-table tr:nth-child(even) { background-color: rgba(30,41,59,0.3); }
+        .custom-table td, .custom-table th { padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .custom-table th { text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.75rem; color: #94A3B8; }
+        .note-box { background: rgba(251,191,36,0.05); border-left: 4px solid #fbbf24; border-radius: 0.5rem; padding: 1rem 1.25rem; margin: 1rem 0; }
+        .note-box .note-title { color: #fbbf24; font-weight: 700; font-size: 0.9rem; margin-bottom: 0.5rem; }
+        .definition-box { background: rgba(139,92,246,0.05); border-left: 4px solid #8b5cf6; border-radius: 0.5rem; padding: 1rem 1.25rem; margin: 1rem 0; }
+        .definition-box strong { color: #a78bfa; }
+        .egyptian-expl { direction: rtl; text-align: right; font-family: 'Cairo', sans-serif; background: rgba(251,191,36,0.04); border: 1px solid rgba(251,191,36,0.15); border-right: 4px solid #f59e0b; border-radius: 0.75rem; padding: 1.25rem 1.5rem; margin: 1.25rem 0; line-height: 2; color: #cbd5e1; }
+        .egyptian-expl .expl-header { color: #fbbf24; font-weight: 700; font-size: 0.95rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; justify-content: flex-end; }
+        .egyptian-expl .expl-header i { color: #f59e0b; }
+    </style>
+</head>
+<body class="antialiased font-sans flex flex-col min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full z-50 glass-header">
+        <div class="container mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <a href="index.html" class="w-8 h-8 rounded bg-gradient-to-br from-purple-500 to-emerald-600 flex items-center justify-center text-white font-bold shadow-lg shadow-purple-500/20 text-xs">⚛</a>
+                <span class="font-bold text-lg tracking-wide text-slate-200">Lesson<span class="text-purple-500">03</span></span>
+            </div>
+            <div class="hidden lg:flex gap-6 text-sm font-medium text-slate-400">
+                <a href="#hero" class="hover:text-purple-400 transition">Intro</a>
+                <a href="#definition" class="hover:text-purple-400 transition">Definition</a>
+                <a href="#formula" class="hover:text-purple-400 transition">Formula</a>
+                <a href="#angle" class="hover:text-purple-400 transition">Angle θ</a>
+                <a href="#examples" class="hover:text-purple-400 transition">Examples</a>
+                <a href="#thinking" class="hover:text-purple-400 transition">Think</a>
+                <a href="#quiz" class="px-5 py-2 rounded-full bg-purple-600/10 text-purple-400 border border-purple-500/20 hover:bg-purple-600 hover:text-white transition">Quiz</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow pt-24">
+
+        <!-- HERO -->
+        <header id="hero" class="relative pb-20 px-6">
+            <div class="container mx-auto text-center relative z-10" data-aos="fade-up">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700 text-xs font-mono text-purple-400 mb-6">
+                    <span class="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></span> UNIT 3 — LESSON 3
+                </div>
+                <h1 class="text-5xl md:text-7xl font-black mb-2 tracking-tight leading-tight text-white">
+                    Work in<br><span class="text-gradient">Physics</span>
+                </h1>
+                <div class="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed mb-8">
+                    <p>Unit Three: Motion and Force</p>
+                    <p> بشمهندس أسامة زينهم</p>
+                    <p><a href="https://chat.whatsapp.com/FWUBrybJ3RO4MfUyX9MoPD?mode=gi_t" target="_blank" style="color: #8b5cf6; font-size: 1.2rem; font-weight: bold; margin-top: 1rem;">انضم لجروب الشرح واتساب</a></p>
+                </div>
+                <!-- Animated SVG: Person pushing box -->
+                <div class="max-w-lg mx-auto">
+                    <svg viewBox="0 0 500 150" class="w-full">
+                        <defs>
+                            <marker id="arrP" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#8b5cf6"/></marker>
+                            <marker id="arrR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#ef4444"/></marker>
+                        </defs>
+                        <line x1="30" y1="110" x2="470" y2="110" stroke="#334155" stroke-width="2" stroke-dasharray="6,4"/>
+                        <!-- Box -->
+                        <rect x="160" y="65" width="70" height="45" rx="5" fill="#1e293b" stroke="#8b5cf6" stroke-width="2">
+                            <animate attributeName="x" values="160;250;160" dur="5s" repeatCount="indefinite"/>
+                        </rect>
+                        <text x="195" y="92" text-anchor="middle" fill="#a78bfa" font-size="14" font-weight="bold">
+                            <animate attributeName="x" values="195;285;195" dur="5s" repeatCount="indefinite"/>m
+                        </text>
+                        <!-- Force arrow -->
+                        <line x1="230" y1="87" x2="330" y2="87" stroke="#8b5cf6" stroke-width="3" marker-end="url(#arrP)">
+                            <animate attributeName="x1" values="230;320;230" dur="5s" repeatCount="indefinite"/>
+                            <animate attributeName="x2" values="330;420;330" dur="5s" repeatCount="indefinite"/>
+                        </line>
+                        <text x="280" y="78" fill="#a78bfa" font-size="12" font-weight="bold">
+                            <animate attributeName="x" values="280;370;280" dur="5s" repeatCount="indefinite"/>F →
+                        </text>
+                        <!-- Displacement bracket -->
+                        <line x1="160" y1="125" x2="250" y2="125" stroke="#34d399" stroke-width="1.5" marker-end="url(#arrG)"/>
+                        <text x="205" y="142" text-anchor="middle" fill="#34d399" font-size="11">d (displacement)</text>
+                        <!-- W label -->
+                        <text x="250" y="45" text-anchor="middle" fill="#fbbf24" font-size="14" font-weight="bold" opacity="0.9">W = F × d</text>
+                    </svg>
+                </div>
+            </div>
+        </header>
+
+        <!-- DEFINITION -->
+        <section id="definition" class="py-16 px-6">
+            <div class="container mx-auto max-w-4xl">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <span class="inline-block px-4 py-1 rounded-full bg-purple-500/10 text-purple-400 text-xs font-mono border border-purple-500/20 mb-4">WHAT IS WORK?</span>
+                    <h2 class="text-4xl font-black text-white">The Scientific Meaning of Work</h2>
+                </div>
+                <div class="glass-card rounded-2xl p-8" data-aos="fade-up">
+                    <p class="text-slate-300 leading-relaxed mb-4">In nature, energy exists in different forms such as thermal (heat) energy, chemical energy, mechanical energy, etc. This energy can be converted from one form into another. What is energy? What is its relation to the work done?</p>
+                    <p class="text-slate-300 leading-relaxed mb-4">The term work may be used in our daily experience to express a task that captured somebody's interest and is involved in the most. This task could be mental as doing homework, physical as visiting a patient, or even just being at office. <strong class="text-purple-400">Physicists use the term work to express something really different:</strong></p>
+                    <div class="definition-box">
+                        <strong>"When a force acts upon an object to cause a displacement of the object, it is said that work was done upon the object."</strong>
+                    </div>
+                    <p class="text-slate-300 text-sm mt-3">There are <strong class="text-purple-400">three key ingredients</strong> to work — <strong>force</strong>, <strong>displacement</strong>, and <strong>cause</strong>. In order for a force to qualify as having done work on an object, there must be a displacement and the force must cause the displacement.</p>
+                    <p class="text-slate-300 text-sm mt-2"><strong class="text-amber-400">If the object does not move, no work is done regardless how huge the exerted force is.</strong></p>
+                    <div class="egyptian-expl">
+                        <div class="expl-header"><i class="fas fa-comment-dots"></i> شرح بالعربي</div>
+                        في حياتنا اليومية كلمة "شغل" ممكن تبقى واجب، مذاكرة، أو شغل المكتب. بس في الفيزياء الشغل ليه معنى محدد جداً:
+                        <br><br>
+                        <strong style="color:#a78bfa">الشغل = لما قوة تأثر على جسم وتخليه يتحرك (ينتقل) مسافة معينة.</strong>
+                        <br><br>
+                        يعني لازم يحصل حاجتين مع بعض:
+                        <br>1️⃣ فيه <strong style="color:#f87171">قوة</strong> بتأثر على الجسم.
+                        <br>2️⃣ الجسم <strong style="color:#34d399">اتحرك فعلاً</strong> في اتجاه القوة (أو مركبة القوة).
+                        <br><br>
+                        لو فيه قوة بس مفيش حركة — <strong style="color:#fbbf24">مفيش شغل!</strong> زي إنك تدفع حيطة بكل قوتك — مهما تعبت، الشغل الفيزيائي = صفر لأن الحيطة ما اتحركتش!
+                    </div>
+
+                    <h3 class="text-lg font-bold text-white mt-6 mb-3"><i class="fas fa-list-check text-purple-500"></i> Two Conditions for Work</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-slate-800/40 rounded-xl p-5 border border-red-500/20">
+                            <p class="text-red-400 font-bold mb-2"><i class="fas fa-bolt"></i> Condition 1: Force</p>
+                            <p class="text-slate-300 text-sm">A certain force (F) must act on the object. Without force, there is no work.</p>
+                        </div>
+                        <div class="bg-slate-800/40 rounded-xl p-5 border border-emerald-500/20">
+                            <p class="text-emerald-400 font-bold mb-2"><i class="fas fa-arrows-alt-h"></i> Condition 2: Displacement</p>
+                            <p class="text-slate-300 text-sm">The object must move through a displacement in the direction of the force (or its component).</p>
+                        </div>
+                    </div>
+
+                    <h3 class="text-lg font-bold text-white mt-8 mb-3"><i class="fas fa-check-circle text-emerald-500"></i> Examples of Work in Everyday Life</h3>
+                    <p class="text-slate-300 text-sm mb-3">There are several good examples of work that can be observed in everyday life:</p>
+                    <ul class="custom-list text-slate-300 space-y-2">
+                        <li><strong>1-</strong> A cow pulling a plow through the field. ✅</li>
+                        <li><strong>2-</strong> A father pushing a grocery cart down the aisle of a grocery store. ✅</li>
+                        <li><strong>3-</strong> A freshman lifting a backpack full of books upon her shoulder. ✅</li>
+                        <li><strong>4-</strong> A student lifting a barbell above his head, an Olympian launching the shot-put. ✅</li>
+                        <li><strong>5-</strong> A teacher applies a force to a wall and becomes exhausted. ❌ (wall doesn't move!)</li>
+                        <li><strong>6-</strong> A book falls off a table and free falls to the ground. ✅ (gravity does work)</li>
+                    </ul>
+                    <p class="text-slate-300 text-sm mt-3">In each case described here there is a force exerted upon an object to cause that object to be displaced.</p>
+                    <div class="note-box mt-4">
+                        <div class="note-title">📋 Two Conditions for Work</div>
+                        <p class="text-slate-300 text-sm"><strong>1-</strong> A certain force acts on the object.</p>
+                        <p class="text-slate-300 text-sm"><strong>2-</strong> The object should move through a certain displacement in the direction of the force.</p>
+                    </div>
+                    <div class="egyptian-expl">
+                        <div class="expl-header"><i class="fas fa-comment-dots"></i> شرح بالعربي</div>
+                        خلي بالك: مش كل مجهود بتبذله يبقى "شغل" في الفيزياء!
+                        <br>• لو دفعت حيطة وتعبت جداً بس الحيطة ما اتحركتش ← الشغل = صفر ❌
+                        <br>• لو شيلت شنطة ثقيلة وأنت ماشي أفقي (القوة لفوق والحركة جنب) ← الشغل = صفر ❌
+                        <br>• بس لو دفعت عربية وهي اتحركت ← ده شغل ✅
+                        <br>• لو رفعت كتاب من الأرض لفوق ← ده شغل ✅ (القوة والحركة في نفس الاتجاه)
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FORMULA -->
+        <section id="formula" class="py-16 px-6">
+            <div class="container mx-auto max-w-4xl">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <span class="inline-block px-4 py-1 rounded-full bg-purple-500/10 text-purple-400 text-xs font-mono border border-purple-500/20 mb-4">FORMULA</span>
+                    <h2 class="text-3xl font-black text-white">Mathematical Formula of Work</h2>
+                </div>
+                <div class="glass-card rounded-2xl p-8" data-aos="fade-up">
+                    <h3 class="text-lg font-bold text-purple-400 mb-3">Case 1: Force in the same direction as displacement</h3>
+                    <div class="formula-box">$$ W = F \times d $$</div>
+                    <p class="text-slate-300 text-sm mb-6">When force and displacement are in the exact same direction (θ = 0°), cos 0° = 1, so W = Fd.</p>
+
+                    <h3 class="text-lg font-bold text-purple-400 mb-3">Case 2: Force at an angle θ to displacement</h3>
+                    <div class="formula-box">$$ W = F \times d \times \cos\theta $$</div>
+
+                    <!-- Angle SVG Diagram -->
+                    <svg viewBox="0 0 450 200" class="w-full max-w-md mx-auto my-4">
+                        <rect width="450" height="200" fill="#0f172a" rx="10"/>
+                        <line x1="50" y1="150" x2="400" y2="150" stroke="#334155" stroke-width="1.5"/>
+                        <!-- Block -->
+                        <rect x="80" y="120" width="55" height="30" rx="4" fill="#1e293b" stroke="#8b5cf6" stroke-width="2"/>
+                        <text x="107" y="140" text-anchor="middle" fill="#a78bfa" font-size="11">m</text>
+                        <!-- Displacement arrow -->
+                        <line x1="80" y1="165" x2="330" y2="165" stroke="#34d399" stroke-width="2" marker-end="url(#arrG2)"/>
+                        <text x="205" y="185" text-anchor="middle" fill="#34d399" font-size="11">d (displacement)</text>
+                        <!-- Force arrow at angle -->
+                        <line x1="135" y1="135" x2="290" y2="65" stroke="#ef4444" stroke-width="2.5" marker-end="url(#arrR)"/>
+                        <text x="230" y="80" fill="#ef4444" font-size="12" font-weight="bold">F</text>
+                        <!-- Horizontal component -->
+                        <line x1="135" y1="135" x2="290" y2="135" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="5,3"/>
+                        <text x="215" y="130" fill="#60a5fa" font-size="10">F cos θ</text>
+                        <!-- Angle arc -->
+                        <path d="M 165 135 A 30 30 0 0 0 155 117" fill="none" stroke="#fbbf24" stroke-width="1.5"/>
+                        <text x="175" y="122" fill="#fbbf24" font-size="11">θ</text>
+                        <!-- Vertical component -->
+                        <line x1="290" y1="135" x2="290" y2="65" stroke="#f97316" stroke-width="1.5" stroke-dasharray="5,3"/>
+                        <text x="310" y="100" fill="#f97316" font-size="10">F sin θ</text>
+                        <defs><marker id="arrG2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#34d399"/></marker></defs>
+                    </svg>
+
+                    <table class="custom-table w-full mt-4 text-sm">
+                        <thead><tr><th>Symbol</th><th>Name</th><th>Unit</th><th>Meaning</th></tr></thead>
+                        <tbody>
+                            <tr><td class="text-purple-400 font-bold">W</td><td>Work</td><td>Joule (J)</td><td>Energy transferred by force over distance</td></tr>
+                            <tr><td class="text-red-400 font-bold">F</td><td>Force</td><td>Newton (N)</td><td>The applied force</td></tr>
+                            <tr><td class="text-emerald-400 font-bold">d</td><td>Displacement</td><td>Meter (m)</td><td>Distance moved in force direction</td></tr>
+                            <tr><td class="text-amber-400 font-bold">θ</td><td>Angle</td><td>Degrees (°)</td><td>Angle between F and d vectors</td></tr>
+                        </tbody>
+                    </table>
+
+                    <div class="egyptian-expl">
+                        <div class="expl-header"><i class="fas fa-comment-dots"></i> شرح بالعربي</div>
+                        المعادلة الأساسية للشغل: <strong style="color:#a78bfa">W = F × d × cos θ</strong>
+                        <br><br>
+                        <strong style="color:#fbbf24">إيه معنى cos θ؟</strong>
+                        <br>لما القوة مش في نفس اتجاه الحركة (مثلاً بتسحب حبل مايل لفوق)، مش كل القوة بتعمل شغل — بس المركبة اللي في اتجاه الحركة (F cos θ) هي اللي بتتحسب.
+                        <br><br>
+                        <strong style="color:#34d399">3 حالات مهمة:</strong>
+                        <br>• θ = 0° (قوة في نفس اتجاه الحركة) → cos 0° = 1 → <strong>W = Fd</strong> (شغل موجب ✅)
+                        <br>• θ = 90° (قوة عمودية على الحركة) → cos 90° = 0 → <strong>W = 0</strong> (مفيش شغل ❌)
+                        <br>• θ = 180° (قوة عكس الحركة) → cos 180° = −1 → <strong>W = −Fd</strong> (شغل سالب 🔻)
+                        <br><br>
+                        <strong style="color:#f87171">الشغل السالب</strong> يعني القوة بتبطّئ الجسم (زي الاحتكاك). <strong style="color:#34d399">الشغل الموجب</strong> يعني القوة بتسرّع الجسم.
+                    </div>
+
+                    <!-- Three special cases -->
+                    <h3 class="text-lg font-bold text-white mt-6 mb-3">Three Special Cases of θ</h3>
+                    <div class="grid md:grid-cols-3 gap-4 text-center">
+                        <div class="bg-slate-800/40 rounded-xl p-4 border border-emerald-500/20">
+                            <p class="text-emerald-400 font-bold mb-1">θ = 0°</p>
+                            <p class="text-2xl font-bold text-emerald-400">W = +Fd</p>
+                            <p class="text-xs text-slate-400 mt-1">Force ∥ displacement<br>Positive work</p>
+                        </div>
+                        <div class="bg-slate-800/40 rounded-xl p-4 border border-amber-500/20">
+                            <p class="text-amber-400 font-bold mb-1">θ = 90°</p>
+                            <p class="text-2xl font-bold text-amber-400">W = 0</p>
+                            <p class="text-xs text-slate-400 mt-1">Force ⊥ displacement<br>No work done</p>
+                        </div>
+                        <div class="bg-slate-800/40 rounded-xl p-4 border border-red-500/20">
+                            <p class="text-red-400 font-bold mb-1">θ = 180°</p>
+                            <p class="text-2xl font-bold text-red-400">W = −Fd</p>
+                            <p class="text-xs text-slate-400 mt-1">Force opposite to displacement<br>Negative work</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Unit of Work -->
+                <div class="glass-card rounded-2xl p-8 mt-8" data-aos="fade-up">
+                    <h3 class="text-xl font-bold text-white mb-4"><i class="fas fa-ruler-combined text-purple-500"></i> Unit of Work: The Joule</h3>
+                    <p class="text-slate-300 mb-3">Work is a <strong class="text-purple-400">derived scalar quantity</strong> and its measuring unit is (kg·m²/s²) which is called the Joule.</p>
+                    <div class="formula-box">$$ 1\;\text{Joule} = 1\;\text{Newton} \times 1\;\text{meter} \quad\quad 1\;\text{J} = 1\;\text{N} \cdot \text{m} $$</div>
+                    <div class="definition-box">
+                        <strong>The Joule:</strong> is the work done by a force of <strong>one Newton</strong> to move an object through a displacement of <strong>one meter</strong> in the direction of the force.
+                    </div>
+                    <div class="egyptian-expl">
+                        <div class="expl-header"><i class="fas fa-comment-dots"></i> شرح بالعربي</div>
+                        <strong style="color:#a78bfa">الجول (Joule)</strong> هو وحدة قياس الشغل — سُمّي كده على اسم العالم جيمس بريسكوت جول.
+                        <br>• 1 جول = القوة 1 نيوتن × المسافة 1 متر
+                        <br>• الشغل كمية <strong style="color:#fbbf24">قياسية (Scalar)</strong> — يعني ليه مقدار بس ومالوش اتجاه. ده بيفرقه عن القوة اللي هي كمية متجهة.
+                        <br>• بس ممكن يكون موجب أو سالب حسب الزاوية θ!
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ANGLE INTERACTIVE -->
+        <section id="angle" class="py-16 px-6">
+            <div class="container mx-auto max-w-4xl">
+                <div class="glass-card rounded-2xl p-8" data-aos="fade-up">
+                    <h3 class="text-xl font-bold text-white mb-4"><i class="fas fa-sliders-h text-purple-500"></i> Interactive: How Angle θ Affects Work</h3>
+                    <svg viewBox="0 0 500 180" class="w-full mb-4" id="angleSvg">
+                        <rect width="500" height="180" fill="#0f172a" rx="12"/>
+                        <line x1="20" y1="140" x2="480" y2="140" stroke="#334155" stroke-width="1.5"/>
+                        <rect x="100" y="105" width="50" height="35" rx="4" fill="#1e293b" stroke="#8b5cf6" stroke-width="2"/>
+                        <line id="forceLineA" x1="150" y1="122" x2="280" y2="60" stroke="#ef4444" stroke-width="2.5" marker-end="url(#arrR)"/>
+                        <text id="angleLabelA" x="175" y="100" fill="#fbbf24" font-size="12">θ = 30°</text>
+                        <text id="workLabelA" x="250" y="170" text-anchor="middle" fill="#a78bfa" font-size="14" font-weight="bold">W = F×d×cos30° = 0.87Fd</text>
+                    </svg>
+                    <div class="flex items-center gap-4 justify-center">
+                        <label class="text-sm text-slate-400">Angle θ:</label>
+                        <input type="range" id="angleSlider" min="0" max="180" value="30" class="w-48 accent-purple-500 cursor-pointer">
+                        <span id="angleVal" class="text-purple-400 font-mono font-bold">30°</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SOLVED EXAMPLES -->
+        <section id="examples" class="py-16 px-6">
+            <div class="container mx-auto max-w-4xl">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <span class="inline-block px-4 py-1 rounded-full bg-amber-500/10 text-amber-400 text-xs font-mono border border-amber-500/20 mb-4">SOLVED EXAMPLES</span>
+                    <h2 class="text-3xl font-black text-white">Step-by-Step Solutions</h2>
+                </div>
+
+                <!-- Example 1 -->
+                <div class="glass-card rounded-2xl p-8 mb-6" data-aos="fade-up">
+                    <h3 class="text-lg font-bold text-amber-400 mb-4"><i class="fas fa-pen"></i> Example 1 — Pulling a Box at an Angle</h3>
+                    <p class="text-slate-300 mb-4">A box is pulled with a force of <strong class="text-purple-400">25 N</strong> to produce a displacement of <strong class="text-purple-400">15 m</strong>. The angle between force and displacement is <strong class="text-purple-400">30°</strong>. Find the work done.</p>
+                    <svg viewBox="0 0 400 130" class="w-full max-w-sm mx-auto mb-4">
+                        <rect width="400" height="130" fill="#0f172a" rx="8"/>
+                        <line x1="30" y1="95" x2="370" y2="95" stroke="#334155" stroke-width="1.5"/>
+                        <rect x="60" y="65" width="50" height="30" rx="4" fill="#1e293b" stroke="#8b5cf6" stroke-width="2"/>
+                        <line x1="110" y1="80" x2="250" y2="40" stroke="#ef4444" stroke-width="2" marker-end="url(#arrR)"/>
+                        <text x="190" y="35" fill="#ef4444" font-size="11" font-weight="bold">F = 25 N</text>
+                        <path d="M 138 80 A 28 28 0 0 0 133 63" fill="none" stroke="#fbbf24" stroke-width="1.5"/>
+                        <text x="148" y="68" fill="#fbbf24" font-size="10">30°</text>
+                        <line x1="60" y1="110" x2="310" y2="110" stroke="#34d399" stroke-width="1.5"/>
+                        <text x="185" y="125" text-anchor="middle" fill="#34d399" font-size="10">d = 15 m</text>
+                    </svg>
+                    <div class="bg-slate-800/40 rounded-xl p-4 border border-slate-700 text-sm text-slate-200 space-y-2">
+                        <p><strong class="text-amber-400">Given:</strong> F = 25 N, d = 15 m, θ = 30°</p>
+                        <p><strong class="text-amber-400">Find:</strong> W = ?</p>
+                        <p><strong class="text-amber-400">Solution:</strong></p>
+                        <p>$$W = F \times d \times \cos\theta = 25 \times 15 \times \cos 30° = 25 \times 15 \times 0.866 = \boxed{324.76\;\text{J}}$$</p>
+                    </div>
+                    <div class="egyptian-expl">
+                        <div class="expl-header"><i class="fas fa-comment-dots"></i> شرح بالعربي</div>
+                        صندوق بيتسحب بقوة 25 نيوتن والحبل مايل 30° على الأفقي.
+                        <br>الشغل = 25 × 15 × cos30° = 25 × 15 × 0.866 = <strong style="color:#a78bfa">324.76 جول</strong>
+                        <br>لاحظ: مش كل الـ25 N اتحوّلوا لشغل — بس المركبة الأفقية (F cos30°) هي اللي عملت الشغل الفعلي.
+                    </div>
+                </div>
+
+                <!-- Example 2 -->
+                <div class="glass-card rounded-2xl p-8 mb-6" data-aos="fade-up">
+                    <h3 class="text-lg font-bold text-amber-400 mb-4"><i class="fas fa-pen"></i> Example 2 — Gravity: Up and Down</h3>
+                    <p class="text-slate-300 mb-4">An object of mass <strong class="text-purple-400">2 kg</strong> is thrown up and reaches <strong class="text-purple-400">5 m</strong> height, then falls back. Calculate work done by gravity: (a) going up, (b) coming down, (c) total trip. (g = 10 m/s²)</p>
+                    <svg viewBox="0 0 300 220" class="w-full max-w-xs mx-auto mb-4">
+                        <rect width="300" height="220" fill="#0f172a" rx="8"/>
+                        <line x1="150" y1="190" x2="150" y2="20" stroke="#334155" stroke-width="1" stroke-dasharray="4,3"/>
+                        <rect x="130" y="170" width="40" height="20" rx="3" fill="#1e293b" stroke="#34d399" stroke-width="1.5"/>
+                        <text x="150" y="185" text-anchor="middle" fill="#34d399" font-size="9">2 kg</text>
+                        <text x="150" y="210" text-anchor="middle" fill="#64748b" font-size="10">Ground (h=0)</text>
+                        <!-- Up arrow -->
+                        <line x1="125" y1="165" x2="125" y2="50" stroke="#60a5fa" stroke-width="2" marker-end="url(#arrB)"/>
+                        <text x="100" y="110" fill="#60a5fa" font-size="10" text-anchor="end">Up: θ=180°</text>
+                        <!-- Down arrow -->
+                        <line x1="175" y1="50" x2="175" y2="165" stroke="#ef4444" stroke-width="2" marker-end="url(#arrR)"/>
+                        <text x="200" y="110" fill="#ef4444" font-size="10">Down: θ=0°</text>
+                        <!-- Height label -->
+                        <text x="150" y="40" text-anchor="middle" fill="#fbbf24" font-size="10">h = 5 m</text>
+                        <defs><marker id="arrB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#60a5fa"/></marker></defs>
+                    </svg>
+                    <div class="bg-slate-800/40 rounded-xl p-4 border border-slate-700 text-sm text-slate-200 space-y-2">
+                        <p><strong class="text-amber-400">a) Going UP:</strong> Gravity points ↓, displacement points ↑ → θ = 180°</p>
+                        <p>$$W_{up} = mg \times d \times \cos 180° = 2 \times 10 \times 5 \times (-1) = \boxed{-100\;\text{J}}$$</p>
+                        <p class="text-red-400 text-xs">Negative! Gravity opposes upward motion (slows it down).</p>
+
+                        <p class="mt-3"><strong class="text-amber-400">b) Coming DOWN:</strong> Gravity ↓, displacement ↓ → θ = 0°</p>
+                        <p>$$W_{down} = 2 \times 10 \times 5 \times \cos 0° = 2 \times 10 \times 5 \times 1 = \boxed{+100\;\text{J}}$$</p>
+                        <p class="text-emerald-400 text-xs">Positive! Gravity assists downward motion (speeds it up).</p>
+
+                        <p class="mt-3"><strong class="text-amber-400">c) Total trip:</strong></p>
+                        <p>$$W_{total} = W_{up} + W_{down} = -100 + 100 = \boxed{0\;\text{J}}$$</p>
+                        <p class="text-amber-400 text-xs">The object returns to the same height → net work by gravity = zero!</p>
+                    </div>
+                    <div class="egyptian-expl">
+                        <div class="expl-header"><i class="fas fa-comment-dots"></i> شرح بالعربي</div>
+                        <strong style="color:#fbbf24">ده مثال مهم جداً — بيوضح الشغل الموجب والسالب:</strong>
+                        <br><br>
+                        <strong style="color:#f87171">وأنت طالع:</strong> الجاذبية بتشدك لتحت بس أنت طالع لفوق — يعني القوة عكس الحركة — الزاوية = 180° — cos 180° = −1 — الشغل سالب (−100 J). يعني الجاذبية بتقاومك!
+                        <br><br>
+                        <strong style="color:#34d399">وأنت نازل:</strong> الجاذبية لتحت والحركة لتحت — في نفس الاتجاه — الزاوية = 0° — cos 0° = 1 — الشغل موجب (+100 J). الجاذبية بتساعدك!
+                        <br><br>
+                        <strong style="color:#a78bfa">المجموع = صفر!</strong> لأن الجسم رجع لنفس المكان — الجاذبية ما كسبت ولا خسرت طاقة.
+                    </div>
+                </div>
+
+                <!-- Example 3 -->
+                <div class="glass-card rounded-2xl p-8" data-aos="fade-up">
+                    <h3 class="text-lg font-bold text-amber-400 mb-4"><i class="fas fa-pen"></i> Example 3 — Girl vs Boy: Carrying vs Lifting</h3>
+                    <p class="text-slate-300 mb-4">A girl carries a bucket (300 g) horizontally for 10 m. A boy lifts the same bucket vertically 10 cm. Calculate each work done. (g = 10 m/s²)</p>
+                    <div class="bg-slate-800/40 rounded-xl p-4 border border-slate-700 text-sm text-slate-200 space-y-2">
+                        <p><strong class="text-amber-400">Girl (carrying horizontally):</strong></p>
+                        <p>Force = weight = upward. Displacement = horizontal. θ = 90°</p>
+                        <p>$$W = F \times d \times \cos 90° = F \times d \times 0 = \boxed{0\;\text{J}}$$</p>
+                        <p class="text-amber-400 text-xs">Force ⊥ displacement → No work done!</p>
+                        <p class="mt-3"><strong class="text-amber-400">Boy (lifting vertically):</strong></p>
+                        <p>$$F = mg = 0.3 \times 10 = 3\;\text{N}$$</p>
+                        <p>$$d = 10\;\text{cm} = 0.1\;\text{m},\quad \theta = 0°$$</p>
+                        <p>$$W = 3 \times 0.1 \times \cos 0° = \boxed{0.3\;\text{J}}$$</p>
+                    </div>
+                    <div class="egyptian-expl">
+                        <div class="expl-header"><i class="fas fa-comment-dots"></i> شرح بالعربي</div>
+                        <strong style="color:#f87171">البنت:</strong> شايلة الجردل وماشية أفقي. القوة اللي بتبذلها لفوق (عشان تسند الجردل)، بس الحركة جنب! الزاوية بين القوة والحركة = 90° — cos 90° = صفر — يعني الشغل = صفر!
+                        <br><br>
+                        <strong style="color:#34d399">الولد:</strong> رافع الجردل لفوق 10 سم. القوة لفوق والحركة لفوق — نفس الاتجاه — θ = 0° — الشغل = 3 × 0.1 = 0.3 جول.
+                        <br><br>
+                        <strong style="color:#fbbf24">الخلاصة:</strong> الشغل مش بيعتمد على التعب — بيعتمد على العلاقة بين اتجاه القوة واتجاه الحركة!
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- THINKING QUESTIONS -->
+        <section id="thinking" class="py-12 px-6">
+            <div class="container mx-auto max-w-4xl">
+                <div class="glass-card rounded-2xl p-8" data-aos="fade-up">
+                    <h3 class="text-xl font-bold text-white mb-4"><i class="fas fa-brain text-purple-500"></i> Think About It!</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-slate-800/40 rounded-xl p-5 border border-purple-500/20">
+                            <p class="text-purple-400 font-bold mb-2">🚀 Rocket in Space</p>
+                            <p class="text-slate-300 text-sm">A rocket accelerates through space. Does the rocket do work?</p>
+                            <p class="text-emerald-400 text-xs mt-2"><strong>Yes!</strong> The thrust force causes displacement → Work is done.</p>
+                        </div>
+                        <div class="bg-slate-800/40 rounded-xl p-5 border border-purple-500/20">
+                            <p class="text-purple-400 font-bold mb-2">🍽️ Waiter Carrying a Tray</p>
+                            <p class="text-slate-300 text-sm">A waiter carries a tray straight across the room at constant speed. Does the waiter do work on the tray?</p>
+                            <p class="text-red-400 text-xs mt-2"><strong>No!</strong> The force (upward) is perpendicular to displacement (horizontal) → θ = 90° → W = 0.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- QUIZ -->
+        <section id="quiz" class="py-16 px-6">
+            <div class="container mx-auto max-w-5xl">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <span class="inline-block px-4 py-1 rounded-full bg-purple-500/10 text-purple-400 text-xs font-mono border border-purple-500/20 mb-4">ASSESSMENT</span>
+                    <h2 class="text-4xl font-black text-white mb-2">Test Your Knowledge</h2>
+                    <p class="text-slate-400">24 questions — conceptual + calculation</p>
+                </div>
+                <div id="quiz-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t border-slate-800 py-8 text-center text-sm text-slate-500">
+        <p>Physics Year 1 (STEM) © 2026 — Prepared by <span class="text-purple-400">Osama Zinhom</span></p>
+        <p class="mt-2"><a href="lect02.html" class="text-blue-400 hover:underline">← Lesson 2</a> · <a href="index.html" class="text-slate-400 hover:text-white">Home</a> · <a href="lect03script.html" class="text-amber-400 hover:underline">📜 سكريبت الشرح</a></p>
+    </footer>
+
+    <script>
+        AOS.init({ duration: 600, once: true, offset: 60 });
+        // Angle slider
+        const aSlider = document.getElementById('angleSlider');
+        if(aSlider) aSlider.addEventListener('input', function(){
+            const a = parseInt(this.value), rad = a*Math.PI/180, cosV = Math.cos(rad).toFixed(2);
+            document.getElementById('angleVal').textContent = a + '°';
+            document.getElementById('angleLabelA').textContent = 'θ = ' + a + '°';
+            const wText = cosV == 0 ? 'W = 0' : (cosV < 0 ? 'W = −' + Math.abs(cosV) + '·Fd (negative!)' : 'W = ' + cosV + '·Fd');
+            document.getElementById('workLabelA').textContent = wText;
+            const endX = 150 + 130*Math.cos(-rad), endY = 122 + 130*Math.sin(-rad);
+            document.getElementById('forceLineA').setAttribute('x2', endX);
+            document.getElementById('forceLineA').setAttribute('y2', endY);
+        });
+        // Quiz
+        const questions=[
+            {text:"Work in physics requires:",ans:2,expl:"Both a force AND displacement in the force direction are needed.",opts:["Only force","Only displacement","Force AND displacement","Effort and tiredness"]},
+            {text:"The SI unit of work is:",ans:1,expl:"1 Joule = 1 Newton × 1 meter.",opts:["Watt","Joule (J)","Newton","Pascal"]},
+            {text:"Work is a:",ans:0,expl:"Work has magnitude only, no direction. It can be positive, negative, or zero.",opts:["Scalar quantity","Vector quantity","Base quantity","Dimensionless"]},
+            {text:"If θ = 90° between force and displacement, work done is:",ans:2,expl:"cos 90° = 0, so W = Fd × 0 = 0.",opts:["Maximum","Fd","Zero","Negative"]},
+            {text:"When is work negative?",ans:1,expl:"When θ is between 90° and 180°, cosθ < 0, so W < 0. Example: friction.",opts:["When force is large","When force opposes displacement (90° < θ ≤ 180°)","When object is heavy","Never"]},
+            {text:"A teacher pushes a wall and gets exhausted. Work done on the wall is:",ans:0,expl:"The wall doesn't move → displacement = 0 → W = 0.",opts:["Zero","Positive","Negative","Cannot be determined"]},
+            {text:"A book falls from a table. Does gravity do work?",ans:0,expl:"Gravity (force) causes the book to fall (displacement in same direction) → W > 0.",opts:["Yes, positive work","Yes, negative work","No","Only if someone pushes it"]},
+            {text:"A waiter carries a tray horizontally at constant speed. Work on tray =",ans:2,expl:"Force is upward, displacement is horizontal → θ = 90° → W = 0.",opts:["mgh","F×d","Zero","F×v"]},
+            {text:"Which increases work done? (F and d constant)",ans:3,expl:"Smaller θ → larger cosθ → more work.",opts:["Increasing θ from 0° to 90°","Making θ = 90°","Increasing mass","Decreasing θ toward 0°"]},
+            {text:"cos 0° = ?, cos 180° = ?",ans:1,expl:"cos 0° = 1 (max positive), cos 180° = −1 (max negative).",opts:["0 and 1","1 and −1","1 and 0","−1 and 1"]},
+            {text:"Friction always does ___ work on a moving object:",ans:1,expl:"Friction opposes motion → θ = 180° → cos180° = −1 → W < 0.",opts:["Positive","Negative","Zero","It depends"]},
+            {text:"1 Joule equals:",ans:2,expl:"1 J = 1 N·m = 1 kg·m²/s².",opts:["1 kg·m/s","1 N/m","1 N·m","1 W·m"]},
+            // Calculations
+            {text:"🔢 F=50N, d=8m, θ=0°. Find W.",ans:0,expl:"W = 50×8×cos0° = 50×8×1 = 400 J.",opts:["400 J","100 J","800 J","200 J"]},
+            {text:"🔢 F=100N, d=5m, θ=60°. Find W.",ans:1,expl:"W = 100×5×cos60° = 500×0.5 = 250 J.",opts:["500 J","250 J","433 J","100 J"]},
+            {text:"🔢 F=40N, d=10m, θ=90°. Find W.",ans:3,expl:"W = 40×10×cos90° = 400×0 = 0.",opts:["400 J","200 J","40 J","0 J"]},
+            {text:"🔢 Friction force 30N acts on box moving 12m. Find work by friction.",ans:2,expl:"θ=180°. W = 30×12×cos180° = 360×(−1) = −360 J.",opts:["360 J","0 J","−360 J","−30 J"]},
+            {text:"🔢 A 5 kg object is lifted 3m vertically. Find work done. (g=10)",ans:0,expl:"F=mg=50N. θ=0°. W = 50×3 = 150 J.",opts:["150 J","50 J","15 J","500 J"]},
+            {text:"🔢 A 3 kg ball is thrown up to 4m height. Find work done by gravity. (g=10)",ans:1,expl:"F=mg=30N, d=4m, θ=180° (gravity vs upward). W = 30×4×(−1) = −120 J.",opts:["120 J","−120 J","0 J","30 J"]},
+            {text:"🔢 F=20N pulls a box at 45°, d=6m. Find work.",ans:2,expl:"W = 20×6×cos45° = 120×0.707 = 84.85 J ≈ 84.9 J.",opts:["120 J","60 J","84.9 J","42.4 J"]},
+            {text:"🔢 Work done = 600J, d = 20m, θ=0°. Find Force.",ans:1,expl:"W = Fd → F = W/d = 600/20 = 30 N.",opts:["12000 N","30 N","300 N","3 N"]},
+            {text:"🔢 Worker pushes 300N box 15m on level floor against 50N friction. Net work?",ans:0,expl:"W_push = 300×15 = 4500J. W_friction = −50×15 = −750J. Net = 3750J.",opts:["3750 J","4500 J","750 J","5250 J"]},
+            {text:"🔢 A 2kg object falls 10m. Find work by gravity (g=10).",ans:2,expl:"F=mg=20N, θ=0°. W = 20×10 = 200 J.",opts:["100 J","−200 J","200 J","20 J"]},
+            {text:"🔢 A car (1500kg) brakes with 4500N friction over 20m. Work by friction?",ans:3,expl:"θ=180°. W = 4500×20×(−1) = −90000 J = −90 kJ.",opts:["90000 J","−45000 J","45000 J","−90000 J"]},
+            {text:"🔢 Force F=200N at θ=30° pulls a crate 25m. Find work.",ans:0,expl:"W = 200×25×cos30° = 5000×0.866 = 4330 J.",opts:["4330 J","5000 J","2500 J","2165 J"]}
+        ];
+        const grid=document.getElementById('quiz-grid');
+        questions.forEach((q,i)=>{
+            const c=document.createElement('div');
+            c.className="glass-card p-6 rounded-xl hover:bg-slate-800/80 group transition flex flex-col";
+            c.innerHTML=`<div class="flex justify-between items-start mb-4"><span class="text-sm font-mono text-purple-500">Q${i+1}</span></div><p class="text-lg font-semibold text-white mb-6">${q.text}</p><div class="grid gap-2 mb-4 text-sm text-slate-300">${q.opts.map((o,j)=>`<div onclick="checkAns(this,${j},${q.ans})" class="p-3 rounded bg-slate-900/50 border border-slate-700 hover:bg-slate-800 transition cursor-pointer">${String.fromCharCode(65+j)}) ${o}</div>`).join('')}</div><div class="mt-auto"><button onclick="this.nextElementSibling.classList.toggle('show')" class="text-xs flex items-center gap-2 text-slate-500 hover:text-purple-400 font-bold uppercase tracking-wider transition cursor-pointer mt-2"><i class="fas fa-eye"></i> Show Answer</button><div class="answer-container"><p class="text-purple-400 font-bold mb-1">Correct: ${String.fromCharCode(65+q.ans)}</p><p class="text-xs text-slate-300">${q.expl}</p></div></div>`;
+            grid.appendChild(c);
+        });
+        function checkAns(el,sel,cor){const p=el.parentElement;Array.from(p.children).forEach(c=>{c.classList.remove('bg-emerald-500/20','border-emerald-500','bg-red-500/20','border-red-500');c.classList.add('bg-slate-900/50','border-slate-700');});if(sel===cor){el.classList.remove('bg-slate-900/50','border-slate-700');el.classList.add('bg-emerald-500/20','border-emerald-500');}else{el.classList.remove('bg-slate-900/50','border-slate-700');el.classList.add('bg-red-500/20','border-red-500');}}
+    </script>
+</body>
+</html>
