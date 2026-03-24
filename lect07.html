@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics - Lesson 7: Types of Mechanical Waves</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','sans-serif'],arabic:['Cairo','sans-serif']}}}}</script>
+    <style>
+        body{background:#020617;color:#E2E8F0;overflow-x:hidden;background-image:radial-gradient(circle at 15% 20%,rgba(20,184,166,0.07) 0%,transparent 30%),radial-gradient(circle at 85% 80%,rgba(249,115,22,0.06) 0%,transparent 30%)}
+        .glass-card{background:rgba(15,23,42,0.7);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.08);transition:all 0.3s ease}
+        .glass-card:hover{border-color:rgba(20,184,166,0.4);box-shadow:0 10px 40px -10px rgba(20,184,166,0.15);transform:translateY(-4px)}
+        .glass-header{background:rgba(2,6,23,0.85);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,0.05)}
+        .text-gradient{background:linear-gradient(135deg,#2dd4bf 0%,#fb923c 60%,#f59e0b 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .formula-box{background:rgba(20,184,166,0.06);border:1px solid rgba(20,184,166,0.22);border-radius:12px;padding:1.4rem;text-align:center;font-size:1.2rem;margin:1rem 0}
+        .answer-container{max-height:0;overflow:hidden;transition:max-height 0.4s ease-out;background:rgba(20,184,166,0.05);border-radius:0.5rem}
+        .answer-container.show{max-height:300px;padding:1rem;margin-top:1rem;border:1px solid rgba(20,184,166,0.3)}
+        .definition-box{background:rgba(20,184,166,0.05);border-left:4px solid #14b8a6;border-radius:0.5rem;padding:1rem 1.25rem;margin:1rem 0}
+        .definition-box strong{color:#5eead4}
+        .note-box{background:rgba(251,191,36,0.05);border-left:4px solid #fbbf24;border-radius:0.5rem;padding:1rem 1.25rem;margin:1rem 0}
+        .note-box .note-title{color:#fbbf24;font-weight:700;font-size:.9rem;margin-bottom:.5rem}
+        .egyptian-expl{direction:rtl;text-align:right;font-family:'Cairo',sans-serif;background:rgba(251,191,36,0.04);border:1px solid rgba(251,191,36,0.12);border-right:4px solid #f59e0b;border-radius:.75rem;padding:1.25rem 1.5rem;margin:1.25rem 0;line-height:2;color:#cbd5e1}
+        .egyptian-expl .expl-header{color:#fbbf24;font-weight:700;font-size:.95rem;margin-bottom:.5rem;display:flex;align-items:center;gap:.5rem;justify-content:flex-end}
+        .custom-table{width:100%;border-collapse:collapse}
+        .custom-table tr:nth-child(even){background-color:rgba(30,41,59,.35)}
+        .custom-table td,.custom-table th{padding:.75rem 1rem;border-bottom:1px solid rgba(255,255,255,.05);font-size:.85rem}
+        .custom-table th{text-transform:uppercase;letter-spacing:.05em;font-size:.72rem;color:#94A3B8;background:rgba(20,184,166,0.1)}
+        .orange-card{border-color:rgba(249,115,22,0.3)!important}
+        .orange-card:hover{border-color:rgba(249,115,22,0.6)!important;box-shadow:0 10px 40px -10px rgba(249,115,22,0.2)!important}
+        .teal-card{border-color:rgba(20,184,166,0.3)!important}
+        .teal-card:hover{border-color:rgba(20,184,166,0.6)!important}
+    </style>
+</head>
+<body class="antialiased font-sans flex flex-col min-h-screen">
+
+<nav class="fixed top-0 w-full z-50 glass-header">
+    <div class="container mx-auto px-6 h-16 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <a href="index.html" class="w-8 h-8 rounded bg-gradient-to-br from-teal-500 to-orange-500 flex items-center justify-center text-white font-bold text-xs">⚛</a>
+            <span class="font-bold text-lg text-slate-200">Lesson<span class="text-teal-400">07</span></span>
+        </div>
+        <div class="hidden lg:flex gap-5 text-sm font-medium text-slate-400">
+            <a href="#intro" class="hover:text-teal-400 transition">Intro</a>
+            <a href="#transverse" class="hover:text-teal-400 transition">Transverse</a>
+            <a href="#longitudinal" class="hover:text-teal-400 transition">Longitudinal</a>
+            <a href="#energy" class="hover:text-teal-400 transition">Wave Energy</a>
+            <a href="#compare" class="hover:text-teal-400 transition">Comparison</a>
+            <a href="#quiz" class="px-5 py-2 rounded-full bg-teal-600/10 text-teal-400 border border-teal-500/20 hover:bg-teal-600 hover:text-white transition">Quiz</a>
+        </div>
+    </div>
+</nav>
+
+<main class="flex-grow pt-24">
+
+    <!-- HERO -->
+    <header class="relative pb-16 px-6">
+        <div class="container mx-auto text-center" data-aos="fade-up">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700 text-xs font-mono text-teal-400 mb-6">
+                <span class="w-2 h-2 rounded-full bg-teal-500 animate-pulse"></span> UNIT 4 — LESSON 2
+            </div>
+            <h1 class="text-5xl md:text-7xl font-black mb-3 tracking-tight text-white">Types of<br><span class="text-gradient">Mechanical Waves</span></h1>
+            <p class="text-lg text-slate-400 max-w-2xl mx-auto mb-1">Unit Four: Waves</p>
+            <p class="text-slate-400 mb-2">بشمهندس أسامة زينهم</p>
+            <a href="https://chat.whatsapp.com/FWUBrybJ3RO4MfUyX9MoPD?mode=gi_t" target="_blank" class="text-teal-400 font-bold text-lg hover:underline">انضم لجروب الشرح واتساب</a>
+
+            <!-- Side-by-side animated wave SVGs -->
+            <div class="grid grid-cols-2 max-w-2xl mx-auto mt-8 gap-4">
+                <!-- Transverse -->
+                <div>
+                    <p class="text-teal-400 font-bold text-sm mb-1">Transverse Wave</p>
+                    <svg viewBox="0 0 240 80" class="w-full">
+                        <rect width="240" height="80" fill="#0f172a" rx="8"/>
+                        <line x1="10" y1="40" x2="230" y2="40" stroke="#1e293b" stroke-width="1" stroke-dasharray="3,3"/>
+                        <path id="tw" fill="none" stroke="#2dd4bf" stroke-width="2.5"/>
+                        <line x1="225" y1="40" x2="235" y2="40" stroke="#2dd4bf" stroke-width="2" marker-end="url(#mT)"/>
+                        <defs><marker id="mT" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#2dd4bf"/></marker></defs>
+                        <text x="120" y="75" text-anchor="middle" fill="#64748b" font-size="8">→ direction of energy</text>
+                    </svg>
+                </div>
+                <!-- Longitudinal -->
+                <div>
+                    <p class="text-orange-400 font-bold text-sm mb-1">Longitudinal Wave</p>
+                    <svg viewBox="0 0 240 80" class="w-full">
+                        <rect width="240" height="80" fill="#0f172a" rx="8"/>
+                        <canvas id="longCanvas" width="240" height="80" style="display:none"></canvas>
+                        <!-- Animated longitudinal bars -->
+                        <g id="longBars"></g>
+                        <line x1="225" y1="40" x2="235" y2="40" stroke="#fb923c" stroke-width="2" marker-end="url(#mO)"/>
+                        <defs><marker id="mO" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#fb923c"/></marker></defs>
+                        <text x="120" y="75" text-anchor="middle" fill="#64748b" font-size="8">→ direction of energy</text>
+                        <text x="60" y="20" text-anchor="middle" fill="#fb923c" font-size="7">C</text>
+                        <text x="120" y="20" text-anchor="middle" fill="#94a3b8" font-size="7">R</text>
+                        <text x="180" y="20" text-anchor="middle" fill="#fb923c" font-size="7">C</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- INTRO -->
+    <section id="intro" class="py-10 px-6">
+        <div class="container mx-auto max-w-4xl">
+            <div class="glass-card rounded-2xl p-8" data-aos="fade-up">
+                <h2 class="text-2xl font-bold text-white mb-4"><i class="fas fa-wave-square text-teal-400"></i> What is a Mechanical Wave?</h2>
+                <p class="text-slate-300 leading-relaxed mb-3">A <strong class="text-teal-400">Mechanical wave</strong> is a disturbance that travels through some material or substance called <strong class="text-teal-400">the medium</strong> for the wave. As the wave travels through the medium, the particles that make up the medium undergo displacements of various kinds, depending on the nature of the wave.</p>
+                <p class="text-slate-300 leading-relaxed">There are two types of wave, <strong class="text-orange-400">longitudinal</strong> and <strong class="text-teal-400">transverse</strong>. Both can be demonstrated using a <strong class="text-amber-400">slinky spring.</strong></p>
+
+                <!-- Slinky demo description -->
+                <div class="grid md:grid-cols-2 gap-4 mt-5">
+                    <div class="bg-slate-800/40 rounded-xl p-4 border border-orange-500/20">
+                        <p class="text-orange-400 font-bold mb-2">🌀 Push — Longitudinal</p>
+                        <p class="text-slate-300 text-sm"><strong>Push</strong> the end of the spring back and forth; the segments of the spring become <strong class="text-orange-400">compressed</strong> and then <strong class="text-slate-400">stretched out</strong>, along the length of the spring. Wave pulses run along the spring. These are <strong class="text-orange-400">longitudinal waves.</strong></p>
+                    </div>
+                    <div class="bg-slate-800/40 rounded-xl p-4 border border-teal-500/20">
+                        <p class="text-teal-400 font-bold mb-2">〰️ Waggle — Transverse</p>
+                        <p class="text-slate-300 text-sm"><strong>Waggle</strong> the end of the slinky spring from side to side. The segments of the spring move from side to side as the wave travels along the spring. These are <strong class="text-teal-400">transverse waves.</strong></p>
+                    </div>
+                </div>
+
+                <div class="egyptian-expl">
+                    <div class="expl-header"><i class="fas fa-comment-dots"></i> شرح بالعربي</div>
+                    الأمواج الميكانيكية بتسافر عبر وسط مادي (صلب، سائل، غاز).
+                    <br>فيه نوعين بس وبنشرحهم بزنبرك (Slinky):
+                    <br>🌀 <strong style="color:#fb923c">لما تدفع الزنبرك</strong> (push/pull) → موجة طولية (Longitudinal)
+                    <br>〰️ <strong style="color:#2dd4bf">لما تهزّه من الجنب</strong> (waggle) → موجة عرضية (Transverse)
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRANSVERSE WAVES -->
+    <section id="transverse" class="py-10 px-6">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center mb-8" data-aos="fade-up">
+                <span class="inline-block px-4 py-1 rounded-full bg-teal-500/10 text-teal-400 text-xs font-mono border border-teal-500/20 mb-4">TYPE 2</span>
+                <h2 class="text-3xl font-black text-white">Transverse Waves</h2>
+            </div>
+            <div class="glass-card teal-card rounded-2xl p-8" data-aos="fade-up">
+                <div class="definition-box">
+                    <strong>In transverse waves,</strong> the particles of the medium vibrate <strong>perpendicular to (at right angles to)</strong> the direction of the wave velocity. Such as waves formed on the surface of water and waves along a stretched string.
+                </div>
+
+                <h3 class="text-base font-bold text-white mt-5 mb-3">Key properties of transverse waves:</h3>
+                <ul class="text-slate-300 text-sm space-y-2">
+                    <li class="flex gap-2"><span class="text-teal-400 font-bold">a)</span> The particles of the medium vibrate <strong>perpendicular (up and down)</strong> to the direction of wave motion.</li>
+                    <li class="flex gap-2"><span class="text-teal-400 font-bold">b)</span> The wave is propagated in the form of <strong class="text-teal-400">crests</strong> and <strong class="text-teal-400">troughs</strong>.</li>
+                    <li class="flex gap-2"><span class="text-teal-400 font-bold">c)</span> <strong>The wavelength</strong> is the distance between two successive crests or two successive troughs.</li>
+                </ul>
+
+                <!-- Transverse wave labeled SVG -->
+                <svg viewBox="0 0 500 160" class="w-full mt-5">
+                    <rect width="500" height="160" fill="#0f172a" rx="10"/>
+                    <line x1="20" y1="80" x2="480" y2="80" stroke="#1e293b" stroke-width="1.5" stroke-dasharray="4,4"/>
+                    <text x="10" y="78" fill="#64748b" font-size="9">0</text>
+                    <!-- Wave -->
+                    <path d="M20,80 C57,30 93,30 130,80 C167,130 203,130 240,80 C277,30 313,30 350,80 C387,130 423,130 460,80" fill="none" stroke="#2dd4bf" stroke-width="2.5"/>
+                    <!-- Crests A and C -->
+                    <line x1="75" y1="80" x2="75" y2="32" stroke="#2dd4bf" stroke-width="1.5" stroke-dasharray="3,3"/>
+                    <circle cx="75" cy="30" r="5" fill="#2dd4bf"/>
+                    <text x="75" y="20" text-anchor="middle" fill="#2dd4bf" font-size="9" font-weight="bold">A (Crest)</text>
+                    <line x1="295" y1="80" x2="295" y2="32" stroke="#2dd4bf" stroke-width="1.5" stroke-dasharray="3,3"/>
+                    <circle cx="295" cy="30" r="5" fill="#2dd4bf"/>
+                    <text x="295" y="20" text-anchor="middle" fill="#2dd4bf" font-size="9" font-weight="bold">C (Crest)</text>
+                    <!-- Trough B -->
+                    <line x1="185" y1="80" x2="185" y2="128" stroke="#f87171" stroke-width="1.5" stroke-dasharray="3,3"/>
+                    <circle cx="185" cy="130" r="5" fill="#f87171"/>
+                    <text x="185" y="148" text-anchor="middle" fill="#f87171" font-size="9" font-weight="bold">B (Trough)</text>
+                    <!-- Trough D -->
+                    <circle cx="405" cy="130" r="5" fill="#f87171"/>
+                    <text x="405" y="148" text-anchor="middle" fill="#f87171" font-size="9" font-weight="bold">D (Trough)</text>
+                    <!-- Wavelength -->
+                    <line x1="75" y1="155" x2="295" y2="155" stroke="#a78bfa" stroke-width="1.5"/>
+                    <line x1="75" y1="150" x2="75" y2="160" stroke="#a78bfa" stroke-width="1.5"/>
+                    <line x1="295" y1="150" x2="295" y2="160" stroke="#a78bfa" stroke-width="1.5"/>
+                    <text x="185" y="153" text-anchor="middle" fill="#a78bfa" font-size="8" font-weight="bold">λ</text>
+                    <!-- Direction -->
+                    <text x="450" y="74" fill="#fbbf24" font-size="10" font-weight="bold">→</text>
+                    <text x="445" y="65" fill="#fbbf24" font-size="8">v</text>
+                    <!-- Vibration arrow -->
+                    <line x1="460" y1="35" x2="460" y2="58" stroke="#2dd4bf" stroke-width="2" marker-start="url(#aUp)" marker-end="url(#aDown)"/>
+                    <defs>
+                        <marker id="aUp" viewBox="0 0 10 10" refX="5" refY="0" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M5 0L0 10L10 10z" fill="#2dd4bf"/></marker>
+                        <marker id="aDown" viewBox="0 0 10 10" refX="5" refY="10" markerWidth="5" markerHeight="5" orient="auto"><path d="M5 10L0 0L10 0z" fill="#2dd4bf"/></marker>
+                    </defs>
+                    <text x="472" y="47" fill="#2dd4bf" font-size="7">vibration</text>
+                </svg>
+
+                <div class="note-box mt-4">
+                    <div class="note-title">📝 Note</div>
+                    <p class="text-slate-300 text-sm"><strong class="text-teal-400">Crest:</strong> it is the maximum displacement (amplitude) in the <strong>positive direction</strong>.</p>
+                    <p class="text-slate-300 text-sm mt-1"><strong class="text-red-400">Trough:</strong> it is the maximum displacement (amplitude) in the <strong>negative direction</strong>.</p>
+                    <p class="text-slate-400 text-sm mt-2">Transverse waves may occur on a string, on the surface of a liquid, and throughout a solid.</p>
+                </div>
+
+                <div class="egyptian-expl">
+                    <div class="expl-header"><i class="fas fa-comment-dots"></i> شرح بالعربي</div>
+                    <strong style="color:#2dd4bf">الموجة العرضية (Transverse):</strong> الجسيمات بتهتز أفقياً (لفوق ولتحت) بينما الطاقة بتسافر أفقياً.
+                    <br>الاتجاهين <strong>عموديين على بعض (90°)</strong>.
+                    <br><br>
+                    المفاهيم:
+                    <br>• <strong style="color:#2dd4bf">القمة (Crest):</strong> أعلى نقطة على الموجة (أقصى إزاحة موجبة).
+                    <br>• <strong style="color:#f87171">القاع (Trough):</strong> أدنى نقطة (أقصى إزاحة سالبة).
+                    <br>• الطول الموجي (λ) = من قمة لقمة (أو من قاع لقاع).
+                    <br><br>
+                    أمثلة: موجات سطح الماء، موجات الضوء، الموجات على وتر مشدود.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LONGITUDINAL WAVES -->
+    <section id="longitudinal" class="py-10 px-6">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center mb-8" data-aos="fade-up">
+                <span class="inline-block px-4 py-1 rounded-full bg-orange-500/10 text-orange-400 text-xs font-mono border border-orange-500/20 mb-4">TYPE 1</span>
+                <h2 class="text-3xl font-black text-white">Longitudinal Waves</h2>
+            </div>
+            <div class="glass-card orange-card rounded-2xl p-8" data-aos="fade-up">
+                <div class="definition-box" style="border-left-color:#fb923c;background:rgba(249,115,22,0.05)">
+                    <strong style="color:#fdba74">In longitudinal waves,</strong> the particles of the medium vibrate <strong>along (parallel to)</strong> the direction of the wave velocity. Such as sound waves and a wave travelling along a spring when it is pushed or pulled.
+                </div>
+
+                <h3 class="text-base font-bold text-white mt-5 mb-3">Key properties of longitudinal waves:</h3>
+                <ul class="text-slate-300 text-sm space-y-2">
+                    <li class="flex gap-2"><span class="text-orange-400 font-bold">a)</span> The particles of the medium vibrate <strong>along (parallel to) (forth and back)</strong> the direction of wave motion.</li>
+                    <li class="flex gap-2"><span class="text-orange-400 font-bold">b)</span> The wave is propagated in the form of <strong class="text-orange-400">compressions</strong> and <strong class="text-slate-400">rarefactions</strong>.</li>
+                    <li class="flex gap-2"><span class="text-orange-400 font-bold">c)</span> The wavelength is the distance between centers of two successive <strong>compressions</strong> or two successive <strong>rarefactions</strong>.</li>
+                </ul>
+
+                <!-- Longitudinal wave SVG (spring-style) -->
+                <svg viewBox="0 0 500 130" class="w-full mt-5">
+                    <rect width="500" height="130" fill="#0f172a" rx="10"/>
+                    <!-- Spring coil representation -->
+                    <!-- Compression zones (dense) -->
+                    <g stroke="#fb923c" stroke-width="1.5" fill="none">
+                        <!-- Compression 1: x=40 to 110 -->
+                        <line x1="40" y1="50" x2="40" y2="85" stroke="#fb923c" stroke-width="2.5"/>
+                        <line x1="52" y1="50" x2="52" y2="85" stroke="#fb923c" stroke-width="2.5"/>
+                        <line x1="64" y1="50" x2="64" y2="85" stroke="#fb923c" stroke-width="2.5"/>
+                        <line x1="76" y1="50" x2="76" y2="85" stroke="#fb923c" stroke-width="2.5"/>
+                        <line x1="88" y1="50" x2="88" y2="85" stroke="#fb923c" stroke-width="2.5"/>
+                        <!-- Rarefaction 1: x=100 to 190 -->
+                        <line x1="108" y1="50" x2="108" y2="85" stroke="#475569" stroke-width="1.5"/>
+                        <line x1="130" y1="50" x2="130" y2="85" stroke="#475569" stroke-width="1.5"/>
+                        <line x1="152" y1="50" x2="152" y2="85" stroke="#475569" stroke-width="1.5"/>
+                        <line x1="174" y1="50" x2="174" y2="85" stroke="#475569" stroke-width="1.5"/>
+                        <!-- Compression 2 -->
+                        <line x1="192" y1="50" x2="192" y2="85" stroke="#fb923c" stroke-width="2.5"/>
+                        <line x1="204" y1="50" x2="204" y2="85" stroke="#fb923c" stroke-width="2.5"/>
+                        <line x1="216" y1="50" x2="216" y2="85" stroke="#fb923c" stroke-width="2.5"/>
+                        <line x1="228" y1="50" x2="228" y2="85" stroke="#fb923c" stroke-width="2.5"/>
+                        <line x1="240" y1="50" x2="240" y2="85" stroke="#fb923c" stroke-width="2.5"/>
+                        <!-- Rarefaction 2 -->
+                        <line x1="258" y1="50" x2="258" y2="85" stroke="#475569" stroke-width="1.5"/>
+                        <line x1="280" y1="50" x2="280" y2="85" stroke="#475569" stroke-width="1.5"/>
+                        <line x1="302" y1="50" x2="302" y2="85" stroke="#475569" stroke-width="1.5"/>
+                        <line x1="324" y1="50" x2="324" y2="85" stroke="#475569" stroke-width="1.5"/>
+                        <!-- Compression 3 -->
+                        <line x1="342" y1="50" x2="342" y2="85" stroke="#fb923c" stroke-width="2.5"/>
+                        <line x1="354" y1="50" x2="354" y2="85" stroke="#fb923c" stroke-width="2.5"/>
+                        <line x1="366" y1="50" x2="366" y2="85" stroke="#fb923c" stroke-width="2.5"/>
+                        <line x1="378" y1="50" x2="378" y2="85" stroke="#fb923c" stroke-width="2.5"/>
+                        <line x1="390" y1="50" x2="390" y2="85" stroke="#fb923c" stroke-width="2.5"/>
+                        <!-- Rarefaction 3 -->
+                        <line x1="408" y1="50" x2="408" y2="85" stroke="#475569" stroke-width="1.5"/>
+                        <line x1="432" y1="50" x2="432" y2="85" stroke="#475569" stroke-width="1.5"/>
+                        <line x1="456" y1="50" x2="456" y2="85" stroke="#475569" stroke-width="1.5"/>
+                    </g>
+                    <!-- Labels (C/R) -->
+                    <text x="64" y="42" text-anchor="middle" fill="#fb923c" font-size="10" font-weight="bold">C</text>
+                    <text x="140" y="42" text-anchor="middle" fill="#94a3b8" font-size="10" font-weight="bold">R</text>
+                    <text x="216" y="42" text-anchor="middle" fill="#fb923c" font-size="10" font-weight="bold">C</text>
+                    <text x="290" y="42" text-anchor="middle" fill="#94a3b8" font-size="10" font-weight="bold">R</text>
+                    <text x="366" y="42" text-anchor="middle" fill="#fb923c" font-size="10" font-weight="bold">C</text>
+                    <text x="432" y="42" text-anchor="middle" fill="#94a3b8" font-size="10" font-weight="bold">R</text>
+                    <!-- Wavelength arrow (between 2 C zones) -->
+                    <line x1="64" y1="110" x2="216" y2="110" stroke="#a78bfa" stroke-width="1.5"/>
+                    <line x1="64" y1="105" x2="64" y2="115" stroke="#a78bfa" stroke-width="1.5"/>
+                    <line x1="216" y1="105" x2="216" y2="115" stroke="#a78bfa" stroke-width="1.5"/>
+                    <text x="140" y="125" text-anchor="middle" fill="#a78bfa" font-size="9" font-weight="bold">λ (compression to compression)</text>
+                    <!-- Direction arrow -->
+                    <line x1="455" y1="67" x2="490" y2="67" stroke="#fb923c" stroke-width="2" marker-end="url(#mL)"/>
+                    <text x="468" y="58" fill="#fb923c" font-size="9">v →</text>
+                    <defs><marker id="mL" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#fb923c"/></marker></defs>
+                </svg>
+
+                <div class="note-box mt-4">
+                    <div class="note-title">📝 Note</div>
+                    <p class="text-slate-300 text-sm"><strong class="text-orange-400">Compression (C):</strong> areas of <strong>high pressure</strong> — the particles close to each other.</p>
+                    <p class="text-slate-300 text-sm mt-1"><strong class="text-slate-400">Rarefaction (R):</strong> areas of <strong>low pressure</strong> — the particles away from each other.</p>
+                </div>
+
+                <div class="egyptian-expl">
+                    <div class="expl-header"><i class="fas fa-comment-dots"></i> شرح بالعربي</div>
+                    <strong style="color:#fb923c">الموجة الطولية (Longitudinal):</strong> الجسيمات بتهتز في <strong>نفس اتجاه</strong> انتشار الطاقة (للأمام والخلف).
+                    <br><br>
+                    المفاهيم:
+                    <br>• <strong style="color:#fb923c">الانضغاط (Compression C):</strong> منطقة ضغط عالي — الجزيئات قريبة من بعضها.
+                    <br>• <strong style="color:#94a3b8">التخلخل (Rarefaction R):</strong> منطقة ضغط منخفض — الجزيئات بعيدة عن بعضها.
+                    <br>• الطول الموجي (λ) = من انضغاط لانضغاط (أو من تخلخل لتخلخل).
+                    <br><br>
+                    <strong style="color:#fbbf24">مثال يومي:</strong> الصوت موجة طولية — هواء بينضغط ويتخلخل وينقل الطاقة لأذنك.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WAVE ENERGY -->
+    <section id="energy" class="py-10 px-6">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center mb-8" data-aos="fade-up">
+                <span class="inline-block px-4 py-1 rounded-full bg-amber-500/10 text-amber-400 text-xs font-mono border border-amber-500/20 mb-4">WAVE ENERGY</span>
+                <h2 class="text-3xl font-black text-white">How Waves Carry Energy</h2>
+            </div>
+            <div class="glass-card rounded-2xl p-8" data-aos="fade-up">
+                <p class="text-slate-300 leading-relaxed mb-4">It is important to realize that, for both types of mechanical wave, <strong class="text-amber-400">the particles that make up the material through which the wave is travelling do not move along</strong> – they only oscillate about a fixed point. It is energy that is transmitted by the wave.</p>
+                <p class="text-slate-300 leading-relaxed">Each particle vibrates; as it does so, it pushes its neighbor, transferring energy to it. Then that particle pushes its neighbor, which pushes its neighbor. In this way, <strong class="text-teal-400">energy is transmitted from one particle to the next, to the next, and so on down the line.</strong></p>
+
+                <!-- Energy transfer SVG -->
+                <svg viewBox="0 0 500 90" class="w-full my-5">
+                    <rect width="500" height="90" fill="#0f172a" rx="8"/>
+                    <!-- Particles -->
+                    <g>
+                        <circle cx="40" cy="45" r="12" fill="#1e293b" stroke="#2dd4bf" stroke-width="2">
+                            <animate attributeName="cy" values="45;28;45;62;45" dur="1.5s" repeatCount="indefinite" begin="0s"/>
+                        </circle>
+                        <circle cx="100" cy="45" r="12" fill="#1e293b" stroke="#2dd4bf" stroke-width="1.5">
+                            <animate attributeName="cy" values="45;28;45;62;45" dur="1.5s" repeatCount="indefinite" begin="0.3s"/>
+                        </circle>
+                        <circle cx="160" cy="45" r="12" fill="#1e293b" stroke="#2dd4bf" stroke-width="1.5">
+                            <animate attributeName="cy" values="45;28;45;62;45" dur="1.5s" repeatCount="indefinite" begin="0.6s"/>
+                        </circle>
+                        <circle cx="220" cy="45" r="12" fill="#1e293b" stroke="#2dd4bf" stroke-width="1.5">
+                            <animate attributeName="cy" values="45;28;45;62;45" dur="1.5s" repeatCount="indefinite" begin="0.9s"/>
+                        </circle>
+                        <circle cx="280" cy="45" r="12" fill="#1e293b" stroke="#2dd4bf" stroke-width="1.5">
+                            <animate attributeName="cy" values="45;28;45;62;45" dur="1.5s" repeatCount="indefinite" begin="1.2s"/>
+                        </circle>
+                        <circle cx="340" cy="45" r="12" fill="#1e293b" stroke="#2dd4bf" stroke-width="1.5">
+                            <animate attributeName="cy" values="45;28;45;62;45" dur="1.5s" repeatCount="indefinite" begin="1.5s"/>
+                        </circle>
+                        <circle cx="400" cy="45" r="12" fill="#1e293b" stroke="#2dd4bf" stroke-width="1.5">
+                            <animate attributeName="cy" values="45;28;45;62;45" dur="1.5s" repeatCount="indefinite" begin="1.8s"/>
+                        </circle>
+                        <circle cx="460" cy="45" r="12" fill="#1e293b" stroke="#2dd4bf" stroke-width="1.5">
+                            <animate attributeName="cy" values="45;28;45;62;45" dur="1.5s" repeatCount="indefinite" begin="2.1s"/>
+                        </circle>
+                    </g>
+                    <!-- Energy direction -->
+                    <line x1="30" y1="82" x2="470" y2="82" stroke="#fb923c" stroke-width="1.5" marker-end="url(#mE)"/>
+                    <text x="250" y="78" text-anchor="middle" fill="#fb923c" font-size="9">Energy →</text>
+                    <defs><marker id="mE" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#fb923c"/></marker></defs>
+                    <text x="250" y="15" text-anchor="middle" fill="#64748b" font-size="9">Particles oscillate up/down — Energy travels right →</text>
+                </svg>
+
+                <div class="egyptian-expl">
+                    <div class="expl-header"><i class="fas fa-comment-dots"></i> شرح بالعربي</div>
+                    الجسيمات <strong style="color:#f87171">ما بتتحركش مع الموجة</strong> — بس بتهتز في مكانها.
+                    <br>كل جسيم بيدفع جاره، الجار بيدفع جاره التاني... وهكذا الطاقة بتنتقل.
+                    <br><br>
+                    تخيّل لعبة الدومينو — كل قطعة بتوقع الي جنبها وترجع. الطاقة بتتنقل للآخر بس كل قطعة بتبقى في مكانها.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPARISON TABLE -->
+    <section id="compare" class="py-10 px-6">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center mb-8" data-aos="fade-up">
+                <span class="inline-block px-4 py-1 rounded-full bg-teal-500/10 text-teal-400 text-xs font-mono border border-teal-500/20 mb-4">COMPARISON</span>
+                <h2 class="text-3xl font-black text-white">Transverse vs. Longitudinal</h2>
+            </div>
+            <div class="glass-card rounded-2xl p-4 overflow-x-auto" data-aos="fade-up">
+                <table class="custom-table min-w-full">
+                    <thead>
+                        <tr>
+                            <th class="text-left">Property</th>
+                            <th class="text-teal-400">Transverse Waves</th>
+                            <th class="text-orange-400">Longitudinal Waves</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-amber-400 font-bold">Vibration direction</td>
+                            <td class="text-slate-300">Perpendicular (⊥) to wave direction</td>
+                            <td class="text-slate-300">Parallel (∥) to wave direction</td>
+                        </tr>
+                        <tr>
+                            <td class="text-amber-400 font-bold">Wave pattern</td>
+                            <td class="text-slate-300">Crests and Troughs</td>
+                            <td class="text-slate-300">Compressions and Rarefactions</td>
+                        </tr>
+                        <tr>
+                            <td class="text-amber-400 font-bold">Wavelength</td>
+                            <td class="text-slate-300">Crest to crest / trough to trough</td>
+                            <td class="text-slate-300">Compression to compression / rarefaction to rarefaction</td>
+                        </tr>
+                        <tr>
+                            <td class="text-amber-400 font-bold">Examples</td>
+                            <td class="text-teal-400">Water surface, light, string waves</td>
+                            <td class="text-orange-400">Sound, spring pushed back and forth</td>
+                        </tr>
+                        <tr>
+                            <td class="text-amber-400 font-bold">Medium needed?</td>
+                            <td class="text-slate-300">Solid, liquid (not gas in some)</td>
+                            <td class="text-slate-300">Solid, liquid, or gas</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="egyptian-expl mt-4" data-aos="fade-up">
+                <div class="expl-header"><i class="fas fa-comment-dots"></i> شرح بالعربي</div>
+                <strong style="color:#2dd4bf">الفرق الجوهري:</strong>
+                <br>• عرضية (Transverse): الاهتزاز عمودي على الانتشار → قمم وقيعان.
+                <br>• طولية (Longitudinal): الاهتزاز موازي للانتشار → انضغاط وتخلخل.
+                <br><br>
+                حيلة للتذكر: <strong style="color:#fbbf24">Trans</strong>verse = اعبر الطريق (عمود عليه)، <strong style="color:#fb923c">Long</strong>itudinal = طول الطريق (موازي له)!
+            </div>
+        </div>
+    </section>
+
+    <!-- QUIZ -->
+    <section id="quiz" class="py-16 px-6">
+        <div class="container mx-auto max-w-5xl">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <span class="inline-block px-4 py-1 rounded-full bg-teal-500/10 text-teal-400 text-xs font-mono border border-teal-500/20 mb-4">ASSESSMENT</span>
+                <h2 class="text-4xl font-black text-white mb-2">Test Your Knowledge</h2>
+                <p class="text-slate-400">24 questions — conceptual + applied</p>
+            </div>
+            <div id="quiz-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+        </div>
+    </section>
+</main>
+
+<footer class="border-t border-slate-800 py-8 text-center text-sm text-slate-500">
+    <p>Physics Year 1 (STEM) © 2026 — Prepared by <span class="text-teal-400">Osama Zinhom</span></p>
+    <p class="mt-2"><a href="lect06.html" class="text-violet-400 hover:underline">← Lesson 6</a> · <a href="index.html" class="text-slate-400 hover:text-white">Home</a> · <a href="lect07script.html" class="text-amber-400 hover:underline">📜 سكريبت الشرح</a></p>
+</footer>
+
+<script>
+AOS.init({duration:600,once:true,offset:60});
+// Transverse wave animation
+(function(){
+    const p=document.getElementById('tw');
+    if(!p)return;
+    let t=0;
+    function draw(){
+        t+=0.05;
+        let d='';
+        for(let x=0;x<=220;x+=4){
+            const y=40+28*Math.sin((x/35)+t);
+            d+=(x===0?'M':'L')+x+','+y;
+        }
+        p.setAttribute('d',d);
+        requestAnimationFrame(draw);
+    }
+    draw();
+})();
+
+const questions=[
+    {text:"In a transverse wave, particles vibrate:",ans:1,expl:"Transverse = perpendicular (at right angles) to wave direction.",opts:["Parallel to wave direction","Perpendicular to wave direction","In circles","Randomly"]},
+    {text:"In a longitudinal wave, particles vibrate:",ans:0,expl:"Longitudinal = parallel (along) the direction of wave propagation.",opts:["Along (parallel to) wave direction","Perpendicular to wave direction","At 45° to wave direction","Randomly"]},
+    {text:"Sound is an example of:",ans:2,expl:"Sound is a longitudinal mechanical wave (compressions and rarefactions).",opts:["Electromagnetic wave","Transverse mechanical wave","Longitudinal mechanical wave","Light wave"]},
+    {text:"Waves on a water surface are:",ans:1,expl:"Water surface waves are transverse — particles move up and down.",opts:["Longitudinal","Transverse","Neither","Both simultaneously"]},
+    {text:"A crest is:",ans:0,expl:"A crest is the maximum displacement in the positive direction.",opts:["Maximum displacement in positive direction","Maximum displacement in negative direction","The equilibrium position","The wavelength"]},
+    {text:"A trough is:",ans:3,expl:"A trough is the maximum displacement in the negative direction.",opts:["Max displacement upward","The equilibrium position","The wavelength","Maximum displacement in negative direction"]},
+    {text:"Compression in a longitudinal wave means:",ans:2,expl:"Compression = high pressure region where particles are close together.",opts:["Particles far apart (low pressure)","Particles at equilibrium","Particles close together (high pressure)","Wave traveling backwards"]},
+    {text:"Rarefaction in a longitudinal wave means:",ans:1,expl:"Rarefaction = low pressure region where particles are spread apart.",opts:["Particles close together","Particles far apart (low pressure)","Maximum displacement","Crest of the wave"]},
+    {text:"In a longitudinal wave, the wavelength equals:",ans:3,expl:"λ = distance between centers of two successive compressions (or rarefactions).",opts:["Distance from crest to trough","Amplitude × 2","Time period","Distance between two successive compressions"]},
+    {text:"In a transverse wave, the wavelength equals:",ans:0,expl:"λ = crest to crest (or trough to trough).",opts:["Distance from crest to crest","Distance from crest to trough","The amplitude","The period"]},
+    {text:"Do particles travel along with the wave?",ans:1,expl:"Particles oscillate about a fixed point. Only energy travels.",opts:["Yes, particles move with the wave","No, they oscillate about a fixed point","Yes, at exactly the wave speed","Only in longitudinal waves"]},
+    {text:"Both types of mechanical waves can be shown using a:",ans:2,expl:"A slinky spring demonstrates both — push for longitudinal, waggle for transverse.",opts:["Tuning fork","String only","Slinky spring","Drum"]},
+    {text:"Which wave type exists in EM waves ONLY?",ans:1,expl:"EM waves are transverse only. Longitudinal EM waves do not exist.",opts:["Longitudinal","Transverse","Both","Neither"]},
+    {text:"Transverse waves occur in:",ans:2,expl:"Transverse waves occur in strings, surface of liquid, and throughout solids.",opts:["Gas only","Vacuum only","String, liquid surface, solids","Liquids only"]},
+    {text:"Which statement is TRUE about wave energy?",ans:3,expl:"Energy is transmitted by the wave; particles stay in place (oscillate) and push neighbors.",opts:["Particles travel long distances","Energy stays fixed","No energy is transferred","Energy transfers particle to particle without matter moving along"]},
+    {text:"When you push a slinky spring back and forth, you create:",ans:0,expl:"Pushing a slinky creates compressions and rarefactions — longitudinal wave.",opts:["Longitudinal wave","Transverse wave","Standing wave","Electromagnetic wave"]},
+    {text:"When you waggle a slinky side to side, you create:",ans:1,expl:"Waggling creates side-to-side movement — transverse wave.",opts:["Longitudinal wave","Transverse wave","Sound wave","Compression wave"]},
+    {text:"In transverse waves, the direction of energy propagation is:",ans:2,expl:"Energy travels horizontally while particles vibrate vertically (perpendicular).",opts:["Same as particle vibration","Random","Perpendicular to particle vibration","At 45° to particle vibration"]},
+    {text:"Sound cannot travel in:",ans:3,expl:"Sound is a mechanical wave requiring a medium. No vacuum propagation.",opts:["Solids","Liquids","Gases","Vacuum"]},
+    {text:"High-pressure regions in longitude waves are called:",ans:1,expl:"Compressions are high-pressure (dense) regions.",opts:["Rarefactions","Compressions","Troughs","Crests"]},
+    {text:"Low-pressure regions in longitudinal waves are called:",ans:2,expl:"Rarefactions are low-pressure (sparse) regions.",opts:["Compressions","Crests","Rarefactions","Troughs"]},
+    {text:"A mechanical wave is a disturbance that travels through:",ans:0,expl:"Mechanical waves need a material medium (substance) to travel.",opts:["A material medium (substance)","Vacuum only","Electric fields","Space without matter"]},
+    {text:"If wave speed is v and wavelength is λ, frequency f equals:",ans:3,expl:"v = fλ → f = v/λ.",opts:["f = vλ","f = λ/v","f = v+λ","f = v/λ"]},
+    {text:"Which type of wave requires a medium AND carries compressions?",ans:1,expl:"Longitudinal mechanical waves (sound) need a medium and travel via compressions/rarefactions.",opts:["Electromagnetic waves","Longitudinal mechanical waves","Transverse EM waves","Light waves"]}
+];
+
+const grid=document.getElementById('quiz-grid');
+questions.forEach((q,i)=>{
+    const c=document.createElement('div');
+    c.className="glass-card p-6 rounded-xl hover:bg-slate-800/80 transition flex flex-col";
+    c.innerHTML=`<div class="mb-3"><span class="text-sm font-mono text-teal-500">Q${i+1}</span></div><p class="text-base font-semibold text-white mb-5">${q.text}</p><div class="grid gap-2 mb-4 text-sm text-slate-300">${q.opts.map((o,j)=>`<div onclick="chk(this,${j},${q.ans})" class="p-3 rounded bg-slate-900/50 border border-slate-700 hover:bg-slate-800 cursor-pointer transition">${String.fromCharCode(65+j)}) ${o}</div>`).join('')}</div><div class="mt-auto"><button onclick="this.nextElementSibling.classList.toggle('show')" class="text-xs text-slate-500 hover:text-teal-400 font-bold uppercase tracking-wider cursor-pointer"><i class="fas fa-eye mr-1"></i>Show Answer</button><div class="answer-container"><p class="text-teal-400 font-bold mb-1">Correct: ${String.fromCharCode(65+q.ans)}</p><p class="text-xs text-slate-300">${q.expl}</p></div></div>`;
+    grid.appendChild(c);
+});
+function chk(el,sel,cor){const p=el.parentElement;Array.from(p.children).forEach(c=>{c.classList.remove('bg-emerald-500/20','border-emerald-500','bg-red-500/20','border-red-500');c.classList.add('bg-slate-900/50','border-slate-700');});if(sel===cor){el.classList.add('bg-emerald-500/20','border-emerald-500');}else{el.classList.add('bg-red-500/20','border-red-500');}el.classList.remove('bg-slate-900/50','border-slate-700');}
+</script>
+</body>
+</html>
