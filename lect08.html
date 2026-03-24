@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics - Lesson 8: Sound Waves</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'], arabic: ['Cairo', 'sans-serif'] } } } }</script>
+    <style>
+        body {
+            background: #020617;
+            color: #E2E8F0;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 15% 20%, rgba(56, 189, 248, 0.07) 0%, transparent 30%), radial-gradient(circle at 85% 80%, rgba(139, 92, 246, 0.06) 0%, transparent 30%)
+        }
+
+        .glass-card {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease
+        }
+
+        .glass-card:hover {
+            border-color: rgba(56, 189, 248, 0.4);
+            box-shadow: 0 10px 40px -10px rgba(56, 189, 248, 0.15);
+            transform: translateY(-4px)
+        }
+
+        .glass-header {
+            background: rgba(2, 6, 23, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05)
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 60%, #c084fc 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent
+        }
+
+        .formula-box {
+            background: rgba(56, 189, 248, 0.06);
+            border: 1px solid rgba(56, 189, 248, 0.22);
+            border-radius: 12px;
+            padding: 1.4rem;
+            text-align: center;
+            font-size: 1.2rem;
+            margin: 1rem 0;
+            color: #f8fafc;
+            overflow-x: auto;
+        }
+
+        .answer-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+            background: rgba(56, 189, 248, 0.05);
+            border-radius: 0.5rem
+        }
+
+        .answer-container.show {
+            max-height: 300px;
+            padding: 1rem;
+            margin-top: 1rem;
+            border: 1px solid rgba(56, 189, 248, 0.3)
+        }
+
+        .definition-box {
+            background: rgba(56, 189, 248, 0.05);
+            border-left: 4px solid #38bdf8;
+            border-radius: 0.5rem;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0
+        }
+
+        .definition-box strong {
+            color: #7dd3fc
+        }
+
+        .note-box {
+            background: rgba(244, 63, 94, 0.05);
+            border-left: 4px solid #f43f5e;
+            border-radius: 0.5rem;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0
+        }
+
+        .note-box .note-title {
+            color: #f43f5e;
+            font-weight: 700;
+            font-size: .9rem;
+            margin-bottom: .5rem
+        }
+
+        .egyptian-expl {
+            direction: rtl;
+            text-align: right;
+            font-family: 'Cairo', sans-serif;
+            background: rgba(139, 92, 246, 0.05);
+            border: 1px solid rgba(139, 92, 246, 0.15);
+            border-right: 4px solid #a78bfa;
+            border-radius: .75rem;
+            padding: 1.25rem 1.5rem;
+            margin: 1.25rem 0;
+            line-height: 2;
+            color: #e2e8f0;
+            box-shadow: 0 4px 20px -5px rgba(139, 92, 246, 0.1);
+        }
+
+        .egyptian-expl .expl-header {
+            color: #c4b5fd;
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: .75rem;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            justify-content: flex-end
+        }
+
+        .highlight-text {
+            color: #fca5a5;
+            font-weight: 600;
+        }
+
+        .custom-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255,255,255,0.1);
+            outline: none;
+        }
+
+        .custom-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #38bdf8;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(56,189,248,0.5);
+            transition: all 0.2s;
+        }
+
+        .custom-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+
+<body class="antialiased font-sans flex flex-col min-h-screen">
+
+    <nav class="fixed top-0 w-full z-50 glass-header">
+        <div class="container mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <a href="index.html"
+                    class="w-8 h-8 rounded bg-gradient-to-br from-sky-500 to-purple-500 flex items-center justify-center text-white font-bold text-xs">⚛</a>
+                <span class="font-bold text-lg text-slate-200">Lesson<span class="text-sky-400">08</span></span>
+            </div>
+            <div class="hidden lg:flex gap-5 text-sm font-medium text-slate-400">
+                <a href="#intro" class="hover:text-sky-400 transition">Nature of Sound</a>
+                <a href="#intensity" class="hover:text-sky-400 transition">Intensity</a>
+                <a href="#cro" class="hover:text-sky-400 transition">Oscilloscope</a>
+                <a href="#standing" class="hover:text-sky-400 transition">Standing Waves</a>
+                <a href="#quiz"
+                    class="px-5 py-2 rounded-full bg-sky-600/10 text-sky-400 border border-sky-500/20 hover:bg-sky-600 hover:text-white transition">Quiz</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow pt-24">
+
+        <!-- HERO -->
+        <header class="relative pb-16 px-6">
+            <div class="container mx-auto text-center" data-aos="fade-up">
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700 text-xs font-mono text-sky-400 mb-6">
+                    <span class="w-2 h-2 rounded-full bg-sky-500 animate-pulse"></span> UNIT 4 — LESSON 3
+                </div>
+                <h1 class="text-5xl md:text-7xl font-black mb-3 tracking-tight text-white">Sound<br><span
+                        class="text-gradient">Waves</span></h1>
+                <p class="text-lg text-slate-400 max-w-2xl mx-auto mb-1">Unit Four: Waves</p>
+                <p class="text-slate-400 mb-2">بشمهندس أسامة زينهم</p>
+
+                <!-- Speaker Wave Animation -->
+                <div class="max-w-md mx-auto mt-8">
+                    <svg viewBox="0 0 300 150" class="w-full">
+                        <rect width="300" height="150" fill="#0f172a" rx="12" />
+                        <!-- Speaker Icon -->
+                        <path d="M40 55 L70 55 L100 25 L100 125 L70 95 L40 95 Z" fill="#38bdf8" />
+                        <line x1="80" y1="35" x2="80" y2="115" stroke="#0f172a" stroke-width="2"/>
+                        <!-- Animated Waves -->
+                        <g fill="none" stroke="#818cf8" stroke-width="3" stroke-linecap="round">
+                            <path d="M120 50 Q135 75 120 100" class="origin-center" id="w1">
+                                <animate attributeName="opacity" values="0.2;1;0.2" dur="1s" repeatCount="indefinite" begin="0s"/>
+                                <animateTransform attributeName="transform" type="scale" values="1;1.1;1" dur="1s" repeatCount="indefinite" begin="0s"/>
+                            </path>
+                            <path d="M140 35 Q165 75 140 115" class="origin-center" id="w2">
+                                <animate attributeName="opacity" values="0.2;1;0.2" dur="1s" repeatCount="indefinite" begin="0.2s"/>
+                                <animateTransform attributeName="transform" type="scale" values="1;1.1;1" dur="1s" repeatCount="indefinite" begin="0.2s"/>
+                            </path>
+                            <path d="M160 20 Q195 75 160 130" class="origin-center" id="w3">
+                                <animate attributeName="opacity" values="0.2;1;0.2" dur="1s" repeatCount="indefinite" begin="0.4s"/>
+                                <animateTransform attributeName="transform" type="scale" values="1;1.1;1" dur="1s" repeatCount="indefinite" begin="0.4s"/>
+                            </path>
+                            <path d="M180 5 Q225 75 180 145" class="origin-center" id="w4">
+                                <animate attributeName="opacity" values="0.2;1;0.2" dur="1s" repeatCount="indefinite" begin="0.6s"/>
+                                <animateTransform attributeName="transform" type="scale" values="1;1.1;1" dur="1s" repeatCount="indefinite" begin="0.6s"/>
+                            </path>
+                        </g>
+                        <!-- Particles mapping compressions -->
+                        <g id="particleSystem" fill="#f8fafc" opacity="0.6"></g>
+                        <text x="150" y="140" text-anchor="middle" fill="#94a3b8" font-size="10">Longitudinal Mechanical Waves</text>
+                    </svg>
+                </div>
+            </div>
+        </header>
+
+        <!-- SOUND WAVES INTRO -->
+        <section id="intro" class="py-10 px-6">
+            <div class="container mx-auto max-w-4xl">
+                <div class="glass-card rounded-2xl p-8 border-t-4 border-t-sky-500" data-aos="fade-up">
+                    <h2 class="text-3xl font-black text-white mb-6"><i class="fas fa-volume-up text-sky-400 mr-2"></i> The Nature of Sound </h2>
+                    
+                    <div class="definition-box">
+                        <strong>Sound</strong> is a form of energy that travels in the form of a <strong>longitudinal mechanical wave</strong> (compressions and rarefactions). <br><br>
+                        <strong>Important:</strong> Sound can travel through any medium (solid, liquid, gas), but it <strong class="text-red-400">cannot travel through a vacuum</strong>. There is no sound in outer space!
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6 mt-6">
+                        <div class="bg-slate-800/40 rounded-xl p-5 border border-slate-700 hover:border-sky-500/50 transition">
+                            <h3 class="text-sky-400 font-bold mb-3"><i class="fas fa-ear-listen"></i> Frequency Range</h3>
+                            <ul class="space-y-2 text-sm text-slate-300">
+                                <li>• <strong>Audible Sound:</strong> Humans can hear frequencies between <strong class="text-emerald-400">20 Hz and 20,000 Hz</strong> (20 kHz).</li>
+                                <li>• <strong class="highlight-text">Ultrasound:</strong> Frequencies <em>above</em> 20,000 Hz.</li>
+                                <li>• <strong class="highlight-text">Infrasound:</strong> Frequencies <em>below</em> 20 Hz.</li>
+                            </ul>
+                        </div>
+                        <div class="bg-slate-800/40 rounded-xl p-5 border border-slate-700 hover:border-purple-500/50 transition">
+                            <h3 class="text-purple-400 font-bold mb-3"><i class="fas fa-compress-arrows-alt"></i> Pressure Variations</h3>
+                            <ul class="space-y-2 text-sm text-slate-300">
+                                <li>Sound is produced by the vibration of sounding bodies.</li>
+                                <li>• <strong class="text-sky-400">Compression:</strong> Region of <strong>increased</strong> pressure where particles are close.</li>
+                                <li>• <strong class="text-purple-400">Rarefaction:</strong> Region of <strong>decreased</strong> pressure where particles are apart.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="note-box mt-6">
+                        <div class="note-title"><i class="fas fa-info-circle mr-1"></i> Notes on the Speed of Sound (in gases)</div>
+                        <p class="text-slate-300 text-sm mb-2"><strong>a) Density:</strong> Speed of sound is <em>inversely proportional</em> to the square root of the medium's density ($\rho$):</p>
+                        <div class="formula-box" style="padding: 0.8rem; margin: 0.5rem 0 1rem 0;">
+                            $$ v \propto \frac{1}{\sqrt{\rho}} $$
+                        </div>
+                        <p class="text-slate-300 text-sm"><strong>b) Temperature:</strong> Higher temperature $\rightarrow$ lower density $\rightarrow$ sound travels <strong>faster</strong>.</p>
+                    </div>
+
+                    <div class="egyptian-expl mt-6">
+                        <div class="expl-header"><i class="fas fa-comment-dots"></i> الفيزياء ببساطة</div>
+                        الصوت عبارة عن <strong>موجة ميكانيكية طولية</strong>، يعني إيه؟ يعني تضاغطات (ضغط عالي) وتخلخلات (ضغط واطي) ماشية في الهوا أو المية أو الحيطة.<br>
+                        لو مفيش وسط مادي (زي الفضاء) مفيش صوت بيتنقل، عشان كدا رواد الفضاء بيكلموا بعض باللاسلكي!<br><br>
+                        ودن الإنسان الطبيعية بتسمع الأصوات اللي ترددها من <strong style="color:#38bdf8">20 هرتز لحد 20,000 هرتز</strong>.<br>
+                        لو الصوت تردده أعلى من كدا بنسميه <strong>موجات فوق صوتية (Ultrasound)</strong>، ولو أقل بنسميه <strong>موجات تحت صوتية (Infrasound)</strong>.<br><br>
+                        سرعة الصوت كمان بتزيد لما الجو يبقى حر، ليه؟ لأن كثافة الهوا بتقل، وسرعة الصوت عكسية مع جذر الكثافة!
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SOUND INTENSITY -->
+        <section id="intensity" class="py-10 px-6 bg-slate-900/50">
+            <div class="container mx-auto max-w-4xl">
+                <div class="glass-card rounded-2xl p-8 border-l-4 border-l-purple-500" data-aos="fade-up">
+                    <h2 class="text-3xl font-black text-white mb-6"><i class="fas fa-bolt text-purple-400 mr-2"></i> Intensity of Sound</h2>
+                    <p class="text-slate-300 leading-relaxed mb-4">
+                        The intensity of a wave is defined as the <strong>rate of energy transmitted (i.e., power) per unit area</strong> at right angles to the wave velocity.
+                    </p>
+                    
+                    <div class="formula-box my-6 border-purple-500/30 bg-purple-500/5">
+                        $$ \text{Intensity (I)} = \frac{\text{Power (P)}}{\text{Cross Sectional Area (A)}} $$
+                    </div>
+                    
+                    <p class="text-center text-slate-400 text-sm mb-6">Intensity is measured in <strong>watts per square meter ($W \cdot m^{-2}$)</strong>.</p>
+
+                    <h3 class="text-lg font-bold text-sky-400 mt-6 mb-3">Intensity and Amplitude</h3>
+                    <div class="bg-slate-800/60 rounded-xl p-5 border border-slate-700">
+                        <p class="text-slate-300 mb-2">The intensity of a wave $I$ is directly proportional to the <strong>square of its amplitude $A$</strong>:</p>
+                        <div class="text-center my-3 font-mono text-xl text-purple-400 bg-slate-900 py-3 rounded-lg border border-slate-800">
+                            I $\propto$ A²
+                        </div>
+                        <p class="text-slate-300 text-sm">
+                            <i class="fas fa-hand-point-right text-sky-400"></i> Meaning: If one wave has <strong>twice</strong> the amplitude of another, it has <strong>four times (2²)</strong> the intensity! It carries energy at four times the rate.
+                        </p>
+                    </div>
+
+                    <h3 class="text-lg font-bold text-sky-400 mt-6 mb-3">Why does sound fade away?</h3>
+                    <p class="text-slate-300 mb-3">The intensity of a wave generally decreases as it travels because of two main reasons:</p>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-start gap-3">
+                            <div class="mt-1 w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center text-xs shrink-0">1</div>
+                            <p class="text-slate-300"><strong>Spreading of the wave:</strong> As spherical waves spread out from a point source, the area increases, so the energy per unit area (intensity) and amplitude decrease.</p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <div class="mt-1 w-6 h-6 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center text-xs shrink-0">2</div>
+                            <p class="text-slate-300"><strong>Absorption or Scattering:</strong> The medium itself absorbs some of the wave's energy and turns it into heat.</p>
+                        </li>
+                    </ul>
+
+                    <div class="egyptian-expl mt-6">
+                        <div class="expl-header"><i class="fas fa-comment-dots"></i> الشدة (Intensity) ببساطة</div>
+                        الشدة دي معناها <strong>كمية الطاقة (أو القدرة Power) اللي بتعدي في مساحة معينة كل ثانية.</strong><br>
+                        طب لو خلينا سعة الموجة (Amplitude) الضعف؟ الشدة مش هتبقى الضعف.. لأ، هتبقى <strong>4 أضعاف!</strong> لأن الشدة بتتناسب مع (مربع) السعة.<br><br>
+                        ليه صوتك مبيوصلش لآخر الشارع؟ لسببين:<br>
+                        1. <strong>انتشار الموجة:</strong> الصوت بيطلع على شكل كرات بتوسع كل ما تبعد، فالطاقة بتتوزع على مساحة أكبر فتضعف.<br>
+                        2. <strong>الامتصاص:</strong> الهوا نفسه بيمتص جزء من طاقة الصوت دي.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MEASURING FREQUENCY -->
+        <section id="cro" class="py-10 px-6">
+            <div class="container mx-auto max-w-4xl">
+                <div class="glass-card rounded-2xl p-8 border-t-4 border-t-emerald-500" data-aos="fade-up">
+                    <h2 class="text-3xl font-black text-white mb-6"><i class="fas fa-wave-square text-emerald-400 mr-2"></i> Measuring Frequency</h2>
+                    <p class="text-slate-300 leading-relaxed mb-4">
+                        We can measure the frequency of sound waves using a <strong>Cathode-Ray Oscilloscope (c.r.o.)</strong>.
+                    </p>
+
+                    <div class="grid md:grid-cols-2 gap-6 mb-6 items-center">
+                        <div>
+                            <p class="text-slate-300 text-sm mb-3"><strong>How it works:</strong></p>
+                            <ol class="list-decimal list-inside space-y-2 text-sm text-slate-400">
+                                <li>A microphone captures sound waves.</li>
+                                <li>The microphone converts them into a varying electrical voltage.</li>
+                                <li>The voltage is displayed on the c.r.o. screen as a trace.</li>
+                                <li>The screen behaves like a voltmeter charting voltage over time (x-axis).</li>
+                            </ol>
+                            <p class="text-slate-300 mt-4 text-sm bg-slate-800/50 p-3 rounded-lg border border-slate-700">
+                                By knowing the horizontal scale <strong class="text-emerald-400">(time-base control)</strong>, we can find the time of one complete wave (Period $T$), and then calculate Frequency $f = 1/T$.
+                            </p>
+                        </div>
+                        
+                        <!-- Interactive Oscilloscope -->
+                        <div class="bg-black/80 rounded-xl p-4 border-2 border-slate-700 shadow-[0_0_20px_rgba(16,185,129,0.15)]">
+                            <div class="flex justify-between items-center mb-2 px-1">
+                                <span class="text-xs font-mono text-emerald-500">C.R.O. DISPLAY</span>
+                                <span class="text-xs font-mono text-slate-400" id="timebaseLabel">Time-base: 1 ms/div</span>
+                            </div>
+                            <svg viewBox="0 0 200 120" class="w-full bg-[#0a1f18] rounded border border-[#105e3f]">
+                                <!-- Grid -->
+                                <defs>
+                                    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                                        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#166534" stroke-width="0.5"/>
+                                        <circle cx="10" cy="10" r="0.5" fill="#166534"/>
+                                    </pattern>
+                                </defs>
+                                <rect width="100%" height="100%" fill="url(#grid)" />
+                                <!-- Axes -->
+                                <line x1="0" y1="60" x2="200" y2="60" stroke="#22c55e" stroke-width="1" stroke-dasharray="2,2" opacity="0.5"/>
+                                <line x1="100" y1="0" x2="100" y2="120" stroke="#22c55e" stroke-width="1" stroke-dasharray="2,2" opacity="0.5"/>
+                                <!-- Wave trace -->
+                                <path id="croWave" d="" fill="none" stroke="#4ade80" stroke-width="1.5" class="drop-shadow-[0_0_5px_rgba(74,222,128,0.8)]"/>
+                            </svg>
+                            <div class="mt-4">
+                                <label class="text-xs text-slate-400 block mb-1">Adjust Frequency <span id="freqLabel" class="text-emerald-400 ml-1">250 Hz</span></label>
+                                <input type="range" id="freqSlider" min="1" max="5" value="1" step="0.5" class="custom-slider bg-slate-700">
+                            </div>
+                            <div class="mt-3 text-xs bg-slate-900 p-2 rounded text-slate-300">
+                                <p><strong>1 div = <span id="divLabel">4</span> waves? No wait.</strong></p>
+                                <p id="calcLabel">If 1 wave takes <strong class="text-emerald-400">4 divisions</strong> × 1 ms = <strong>4 ms</strong> ($4 \times 10^{-3}$ s).</p>
+                                <p>$f = \frac{1}{0.004} = \strong{250 Hz}$</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="egyptian-expl mt-6">
+                        <div class="expl-header"><i class="fas fa-comment-dots"></i> إزاي نقيس التردد؟</div>
+                        بنستخدم جهاز اسمه الأوسيلوسكوب <strong>(Oscilloscope)</strong>.<br>
+                        المايكروفون بيحول الصوت لكهرباء، والجهاز بيرسمها كموجة على الشاشة. المحور الأفقي بيمثل <strong>الزمن (Time)</strong>.<br>
+                        بنشوف الموجة الواحدة (من قمة لقمة) خدت كام مربع (Divisions).<br>
+                        بنضرب عدد المربعات في قيمة المربع الواحد (الـ Time-base) فنعرف الزمن الدوري (Period $T$).<br>
+                        وبعدين التردد = $1 / T$.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STANDING WAVES -->
+        <section id="standing" class="py-10 px-6">
+            <div class="container mx-auto max-w-5xl">
+                <div class="text-center mb-8" data-aos="fade-up">
+                    <span
+                        class="inline-block px-4 py-1 rounded-full bg-pink-500/10 text-pink-400 text-xs font-mono border border-pink-500/20 mb-4">INTERFERENCE</span>
+                    <h2 class="text-3xl font-black text-white">Standing (Stationary) Waves</h2>
+                </div>
+                
+                <div class="glass-card rounded-2xl p-8 border-t-4 border-t-pink-500" data-aos="fade-up">
+                    <p class="text-slate-300 mb-4">
+                        Consider a string stretched between two clamps. If you send a continuous specific sinusoidal wave to the right, it will reflect off the end and travel back to the left.
+                    </p>
+                    <div class="bg-slate-800/40 p-5 rounded-xl border border-pink-500/20 mb-6">
+                        <p class="text-sm font-semibold text-slate-200">
+                            The interference of two identical sinusoidal waves moving in opposite directions produces <strong>standing waves</strong>.
+                        </p>
+                    </div>
+
+                    <!-- Standing Wave Animation Diagram -->
+                    <div class="relative bg-slate-900 rounded-xl p-4 border border-slate-700 max-w-2xl mx-auto my-6 overflow-hidden">
+                        <svg viewBox="0 0 600 200" class="w-full">
+                            <!-- Clamps -->
+                            <rect x="25" y="40" width="10" height="120" fill="#475569" rx="2" />
+                            <rect x="565" y="40" width="10" height="120" fill="#475569" rx="2" />
+                            
+                            <!-- Middle line -->
+                            <line x1="30" y1="100" x2="570" y2="100" stroke="#334155" stroke-width="1" stroke-dasharray="5,5" />
+                            
+                            <!-- Nodes / Antinodes Highlights -->
+                            <!-- Antinodes -->
+                            <circle cx="120" cy="100" r="40" fill="rgba(236,72,153,0.1)" />
+                            <circle cx="300" cy="100" r="40" fill="rgba(236,72,153,0.1)" />
+                            <circle cx="480" cy="100" r="40" fill="rgba(236,72,153,0.1)" />
+                            
+                            <text x="120" y="30" text-anchor="middle" fill="#f472b6" font-size="12" font-weight="bold">Antinode</text>
+                            <text x="300" y="30" text-anchor="middle" fill="#f472b6" font-size="12" font-weight="bold">Antinode</text>
+                            <text x="480" y="30" text-anchor="middle" fill="#f472b6" font-size="12" font-weight="bold">Antinode</text>
+                            
+                            <!-- Nodes -->
+                            <circle cx="30" cy="100" r="4" fill="#cbd5e1" class="z-10" />
+                            <circle cx="210" cy="100" r="4" fill="#cbd5e1" />
+                            <circle cx="390" cy="100" r="4" fill="#cbd5e1" />
+                            <circle cx="570" cy="100" r="4" fill="#cbd5e1" />
+
+                            <text x="210" y="125" text-anchor="middle" fill="#94a3b8" font-size="10" font-weight="bold">Node</text>
+                            <text x="390" y="125" text-anchor="middle" fill="#94a3b8" font-size="10" font-weight="bold">Node</text>
+
+                            <!-- The waves themselves -->
+                            <path id="sw1" d="" fill="none" stroke="#f472b6" stroke-width="2" />
+                            <path id="sw2" d="" fill="none" stroke="#60a5fa" stroke-width="2" stroke-dasharray="4,4" opacity="0.6" />
+                            <path id="swResult" d="" fill="none" stroke="#e2e8f0" stroke-width="3" />
+                            
+                            <!-- Legend -->
+                            <rect x="400" y="160" width="10" height="2" fill="#f472b6" />
+                            <text x="415" y="164" fill="#94a3b8" font-size="10">Incident Wave</text>
+                            <rect x="495" y="160" width="10" height="2" fill="#60a5fa" />
+                            <text x="510" y="164" fill="#94a3b8" font-size="10">Reflected Wave</text>
+                        </svg>
+                        <p class="text-center text-xs text-slate-400 mt-2">All standing wave patterns consist of <strong>nodes</strong> (zero amplitude) and <strong>antinodes</strong> (maximum amplitude).</p>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-white mt-8 mb-4">Frequency of a Stretched String</h3>
+                    <p class="text-slate-300 text-sm mb-4">
+                        A stretched string fixed at both ends can form standing wave patterns depending on the frequency. It works in whole segments ($n = 1, 2, 3...$). The length $L$ fits an exact number of half-wavelengths ($L = n\frac{\lambda}{2}$).
+                    </p>
+                    
+                    <div class="formula-box bg-slate-900 border-yellow-500/30 text-yellow-400">
+                        $$ f = \frac{n}{2L} \sqrt{\frac{F_T}{\mu}} $$
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-4 text-sm text-slate-300 mb-6">
+                        <ul class="space-y-2">
+                            <li><strong class="text-yellow-400">n:</strong> The number of segments (1, 2, 3...)</li>
+                            <li><strong class="text-yellow-400">L:</strong> Length of the string (m)</li>
+                            <li><strong class="text-yellow-400">F<sub>T</sub>:</strong> Tension force (Newton)</li>
+                            <li><strong class="text-yellow-400">μ (mu):</strong> Mass per unit length (kg/m)</li>
+                        </ul>
+                        <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700">
+                            <strong>Harmonics:</strong>
+                            <ul class="mt-2 space-y-1 text-xs">
+                                <li>• $n = 1$: <strong class="text-white">Fundamental mode</strong> or <strong>First harmonic</strong> (one segment).</li>
+                                <li>• $n = 2$: <strong>Second harmonic</strong> (two segments).</li>
+                                <li>• $n = 3$: <strong>Third harmonic</strong> (three segments).</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="egyptian-expl mt-6">
+                        <div class="expl-header"><i class="fas fa-comment-dots"></i> الموجات الموقوفة (Standing Waves)</div>
+                        لو مسكت حبل من طرف وطرف تاني مربوط في حيطة وهزيته، الموجة بتروح (<strong class="text-pink-400">ساقطة Incident</strong>) وتخبط في الحيطة وترد (<strong class="text-sky-400">منعكسة Reflected</strong>).<br>
+                        الأتنين بيدخلوا ف بعض ويعملوا شكل <strong>الموجات الموقوفة</strong> (زي أوتار الجيتار).<br><br>
+                        النقطة الي مش بتتحرك خالص اسمها <strong>عقدة (Node)</strong>، والنقطة اللي بتطلع وتنزل لأكبر مسافة (Maximum Amplitude) اسمها <strong>بطن (Antinode)</strong>.<br>
+                        تردد الوتر المربوط من الناحيتين بيعتمد على طوله وقوة الشد فيه وكتلة المتر الواحد منه (μ). وكل ما تزود قوة الشد ($F_T$) الصوت بيبقى ارفع وبتردد أعلى (زي الجيتار بالظبط).
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- QUIZ -->
+        <section id="quiz" class="py-16 px-6 relative">
+            <div class="container mx-auto max-w-5xl">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <span
+                        class="inline-block px-4 py-1 rounded-full bg-sky-500/10 text-sky-400 text-xs font-mono border border-sky-500/20 mb-4">ASSESSMENT</span>
+                    <h2 class="text-4xl font-black text-white mb-2">Test Your Knowledge</h2>
+                    <p class="text-slate-400">Conceptual + Applied questions for Sound Waves</p>
+                </div>
+                <div id="quiz-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t border-slate-800 py-8 text-center text-sm text-slate-500 bg-slate-900">
+        <p>Physics Year 1 (STEM) © 2026 — Prepared by <span class="text-sky-400">Osama Zinhom</span></p>
+        <p class="mt-2 text-slate-400 font-mono text-xs">Unit 4: Waves</p>
+        <div class="mt-4 flex justify-center gap-4">
+            <a href="lect07.html" class="text-slate-400 hover:text-white transition group"><span class="text-sky-400 group-hover:-translate-x-1 inline-block transition">←</span> Lesson 7</a>
+            <span class="text-slate-700">|</span>
+            <a href="index.html" class="text-slate-400 hover:text-white transition">Home</a>
+        </div>
+    </footer>
+
+    <script>
+        AOS.init({ duration: 600, once: true, offset: 60 });
+
+        // CRO Animation Logic
+        const croWave = document.getElementById('croWave');
+        const freqSlider = document.getElementById('freqSlider');
+        const freqLabel = document.getElementById('freqLabel');
+        const calcLabel = document.getElementById('calcLabel');
+        
+        // Timebase is 1 ms / division
+        // A division on this SVG grid is 20 SVG units (since 200 width / 20 = 10 divisions)
+        const tScaleX = 20; 
+        
+        let timeCro = 0;
+        function drawCro() {
+            timeCro += 0.5;
+            let mult = parseFloat(freqSlider.value); 
+            // e.g., if mult=1, one period is 4 divisions = 80 units
+            const periodUnits = 80 / mult;
+            let d = "M 0 60";
+            for(let x = 0; x <= 200; x += 2) {
+                // simple sine wave
+                const y = 60 - 45 * Math.sin((x / periodUnits) * 2 * Math.PI - timeCro * 0.1);
+                d += ` L ${x} ${y}`;
+            }
+            croWave.setAttribute('d', d);
+            requestAnimationFrame(drawCro);
+        }
+        drawCro();
+
+        freqSlider.addEventListener('input', (e) => {
+            const m = parseFloat(e.target.value);
+            // period in divisions = 4 / m
+            const divs = (4 / m);
+            // f = 1 / (divs * 0.001) = 250 * m
+            const freq = 250 * m;
+            freqLabel.innerText = `${freq} Hz`;
+            
+            calcLabel.innerHTML = `If 1 wave takes <strong class="text-emerald-400">${divs.toFixed(1)} divisions</strong> × 1 ms = <strong>${divs.toFixed(1)} ms</strong> ($${divs.toFixed(1)} \\times 10^{-3}$ s).<br>$f = \\frac{1}{${(divs*0.001).toFixed(4)}} = \\strong{${freq.toFixed(0)} Hz}$`;
+        });
+
+        // Standing Wave Animation Logic
+        const sw1 = document.getElementById('sw1');
+        const sw2 = document.getElementById('sw2');
+        const swResult = document.getElementById('swResult');
+        let tStand = 0;
+        
+        function drawStanding() {
+            tStand += 0.05;
+            let d1 = "M 30 100", d2 = "M 30 100", dRes = "M 30 100";
+            
+            // L = 540 (from 30 to 570)
+            // Let's make it 3 segments: lambda = 360 SVG units.
+            const L = 540;
+            const w = 2 * Math.PI / 360; 
+            
+            for(let x = 0; x <= L; x += 5) {
+                // Wave 1 traveling right
+                const y1 = 30 * Math.sin(w * x - tStand);
+                // Wave 2 traveling left
+                const y2 = 30 * Math.sin(w * x + tStand);
+                
+                const yRes = y1 + y2;
+                
+                d1 += ` L ${x + 30} ${100 - y1}`;
+                d2 += ` L ${x + 30} ${100 - y2}`;
+                dRes += ` L ${x + 30} ${100 - yRes}`;
+            }
+            
+            sw1.setAttribute('d', d1);
+            sw2.setAttribute('d', d2);
+            swResult.setAttribute('d', dRes);
+            
+            requestAnimationFrame(drawStanding);
+        }
+        drawStanding();
+
+        const questions = [
+            { text: "Sound waves are an example of:", ans: 1, expl: "Sound requires a medium and represents particles vibrating parallel to the direction of propagation (compressions/rarefactions).", opts: ["Transverse mechanical waves", "Longitudinal mechanical waves", "Electromagnetic waves", "Transverse electromagnetic waves"] },
+            { text: "Can sound travel through empty space (vacuum)?", ans: 0, expl: "No. Sound is a mechanical wave and requires a material medium to propagate.", opts: ["No, it needs a medium", "Yes, it travels at the speed of light", "Only visible sound can", "Yes, but very slowly"] },
+            { text: "The human audible frequency range is approx:", ans: 2, expl: "Humans can hear from 20 Hz to 20,000 Hz (20 kHz).", opts: ["2 Hz to 200 Hz", "200 Hz to 200,000 Hz", "20 Hz to 20,000 Hz", "0 Hz to 10,000 Hz"] },
+            { text: "As the temperature of air increases, the speed of sound:", ans: 0, expl: "Higher temperature means lower air density, and speed is inversely proportional to square root of density, so speed INCREASES.", opts: ["Increases", "Decreases", "Remains constant", "Becomes zero"] },
+            { text: "If the amplitude of a sound wave is tripled (3x), its intensity becomes:", ans: 3, expl: "Intensity is proportional to amplitude squared. 3² = 9.", opts: ["3x greater", "6x greater", "Constant", "9x greater"] },
+            { text: "In a standing wave pattern, points of zero amplitude are called:", ans: 1, expl: "Nodes are points of zero amplitude due to destructive interference.", opts: ["Antinodes", "Nodes", "Crests", "Troughs"] },
+            { text: "A sound wave has regions of high pressure called:", ans: 0, expl: "High pressure = Compression. Low pressure = Rarefaction.", opts: ["Compressions", "Rarefactions", "Antinodes", "Troughs"] },
+            { text: "Intensity of sound is measured in:", ans: 2, expl: "Intensity = Power / Area, so it is measured in Watts per square meter (W/m²).", opts: ["Joules", "Newtons per meter", "Watts per square meter", "Hertz"] },
+            { text: "A plucked string of Length L vibrating in its fundamental mode (n=1) has a wavelength of:", ans: 2, expl: "For n=1, L = λ/2, so the wavelength λ = 2L.", opts: ["L", "L/2", "2L", "4L"] }
+        ];
+
+        const grid = document.getElementById('quiz-grid');
+        questions.forEach((q, i) => {
+            const c = document.createElement('div');
+            c.className = "glass-card p-6 rounded-xl hover:bg-slate-800/80 transition flex flex-col";
+            c.innerHTML = `<div class="mb-3"><span class="text-sm font-mono text-sky-500">Q${i + 1}</span></div><p class="text-base font-semibold text-white mb-5">${q.text}</p><div class="grid gap-2 mb-4 text-sm text-slate-300">${q.opts.map((o, j) => `<div onclick="chk(this,${j},${q.ans})" class="p-3 rounded bg-slate-900/50 border border-slate-700 hover:bg-slate-800 cursor-pointer transition">${String.fromCharCode(65 + j)}) ${o}</div>`).join('')}</div><div class="mt-auto"><button onclick="this.nextElementSibling.classList.toggle('show')" class="text-xs text-slate-500 hover:text-sky-400 font-bold uppercase tracking-wider cursor-pointer"><i class="fas fa-eye mr-1"></i>Show Answer</button><div class="answer-container"><p class="text-sky-400 font-bold mb-1">Correct: ${String.fromCharCode(65 + q.ans)}</p><p class="text-xs text-slate-300">${q.expl}</p></div></div>`;
+            grid.appendChild(c);
+        });
+        function chk(el, sel, cor) { const p = el.parentElement; Array.from(p.children).forEach(c => { c.classList.remove('bg-emerald-500/20', 'border-emerald-500', 'bg-red-500/20', 'border-red-500'); c.classList.add('bg-slate-900/50', 'border-slate-700'); }); if (sel === cor) { el.classList.add('bg-emerald-500/20', 'border-emerald-500'); } else { el.classList.add('bg-red-500/20', 'border-red-500'); } el.classList.remove('bg-slate-900/50', 'border-slate-700'); }
+    </script>
+</body>
+
+</html>

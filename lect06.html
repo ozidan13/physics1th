@@ -1,519 +1,806 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Physics - Lesson 6: Types of Waves</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>tailwind.config={theme:{extend:{colors:{dark:{bg:'#020617'}},fontFamily:{sans:['Inter','sans-serif'],arabic:['Cairo','sans-serif']}}}}</script>
+    <script>tailwind.config = { theme: { extend: { colors: { dark: { bg: '#020617' } }, fontFamily: { sans: ['Inter', 'sans-serif'], arabic: ['Cairo', 'sans-serif'] } } } }</script>
     <style>
-        body{background:#020617;color:#E2E8F0;overflow-x:hidden;background-image:radial-gradient(circle at 15% 20%,rgba(139,92,246,0.07) 0%,transparent 30%),radial-gradient(circle at 85% 80%,rgba(6,182,212,0.06) 0%,transparent 30%)}
-        .glass-card{background:rgba(15,23,42,0.7);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.08);transition:all 0.3s ease}
-        .glass-card:hover{border-color:rgba(139,92,246,0.4);box-shadow:0 10px 40px -10px rgba(139,92,246,0.15);transform:translateY(-4px)}
-        .glass-header{background:rgba(2,6,23,0.85);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,0.05)}
-        .text-gradient{background:linear-gradient(135deg,#a78bfa 0%,#22d3ee 60%,#34d399 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-        .formula-box{background:rgba(139,92,246,0.07);border:1px solid rgba(139,92,246,0.25);border-radius:12px;padding:1.4rem;text-align:center;font-size:1.2rem;margin:1rem 0}
-        .answer-container{max-height:0;overflow:hidden;transition:max-height 0.4s ease-out;background:rgba(139,92,246,0.05);border-radius:0.5rem}
-        .answer-container.show{max-height:300px;padding:1rem;margin-top:1rem;border:1px solid rgba(139,92,246,0.3)}
-        .definition-box{background:rgba(139,92,246,0.06);border-left:4px solid #8b5cf6;border-radius:0.5rem;padding:1rem 1.25rem;margin:1rem 0}
-        .definition-box strong{color:#c4b5fd}
-        .note-box{background:rgba(251,191,36,0.05);border-left:4px solid #fbbf24;border-radius:0.5rem;padding:1rem 1.25rem;margin:1rem 0}
-        .note-box .note-title{color:#fbbf24;font-weight:700;font-size:.9rem;margin-bottom:.5rem}
-        .egyptian-expl{direction:rtl;text-align:right;font-family:'Cairo',sans-serif;background:rgba(251,191,36,0.04);border:1px solid rgba(251,191,36,0.12);border-right:4px solid #f59e0b;border-radius:.75rem;padding:1.25rem 1.5rem;margin:1.25rem 0;line-height:2;color:#cbd5e1}
-        .egyptian-expl .expl-header{color:#fbbf24;font-weight:700;font-size:.95rem;margin-bottom:.5rem;display:flex;align-items:center;gap:.5rem;justify-content:flex-end}
-        .custom-table{width:100%;border-collapse:collapse}
-        .custom-table tr:nth-child(even){background-color:rgba(30,41,59,.35)}
-        .custom-table td,.custom-table th{padding:.75rem 1rem;border-bottom:1px solid rgba(255,255,255,.05);font-size:.85rem}
-        .custom-table th{text-transform:uppercase;letter-spacing:.05em;font-size:.72rem;color:#94A3B8;background:rgba(139,92,246,0.1)}
-        .char-card{background:rgba(15,23,42,0.6);border:1px solid rgba(139,92,246,0.2);border-radius:12px;padding:1.1rem 1.25rem;margin:.5rem 0}
-        .char-symbol{font-size:1.5rem;font-weight:900;color:#a78bfa;font-family:'JetBrains Mono',monospace}
+        body {
+            background: #020617;
+            color: #E2E8F0;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 15% 20%, rgba(139, 92, 246, 0.07) 0%, transparent 30%), radial-gradient(circle at 85% 80%, rgba(6, 182, 212, 0.06) 0%, transparent 30%)
+        }
+
+        .glass-card {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease
+        }
+
+        .glass-card:hover {
+            border-color: rgba(139, 92, 246, 0.4);
+            box-shadow: 0 10px 40px -10px rgba(139, 92, 246, 0.15);
+            transform: translateY(-4px)
+        }
+
+        .glass-header {
+            background: rgba(2, 6, 23, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05)
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #a78bfa 0%, #22d3ee 60%, #34d399 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent
+        }
+
+        .formula-box {
+            background: rgba(139, 92, 246, 0.07);
+            border: 1px solid rgba(139, 92, 246, 0.25);
+            border-radius: 12px;
+            padding: 1.4rem;
+            text-align: center;
+            font-size: 1.2rem;
+            margin: 1rem 0
+        }
+
+        .answer-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+            background: rgba(139, 92, 246, 0.05);
+            border-radius: 0.5rem
+        }
+
+        .answer-container.show {
+            max-height: 300px;
+            padding: 1rem;
+            margin-top: 1rem;
+            border: 1px solid rgba(139, 92, 246, 0.3)
+        }
+
+        .definition-box {
+            background: rgba(139, 92, 246, 0.06);
+            border-left: 4px solid #8b5cf6;
+            border-radius: 0.5rem;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0
+        }
+
+        .definition-box strong {
+            color: #c4b5fd
+        }
+
+        .note-box {
+            background: rgba(251, 191, 36, 0.05);
+            border-left: 4px solid #fbbf24;
+            border-radius: 0.5rem;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0
+        }
+
+        .note-box .note-title {
+            color: #fbbf24;
+            font-weight: 700;
+            font-size: .9rem;
+            margin-bottom: .5rem
+        }
+
+        .egyptian-expl {
+            direction: rtl;
+            text-align: right;
+            font-family: 'Cairo', sans-serif;
+            background: rgba(251, 191, 36, 0.04);
+            border: 1px solid rgba(251, 191, 36, 0.12);
+            border-right: 4px solid #f59e0b;
+            border-radius: .75rem;
+            padding: 1.25rem 1.5rem;
+            margin: 1.25rem 0;
+            line-height: 2;
+            color: #cbd5e1
+        }
+
+        .egyptian-expl .expl-header {
+            color: #fbbf24;
+            font-weight: 700;
+            font-size: .95rem;
+            margin-bottom: .5rem;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            justify-content: flex-end
+        }
+
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse
+        }
+
+        .custom-table tr:nth-child(even) {
+            background-color: rgba(30, 41, 59, .35)
+        }
+
+        .custom-table td,
+        .custom-table th {
+            padding: .75rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, .05);
+            font-size: .85rem
+        }
+
+        .custom-table th {
+            text-transform: uppercase;
+            letter-spacing: .05em;
+            font-size: .72rem;
+            color: #94A3B8;
+            background: rgba(139, 92, 246, 0.1)
+        }
+
+        .char-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 12px;
+            padding: 1.1rem 1.25rem;
+            margin: .5rem 0
+        }
+
+        .char-symbol {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #a78bfa;
+            font-family: 'JetBrains Mono', monospace
+        }
     </style>
 </head>
+
 <body class="antialiased font-sans flex flex-col min-h-screen">
 
-<nav class="fixed top-0 w-full z-50 glass-header">
-    <div class="container mx-auto px-6 h-16 flex items-center justify-between">
-        <div class="flex items-center gap-3">
-            <a href="index.html" class="w-8 h-8 rounded bg-gradient-to-br from-violet-500 to-cyan-600 flex items-center justify-center text-white font-bold text-xs">⚛</a>
-            <span class="font-bold text-lg text-slate-200">Lesson<span class="text-violet-400">06</span></span>
-        </div>
-        <div class="hidden lg:flex gap-5 text-sm font-medium text-slate-400">
-            <a href="#motion" class="hover:text-violet-400 transition">Motion</a>
-            <a href="#wave" class="hover:text-violet-400 transition">Wave</a>
-            <a href="#types" class="hover:text-violet-400 transition">Types</a>
-            <a href="#characteristics" class="hover:text-violet-400 transition">Characteristics</a>
-            <a href="#formulas" class="hover:text-violet-400 transition">Formulas</a>
-            <a href="#compare" class="hover:text-violet-400 transition">Comparison</a>
-            <a href="#quiz" class="px-5 py-2 rounded-full bg-violet-600/10 text-violet-400 border border-violet-500/20 hover:bg-violet-600 hover:text-white transition">Quiz</a>
-        </div>
-    </div>
-</nav>
-
-<main class="flex-grow pt-24">
-
-    <!-- HERO -->
-    <header class="relative pb-16 px-6">
-        <div class="container mx-auto text-center" data-aos="fade-up">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700 text-xs font-mono text-violet-400 mb-6">
-                <span class="w-2 h-2 rounded-full bg-violet-500 animate-pulse"></span> UNIT 4 — LESSON 1
+    <nav class="fixed top-0 w-full z-50 glass-header">
+        <div class="container mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <a href="index.html"
+                    class="w-8 h-8 rounded bg-gradient-to-br from-violet-500 to-cyan-600 flex items-center justify-center text-white font-bold text-xs">⚛</a>
+                <span class="font-bold text-lg text-slate-200">Lesson<span class="text-violet-400">06</span></span>
             </div>
-            <h1 class="text-5xl md:text-7xl font-black mb-3 tracking-tight text-white"><span class="text-gradient">Types of Waves</span></h1>
-            <p class="text-lg text-slate-400 max-w-2xl mx-auto mb-1">Unit Four: Waves</p>
-            <p class="text-slate-400 mb-2">بشمهندس أسامة زينهم</p>
-            <a href="https://chat.whatsapp.com/FWUBrybJ3RO4MfUyX9MoPD?mode=gi_t" target="_blank" class="text-violet-400 font-bold text-lg hover:underline">انضم لجروب الشرح واتساب</a>
-
-            <!-- Animated Sinusoidal Wave SVG -->
-            <div class="max-w-xl mx-auto mt-8">
-                <svg viewBox="0 0 500 120" class="w-full">
-                    <defs>
-                        <marker id="arrowV" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#a78bfa"/></marker>
-                    </defs>
-                    <rect width="500" height="120" fill="#0f172a" rx="10"/>
-                    <!-- Equilibrium line -->
-                    <line x1="30" y1="60" x2="470" y2="60" stroke="#334155" stroke-width="1" stroke-dasharray="4,4"/>
-                    <!-- Animated sinusoidal wave -->
-                    <path id="wavePath" d="" fill="none" stroke="#a78bfa" stroke-width="2.5" stroke-linecap="round"/>
-                    <!-- Labels -->
-                    <text x="110" y="18" text-anchor="middle" fill="#22d3ee" font-size="10" font-weight="bold">A (amplitude)</text>
-                    <line x1="110" y1="22" x2="110" y2="30" stroke="#22d3ee" stroke-width="1" stroke-dasharray="3,2"/>
-                    <text x="240" y="110" text-anchor="middle" fill="#a78bfa" font-size="10" font-weight="bold">λ (wavelength)</text>
-                    <text x="30" y="64" fill="#64748b" font-size="9">0</text>
-                    <text x="460" y="56" fill="#a78bfa" font-size="11" font-weight="bold" marker-end="url(#arrowV)">→</text>
-                </svg>
+            <div class="hidden lg:flex gap-5 text-sm font-medium text-slate-400">
+                <a href="#motion" class="hover:text-violet-400 transition">Motion</a>
+                <a href="#wave" class="hover:text-violet-400 transition">Wave</a>
+                <a href="#types" class="hover:text-violet-400 transition">Types</a>
+                <a href="#characteristics" class="hover:text-violet-400 transition">Characteristics</a>
+                <a href="#formulas" class="hover:text-violet-400 transition">Formulas</a>
+                <a href="#compare" class="hover:text-violet-400 transition">Comparison</a>
+                <a href="#quiz"
+                    class="px-5 py-2 rounded-full bg-violet-600/10 text-violet-400 border border-violet-500/20 hover:bg-violet-600 hover:text-white transition">Quiz</a>
             </div>
         </div>
-    </header>
+    </nav>
 
-    <!-- MOTION TYPES -->
-    <section id="motion" class="py-10 px-6">
-        <div class="container mx-auto max-w-4xl">
-            <div class="text-center mb-8" data-aos="fade-up">
-                <span class="inline-block px-4 py-1 rounded-full bg-violet-500/10 text-violet-400 text-xs font-mono border border-violet-500/20 mb-4">INTRODUCTION</span>
-                <h2 class="text-3xl font-black text-white">Concept of Motion</h2>
-            </div>
-            <div class="glass-card rounded-2xl p-8" data-aos="fade-up">
-                <p class="text-slate-300 leading-relaxed mb-3">The object is said to be <strong class="text-violet-400">at rest</strong> when the position of the object does not change with respect to the time. While the object that changes its position as the time passes, the object is said to be <strong class="text-cyan-400">in motion.</strong></p>
-                <div class="definition-box">
-                    <strong>Motion:</strong> is the change in the position of the object with respect to a fixed point as the time passes.
+    <main class="flex-grow pt-24">
+
+        <!-- HERO -->
+        <header class="relative pb-16 px-6">
+            <div class="container mx-auto text-center" data-aos="fade-up">
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700 text-xs font-mono text-violet-400 mb-6">
+                    <span class="w-2 h-2 rounded-full bg-violet-500 animate-pulse"></span> UNIT 4 — LESSON 1
                 </div>
+                <h1 class="text-5xl md:text-7xl font-black mb-3 tracking-tight text-white"><span
+                        class="text-gradient">Types of Waves</span></h1>
+                <p class="text-lg text-slate-400 max-w-2xl mx-auto mb-1">Unit Four: Waves</p>
+                <p class="text-slate-400 mb-2">بشمهندس أسامة زينهم</p>
+                <a href="https://chat.whatsapp.com/FWUBrybJ3RO4MfUyX9MoPD?mode=gi_t" target="_blank"
+                    class="text-violet-400 font-bold text-lg hover:underline">انضم لجروب الشرح واتساب</a>
 
-                <h3 class="text-base font-bold text-white mt-6 mb-3">Motion can be classified into two types:</h3>
-                <div class="grid md:grid-cols-2 gap-4">
-                    <div class="bg-slate-800/40 rounded-xl p-4 border border-violet-500/20">
-                        <p class="text-violet-400 font-bold mb-2">1. Translational (Translatory) Motion</p>
-                        <p class="text-slate-300 text-sm">The motion which is characterized by having a starting point and end point in a certain path. Such as motion in a straight line, projectile motion, and transportations.</p>
+                <!-- Animated Sinusoidal Wave SVG -->
+                <div class="max-w-xl mx-auto mt-8">
+                    <svg viewBox="0 0 500 120" class="w-full">
+                        <defs>
+                            <marker id="arrowV" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5"
+                                orient="auto">
+                                <path d="M0 0L10 5L0 10z" fill="#a78bfa" />
+                            </marker>
+                        </defs>
+                        <rect width="500" height="120" fill="#0f172a" rx="10" />
+                        <!-- Equilibrium line -->
+                        <line x1="30" y1="60" x2="470" y2="60" stroke="#334155" stroke-width="1"
+                            stroke-dasharray="4,4" />
+                        <!-- Animated sinusoidal wave -->
+                        <path id="wavePath" d="" fill="none" stroke="#a78bfa" stroke-width="2.5"
+                            stroke-linecap="round" />
+                        <!-- Labels -->
+                        <text x="110" y="18" text-anchor="middle" fill="#22d3ee" font-size="10" font-weight="bold">A
+                            (amplitude)</text>
+                        <line x1="110" y1="22" x2="110" y2="30" stroke="#22d3ee" stroke-width="1"
+                            stroke-dasharray="3,2" />
+                        <text x="240" y="110" text-anchor="middle" fill="#a78bfa" font-size="10" font-weight="bold">λ
+                            (wavelength)</text>
+                        <text x="30" y="64" fill="#64748b" font-size="9">0</text>
+                        <text x="460" y="56" fill="#a78bfa" font-size="11" font-weight="bold"
+                            marker-end="url(#arrowV)">→</text>
+                    </svg>
+                </div>
+            </div>
+        </header>
+
+        <!-- MOTION TYPES -->
+        <section id="motion" class="py-10 px-6">
+            <div class="container mx-auto max-w-4xl">
+                <div class="text-center mb-8" data-aos="fade-up">
+                    <span
+                        class="inline-block px-4 py-1 rounded-full bg-violet-500/10 text-violet-400 text-xs font-mono border border-violet-500/20 mb-4">INTRODUCTION</span>
+                    <h2 class="text-3xl font-black text-white">Concept of Motion</h2>
+                </div>
+                <div class="glass-card rounded-2xl p-8" data-aos="fade-up">
+                    <p class="text-slate-300 leading-relaxed mb-3">The object is said to be <strong
+                            class="text-violet-400">at rest</strong> when the position of the object does not change
+                        with respect to the time. While the object that changes its position as the time passes, the
+                        object is said to be <strong class="text-cyan-400">in motion.</strong></p>
+                    <div class="definition-box">
+                        <strong>Motion:</strong> is the change in the position of the object with respect to a fixed
+                        point as the time passes.
                     </div>
-                    <div class="bg-slate-800/40 rounded-xl p-4 border border-cyan-500/20">
-                        <p class="text-cyan-400 font-bold mb-2">2. Periodic Motion</p>
-                        <p class="text-slate-300 text-sm">Motion of an object that regularly returns to a given position after a fixed time interval, such as <strong>vibrational (oscillatory) motion</strong>, <strong>wave motion</strong> and <strong>circular motion</strong>.</p>
+
+                    <h3 class="text-base font-bold text-white mt-6 mb-3">Motion can be classified into two types:</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-slate-800/40 rounded-xl p-4 border border-violet-500/20">
+                            <p class="text-violet-400 font-bold mb-2">1. Translational (Translatory) Motion</p>
+                            <p class="text-slate-300 text-sm">The motion which is characterized by having a starting
+                                point and end point in a certain path. Such as motion in a straight line, projectile
+                                motion, and transportations.</p>
+                        </div>
+                        <div class="bg-slate-800/40 rounded-xl p-4 border border-cyan-500/20">
+                            <p class="text-cyan-400 font-bold mb-2">2. Periodic Motion</p>
+                            <p class="text-slate-300 text-sm">Motion of an object that regularly returns to a given
+                                position after a fixed time interval, such as <strong>vibrational (oscillatory)
+                                    motion</strong>, <strong>wave motion</strong> and <strong>circular motion</strong>.
+                            </p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="note-box mt-4">
-                    <div class="note-title">📝 Note</div>
-                    <p class="text-slate-300 text-sm"><strong class="text-cyan-400">Circular motion:</strong> motion that repeats itself over equal intervals of time — e.g., Earth around its axis and around the Sun.</p>
-                    <p class="text-slate-300 text-sm mt-1"><strong class="text-violet-400">Vibrational motion:</strong> motion that repeats itself over equal intervals of time — e.g., a simple pendulum going forth and back.</p>
-                </div>
-
-                <div class="egyptian-expl">
-                    <div class="expl-header"><i class="fas fa-comment-dots"></i> شرح بالعربي</div>
-                    الحركة نوعين رئيسيين:
-                    <br>🔹 <strong style="color:#a78bfa">الحركة الانتقالية:</strong> من نقطة A لنقطة B — زي العربية على الطريق أو رمي كرة.
-                    <br>🔹 <strong style="color:#22d3ee">الحركة الدورية:</strong> بتتكرر على فترات منتظمة — زي البندول، دوران الأرض، وحركة الأمواج.
-                    <br><br>
-                    الحركة الموجية هي نوع من الحركة الدورية — الجسيمات بترجع لمكانها بعد كل دورة.
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- WAVE DEFINITION -->
-    <section id="wave" class="py-10 px-6">
-        <div class="container mx-auto max-w-4xl">
-            <div class="text-center mb-8" data-aos="fade-up">
-                <span class="inline-block px-4 py-1 rounded-full bg-cyan-500/10 text-cyan-400 text-xs font-mono border border-cyan-500/20 mb-4">WAVE MOTION</span>
-                <h2 class="text-3xl font-black text-white">What is a Wave?</h2>
-            </div>
-            <div class="glass-card rounded-2xl p-8" data-aos="fade-up">
-                <p class="text-slate-300 leading-relaxed mb-3">Many of us enjoy watching waves on the surface of water pushing a fishing float or a boat up and down, or even making waves by throwing a pebble in a pond or still water. Each pebble becomes a source of disturbance in the water, spreading waves as <strong class="text-cyan-400">concentric circles.</strong></p>
-                <p class="text-slate-300 leading-relaxed mb-4">You encounter waves all the time in your daily life. For example, you can see because of <strong class="text-violet-400">visible light waves</strong> and hear because of <strong class="text-violet-400">sound waves.</strong></p>
-
-                <!-- Pebble in water SVG -->
-                <svg viewBox="0 0 420 160" class="w-full max-w-sm mx-auto my-4">
-                    <rect width="420" height="160" fill="#0f172a" rx="10"/>
-                    <circle cx="210" cy="80" r="15" fill="#1e293b" stroke="#22d3ee" stroke-width="1.5" opacity="0.4">
-                        <animate attributeName="r" values="15;55" dur="2.5s" repeatCount="indefinite"/>
-                        <animate attributeName="opacity" values="0.5;0" dur="2.5s" repeatCount="indefinite"/>
-                    </circle>
-                    <circle cx="210" cy="80" r="10" fill="#1e293b" stroke="#22d3ee" stroke-width="1.5" opacity="0.5">
-                        <animate attributeName="r" values="10;40" dur="2.5s" begin="0.5s" repeatCount="indefinite"/>
-                        <animate attributeName="opacity" values="0.6;0" dur="2.5s" begin="0.5s" repeatCount="indefinite"/>
-                    </circle>
-                    <circle cx="210" cy="80" r="5" fill="#1e293b" stroke="#a78bfa" stroke-width="1.5" opacity="0.7">
-                        <animate attributeName="r" values="5;25" dur="2.5s" begin="1s" repeatCount="indefinite"/>
-                        <animate attributeName="opacity" values="0.8;0" dur="2.5s" begin="1s" repeatCount="indefinite"/>
-                    </circle>
-                    <circle cx="210" cy="80" r="5" fill="#22d3ee"/>
-                    <text x="210" y="148" text-anchor="middle" fill="#64748b" font-size="11">Pebble → Concentric waves spreading outward</text>
-                </svg>
-
-                <div class="definition-box">
-                    <strong>Wave:</strong> is a disturbance that propagates and transports energy in the direction of its propagation through medium or space.
-                </div>
-
-                <div class="note-box mt-3">
-                    <div class="note-title">⚡ Key Principle</div>
-                    <p class="text-slate-300 text-sm"><strong class="text-amber-400">Wave motion: energy is transferred over a distance, but matter is not.</strong></p>
-                    <p class="text-slate-300 text-sm mt-1">The water molecules don't travel with the wave — they oscillate up and down while energy moves forward.</p>
-                </div>
-
-                <h3 class="text-base font-bold text-white mt-6 mb-3">Examples of Waves:</h3>
-                <ul class="text-slate-300 text-sm space-y-1 list-disc list-inside">
-                    <li>Waves on the surface of liquid, sound waves, waves on stretched strings</li>
-                    <li>Electromagnetic radiations, such as <strong class="text-violet-400">light, x-rays, radio waves, infrared</strong> and <strong class="text-violet-400">ultraviolet radiation</strong></li>
-                </ul>
-
-                <div class="egyptian-expl">
-                    <div class="expl-header"><i class="fas fa-comment-dots"></i> شرح بالعربي</div>
-                    <strong style="color:#22d3ee">الموجة</strong> = اضطراب ينتشر وينقل طاقة في اتجاه انتشاره عبر وسط أو الفضاء.
-                    <br><br>
-                    المثال الكلاسيكي: حجر في مياه ساكنة — بيعمل اضطراب بيتحرك على شكل دوائر متمركزة.
-                    <br><br>
-                    <strong style="color:#fbbf24">القاعدة الذهبية:</strong> في الموجة، الطاقة بتتنقل — لكن المادة نفسها مش بتنتقل!
-                    <br>مثال: لو حطيت فلينة على الموج — هتطلع وتنزل في مكانها — مش هتمشي مع الموجة.
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- WAVE TYPES -->
-    <section id="types" class="py-10 px-6">
-        <div class="container mx-auto max-w-4xl">
-            <div class="text-center mb-8" data-aos="fade-up">
-                <span class="inline-block px-4 py-1 rounded-full bg-violet-500/10 text-violet-400 text-xs font-mono border border-violet-500/20 mb-4">TWO MAIN TYPES</span>
-                <h2 class="text-3xl font-black text-white">Mechanical vs. Electromagnetic Waves</h2>
-                <p class="text-slate-400 mt-2">The world is full of waves, the two main types being mechanical waves and electromagnetic waves.</p>
-            </div>
-            <div class="grid md:grid-cols-2 gap-5 mb-6" data-aos="fade-up">
-                <!-- Mechanical -->
-                <div class="glass-card rounded-2xl p-6 border-violet-500/30">
-                    <div class="text-2xl mb-3">🌊</div>
-                    <h3 class="text-lg font-bold text-violet-400 mb-3">Mechanical Waves</h3>
-                    <p class="text-slate-300 text-sm leading-relaxed">It is the disturbance that propagates <strong class="text-violet-400">through a medium</strong>, such as sound waves, water waves.</p>
-                    <p class="text-slate-400 text-sm mt-2 italic">(Some physical medium is being disturbed; in our pebble example, elements of water are disturbed.)</p>
-                    <div class="mt-3 p-3 bg-slate-800/40 rounded-lg text-sm">
-                        <p class="text-slate-300">Examples: <span class="text-violet-400">water waves, sound waves</span></p>
+                    <div class="note-box mt-4">
+                        <div class="note-title">📝 Note</div>
+                        <p class="text-slate-300 text-sm"><strong class="text-cyan-400">Circular motion:</strong> motion
+                            that repeats itself over equal intervals of time — e.g., Earth around its axis and around
+                            the Sun.</p>
+                        <p class="text-slate-300 text-sm mt-1"><strong class="text-violet-400">Vibrational
+                                motion:</strong> motion that repeats itself over equal intervals of time — e.g., a
+                            simple pendulum going forth and back.</p>
                     </div>
-                </div>
-                <!-- Electromagnetic -->
-                <div class="glass-card rounded-2xl p-6 border-cyan-500/30">
-                    <div class="text-2xl mb-3">📡</div>
-                    <h3 class="text-lg font-bold text-cyan-400 mb-3">Electromagnetic Waves</h3>
-                    <p class="text-slate-300 text-sm leading-relaxed">It is the disturbance that propagates <strong class="text-cyan-400">through a medium or space</strong>, such as light waves, television signals, x-rays, radio waves and γ-rays.</p>
-                    <p class="text-amber-400 text-sm mt-2 font-bold">(They do not require a medium to propagate)</p>
-                    <div class="mt-3 p-3 bg-slate-800/40 rounded-lg text-sm">
-                        <p class="text-slate-300">Examples: <span class="text-cyan-400">light, radio waves, X-rays, TV signals</span></p>
+
+                    <div class="egyptian-expl">
+                        <div class="expl-header"><i class="fas fa-comment-dots"></i> شرح بالعربي</div>
+                        الحركة نوعين رئيسيين:
+                        <br>🔹 <strong style="color:#a78bfa">الحركة الانتقالية:</strong> من نقطة A لنقطة B — زي العربية
+                        على الطريق أو رمي كرة.
+                        <br>🔹 <strong style="color:#22d3ee">الحركة الدورية:</strong> بتتكرر على فترات منتظمة — زي
+                        البندول، دوران الأرض، وحركة الأمواج.
+                        <br><br>
+                        الحركة الموجية هي نوع من الحركة الدورية — الجسيمات بترجع لمكانها بعد كل دورة.
                     </div>
                 </div>
             </div>
+        </section>
 
-            <div class="egyptian-expl" data-aos="fade-up">
-                <div class="expl-header"><i class="fas fa-comment-dots"></i> شرح بالعربي</div>
-                <strong style="color:#a78bfa">الأمواج الميكانيكية:</strong> محتاجة وسط مادي عشان تنتقل فيه. مثل صوت، موج المياه.
-                <br>لو رحت الفضاء — ما تسمعش صوت لأن مفيش هواء (وسط)!
-                <br><br>
-                <strong style="color:#22d3ee">الأمواج الكهرومغناطيسية:</strong> مش محتاجة وسط — بتنتقل حتى في الفضاء. كالضوء الشمسي اللي بيوصلنا من الشمس عبر الفضاء.
-                <br>مثال: الراديو، الأشعة السينية، موجات التلفزيون.
+        <!-- WAVE DEFINITION -->
+        <section id="wave" class="py-10 px-6">
+            <div class="container mx-auto max-w-4xl">
+                <div class="text-center mb-8" data-aos="fade-up">
+                    <span
+                        class="inline-block px-4 py-1 rounded-full bg-cyan-500/10 text-cyan-400 text-xs font-mono border border-cyan-500/20 mb-4">WAVE
+                        MOTION</span>
+                    <h2 class="text-3xl font-black text-white">What is a Wave?</h2>
+                </div>
+                <div class="glass-card rounded-2xl p-8" data-aos="fade-up">
+                    <p class="text-slate-300 leading-relaxed mb-3">Many of us enjoy watching waves on the surface of
+                        water pushing a fishing float or a boat up and down, or even making waves by throwing a pebble
+                        in a pond or still water. Each pebble becomes a source of disturbance in the water, spreading
+                        waves as <strong class="text-cyan-400">concentric circles.</strong></p>
+                    <p class="text-slate-300 leading-relaxed mb-4">You encounter waves all the time in your daily life.
+                        For example, you can see because of <strong class="text-violet-400">visible light waves</strong>
+                        and hear because of <strong class="text-violet-400">sound waves.</strong></p>
+
+                    <!-- Pebble in water SVG -->
+                    <svg viewBox="0 0 420 160" class="w-full max-w-sm mx-auto my-4">
+                        <rect width="420" height="160" fill="#0f172a" rx="10" />
+                        <circle cx="210" cy="80" r="15" fill="#1e293b" stroke="#22d3ee" stroke-width="1.5"
+                            opacity="0.4">
+                            <animate attributeName="r" values="15;55" dur="2.5s" repeatCount="indefinite" />
+                            <animate attributeName="opacity" values="0.5;0" dur="2.5s" repeatCount="indefinite" />
+                        </circle>
+                        <circle cx="210" cy="80" r="10" fill="#1e293b" stroke="#22d3ee" stroke-width="1.5"
+                            opacity="0.5">
+                            <animate attributeName="r" values="10;40" dur="2.5s" begin="0.5s"
+                                repeatCount="indefinite" />
+                            <animate attributeName="opacity" values="0.6;0" dur="2.5s" begin="0.5s"
+                                repeatCount="indefinite" />
+                        </circle>
+                        <circle cx="210" cy="80" r="5" fill="#1e293b" stroke="#a78bfa" stroke-width="1.5" opacity="0.7">
+                            <animate attributeName="r" values="5;25" dur="2.5s" begin="1s" repeatCount="indefinite" />
+                            <animate attributeName="opacity" values="0.8;0" dur="2.5s" begin="1s"
+                                repeatCount="indefinite" />
+                        </circle>
+                        <circle cx="210" cy="80" r="5" fill="#22d3ee" />
+                        <text x="210" y="148" text-anchor="middle" fill="#64748b" font-size="11">Pebble → Concentric
+                            waves spreading outward</text>
+                    </svg>
+
+                    <div class="definition-box">
+                        <strong>Wave:</strong> is a disturbance that propagates and transports energy in the direction
+                        of its propagation through medium or space.
+                    </div>
+
+                    <div class="note-box mt-3">
+                        <div class="note-title">⚡ Key Principle</div>
+                        <p class="text-slate-300 text-sm"><strong class="text-amber-400">Wave motion: energy is
+                                transferred over a distance, but matter is not.</strong></p>
+                        <p class="text-slate-300 text-sm mt-1">The water molecules don't travel with the wave — they
+                            oscillate up and down while energy moves forward.</p>
+                    </div>
+
+                    <h3 class="text-base font-bold text-white mt-6 mb-3">Examples of Waves:</h3>
+                    <ul class="text-slate-300 text-sm space-y-1 list-disc list-inside">
+                        <li>Waves on the surface of liquid, sound waves, waves on stretched strings</li>
+                        <li>Electromagnetic radiations, such as <strong class="text-violet-400">light, x-rays, radio
+                                waves, infrared</strong> and <strong class="text-violet-400">ultraviolet
+                                radiation</strong></li>
+                    </ul>
+
+                    <div class="egyptian-expl">
+                        <div class="expl-header"><i class="fas fa-comment-dots"></i> شرح بالعربي</div>
+                        <strong style="color:#22d3ee">الموجة</strong> = اضطراب ينتشر وينقل طاقة في اتجاه انتشاره عبر وسط
+                        أو الفضاء.
+                        <br><br>
+                        المثال الكلاسيكي: حجر في مياه ساكنة — بيعمل اضطراب بيتحرك على شكل دوائر متمركزة.
+                        <br><br>
+                        <strong style="color:#fbbf24">القاعدة الذهبية:</strong> في الموجة، الطاقة بتتنقل — لكن المادة
+                        نفسها مش بتنتقل!
+                        <br>مثال: لو حطيت فلينة على الموج — هتطلع وتنزل في مكانها — مش هتمشي مع الموجة.
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- WAVE CHARACTERISTICS -->
-    <section id="characteristics" class="py-10 px-6">
-        <div class="container mx-auto max-w-4xl">
-            <div class="text-center mb-8" data-aos="fade-up">
-                <span class="inline-block px-4 py-1 rounded-full bg-violet-500/10 text-violet-400 text-xs font-mono border border-violet-500/20 mb-4">CHARACTERISTICS</span>
-                <h2 class="text-3xl font-black text-white">Wave Characteristics</h2>
-                <p class="text-slate-400 mt-2">The following important definitions about waves and wave motion:</p>
-            </div>
-
-            <!-- Labeled Wave SVG diagram -->
-            <div class="glass-card rounded-2xl p-6 mb-6" data-aos="fade-up">
-                <svg viewBox="0 0 520 180" class="w-full">
-                    <rect width="520" height="180" fill="#0f172a" rx="10"/>
-                    <!-- Axes -->
-                    <line x1="30" y1="90" x2="500" y2="90" stroke="#334155" stroke-width="1.5"/>
-                    <line x1="30" y1="20" x2="30" y2="170" stroke="#334155" stroke-width="1.5"/>
-                    <!-- Y-axis label -->
-                    <text x="12" y="55" fill="#94a3b8" font-size="9" text-anchor="middle" transform="rotate(-90,12,90)">Displacement</text>
-                    <!-- X label -->
-                    <text x="490" y="104" fill="#94a3b8" font-size="9">Distance</text>
-                    <!-- Wave path -->
-                    <path d="M30,90 C65,40 100,40 135,90 C170,140 205,140 240,90 C275,40 310,40 345,90 C380,140 415,140 450,90" fill="none" stroke="#a78bfa" stroke-width="2.5"/>
-                    <!-- Crest A annotation -->
-                    <line x1="82" y1="90" x2="82" y2="42" stroke="#22d3ee" stroke-width="1.5" stroke-dasharray="3,3"/>
-                    <text x="82" y="36" text-anchor="middle" fill="#22d3ee" font-size="9" font-weight="bold">A</text>
-                    <!-- Trough annotation -->
-                    <line x1="192" y1="90" x2="192" y2="138" stroke="#f87171" stroke-width="1.5" stroke-dasharray="3,3"/>
-                    <text x="192" y="155" text-anchor="middle" fill="#f87171" font-size="9" font-weight="bold">Trough</text>
-                    <!-- Wavelength label -->
-                    <line x1="82" y1="162" x2="342" y2="162" stroke="#a78bfa" stroke-width="1.5"/>
-                    <line x1="82" y1="157" x2="82" y2="167" stroke="#a78bfa" stroke-width="1.5"/>
-                    <line x1="342" y1="157" x2="342" y2="167" stroke="#a78bfa" stroke-width="1.5"/>
-                    <text x="212" y="175" text-anchor="middle" fill="#a78bfa" font-size="9" font-weight="bold">λ (wavelength — crest to crest)</text>
-                    <!-- Equilibrium line label -->
-                    <text x="500" y="88" text-anchor="end" fill="#475569" font-size="8">equilibrium line</text>
-                    <!-- x displacement label -->
-                    <text x="30" y="15" fill="#94a3b8" font-size="9">x = displacement of point</text>
-                    <text x="345" y="42" fill="#22d3ee" font-size="9" font-weight="bold">Crest</text>
-                </svg>
-                <p class="text-slate-400 text-xs text-center mt-2">Sinusoidal wave showing displacement, amplitude, crests, troughs, and wavelength</p>
-            </div>
-
-            <!-- 5 Characteristics -->
-            <div class="space-y-4" data-aos="fade-up">
-                <!-- 1: Displacement -->
-                <div class="char-card">
-                    <div class="flex items-start gap-4">
-                        <div class="char-symbol">x</div>
-                        <div class="flex-1">
-                            <p class="text-white font-bold"><span class="text-red-400">1) The Displacement</span> x</p>
-                            <p class="text-slate-300 text-sm mt-1">The distance of a point on the wave from its undisturbed position or <strong>equilibrium position</strong>.</p>
+        <!-- WAVE TYPES -->
+        <section id="types" class="py-10 px-6">
+            <div class="container mx-auto max-w-4xl">
+                <div class="text-center mb-8" data-aos="fade-up">
+                    <span
+                        class="inline-block px-4 py-1 rounded-full bg-violet-500/10 text-violet-400 text-xs font-mono border border-violet-500/20 mb-4">TWO
+                        MAIN TYPES</span>
+                    <h2 class="text-3xl font-black text-white">Mechanical vs. Electromagnetic Waves</h2>
+                    <p class="text-slate-400 mt-2">The world is full of waves, the two main types being mechanical waves
+                        and electromagnetic waves.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-5 mb-6" data-aos="fade-up">
+                    <!-- Mechanical -->
+                    <div class="glass-card rounded-2xl p-6 border-violet-500/30">
+                        <div class="text-2xl mb-3">🌊</div>
+                        <h3 class="text-lg font-bold text-violet-400 mb-3">Mechanical Waves</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">It is the disturbance that propagates <strong
+                                class="text-violet-400">through a medium</strong>, such as sound waves, water waves.</p>
+                        <p class="text-slate-400 text-sm mt-2 italic">(Some physical medium is being disturbed; in our
+                            pebble example, elements of water are disturbed.)</p>
+                        <div class="mt-3 p-3 bg-slate-800/40 rounded-lg text-sm">
+                            <p class="text-slate-300">Examples: <span class="text-violet-400">water waves, sound
+                                    waves</span></p>
+                        </div>
+                    </div>
+                    <!-- Electromagnetic -->
+                    <div class="glass-card rounded-2xl p-6 border-cyan-500/30">
+                        <div class="text-2xl mb-3">📡</div>
+                        <h3 class="text-lg font-bold text-cyan-400 mb-3">Electromagnetic Waves</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">It is the disturbance that propagates <strong
+                                class="text-cyan-400">through a medium or space</strong>, such as light waves,
+                            television signals, x-rays, radio waves and γ-rays.</p>
+                        <p class="text-amber-400 text-sm mt-2 font-bold">(They do not require a medium to propagate)</p>
+                        <div class="mt-3 p-3 bg-slate-800/40 rounded-lg text-sm">
+                            <p class="text-slate-300">Examples: <span class="text-cyan-400">light, radio waves, X-rays,
+                                    TV signals</span></p>
                         </div>
                     </div>
                 </div>
-                <!-- 2: Amplitude -->
-                <div class="char-card">
-                    <div class="flex items-start gap-4">
-                        <div class="char-symbol">A</div>
-                        <div class="flex-1">
-                            <p class="text-white font-bold"><span class="text-red-400">2) The Amplitude</span> A</p>
-                            <p class="text-slate-300 text-sm mt-1">The <strong>maximum displacement</strong> of any point on the wave from its undisturbed position.</p>
-                            <div class="note-box mt-2">
-                                <div class="note-title">📝 Note</div>
-                                <p class="text-slate-300 text-sm">The amplitude of a wave on the sea is measured in units of distance. <strong class="text-amber-400">The greater the amplitude of the wave, the louder the sound or the rougher the sea.</strong></p>
+
+                <div class="egyptian-expl" data-aos="fade-up">
+                    <div class="expl-header"><i class="fas fa-comment-dots"></i> شرح بالعربي</div>
+                    <strong style="color:#a78bfa">الأمواج الميكانيكية:</strong> محتاجة وسط مادي عشان تنتقل فيه. مثل صوت،
+                    موج المياه.
+                    <br>لو رحت الفضاء — ما تسمعش صوت لأن مفيش هواء (وسط)!
+                    <br><br>
+                    <strong style="color:#22d3ee">الأمواج الكهرومغناطيسية:</strong> مش محتاجة وسط — بتنتقل حتى في
+                    الفضاء. كالضوء الشمسي اللي بيوصلنا من الشمس عبر الفضاء.
+                    <br>مثال: الراديو، الأشعة السينية، موجات التلفزيون.
+                </div>
+            </div>
+        </section>
+
+        <!-- WAVE CHARACTERISTICS -->
+        <section id="characteristics" class="py-10 px-6">
+            <div class="container mx-auto max-w-4xl">
+                <div class="text-center mb-8" data-aos="fade-up">
+                    <span
+                        class="inline-block px-4 py-1 rounded-full bg-violet-500/10 text-violet-400 text-xs font-mono border border-violet-500/20 mb-4">CHARACTERISTICS</span>
+                    <h2 class="text-3xl font-black text-white">Wave Characteristics</h2>
+                    <p class="text-slate-400 mt-2">The following important definitions about waves and wave motion:</p>
+                </div>
+
+                <!-- Labeled Wave SVG diagram -->
+                <div class="glass-card rounded-2xl p-6 mb-6" data-aos="fade-up">
+                    <svg viewBox="0 0 520 180" class="w-full">
+                        <rect width="520" height="180" fill="#0f172a" rx="10" />
+                        <!-- Axes -->
+                        <line x1="30" y1="90" x2="500" y2="90" stroke="#334155" stroke-width="1.5" />
+                        <line x1="30" y1="20" x2="30" y2="170" stroke="#334155" stroke-width="1.5" />
+                        <!-- Y-axis label -->
+                        <text x="12" y="55" fill="#94a3b8" font-size="9" text-anchor="middle"
+                            transform="rotate(-90,12,90)">Displacement</text>
+                        <!-- X label -->
+                        <text x="490" y="104" fill="#94a3b8" font-size="9">Distance</text>
+                        <!-- Wave path -->
+                        <path
+                            d="M30,90 C65,40 100,40 135,90 C170,140 205,140 240,90 C275,40 310,40 345,90 C380,140 415,140 450,90"
+                            fill="none" stroke="#a78bfa" stroke-width="2.5" />
+                        <!-- Crest A annotation -->
+                        <line x1="82" y1="90" x2="82" y2="42" stroke="#22d3ee" stroke-width="1.5"
+                            stroke-dasharray="3,3" />
+                        <text x="82" y="36" text-anchor="middle" fill="#22d3ee" font-size="9"
+                            font-weight="bold">A</text>
+                        <!-- Trough annotation -->
+                        <line x1="192" y1="90" x2="192" y2="138" stroke="#f87171" stroke-width="1.5"
+                            stroke-dasharray="3,3" />
+                        <text x="192" y="155" text-anchor="middle" fill="#f87171" font-size="9"
+                            font-weight="bold">Trough</text>
+                        <!-- Wavelength label -->
+                        <line x1="82" y1="162" x2="342" y2="162" stroke="#a78bfa" stroke-width="1.5" />
+                        <line x1="82" y1="157" x2="82" y2="167" stroke="#a78bfa" stroke-width="1.5" />
+                        <line x1="342" y1="157" x2="342" y2="167" stroke="#a78bfa" stroke-width="1.5" />
+                        <text x="212" y="175" text-anchor="middle" fill="#a78bfa" font-size="9" font-weight="bold">λ
+                            (wavelength — crest to crest)</text>
+                        <!-- Equilibrium line label -->
+                        <text x="500" y="88" text-anchor="end" fill="#475569" font-size="8">equilibrium line</text>
+                        <!-- x displacement label -->
+                        <text x="30" y="15" fill="#94a3b8" font-size="9">x = displacement of point</text>
+                        <text x="345" y="42" fill="#22d3ee" font-size="9" font-weight="bold">Crest</text>
+                    </svg>
+                    <p class="text-slate-400 text-xs text-center mt-2">Sinusoidal wave showing displacement, amplitude,
+                        crests, troughs, and wavelength</p>
+                </div>
+
+                <!-- 5 Characteristics -->
+                <div class="space-y-4" data-aos="fade-up">
+                    <!-- 1: Displacement -->
+                    <div class="char-card">
+                        <div class="flex items-start gap-4">
+                            <div class="char-symbol">x</div>
+                            <div class="flex-1">
+                                <p class="text-white font-bold"><span class="text-red-400">1) The Displacement</span> x
+                                </p>
+                                <p class="text-slate-300 text-sm mt-1">The distance of a point on the wave from its
+                                    undisturbed position or <strong>equilibrium position</strong>.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 2: Amplitude -->
+                    <div class="char-card">
+                        <div class="flex items-start gap-4">
+                            <div class="char-symbol">A</div>
+                            <div class="flex-1">
+                                <p class="text-white font-bold"><span class="text-red-400">2) The Amplitude</span> A</p>
+                                <p class="text-slate-300 text-sm mt-1">The <strong>maximum displacement</strong> of any
+                                    point on the wave from its undisturbed position.</p>
+                                <div class="note-box mt-2">
+                                    <div class="note-title">📝 Note</div>
+                                    <p class="text-slate-300 text-sm">The amplitude of a wave on the sea is measured in
+                                        units of distance. <strong class="text-amber-400">The greater the amplitude of
+                                            the wave, the louder the sound or the rougher the sea.</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 3: Wavelength -->
+                    <div class="char-card">
+                        <div class="flex items-start gap-4">
+                            <div class="char-symbol">λ</div>
+                            <div class="flex-1">
+                                <p class="text-white font-bold"><span class="text-red-400">3) The Wavelength</span> λ
+                                    (lambda)</p>
+                                <p class="text-slate-300 text-sm mt-1">The distance from any point on a wave to the next
+                                    exactly similar point (the two points are in phase) (e.g. <strong>crest to
+                                        crest</strong>).</p>
+                                <p class="text-slate-400 text-sm">The Greek letter lambda. The wavelength of a wave on
+                                    the sea is measured in units of distance.</p>
+                                <div class="formula-box mt-2" style="padding:.8rem;font-size:1rem">$$ \lambda =
+                                    \frac{\text{total distance}}{\text{number of waves}} $$</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 4: Period -->
+                    <div class="char-card">
+                        <div class="flex items-start gap-4">
+                            <div class="char-symbol">T</div>
+                            <div class="flex-1">
+                                <p class="text-white font-bold"><span class="text-red-400">4) The Period (periodic
+                                        time)</span> T</p>
+                                <p class="text-slate-300 text-sm mt-1"><strong>(The time taken for one complete
+                                        oscillation of a point in a wave)</strong></p>
+                                <p class="text-slate-300 text-sm">OR</p>
+                                <p class="text-slate-300 text-sm"><strong>(It is the time taken for a point to move from
+                                        one particular position and return to that same position, moving in the same
+                                        direction)</strong></p>
+                                <p class="text-slate-400 text-sm mt-1">It is measured in units of time.</p>
+                                <div class="formula-box mt-2" style="padding:.8rem;font-size:1rem">$$ T =
+                                    \frac{\text{total time}}{\text{number of waves}} = \frac{1}{f} $$</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 5: Frequency -->
+                    <div class="char-card">
+                        <div class="flex items-start gap-4">
+                            <div class="char-symbol">f</div>
+                            <div class="flex-1">
+                                <p class="text-white font-bold"><span class="text-red-400">5) The Frequency</span> f</p>
+                                <p class="text-slate-300 text-sm mt-1"><strong>(The number of oscillations per unit time
+                                        of a point in a wave)</strong></p>
+                                <p class="text-slate-300 text-sm">The frequency of a wave is measured in units of
+                                    reciprocal time <strong class="text-violet-400">(Hz — Hertz)</strong>.</p>
+                                <div class="formula-box mt-2" style="padding:.8rem;font-size:1rem">$$ f =
+                                    \frac{\text{number of waves}}{\text{total time}} = \frac{1}{T} $$</div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- 3: Wavelength -->
-                <div class="char-card">
-                    <div class="flex items-start gap-4">
-                        <div class="char-symbol">λ</div>
-                        <div class="flex-1">
-                            <p class="text-white font-bold"><span class="text-red-400">3) The Wavelength</span> λ (lambda)</p>
-                            <p class="text-slate-300 text-sm mt-1">The distance from any point on a wave to the next exactly similar point (the two points are in phase) (e.g. <strong>crest to crest</strong>).</p>
-                            <p class="text-slate-400 text-sm">The Greek letter lambda. The wavelength of a wave on the sea is measured in units of distance.</p>
-                            <div class="formula-box mt-2" style="padding:.8rem;font-size:1rem">$$ \lambda = \frac{\text{total distance}}{\text{number of waves}} $$</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- 4: Period -->
-                <div class="char-card">
-                    <div class="flex items-start gap-4">
-                        <div class="char-symbol">T</div>
-                        <div class="flex-1">
-                            <p class="text-white font-bold"><span class="text-red-400">4) The Period (periodic time)</span> T</p>
-                            <p class="text-slate-300 text-sm mt-1"><strong>(The time taken for one complete oscillation of a point in a wave)</strong></p>
-                            <p class="text-slate-300 text-sm">OR</p>
-                            <p class="text-slate-300 text-sm"><strong>(It is the time taken for a point to move from one particular position and return to that same position, moving in the same direction)</strong></p>
-                            <p class="text-slate-400 text-sm mt-1">It is measured in units of time.</p>
-                            <div class="formula-box mt-2" style="padding:.8rem;font-size:1rem">$$ T = \frac{\text{total time}}{\text{number of waves}} = \frac{1}{f} $$</div>
-                        </div>
-                    </div>
-                </div>
-                <!-- 5: Frequency -->
-                <div class="char-card">
-                    <div class="flex items-start gap-4">
-                        <div class="char-symbol">f</div>
-                        <div class="flex-1">
-                            <p class="text-white font-bold"><span class="text-red-400">5) The Frequency</span> f</p>
-                            <p class="text-slate-300 text-sm mt-1"><strong>(The number of oscillations per unit time of a point in a wave)</strong></p>
-                            <p class="text-slate-300 text-sm">The frequency of a wave is measured in units of reciprocal time <strong class="text-violet-400">(Hz — Hertz)</strong>.</p>
-                            <div class="formula-box mt-2" style="padding:.8rem;font-size:1rem">$$ f = \frac{\text{number of waves}}{\text{total time}} = \frac{1}{T} $$</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Symbol table -->
-            <div class="glass-card rounded-2xl p-6 mt-6" data-aos="fade-up">
-                <h3 class="text-base font-bold text-white mb-4">Quick Reference — Wave Symbols</h3>
-                <table class="custom-table">
-                    <thead><tr><th>Symbol</th><th>Quantity</th><th>Unit</th><th>Key Formulas</th></tr></thead>
-                    <tbody>
-                        <tr><td class="text-violet-400 font-bold text-lg">x</td><td>Displacement</td><td>meter (m)</td><td>Distance from equilibrium</td></tr>
-                        <tr><td class="text-cyan-400 font-bold text-lg">A</td><td>Amplitude</td><td>meter (m)</td><td>Maximum displacement</td></tr>
-                        <tr><td class="text-violet-400 font-bold text-lg">λ</td><td>Wavelength</td><td>meter (m)</td><td>λ = total distance / number of waves</td></tr>
-                        <tr><td class="text-green-400 font-bold text-lg">T</td><td>Period</td><td>second (s)</td><td>T = time / n = 1/f</td></tr>
-                        <tr><td class="text-red-400 font-bold text-lg">f</td><td>Frequency</td><td>Hertz (Hz)</td><td>f = n / time = 1/T</td></tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="egyptian-expl mt-4" data-aos="fade-up">
-                <div class="expl-header"><i class="fas fa-comment-dots"></i> شرح بالعربي</div>
-                خصائص الموجة:
-                <br>🔹 <strong style="color:#f87171">الإزاحة (x):</strong> بُعد أي نقطة عن وضع الاتزان — بتتغير مع الوقت.
-                <br>🔹 <strong style="color:#22d3ee">السعة (A):</strong> أقصى إزاحة ممكنة — كل ما كانت أكبر كان الصوت أعلى أو الموج أشد.
-                <br>🔹 <strong style="color:#a78bfa">الطول الموجي (λ):</strong> المسافة بين نقطتين متشابهتين (قمة لقمة) — وحدته متر.
-                <br>🔹 <strong style="color:#34d399">الدور (T):</strong> الوقت اللازم لاهتزازة كاملة واحدة (ثانية).
-                <br>🔹 <strong style="color:#f87171">التردد (f):</strong> عدد الاهتزازات في الثانية (هرتز = Hz).
-                <br><br>
-                العلاقة المهمة: <strong>f = 1/T</strong> — كل ما زاد التردد قل الدور والعكس!
-            </div>
-        </div>
-    </section>
-
-    <!-- FORMULAS SUMMARY + WAVE SPEED -->
-    <section id="formulas" class="py-10 px-6">
-        <div class="container mx-auto max-w-4xl">
-            <div class="text-center mb-8" data-aos="fade-up">
-                <span class="inline-block px-4 py-1 rounded-full bg-violet-500/10 text-violet-400 text-xs font-mono border border-violet-500/20 mb-4">FORMULAS</span>
-                <h2 class="text-3xl font-black text-white">Key Wave Formulas</h2>
-            </div>
-            <div class="glass-card rounded-2xl p-8" data-aos="fade-up">
-                <div class="grid md:grid-cols-3 gap-4 text-center">
-                    <div class="bg-slate-800/40 rounded-xl p-4 border border-violet-500/20">
-                        <p class="text-xs text-slate-400 mb-2">Wavelength</p>
-                        <p class="text-violet-400 font-bold">$$\lambda = \frac{d}{n}$$</p>
-                        <p class="text-xs text-slate-500 mt-1">d = distance, n = number of waves</p>
-                    </div>
-                    <div class="bg-slate-800/40 rounded-xl p-4 border border-red-500/20">
-                        <p class="text-xs text-slate-400 mb-2">Frequency</p>
-                        <p class="text-red-400 font-bold">$$f = \frac{n}{t} = \frac{1}{T}$$</p>
-                        <p class="text-xs text-slate-500 mt-1">n = number of waves, t = time</p>
-                    </div>
-                    <div class="bg-slate-800/40 rounded-xl p-4 border border-green-500/20">
-                        <p class="text-xs text-slate-400 mb-2">Period</p>
-                        <p class="text-green-400 font-bold">$$T = \frac{t}{n} = \frac{1}{f}$$</p>
-                        <p class="text-xs text-slate-500 mt-1">Inverse of frequency</p>
-                    </div>
+                <!-- Symbol table -->
+                <div class="glass-card rounded-2xl p-6 mt-6" data-aos="fade-up">
+                    <h3 class="text-base font-bold text-white mb-4">Quick Reference — Wave Symbols</h3>
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>Symbol</th>
+                                <th>Quantity</th>
+                                <th>Unit</th>
+                                <th>Key Formulas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-violet-400 font-bold text-lg">x</td>
+                                <td>Displacement</td>
+                                <td>meter (m)</td>
+                                <td>Distance from equilibrium</td>
+                            </tr>
+                            <tr>
+                                <td class="text-cyan-400 font-bold text-lg">A</td>
+                                <td>Amplitude</td>
+                                <td>meter (m)</td>
+                                <td>Maximum displacement</td>
+                            </tr>
+                            <tr>
+                                <td class="text-violet-400 font-bold text-lg">λ</td>
+                                <td>Wavelength</td>
+                                <td>meter (m)</td>
+                                <td>λ = total distance / number of waves</td>
+                            </tr>
+                            <tr>
+                                <td class="text-green-400 font-bold text-lg">T</td>
+                                <td>Period</td>
+                                <td>second (s)</td>
+                                <td>T = time / n = 1/f</td>
+                            </tr>
+                            <tr>
+                                <td class="text-red-400 font-bold text-lg">f</td>
+                                <td>Frequency</td>
+                                <td>Hertz (Hz)</td>
+                                <td>f = n / time = 1/T</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
 
-                <div class="egyptian-expl mt-4">
+                <div class="egyptian-expl mt-4" data-aos="fade-up">
                     <div class="expl-header"><i class="fas fa-comment-dots"></i> شرح بالعربي</div>
-                    المعادلات الأساسية للموجة:
-                    <br>• λ = المسافة الكلية ÷ عدد الموجات
-                    <br>• f = عدد الموجات ÷ الزمن = 1 ÷ T
-                    <br>• T = الزمن ÷ عدد الموجات = 1 ÷ f
+                    خصائص الموجة:
+                    <br>🔹 <strong style="color:#f87171">الإزاحة (x):</strong> بُعد أي نقطة عن وضع الاتزان — بتتغير مع
+                    الوقت.
+                    <br>🔹 <strong style="color:#22d3ee">السعة (A):</strong> أقصى إزاحة ممكنة — كل ما كانت أكبر كان
+                    الصوت أعلى أو الموج أشد.
+                    <br>🔹 <strong style="color:#a78bfa">الطول الموجي (λ):</strong> المسافة بين نقطتين متشابهتين (قمة
+                    لقمة) — وحدته متر.
+                    <br>🔹 <strong style="color:#34d399">الدور (T):</strong> الوقت اللازم لاهتزازة كاملة واحدة (ثانية).
+                    <br>🔹 <strong style="color:#f87171">التردد (f):</strong> عدد الاهتزازات في الثانية (هرتز = Hz).
                     <br><br>
-                    مثال: لو 5 موجات عدّت في ثانية → التردد = 5 هرتز، الدور = 1/5 = 0.2 ثانية.
+                    العلاقة المهمة: <strong>f = 1/T</strong> — كل ما زاد التردد قل الدور والعكس!
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- COMPARISON TABLE (exact from content.md) -->
-    <section id="compare" class="py-10 px-6">
-        <div class="container mx-auto max-w-4xl">
-            <div class="text-center mb-8" data-aos="fade-up">
-                <span class="inline-block px-4 py-1 rounded-full bg-amber-500/10 text-amber-400 text-xs font-mono border border-amber-500/20 mb-4">COMPARISON</span>
-                <h2 class="text-3xl font-black text-white">Mechanical vs. EM Waves</h2>
+        <!-- FORMULAS SUMMARY + WAVE SPEED -->
+        <section id="formulas" class="py-10 px-6">
+            <div class="container mx-auto max-w-4xl">
+                <div class="text-center mb-8" data-aos="fade-up">
+                    <span
+                        class="inline-block px-4 py-1 rounded-full bg-violet-500/10 text-violet-400 text-xs font-mono border border-violet-500/20 mb-4">FORMULAS</span>
+                    <h2 class="text-3xl font-black text-white">Key Wave Formulas</h2>
+                </div>
+                <div class="glass-card rounded-2xl p-8" data-aos="fade-up">
+                    <div class="grid md:grid-cols-3 gap-4 text-center">
+                        <div class="bg-slate-800/40 rounded-xl p-4 border border-violet-500/20">
+                            <p class="text-xs text-slate-400 mb-2">Wavelength</p>
+                            <p class="text-violet-400 font-bold">$$\lambda = \frac{d}{n}$$</p>
+                            <p class="text-xs text-slate-500 mt-1">d = distance, n = number of waves</p>
+                        </div>
+                        <div class="bg-slate-800/40 rounded-xl p-4 border border-red-500/20">
+                            <p class="text-xs text-slate-400 mb-2">Frequency</p>
+                            <p class="text-red-400 font-bold">$$f = \frac{n}{t} = \frac{1}{T}$$</p>
+                            <p class="text-xs text-slate-500 mt-1">n = number of waves, t = time</p>
+                        </div>
+                        <div class="bg-slate-800/40 rounded-xl p-4 border border-green-500/20">
+                            <p class="text-xs text-slate-400 mb-2">Period</p>
+                            <p class="text-green-400 font-bold">$$T = \frac{t}{n} = \frac{1}{f}$$</p>
+                            <p class="text-xs text-slate-500 mt-1">Inverse of frequency</p>
+                        </div>
+                    </div>
+
+                    <div class="egyptian-expl mt-4">
+                        <div class="expl-header"><i class="fas fa-comment-dots"></i> شرح بالعربي</div>
+                        المعادلات الأساسية للموجة:
+                        <br>• λ = المسافة الكلية ÷ عدد الموجات
+                        <br>• f = عدد الموجات ÷ الزمن = 1 ÷ T
+                        <br>• T = الزمن ÷ عدد الموجات = 1 ÷ f
+                        <br><br>
+                        مثال: لو 5 موجات عدّت في ثانية → التردد = 5 هرتز، الدور = 1/5 = 0.2 ثانية.
+                    </div>
+                </div>
             </div>
-            <div class="glass-card rounded-2xl p-4 overflow-x-auto" data-aos="fade-up">
-                <table class="custom-table min-w-full">
-                    <thead>
-                        <tr>
-                            <th class="text-violet-400">Mechanical Waves</th>
-                            <th class="text-cyan-400">Electromagnetic Waves</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td class="text-slate-300"><strong class="text-amber-400">Need</strong> a material medium for propagation.</td><td class="text-slate-300"><strong class="text-amber-400">Do NOT need</strong> any material medium for propagation.</td></tr>
-                        <tr><td class="text-slate-300">Produced due to the vibrations of particles of the medium.</td><td class="text-slate-300">Caused due to change in electric and magnetic fields.</td></tr>
-                        <tr><td class="text-slate-300">Particles vibrate <strong>along or perpendicular</strong> to direction of propagation.</td><td class="text-slate-300">Particles vibrate <strong>perpendicular</strong> to direction of propagation.</td></tr>
-                        <tr><td class="text-slate-300">Have <strong class="text-red-400">low speed</strong>.</td><td class="text-slate-300">Have <strong class="text-green-400">high speed</strong> (light speed = 3×10⁸ m/s).</td></tr>
-                        <tr><td class="text-slate-300">Formed from <strong>longitudinal and transverse</strong> waves.</td><td class="text-slate-300">Formed from <strong>transverse waves only</strong>.</td></tr>
-                        <tr><td class="text-slate-300">Examples: water waves, sound waves.</td><td class="text-slate-300">Examples: radio waves, light, X-rays.</td></tr>
-                    </tbody>
-                </table>
+        </section>
+
+        <!-- COMPARISON TABLE (exact from content.md) -->
+        <section id="compare" class="py-10 px-6">
+            <div class="container mx-auto max-w-4xl">
+                <div class="text-center mb-8" data-aos="fade-up">
+                    <span
+                        class="inline-block px-4 py-1 rounded-full bg-amber-500/10 text-amber-400 text-xs font-mono border border-amber-500/20 mb-4">COMPARISON</span>
+                    <h2 class="text-3xl font-black text-white">Mechanical vs. EM Waves</h2>
+                </div>
+                <div class="glass-card rounded-2xl p-4 overflow-x-auto" data-aos="fade-up">
+                    <table class="custom-table min-w-full">
+                        <thead>
+                            <tr>
+                                <th class="text-violet-400">Mechanical Waves</th>
+                                <th class="text-cyan-400">Electromagnetic Waves</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-slate-300"><strong class="text-amber-400">Need</strong> a material
+                                    medium for propagation.</td>
+                                <td class="text-slate-300"><strong class="text-amber-400">Do NOT need</strong> any
+                                    material medium for propagation.</td>
+                            </tr>
+                            <tr>
+                                <td class="text-slate-300">Produced due to the vibrations of particles of the medium.
+                                </td>
+                                <td class="text-slate-300">Caused due to change in electric and magnetic fields.</td>
+                            </tr>
+                            <tr>
+                                <td class="text-slate-300">Particles vibrate <strong>along or perpendicular</strong> to
+                                    direction of propagation.</td>
+                                <td class="text-slate-300">Particles vibrate <strong>perpendicular</strong> to direction
+                                    of propagation.</td>
+                            </tr>
+                            <tr>
+                                <td class="text-slate-300">Have <strong class="text-red-400">low speed</strong>.</td>
+                                <td class="text-slate-300">Have <strong class="text-green-400">high speed</strong>
+                                    (light speed = 3×10⁸ m/s).</td>
+                            </tr>
+                            <tr>
+                                <td class="text-slate-300">Formed from <strong>longitudinal and transverse</strong>
+                                    waves.</td>
+                                <td class="text-slate-300">Formed from <strong>transverse waves only</strong>.</td>
+                            </tr>
+                            <tr>
+                                <td class="text-slate-300">Examples: water waves, sound waves.</td>
+                                <td class="text-slate-300">Examples: radio waves, light, X-rays.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- QUIZ -->
-    <section id="quiz" class="py-16 px-6">
-        <div class="container mx-auto max-w-5xl">
-            <div class="text-center mb-12" data-aos="fade-up">
-                <span class="inline-block px-4 py-1 rounded-full bg-violet-500/10 text-violet-400 text-xs font-mono border border-violet-500/20 mb-4">ASSESSMENT</span>
-                <h2 class="text-4xl font-black text-white mb-2">Test Your Knowledge</h2>
-                <p class="text-slate-400">24 questions — conceptual + calculation</p>
+        <!-- QUIZ -->
+        <section id="quiz" class="py-16 px-6">
+            <div class="container mx-auto max-w-5xl">
+                <div class="text-center mb-12" data-aos="fade-up">
+                    <span
+                        class="inline-block px-4 py-1 rounded-full bg-violet-500/10 text-violet-400 text-xs font-mono border border-violet-500/20 mb-4">ASSESSMENT</span>
+                    <h2 class="text-4xl font-black text-white mb-2">Test Your Knowledge</h2>
+                    <p class="text-slate-400">24 questions — conceptual + calculation</p>
+                </div>
+                <div id="quiz-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
             </div>
-            <div id="quiz-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
-        </div>
-    </section>
-</main>
+        </section>
+    </main>
 
-<footer class="border-t border-slate-800 py-8 text-center text-sm text-slate-500">
-    <p>Physics Year 1 (STEM) © 2026 — Prepared by <span class="text-violet-400">Osama Zinhom</span></p>
-    <p class="mt-2"><a href="lect05.html" class="text-sky-400 hover:underline">← Lesson 5</a> · <a href="index.html" class="text-slate-400 hover:text-white">Home</a></p>
-</footer>
+    <footer class="border-t border-slate-800 py-8 text-center text-sm text-slate-500">
+        <p>Physics Year 1 (STEM) © 2026 — Prepared by <span class="text-violet-400">Osama Zinhom</span></p>
+        <p class="mt-2"><a href="lect05.html" class="text-sky-400 hover:underline">← Lesson 5</a> · <a href="index.html"
+                class="text-slate-400 hover:text-white">Home</a></p>
+    </footer>
 
-<script>
-AOS.init({duration:600,once:true,offset:60});
-// Wave animation
-(function(){
-    const path=document.getElementById('wavePath');
-    if(!path)return;
-    let t=0;
-    function draw(){
-        t+=0.04;
-        let d='';
-        for(let x=0;x<=470;x+=5){
-            const y=60+35*Math.sin((x/60)+t);
-            d+=(x===0?'M':'L')+x+','+y;
-        }
-        path.setAttribute('d',d);
-        requestAnimationFrame(draw);
-    }
-    draw();
-})();
+    <script>
+        AOS.init({ duration: 600, once: true, offset: 60 });
+        // Wave animation
+        (function () {
+            const path = document.getElementById('wavePath');
+            if (!path) return;
+            let t = 0;
+            function draw() {
+                t += 0.04;
+                let d = '';
+                for (let x = 0; x <= 470; x += 5) {
+                    const y = 60 + 35 * Math.sin((x / 60) + t);
+                    d += (x === 0 ? 'M' : 'L') + x + ',' + y;
+                }
+                path.setAttribute('d', d);
+                requestAnimationFrame(draw);
+            }
+            draw();
+        })();
 
-const questions=[
-    {text:"A wave is defined as:",ans:2,expl:"A wave is a disturbance that propagates and transports energy, not matter.",opts:["Movement of matter from one place to another","A vibration that stops quickly","A disturbance that propagates and transports energy","A static pattern of displacement"]},
-    {text:"In wave motion, what is transferred?",ans:1,expl:"Energy is transferred, but matter stays in place (oscillates).",opts:["Matter","Energy","Both matter and energy","Neither"]},
-    {text:"Mechanical waves require:",ans:0,expl:"Mechanical waves need a physical medium (solid, liquid, or gas) to propagate.",opts:["A material medium","No medium","Only a vacuum","Only electric fields"]},
-    {text:"Electromagnetic waves:",ans:2,expl:"EM waves do NOT need a medium — they can travel through vacuum.",opts:["Need a medium","Cannot travel through space","Do not need a medium","Are the same as sound waves"]},
-    {text:"The amplitude (A) of a wave is:",ans:1,expl:"Amplitude = maximum displacement from equilibrium.",opts:["Distance between two crests","Maximum displacement from equilibrium","Time for one complete oscillation","Number of waves per second"]},
-    {text:"The wavelength (λ) is:",ans:3,expl:"Wavelength = distance from any point to the next identical point (e.g. crest to crest).",opts:["The time for one oscillation","The number of waves per second","The maximum displacement","Distance from crest to crest (or trough to trough)"]},
-    {text:"The period T of a wave is:",ans:0,expl:"T = time for one complete oscillation.",opts:["Time for one complete oscillation","Distance between crests","Number of waves per second","Maximum amplitude"]},
-    {text:"Frequency is measured in:",ans:2,expl:"Frequency is measured in Hertz (Hz) = oscillations per second.",opts:["Meters","Seconds","Hertz (Hz)","Joules"]},
-    {text:"The relationship between T and f is:",ans:1,expl:"T = 1/f — period and frequency are inversely related.",opts:["T = f","T = 1/f","T = f²","T = 2f"]},
-    {text:"Periodic motion is:",ans:3,expl:"Periodic motion returns to the same position after a fixed time interval.",opts:["Motion in a straight line","Random motion","Projectile motion","Motion that regularly returns to a given position after a fixed time"]},
-    {text:"Translational motion is characterized by:",ans:0,expl:"Translational motion has a start point and end point in a path — like a car driving.",opts:["Having a starting and end point in a certain path","Returning to the same position repeatedly","Vibrating side to side","Traveling in circles"]},
-    {text:"Which is an example of periodic motion?",ans:2,expl:"A simple pendulum is periodic — it returns to its starting position repeatedly.",opts:["A car driving on a straight road","A ball thrown horizontally","A simple pendulum","A skydiver falling"]},
-    // Calculations
-    {text:"🔢 10 waves pass in 5 s. What is the frequency?",ans:1,expl:"f = n/t = 10/5 = 2 Hz.",opts:["0.5 Hz","2 Hz","50 Hz","10 Hz"]},
-    {text:"🔢 f = 4 Hz. What is the period T?",ans:2,expl:"T = 1/f = 1/4 = 0.25 s.",opts:["4 s","0.5 s","0.25 s","2 s"]},
-    {text:"🔢 T = 0.5 s. What is the frequency?",ans:0,expl:"f = 1/T = 1/0.5 = 2 Hz.",opts:["2 Hz","0.5 Hz","5 Hz","1 Hz"]},
-    {text:"🔢 20 waves travel 80 m total. Find λ.",ans:3,expl:"λ = d/n = 80/20 = 4 m.",opts:["1 m","0.25 m","80 m","4 m"]},
-    {text:"🔢 λ = 3 m, n = 6. Find total distance.",ans:1,expl:"d = λ × n = 3 × 6 = 18 m.",opts:["2 m","18 m","0.5 m","9 m"]},
-    {text:"🔢 5 waves complete in 2 s. Find T.",ans:0,expl:"T = t/n = 2/5 = 0.4 s.",opts:["0.4 s","2.5 s","10 s","5 s"]},
-    {text:"🔢 f = 50 Hz. How many oscillations in 3 s?",ans:2,expl:"n = f × t = 50 × 3 = 150.",opts:["50","16.7","150","1500"]},
-    {text:"🔢 T = 0.02 s. Find f.",ans:1,expl:"f = 1/T = 1/0.02 = 50 Hz.",opts:["0.02 Hz","50 Hz","0.5 Hz","200 Hz"]},
-    {text:"🔢 100 waves travel 500 m. Find λ.",ans:3,expl:"λ = 500/100 = 5 m.",opts:["500 m","0.2 m","100 m","5 m"]},
-    {text:"🔢 f = 200 Hz, t = 0.1 s. Find number of oscillations.",ans:0,expl:"n = f × t = 200 × 0.1 = 20.",opts:["20","2000","0.5","2"]},
-    {text:"🔢 8 waves in 4 s. Find T and f.",ans:2,expl:"T = 4/8 = 0.5 s, f = 1/0.5 = 2 Hz.",opts:["T=2s, f=0.5Hz","T=0.25s, f=4Hz","T=0.5s, f=2Hz","T=8s, f=1Hz"]},
-    {text:"🔢 40 waves, λ=2m, time=8s. Find f.",ans:1,expl:"f = n/t = 40/8 = 5 Hz.",opts:["0.2 Hz","5 Hz","10 Hz","40 Hz"]}
-];
+        const questions = [
+            { text: "A wave is defined as:", ans: 2, expl: "A wave is a disturbance that propagates and transports energy, not matter.", opts: ["Movement of matter from one place to another", "A vibration that stops quickly", "A disturbance that propagates and transports energy", "A static pattern of displacement"] },
+            { text: "In wave motion, what is transferred?", ans: 1, expl: "Energy is transferred, but matter stays in place (oscillates).", opts: ["Matter", "Energy", "Both matter and energy", "Neither"] },
+            { text: "Mechanical waves require:", ans: 0, expl: "Mechanical waves need a physical medium (solid, liquid, or gas) to propagate.", opts: ["A material medium", "No medium", "Only a vacuum", "Only electric fields"] },
+            { text: "Electromagnetic waves:", ans: 2, expl: "EM waves do NOT need a medium — they can travel through vacuum.", opts: ["Need a medium", "Cannot travel through space", "Do not need a medium", "Are the same as sound waves"] },
+            { text: "The amplitude (A) of a wave is:", ans: 1, expl: "Amplitude = maximum displacement from equilibrium.", opts: ["Distance between two crests", "Maximum displacement from equilibrium", "Time for one complete oscillation", "Number of waves per second"] },
+            { text: "The wavelength (λ) is:", ans: 3, expl: "Wavelength = distance from any point to the next identical point (e.g. crest to crest).", opts: ["The time for one oscillation", "The number of waves per second", "The maximum displacement", "Distance from crest to crest (or trough to trough)"] },
+            { text: "The period T of a wave is:", ans: 0, expl: "T = time for one complete oscillation.", opts: ["Time for one complete oscillation", "Distance between crests", "Number of waves per second", "Maximum amplitude"] },
+            { text: "Frequency is measured in:", ans: 2, expl: "Frequency is measured in Hertz (Hz) = oscillations per second.", opts: ["Meters", "Seconds", "Hertz (Hz)", "Joules"] },
+            { text: "The relationship between T and f is:", ans: 1, expl: "T = 1/f — period and frequency are inversely related.", opts: ["T = f", "T = 1/f", "T = f²", "T = 2f"] },
+            { text: "Periodic motion is:", ans: 3, expl: "Periodic motion returns to the same position after a fixed time interval.", opts: ["Motion in a straight line", "Random motion", "Projectile motion", "Motion that regularly returns to a given position after a fixed time"] },
+            { text: "Translational motion is characterized by:", ans: 0, expl: "Translational motion has a start point and end point in a path — like a car driving.", opts: ["Having a starting and end point in a certain path", "Returning to the same position repeatedly", "Vibrating side to side", "Traveling in circles"] },
+            { text: "Which is an example of periodic motion?", ans: 2, expl: "A simple pendulum is periodic — it returns to its starting position repeatedly.", opts: ["A car driving on a straight road", "A ball thrown horizontally", "A simple pendulum", "A skydiver falling"] },
+            // Calculations
+            { text: "🔢 10 waves pass in 5 s. What is the frequency?", ans: 1, expl: "f = n/t = 10/5 = 2 Hz.", opts: ["0.5 Hz", "2 Hz", "50 Hz", "10 Hz"] },
+            { text: "🔢 f = 4 Hz. What is the period T?", ans: 2, expl: "T = 1/f = 1/4 = 0.25 s.", opts: ["4 s", "0.5 s", "0.25 s", "2 s"] },
+            { text: "🔢 T = 0.5 s. What is the frequency?", ans: 0, expl: "f = 1/T = 1/0.5 = 2 Hz.", opts: ["2 Hz", "0.5 Hz", "5 Hz", "1 Hz"] },
+            { text: "🔢 20 waves travel 80 m total. Find λ.", ans: 3, expl: "λ = d/n = 80/20 = 4 m.", opts: ["1 m", "0.25 m", "80 m", "4 m"] },
+            { text: "🔢 λ = 3 m, n = 6. Find total distance.", ans: 1, expl: "d = λ × n = 3 × 6 = 18 m.", opts: ["2 m", "18 m", "0.5 m", "9 m"] },
+            { text: "🔢 5 waves complete in 2 s. Find T.", ans: 0, expl: "T = t/n = 2/5 = 0.4 s.", opts: ["0.4 s", "2.5 s", "10 s", "5 s"] },
+            { text: "🔢 f = 50 Hz. How many oscillations in 3 s?", ans: 2, expl: "n = f × t = 50 × 3 = 150.", opts: ["50", "16.7", "150", "1500"] },
+            { text: "🔢 T = 0.02 s. Find f.", ans: 1, expl: "f = 1/T = 1/0.02 = 50 Hz.", opts: ["0.02 Hz", "50 Hz", "0.5 Hz", "200 Hz"] },
+            { text: "🔢 100 waves travel 500 m. Find λ.", ans: 3, expl: "λ = 500/100 = 5 m.", opts: ["500 m", "0.2 m", "100 m", "5 m"] },
+            { text: "🔢 f = 200 Hz, t = 0.1 s. Find number of oscillations.", ans: 0, expl: "n = f × t = 200 × 0.1 = 20.", opts: ["20", "2000", "0.5", "2"] },
+            { text: "🔢 8 waves in 4 s. Find T and f.", ans: 2, expl: "T = 4/8 = 0.5 s, f = 1/0.5 = 2 Hz.", opts: ["T=2s, f=0.5Hz", "T=0.25s, f=4Hz", "T=0.5s, f=2Hz", "T=8s, f=1Hz"] },
+            { text: "🔢 40 waves, λ=2m, time=8s. Find f.", ans: 1, expl: "f = n/t = 40/8 = 5 Hz.", opts: ["0.2 Hz", "5 Hz", "10 Hz", "40 Hz"] }
+        ];
 
-const grid=document.getElementById('quiz-grid');
-questions.forEach((q,i)=>{
-    const c=document.createElement('div');
-    c.className="glass-card p-6 rounded-xl hover:bg-slate-800/80 transition flex flex-col";
-    c.innerHTML=`<div class="mb-3"><span class="text-sm font-mono text-violet-500">Q${i+1}</span></div><p class="text-base font-semibold text-white mb-5">${q.text}</p><div class="grid gap-2 mb-4 text-sm text-slate-300">${q.opts.map((o,j)=>`<div onclick="chk(this,${j},${q.ans})" class="p-3 rounded bg-slate-900/50 border border-slate-700 hover:bg-slate-800 cursor-pointer transition">${String.fromCharCode(65+j)}) ${o}</div>`).join('')}</div><div class="mt-auto"><button onclick="this.nextElementSibling.classList.toggle('show')" class="text-xs text-slate-500 hover:text-violet-400 font-bold uppercase tracking-wider cursor-pointer"><i class="fas fa-eye mr-1"></i>Show Answer</button><div class="answer-container"><p class="text-violet-400 font-bold mb-1">Correct: ${String.fromCharCode(65+q.ans)}</p><p class="text-xs text-slate-300">${q.expl}</p></div></div>`;
-    grid.appendChild(c);
-});
-function chk(el,sel,cor){const p=el.parentElement;Array.from(p.children).forEach(c=>{c.classList.remove('bg-emerald-500/20','border-emerald-500','bg-red-500/20','border-red-500');c.classList.add('bg-slate-900/50','border-slate-700');});if(sel===cor){el.classList.add('bg-emerald-500/20','border-emerald-500');}else{el.classList.add('bg-red-500/20','border-red-500');}el.classList.remove('bg-slate-900/50','border-slate-700');}
-</script>
+        const grid = document.getElementById('quiz-grid');
+        questions.forEach((q, i) => {
+            const c = document.createElement('div');
+            c.className = "glass-card p-6 rounded-xl hover:bg-slate-800/80 transition flex flex-col";
+            c.innerHTML = `<div class="mb-3"><span class="text-sm font-mono text-violet-500">Q${i + 1}</span></div><p class="text-base font-semibold text-white mb-5">${q.text}</p><div class="grid gap-2 mb-4 text-sm text-slate-300">${q.opts.map((o, j) => `<div onclick="chk(this,${j},${q.ans})" class="p-3 rounded bg-slate-900/50 border border-slate-700 hover:bg-slate-800 cursor-pointer transition">${String.fromCharCode(65 + j)}) ${o}</div>`).join('')}</div><div class="mt-auto"><button onclick="this.nextElementSibling.classList.toggle('show')" class="text-xs text-slate-500 hover:text-violet-400 font-bold uppercase tracking-wider cursor-pointer"><i class="fas fa-eye mr-1"></i>Show Answer</button><div class="answer-container"><p class="text-violet-400 font-bold mb-1">Correct: ${String.fromCharCode(65 + q.ans)}</p><p class="text-xs text-slate-300">${q.expl}</p></div></div>`;
+            grid.appendChild(c);
+        });
+        function chk(el, sel, cor) { const p = el.parentElement; Array.from(p.children).forEach(c => { c.classList.remove('bg-emerald-500/20', 'border-emerald-500', 'bg-red-500/20', 'border-red-500'); c.classList.add('bg-slate-900/50', 'border-slate-700'); }); if (sel === cor) { el.classList.add('bg-emerald-500/20', 'border-emerald-500'); } else { el.classList.add('bg-red-500/20', 'border-red-500'); } el.classList.remove('bg-slate-900/50', 'border-slate-700'); }
+    </script>
 </body>
+
 </html>

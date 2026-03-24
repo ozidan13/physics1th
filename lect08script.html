@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سكريبت الشرح - درس 8: موجات الصوت</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+    <style>
+        *{box-sizing:border-box}
+        body{font-family:'Cairo',sans-serif;background:linear-gradient(135deg,#060e0d,#0e0a06,#080e0d);min-height:100vh;margin:0;padding:2rem 1rem;color:#e0e0e0;direction:rtl}
+        .container{max-width:920px;margin:0 auto}
+        h1{text-align:center;color:#fff;font-size:2rem;margin-bottom:.5rem;text-shadow:0 0 30px rgba(56,189,248,.4)}
+        .subtitle{text-align:center;color:#64748b;font-size:.95rem;margin-bottom:2.5rem}
+        .section{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:1.5rem 2rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);transition:all .3s ease}
+        .section:hover{border-color:rgba(56,189,248,.35);box-shadow:0 8px 32px rgba(56,189,248,.1);transform:translateY(-2px)}
+        .section-title{font-size:1.2rem;font-weight:700;color:#38bdf8;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;cursor:pointer;user-select:none}
+        .toggle-icon{margin-right:auto;margin-left:0;color:#64748b;font-size:.85rem}
+        .script-body{overflow:hidden;transition:max-height .4s ease}
+        .script-text{font-size:1.1rem;line-height:2.2;color:#f0f4f8;background:rgba(0,0,0,.25);padding:1.2rem 1.5rem;border-radius:10px;border-right:4px solid #38bdf8}
+        .note{font-size:.92rem;color:#f43f5e;margin-top:1rem;padding:.6rem 1.1rem;background:rgba(244,63,94,.07);border-radius:8px;border-right:3px solid #f43f5e;line-height:1.8}
+        .note::before{content:"📌 ملاحظة هامة: ";font-weight:bold}
+        .law-box{font-size:.95rem;color:#e0f2fe;margin-top:1rem;padding:.8rem 1.2rem;background:rgba(56,189,248,.08);border-radius:8px;border-right:3px solid #38bdf8;line-height:1.9}
+        .law-box::before{content:"📖 المفهوم: ";font-weight:bold;color:#7dd3fc}
+        .law-box-purple{font-size:.95rem;color:#f3e8ff;margin-top:1rem;padding:.8rem 1.2rem;background:rgba(168,85,247,.07);border-radius:8px;border-right:3px solid #a855f7;line-height:1.9}
+        .law-box-purple::before{content:"📖 المفهوم: ";font-weight:bold;color:#c084fc}
+        .formula-note{font-size:.95rem;color:#dcfce7;margin-top:1rem;padding:.8rem 1.2rem;background:rgba(34,197,94,.07);border-radius:8px;border-right:3px solid #22c55e;line-height:1.9;direction:ltr;text-align:left}
+        .formula-note::before{content:"🔢 Equation: ";font-weight:bold;color:#4ade80}
+        .hl{color:#38bdf8;font-weight:700}
+        .hl-p{color:#c084fc;font-weight:700}
+        .hl-y{color:#facc15;font-weight:700}
+        .hl-r{color:#f87171;font-weight:700}
+        .pause{color:#a855f7;font-size:.82rem;display:block;margin:.5rem 0;font-style:italic}
+        a.back-btn{display:inline-flex;align-items:center;gap:.5rem;margin-bottom:2rem;padding:.7rem 1.4rem;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.3);border-radius:8px;color:#38bdf8;text-decoration:none;font-size:.9rem;transition:all .3s}
+        a.back-btn:hover{background:rgba(56,189,248,.25);color:#fff}
+        .divider{text-align:center;color:#475569;font-size:.8rem;margin:1rem 0 1.5rem;letter-spacing:.1em}
+        .divider::before,.divider::after{content:" ── "}
+        .toc{background:rgba(15,23,42,.6);border:1px solid rgba(56,189,248,.2);border-radius:12px;padding:1.2rem 1.8rem;margin-bottom:2rem}
+        .toc h3{color:#38bdf8;font-size:1rem;margin-bottom:.8rem}
+        .toc a{display:block;color:#94a3b8;text-decoration:none;padding:.25rem 0;font-size:.9rem;transition:color .2s}
+        .toc a:hover{color:#38bdf8}
+        .toc a::before{content:"• ";color:#0ea5e9}
+    </style>
+</head>
+<body>
+<div class="container">
+    <a href="lect08.html" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع للدرس</a>
+    <a href="index.html" class="back-btn" style="margin-right:.75rem"><i class="fas fa-home"></i> الصفحة الرئيسية</a>
+
+    <h1>📜 سكريبت الشرح — الدرس الثامن</h1>
+    <p class="subtitle">موجات الصوت · الوحدة الرابعة · بشمهندس أسامة زينهم</p>
+
+    <div class="toc">
+        <h3>📋 محتويات الدرس</h3>
+        <a href="#s1">طبيعة الصوت وانتشاره</a>
+        <a href="#s2">مدى الترددات المسموعة</a>
+        <a href="#s3">شدة الصوت (Sound Intensity)</a>
+        <a href="#s4">قياس التردد باستخدام الأوسيلوسكوب</a>
+        <a href="#s5">الموجات الموقوفة (Standing Waves)</a>
+        <a href="#s6">تردد الوتر المشدود (Harmonics)</a>
+    </div>
+
+    <!-- S1 -->
+    <div class="section" id="s1">
+        <div class="section-title" onclick="tog(this)">طبيعة الصوت وانتشاره <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+        <div class="script-body">
+            <div class="law-box">
+                <strong>الصوت (Sound):</strong> طاقة بتنتقل على شكل <strong>موجة ميكانيكية طولية</strong> (تضاغطات وتخلخلات).
+                <br>بيحتاج <strong>وسط إلزامي</strong> عشان ينتقل (مش بيسافر في الفراغ).
+            </div>
+            <div class="script-text" style="margin-top:.8rem">
+                لما تسأل الطالب: لو فرقعنا قنبلة على سطح القمر، هنسمع حاجة؟ الإجابة: لأ، عشان مفيش هواء (وسط مادي) ينقل الصوت.
+                <span class="pause">[وقفة — تأكيد المفهوم]</span>
+                <br>سرعة الصوت في الغازات بتعتمد على:
+                <br>1️⃣ <span class="hl-y">الكثافة (Density):</span> كل ما الكثافة تقل، سرعة الصوت تزيد.
+                <br>2️⃣ <span class="hl-y">الحرارة (Temperature):</span> الحرارة لما تزيد بترفع سرعة الصوت عشان بتقلل كثافة الهواء!
+            </div>
+            <div class="formula-note">
+                $$ v \propto \frac{1}{\sqrt{\rho}} $$
+            </div>
+        </div>
+    </div>
+
+    <!-- S2 -->
+    <div class="divider" id="s2">الترددات</div>
+    <div class="section">
+        <div class="section-title" onclick="tog(this)">مدى الترددات المسموعة <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+        <div class="script-body">
+            <div class="script-text">
+                الإنسان الطبيعي يقدر يسمع الترددات من <span class="hl">20 هرتز إلى 20,000 هرتز</span>.
+                <ul style="padding-right:1.2rem;margin:.5rem 0">
+                    <li style="margin-bottom:.4rem;line-height:1.9">لو التردد <span class="hl-r">أكبر من 20,000</span> ← دي موجات <strong>فوق صوتية (Ultrasound)</strong>.</li>
+                    <li style="margin-bottom:.4rem;line-height:1.9">لو التردد <span class="hl-r">أقل من 20</span> ← دي موجات <strong>تحت صوتية (Infrasound)</strong>.</li>
+                </ul>
+                <div class="note">
+                    الكلاب والخفافيش بيسمعوا Ultrasound، وإحنا بنستخدمها في الطب للكشف (السونار)!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- S3 -->
+    <div class="divider" id="s3">شدة الصوت</div>
+    <div class="section">
+        <div class="section-title" onclick="tog(this)">شدة الصوت (Sound Intensity) <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+        <div class="script-body">
+            <div class="law-box-purple">
+                <strong>الشدة (Intensity):</strong> معدل الطاقة المنقولة (Power) لكل مساحة مقطع عمودية على الاتجاه.
+                <br>تقاس بـ <strong>Watts per square meter ($W \cdot m^{-2}$)</strong>.
+            </div>
+            <div class="script-text" style="margin-top:.8rem">
+                إيه علاقة السعة (Amplitude) بالشدة؟
+                <br>أقوى حتة في الدرس هنا: <span class="hl-p">الشدة تتناسب طردياً مع مربع السعة ($I \propto A^2$)</span>.
+                <br>يعني لو سعة الموجة زادت للضعف، الشدة مش هتزيد للضعف.. دي هتبقى 4 أضعاف القديمة!
+                <span class="pause">[وقفة — مهمة للأسئلة الملبكة]</span>
+            </div>
+            <div class="note">
+                الصوت شدته بتقل كل ما نبعد بسبب إن الموجة <strong>بتتنتشر وتتفرد على مساحة أكبر (Spreading)</strong>، وجزء منها <strong>بيمتصه الميديا ويتشتت كحرارة</strong>.
+            </div>
+        </div>
+    </div>
+
+    <!-- S4 -->
+    <div class="divider" id="s4">الجهاز</div>
+    <div class="section">
+        <div class="section-title" onclick="tog(this)">قياس التردد باستخدام الأوسيلوسكوب <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+        <div class="script-body">
+            <div class="script-text">
+                بنقيس التردد إزاي؟ بجهاز جبار اسمه <strong>C.R.O. (Cathode-Ray Oscilloscope)</strong>.
+                <br><br>
+                1. المايكروفون بيسمع الصوت ويحوله لـ <strong>كهرباء (Voltage)</strong>.
+                <br>2. الأوسيلوسكوب بيعرض الكهرباء دي على الشاشة كأنها موجة.
+                <br>3. كل مربع في الشاشة أفقياً بيمثل <strong>وقت (Time-base)</strong>.
+                <br>4. لو عرفنا الموجة الكاملة واخده كام مربع، هنعرف <strong>الزمن الدوري (T)</strong>.
+                <br>5. وبكدا نقدر نجيب التردد $f = \frac{1}{T}$.
+            </div>
+        </div>
+    </div>
+
+    <!-- S5 -->
+    <div class="divider" id="s5">الموجات الموقوفة</div>
+    <div class="section">
+        <div class="section-title" onclick="tog(this)">الموجات الموقوفة (Standing Waves) <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+        <div class="script-body">
+            <div class="law-box">
+                <strong>الموجات الموقوفة (Standing Waves):</strong> بتنتج من <strong>تداخل (Interference)</strong> موجتين متطابقتين بيمشوا في اتجاهين عكس بعض.
+                <br>(زي موجة رايحة وتخبط في حيطة وترجع موجة منعكسة وتتداخل معاها).
+            </div>
+            <div class="script-text" style="margin-top:.8rem">
+                الموجة دي شكلها مبيسافرش.. الموجة دي بتكون شايلة نوعين من النقط:
+                <br>• <span class="hl-r">عقدة (Node):</span> نقطة مبتتحركش خالص (إزاحة صفر).
+                <br>• <span class="hl-p">بطن (Antinode):</span> نقطة بتتحرك لأقصى سعة ممكنة (Maximum amplitude).
+            </div>
+        </div>
+    </div>
+
+    <!-- S6 -->
+    <div class="divider" id="s6">قانون الوتر المشدود</div>
+    <div class="section">
+        <div class="section-title" onclick="tog(this)">تردد الوتر المشدود (Harmonics) <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+        <div class="script-body">
+            <div class="script-text">
+                أوتار الجيتار بتعمل موجات موقوفة! التردد بتاع الصوت بيعتمد على طول الوتر $L$ وقوة الشد $F_T$ والكتلة لكل وحدة طول $\mu$.
+                <br>عدد القطاعات اللى بتهتز في الوتر بنسميها $(n)$ وكل قطاع بيكون نص طول موجي.
+            </div>
+            <div class="formula-note" style="margin-bottom:1rem">
+                $$ f = \frac{n}{2L} \sqrt{\frac{F_T}{\mu}} $$
+            </div>
+            <div class="script-text">
+                <span class="hl-y">المسميات الدقيقة:</span>
+                <br>• لو بيهتز بقطاع واحد ($n=1$) بنسميه: <strong>Fundamental mode</strong> أو <strong>First harmonic</strong>.
+                <br>• لو بقطاعين ($n=2$) بنسميه: <strong>Second harmonic</strong>.
+                <br>ودي الفكرة الأساسية ورا أي آلة وترية!
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align:center;margin-top:2rem;color:#475569;font-size:.85rem;padding-bottom:2rem">
+        فيزياء — الصف الأول ثانوي (STEM) · الوحدة 4 · الدرس 3<br>بشمهندس أسامة زينهم
+    </div>
+</div>
+<script>
+    function tog(t){const b=t.nextElementSibling,i=t.querySelector('.toggle-icon i'),o=b.style.maxHeight&&b.style.maxHeight!=='0px';if(o){b.style.maxHeight='0px';b.style.overflow='hidden';i.className='fas fa-chevron-left'}else{b.style.maxHeight=b.scrollHeight+300+'px';b.style.overflow='visible';i.className='fas fa-chevron-down'}}
+    document.querySelectorAll('.script-body').forEach(b=>{b.style.maxHeight='none';b.style.overflow='visible'});
+    document.querySelectorAll('.toc a').forEach(l=>{l.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(l.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})});
+</script>
+</body>
+</html>
