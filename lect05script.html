@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سكريبت الشرح - درس 5: القدرة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <style>
+        *{box-sizing:border-box}
+        body{font-family:'Cairo',sans-serif;background:linear-gradient(135deg,#0a0a1a,#060e1a,#0a0a1f);min-height:100vh;margin:0;padding:2rem 1rem;color:#e0e0e0;direction:rtl}
+        .container{max-width:920px;margin:0 auto}
+        h1{text-align:center;color:#fff;font-size:2rem;margin-bottom:.5rem;text-shadow:0 0 30px rgba(56,189,248,.4)}
+        .subtitle{text-align:center;color:#64748b;font-size:.95rem;margin-bottom:2.5rem}
+        .section{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:1.5rem 2rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);transition:all .3s ease}
+        .section:hover{border-color:rgba(56,189,248,.35);box-shadow:0 8px 32px rgba(56,189,248,.1);transform:translateY(-2px)}
+        .section-title{font-size:1.2rem;font-weight:700;color:#38bdf8;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;cursor:pointer;user-select:none}
+        .section-title .toggle-icon{margin-right:auto;margin-left:0;color:#64748b;font-size:.85rem;transition:transform .3s}
+        .script-body{overflow:hidden;transition:max-height .4s ease}
+        .script-text{font-size:1.12rem;line-height:2.2;color:#f0f4f8;background:rgba(0,0,0,.25);padding:1.2rem 1.5rem;border-radius:10px;border-right:4px solid #38bdf8}
+        .note{font-size:.92rem;color:#fbbf24;margin-top:1rem;padding:.6rem 1.1rem;background:rgba(251,191,36,.07);border-radius:8px;border-right:3px solid #fbbf24;line-height:1.8}
+        .note::before{content:"📌 ملاحظة: ";font-weight:bold}
+        .law-box{font-size:.95rem;color:#e0f2fe;margin-top:1rem;padding:.8rem 1.2rem;background:rgba(56,189,248,.08);border-radius:8px;border-right:3px solid #38bdf8;line-height:1.9}
+        .law-box::before{content:"📖 التعريف: ";font-weight:bold;color:#7dd3fc}
+        .formula-note{font-size:.95rem;color:#d1fae5;margin-top:1rem;padding:.8rem 1.2rem;background:rgba(16,185,129,.07);border-radius:8px;border-right:3px solid #10b981;line-height:1.9}
+        .formula-note::before{content:"🔢 المعادلة: ";font-weight:bold;color:#34d399}
+        .example-box{font-size:.95rem;color:#fde68a;margin-top:1rem;padding:.8rem 1.2rem;background:rgba(245,158,11,.07);border-radius:8px;border-right:3px solid #f59e0b;line-height:1.9}
+        .solved-box{font-size:.95rem;color:#c4b5fd;margin-top:1rem;padding:.8rem 1.2rem;background:rgba(139,92,246,.07);border-radius:8px;border-right:3px solid #8b5cf6;line-height:1.9}
+        .solved-box::before{content:"🖊️ حل: ";font-weight:bold;color:#a78bfa}
+        .highlight{color:#38bdf8;font-weight:700}
+        .hl-green{color:#34d399;font-weight:700}
+        .hl-amber{color:#fbbf24;font-weight:700}
+        .hl-red{color:#f87171;font-weight:700}
+        .pause{color:#fb923c;font-size:.82rem;display:block;margin:.5rem 0;font-style:italic}
+        .symbol-table{width:100%;border-collapse:collapse;margin-top:.8rem;font-size:.9rem}
+        .symbol-table th{background:rgba(56,189,248,.15);color:#38bdf8;padding:.6rem 1rem;text-align:right;border-bottom:1px solid rgba(56,189,248,.2)}
+        .symbol-table td{padding:.55rem 1rem;border-bottom:1px solid rgba(255,255,255,.05);line-height:1.6}
+        .symbol-table tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+        a.back-btn{display:inline-flex;align-items:center;gap:.5rem;margin-bottom:2rem;padding:.7rem 1.4rem;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.3);border-radius:8px;color:#38bdf8;text-decoration:none;font-size:.9rem;transition:all .3s}
+        a.back-btn:hover{background:rgba(56,189,248,.25);color:#fff}
+        .section-divider{text-align:center;color:#475569;font-size:.8rem;margin:1rem 0 1.5rem;letter-spacing:.1em}
+        .section-divider::before,.section-divider::after{content:" ── "}
+        .step-list{padding-right:1.2rem;margin:.5rem 0}
+        .step-list li{margin-bottom:.5rem;line-height:1.9}
+        .toc{background:rgba(15,23,42,.6);border:1px solid rgba(56,189,248,.2);border-radius:12px;padding:1.2rem 1.8rem;margin-bottom:2rem}
+        .toc h3{color:#38bdf8;font-size:1rem;margin-bottom:.8rem}
+        .toc a{display:block;color:#94a3b8;text-decoration:none;padding:.25rem 0;font-size:.9rem;transition:color .2s}
+        .toc a:hover{color:#38bdf8}
+        .toc a::before{content:"• ";color:#0ea5e9}
+    </style>
+</head>
+<body>
+<div class="container">
+    <a href="lect05.html" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع للدرس</a>
+    <a href="index.html" class="back-btn" style="margin-right:.75rem"><i class="fas fa-home"></i> الصفحة الرئيسية</a>
+
+    <h1>📜 سكريبت الشرح — الدرس الخامس</h1>
+    <p class="subtitle">القدرة (Power) · الوحدة الثالثة · بشمهندس أسامة زينهم</p>
+
+    <div class="toc">
+        <h3>📋 محتويات الدرس</h3>
+        <a href="#s1">المقدمة — الطاقة والقدرة والفرق بينهم</a>
+        <a href="#s2">تعريف القدرة — معدل إيصال الطاقة</a>
+        <a href="#s3">المعادلة P = W/t — كل رمز ومعناه</a>
+        <a href="#s4">وحدة القياس — الوات والحصان</a>
+        <a href="#s5">متوسط القدرة (Average Power)</a>
+        <a href="#s6">الكيلوواط·ساعة (kWh) — وحدة الطاقة في الفاتورة</a>
+        <a href="#s7">المثال المحلول — لمبتين وحساب متوسط القدرة</a>
+        <a href="#s8">الملخص والخاتمة</a>
+    </div>
+
+    <!-- S1 INTRO -->
+    <div class="section" id="s1">
+        <div class="section-title" onclick="tog(this)">المقدمة — الطاقة والقدرة والفرق <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+        <div class="script-body">
+            <div class="script-text">
+                السلام عليكم ورحمة الله وبركاته 🌟
+                <span class="pause">[وقفة — ترحيب]</span>
+                أهلاً بيكم في الدرس الخامس — <span class="highlight">القدرة (Power)</span>.
+                <br><br>
+                في الدرس اللي فات اتكلمنا عن الطاقة — القدرة على الشغل.
+                <br>دلوقتي السؤال: إيه الفرق بين الطاقة والقدرة؟
+                <span class="pause">[وقفة — خلّي الطلاب يفكروا]</span>
+                <br><br>
+                <span class="hl-amber">مثال:</span> اتنين أشخاص رفعوا نفس الصندوق لنفس الارتفاع.
+                <ul class="step-list">
+                    <li>الأول رفعه في <strong>دقيقة واحدة</strong></li>
+                    <li>التاني رفعه في <strong>10 دقايق</strong></li>
+                </ul>
+                الشغل واحد تماماً (نفس الكتلة × نفس الارتفاع). بس <span class="hl-red">القدرة مختلفة!</span>
+                <br>الأول كان أسرع — قدرته أعلى.
+                <br><br>
+                <span class="highlight">الطاقة</span> = قد إيه شغل اتعمل (جول).
+                <br><span class="highlight">القدرة</span> = قد إيه شغل اتعمل <strong>في قد إيه وقت</strong> (وات = جول/ثانية).
+                <br><br>
+                "Energy is the capacity to do work and <strong>power is the rate of energy delivery.</strong>"
+            </div>
+        </div>
+    </div>
+
+    <!-- S2 DEFINITION -->
+    <div class="section-divider" id="s2">تعريف القدرة</div>
+    <div class="section">
+        <div class="section-title" onclick="tog(this)">تعريف القدرة — معدل إيصال الطاقة <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+        <div class="script-body">
+            <div class="law-box">
+                <strong>القدرة (Power):</strong>
+                <br>• <strong>(The rate of doing work)</strong> — معدل عمل الشغل
+                <br>• <strong>(It is the work done in unit time)</strong> — الشغل المبذول في وحدة الزمن
+            </div>
+            <div class="script-text" style="margin-top:1rem">
+                <span class="pause">[وقفة — أكّد التعريفين]</span>
+                المهم ان القدرة ليها علاقة بالوقت — مش بس بالشغل! 
+                <br>"Power is always dependent on work done, so if a person does work at different rates his power also differs at different times."
+            </div>
+        </div>
+    </div>
+
+    <!-- S3 FORMULA -->
+    <div class="section-divider" id="s3">المعادلة</div>
+    <div class="section">
+        <div class="section-title" onclick="tog(this)">المعادلة P = W/t — كل رمز ومعناه <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+        <div class="script-body">
+            <div class="formula-note">
+                <span style="font-size:1.4rem;display:block;text-align:center;margin:.5rem 0"><strong>P = W ÷ t</strong></span>
+                أو: الطاقة = القدرة × الزمن → E = P × t
+            </div>
+            <div class="script-text" style="margin-top:1rem">
+                <table class="symbol-table">
+                    <tr><th>الرمز</th><th>الاسم</th><th>الوحدة</th><th>المعنى</th></tr>
+                    <tr><td><strong style="color:#38bdf8">P</strong></td><td>القدرة (Power)</td><td>وات (W)</td><td>معدل الشغل — قد إيه طاقة بتتصرف في الثانية</td></tr>
+                    <tr><td><strong style="color:#34d399">W</strong></td><td>الشغل / الطاقة</td><td>جول (J)</td><td>إجمالي الشغل أو الطاقة المستهلكة</td></tr>
+                    <tr><td><strong style="color:#fbbf24">t</strong></td><td>الزمن (Time)</td><td>ثانية (s)</td><td>الوقت اللي اتعمل فيه الشغل</td></tr>
+                </table>
+                <br>
+                <span class="hl-amber">3 طرق لاستخدام المعادلة:</span>
+                <ul class="step-list">
+                    <li>• عاوز القدرة؟ <strong>P = W ÷ t</strong></li>
+                    <li>• عاوز الشغل (الطاقة)؟ <strong>W = P × t</strong></li>
+                    <li>• عاوز الزمن؟ <strong>t = W ÷ P</strong></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- S4 UNITS -->
+    <div class="section-divider" id="s4">وحدة القياس</div>
+    <div class="section">
+        <div class="section-title" onclick="tog(this)">وحدة القياس — الوات والحصان (hp) <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+        <div class="script-body">
+            <div class="script-text">
+                "The unit for standard metric work is the Joule and the standard metric unit for time is the second, so the standard metric unit for power is a <strong>Joule / second</strong>, defined as a <strong>Watt</strong> and abbreviated W."
+                <span class="pause">[وقفة]</span>
+            </div>
+            <div class="formula-note">
+                1 وات (W) = 1 جول ÷ ثانية (1 J/s)
+            </div>
+            <div class="script-text" style="margin-top:1rem">
+                <span class="hl-amber">الحصان (Horsepower):</span>
+                <br>"Sometimes the power of motor vehicles and other machines is given in terms of Horsepower (hp), which is approximately equal to <strong>745.7 watts</strong>."
+                <br><br>
+                في الحياة اليومية:
+                <ul class="step-list">
+                    <li>• لمبة عادية: 60-100 وات</li>
+                    <li>• مكيف: 1000-3000 وات</li>
+                    <li>• عربية عادية: 100-200 حصان = 74,570 - 149,140 وات!</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- S5 AVERAGE POWER -->
+    <div class="section-divider" id="s5">متوسط القدرة</div>
+    <div class="section">
+        <div class="section-title" onclick="tog(this)">متوسط القدرة (Average Power) <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+        <div class="script-body">
+            <div class="law-box">
+                "We can define average power as the total energy consumed divided by the total time taken. In simple language, we can say that average power is the average amount of work done or energy converted per unit of time."
+            </div>
+            <div class="formula-note">
+                <span style="display:block;text-align:center;font-size:1.2rem"><strong>متوسط القدرة = إجمالي الطاقة ÷ إجمالي الزمن</strong></span>
+            </div>
+            <div class="script-text" style="margin-top:1rem">
+                بنستخدم متوسط القدرة لما <span class="hl-red">القدرة مش ثابتة</span> طول الوقت.
+                <br>مثلاً: لو أجهزة بتشتغل وبتقفل في أوقات مختلفة.
+                <span class="pause">[وقفة — وضّح بمثال]</span>
+                <br>لو مكيف شغال ساعتين بس والتلاجة شغالة 24 ساعة — القدرة مش ثابتة — لازم نحسب متوسط القدرة لليوم كله.
+            </div>
+        </div>
+    </div>
+
+    <!-- S6 KWH -->
+    <div class="section-divider" id="s6">الكيلوواط·ساعة</div>
+    <div class="section">
+        <div class="section-title" onclick="tog(this)">الكيلوواط·ساعة (kWh) — وحدة الفاتورة <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+        <div class="script-body">
+            <div class="script-text">
+                "You must have noticed that electrical components and energy meters in homes use a unit called <strong>kWh (kilowatt-hour)</strong>, which stands for 1 kilowatt of power has been consumed every 1 hour, where <strong>kWh is the unit of energy.</strong>"
+                <span class="pause">[وقفة — علّق]</span>
+            </div>
+            <div class="formula-note">
+                1 kWh = 1 كيلوواط × 1 ساعة = 1000 وات × 3600 ثانية = <strong>3,600,000 جول</strong>
+            </div>
+            <div class="script-text" style="margin-top:1rem">
+                اللي بتشوفه في فاتورة الكهرباء هو الـ<span class="highlight">kWh</span>!
+                <br>مثال عملي:
+                <ul class="step-list">
+                    <li>• مكيف 2000 وات شغال 3 ساعات = 6 kWh من الفاتورة.</li>
+                    <li>• لمبة 100 وات شغالة 10 ساعات = 1 kWh.</li>
+                </ul>
+                <span class="hl-amber">الـkWh وحدة طاقة مش قدرة!</span> كتير من الناس بتتلخبط — الوات وحدة قدرة، والـkWh وحدة طاقة (=قدرة × زمن).
+            </div>
+        </div>
+    </div>
+
+    <!-- S7 EXAMPLE -->
+    <div class="section-divider" id="s7">المثال المحلول</div>
+    <div class="section">
+        <div class="section-title" onclick="tog(this)">🖊️ المثال — لمبتين وحساب متوسط القدرة <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+        <div class="script-body">
+            <div class="example-box">
+                <strong>السؤال:</strong> لمبة A قدرتها 60 وات شغالة 24 ساعة في اليوم. ولمبة B قدرتها 60 وات بس شغالة 12 ساعة بس. احسب الطاقة المستهلكة من الاتنين في يوم كامل وأوجد متوسط القدرة.
+            </div>
+            <div class="solved-box">
+                <strong>الخطوة 1 — الـ12 ساعة الأولى (الاتنين شغالين):</strong>
+                <br>القدرة الكلية = 60 + 60 = 120 وات
+                <br>الطاقة = القدرة × الزمن = 120 × 12 = <span class="hl-amber">1.44 kWh</span>
+                <br><br>
+                <strong>الخطوة 2 — الـ12 ساعة التانية (A بس شغالة):</strong>
+                <br>القدرة = 60 وات
+                <br>الطاقة = 60 × 12 = <span class="hl-amber">0.72 kWh</span>
+                <br><br>
+                <strong>الخطوة 3 — متوسط القدرة لليوم كله:</strong>
+                <br>إجمالي الطاقة = 1.44 + 0.72 = 2.16 kWh
+                <br>إجمالي الزمن = 24 ساعة
+                <br>متوسط القدرة = 2.16 ÷ 24 = <span class="hl-green">0.09 كيلوواط = 90 وات</span>
+            </div>
+            <div class="note" style="margin-top:.8rem">
+                لاحظ: بنقسم على 24 ساعة لأنه ده الوقت الكلي لليوم. مش على 12 ساعة!
+                <br>متوسط القدرة (90 وات) أقل من القدرة الأقصى (120 وات) لأن جزء من اليوم فيه لمبة واحدة بس.
+            </div>
+        </div>
+    </div>
+
+    <!-- S8 SUMMARY -->
+    <div class="section-divider" id="s8">الملخص</div>
+    <div class="section">
+        <div class="section-title" onclick="tog(this)">ملخص الدرس والخاتمة <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+        <div class="script-body">
+            <div class="script-text">خلصنا الدرس الخامس يا جماعة 🎓<span class="pause">[وقفة]</span></div>
+            <div class="formula-note">
+                <table class="symbol-table">
+                    <tr><th>المفهوم</th><th>التعريف / المعادلة</th><th>الوحدة</th></tr>
+                    <tr><td>القدرة (Power)</td><td>معدل الشغل = W ÷ t</td><td>وات (W)</td></tr>
+                    <tr><td>1 وات</td><td>1 جول ÷ ثانية</td><td>J/s</td></tr>
+                    <tr><td>1 حصان (hp)</td><td>≈ 745.7 وات</td><td>—</td></tr>
+                    <tr><td>متوسط القدرة</td><td>إجمالي الطاقة ÷ إجمالي الزمن</td><td>وات أو كيلوواط</td></tr>
+                    <tr><td>الطاقة (kWh)</td><td>القدرة (kW) × الزمن (h)</td><td>kWh</td></tr>
+                </table>
+            </div>
+            <div class="script-text" style="margin-top:1rem">
+                المهم تفتكروا: <span class="highlight">القدرة مش بس قد إيه شغل؟ — لكن في قد إيه وقت؟</span>
+                <br><br>
+                حلوا الكويز في الدرس! الدرس الجاي: أمواج الصوت والضوء!
+                <br>شكراً لمتابعتكم 🎓 — السلام عليكم.
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align:center;margin-top:2rem;color:#475569;font-size:.85rem;padding-bottom:2rem">
+        فيزياء — الصف الأول ثانوي (STEM) · الوحدة 3 · الدرس 5<br>بشمهندس أسامة زينهم
+    </div>
+</div>
+<script>
+    function tog(t){const b=t.nextElementSibling,i=t.querySelector('.toggle-icon i'),o=b.style.maxHeight&&b.style.maxHeight!=='0px';if(o){b.style.maxHeight='0px';b.style.overflow='hidden';i.className='fas fa-chevron-left'}else{b.style.maxHeight=b.scrollHeight+300+'px';b.style.overflow='visible';i.className='fas fa-chevron-down'}}
+    document.querySelectorAll('.script-body').forEach(b=>{b.style.maxHeight='none';b.style.overflow='visible'});
+    document.querySelectorAll('.toc a').forEach(l=>{l.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(l.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})});
+</script>
+</body>
+</html>

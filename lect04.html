@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics - Lesson 4: Energy & Energy Forms</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config={theme:{extend:{colors:{dark:{bg:'#020617',card:'#0F172A'}},fontFamily:{sans:['Inter','sans-serif'],arabic:['Cairo','sans-serif'],mono:['JetBrains Mono','monospace']}}}}
+    </script>
+    <style>
+        body{background-color:#020617;color:#E2E8F0;overflow-x:hidden;background-image:radial-gradient(circle at 20% 20%,rgba(234,179,8,0.06) 0%,transparent 25%),radial-gradient(circle at 80% 80%,rgba(34,197,94,0.05) 0%,transparent 25%)}
+        .glass-card{background:rgba(15,23,42,0.7);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.08);transition:all 0.3s cubic-bezier(0.4,0,0.2,1)}
+        .glass-card:hover{border-color:rgba(234,179,8,0.4);box-shadow:0 10px 40px -10px rgba(234,179,8,0.15);transform:translateY(-4px)}
+        .glass-header{background:rgba(2,6,23,0.85);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,0.05)}
+        .text-gradient{background:linear-gradient(135deg,#fbbf24 0%,#34d399 50%,#60a5fa 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .formula-box{background:rgba(234,179,8,0.05);border:1px solid rgba(234,179,8,0.2);border-radius:12px;padding:1.5rem;text-align:center;font-size:1.3rem;margin:1rem 0}
+        .answer-container{max-height:0;overflow:hidden;transition:max-height 0.4s ease-out,padding 0.3s ease;background:rgba(234,179,8,0.05);border-radius:0.5rem}
+        .answer-container.show{max-height:250px;padding:1rem;margin-top:1rem;border:1px solid rgba(234,179,8,0.3)}
+        .definition-box{background:rgba(234,179,8,0.05);border-left:4px solid #eab308;border-radius:0.5rem;padding:1rem 1.25rem;margin:1rem 0}
+        .definition-box strong{color:#fbbf24}
+        .note-box{background:rgba(251,191,36,0.05);border-left:4px solid #fbbf24;border-radius:0.5rem;padding:1rem 1.25rem;margin:1rem 0}
+        .note-box .note-title{color:#fbbf24;font-weight:700;font-size:.9rem;margin-bottom:.5rem}
+        .egyptian-expl{direction:rtl;text-align:right;font-family:'Cairo',sans-serif;background:rgba(251,191,36,0.04);border:1px solid rgba(251,191,36,0.15);border-right:4px solid #f59e0b;border-radius:.75rem;padding:1.25rem 1.5rem;margin:1.25rem 0;line-height:2;color:#cbd5e1}
+        .egyptian-expl .expl-header{color:#fbbf24;font-weight:700;font-size:.95rem;margin-bottom:.5rem;display:flex;align-items:center;gap:.5rem;justify-content:flex-end}
+        ul.custom-list{list-style:none;padding-left:0}
+        ul.custom-list li{position:relative;padding-left:1.5rem;margin-bottom:.5rem}
+        ul.custom-list li::before{content:"•";color:#eab308;font-weight:bold;display:inline-block;width:1em;margin-left:-1em}
+        .custom-table tr:nth-child(even){background-color:rgba(30,41,59,.3)}
+        .custom-table td,.custom-table th{padding:.75rem 1rem;border-bottom:1px solid rgba(255,255,255,.05)}
+        .custom-table th{text-transform:uppercase;letter-spacing:.05em;font-size:.75rem;color:#94A3B8}
+    </style>
+</head>
+<body class="antialiased font-sans flex flex-col min-h-screen">
+
+<nav class="fixed top-0 w-full z-50 glass-header">
+    <div class="container mx-auto px-6 h-16 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <a href="index.html" class="w-8 h-8 rounded bg-gradient-to-br from-yellow-500 to-green-600 flex items-center justify-center text-white font-bold text-xs shadow-lg">⚛</a>
+            <span class="font-bold text-lg text-slate-200">Lesson<span class="text-yellow-400">04</span></span>
+        </div>
+        <div class="hidden lg:flex gap-6 text-sm font-medium text-slate-400">
+            <a href="#intro" class="hover:text-yellow-400 transition">Intro</a>
+            <a href="#definition" class="hover:text-yellow-400 transition">Energy</a>
+            <a href="#forms" class="hover:text-yellow-400 transition">Forms</a>
+            <a href="#ke" class="hover:text-yellow-400 transition">KE</a>
+            <a href="#pe" class="hover:text-yellow-400 transition">PE</a>
+            <a href="#examples" class="hover:text-yellow-400 transition">Examples</a>
+            <a href="#quiz" class="px-5 py-2 rounded-full bg-yellow-600/10 text-yellow-400 border border-yellow-500/20 hover:bg-yellow-600 hover:text-white transition">Quiz</a>
+        </div>
+    </div>
+</nav>
+
+<main class="flex-grow pt-24">
+
+    <!-- HERO -->
+    <header id="intro" class="relative pb-16 px-6">
+        <div class="container mx-auto text-center" data-aos="fade-up">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700 text-xs font-mono text-yellow-400 mb-6">
+                <span class="w-2 h-2 rounded-full bg-yellow-500 animate-pulse"></span> UNIT 3 — LESSON 4
+            </div>
+            <h1 class="text-5xl md:text-7xl font-black mb-3 tracking-tight text-white">Energy &<br><span class="text-gradient">Energy Forms</span></h1>
+            <p class="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed mb-2">Unit Three: Motion and Force</p>
+            <p class="text-slate-400 mb-2">بشمهندس أسامة زينهم</p>
+            <a href="https://chat.whatsapp.com/FWUBrybJ3RO4MfUyX9MoPD?mode=gi_t" target="_blank" class="text-yellow-400 font-bold text-lg hover:underline">انضم لجروب الشرح واتساب</a>
+
+            <!-- Animated energy SVG -->
+            <div class="max-w-lg mx-auto mt-8">
+                <svg viewBox="0 0 500 130" class="w-full">
+                    <defs>
+                        <marker id="aY" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#fbbf24"/></marker>
+                    </defs>
+                    <!-- Ball rolling down slope -->
+                    <polygon points="50,100 350,100 350,40" fill="none" stroke="#334155" stroke-width="2"/>
+                    <text x="160" y="90" fill="#64748b" font-size="11" font-family="Inter">slope</text>
+                    <!-- PE label at top -->
+                    <circle cx="350" cy="40" r="12" fill="#eab308" opacity="0.9">
+                        <animate attributeName="cx" values="350;100;350" dur="4s" repeatCount="indefinite"/>
+                        <animate attributeName="cy" values="40;100;40" dur="4s" repeatCount="indefinite"/>
+                    </circle>
+                    <text x="370" y="35" fill="#fbbf24" font-size="11" font-weight="bold">PE = mgh</text>
+                    <text x="55" y="120" fill="#34d399" font-size="11" font-weight="bold">KE = ½mv²</text>
+                    <!-- Energy label -->
+                    <text x="250" y="20" text-anchor="middle" fill="#fbbf24" font-size="13" font-weight="bold" opacity="0.8">Total Energy = KE + PE = constant</text>
+                </svg>
+            </div>
+        </div>
+    </header>
+
+    <!-- INTRODUCTION (exact content.md text) -->
+    <section class="py-12 px-6">
+        <div class="container mx-auto max-w-4xl">
+            <div class="glass-card rounded-2xl p-8" data-aos="fade-up">
+                <h2 class="text-2xl font-bold text-white mb-4"><i class="fas fa-plug text-yellow-400"></i> Introduction</h2>
+                <p class="text-slate-300 leading-relaxed mb-3">We use energy in the form of firewood, fossil fuels and electricity to make life comfortable and convenient. At home we use electricity for our lights and fans, air-conditioner, water heater and room heaters, oven, microwave, washing machine and drier etc. We use petrol, diesel, natural gas for our cars, buses, autos etc. Large amount of energy is consumed in agriculture and industry.</p>
+                <p class="text-slate-300 leading-relaxed mb-3">In offices we use energy to run air conditioners, fans, lights, computers, copying machines etc.</p>
+                <p class="text-slate-300 leading-relaxed mb-3">Energy is essential to life and all living organisms. The sun, directly or indirectly, is the source of all the energy available on Earth. Our energy choices and decisions impact Earth's natural systems in ways we may not be aware of, so it is essential that we choose our energy sources carefully.</p>
+                <p class="text-slate-300">The true cost of energy is more than just dollars and cents; there are important economic, political, and social factors and consequences to consider as well.</p>
+                <div class="egyptian-expl">
+                    <div class="expl-header"><i class="fas fa-comment-dots"></i> شرح بالعربي</div>
+                    الطاقة جزء أساسي من حياتنا كلها — في البيت، الشغل، المواصلات، والزراعة.
+                    <br>• في البيت: كهرباء (إضاءة، تكييف، ميكروويف)
+                    <br>• المواصلات: بنزين، ديزل، غاز طبيعي
+                    <br>• الشمس هي المصدر الأساسي لكل الطاقة على الأرض.
+                    <br>الطاقة مش بس مسألة فلوس — ليها تأثير اقتصادي واجتماعي وبيئي كمان!
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ENERGY DEFINITION -->
+    <section id="definition" class="py-12 px-6">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center mb-10" data-aos="fade-up">
+                <span class="inline-block px-4 py-1 rounded-full bg-yellow-500/10 text-yellow-400 text-xs font-mono border border-yellow-500/20 mb-4">DEFINITION</span>
+                <h2 class="text-4xl font-black text-white">What is Energy?</h2>
+            </div>
+            <div class="glass-card rounded-2xl p-8" data-aos="fade-up">
+                <div class="definition-box">
+                    <strong>Energy: (It is the ability to do work)</strong>
+                    <br><br>
+                    The energy means that if a certain body is able to do work, this body possesses energy. Simply, <strong>the energy of a body is its capacity to do work.</strong>
+                    <br><br>
+                    Because of this, the unit of energy is the same as the unit of work which is the <strong>Joule</strong>.
+                </div>
+                <p class="text-slate-300 mt-3">Energy is a derived scalar quantity and its measuring unit is (kg·m²/s²) <strong class="text-yellow-400">(Joule)</strong>.</p>
+
+                <div class="egyptian-expl">
+                    <div class="expl-header"><i class="fas fa-comment-dots"></i> شرح بالعربي</div>
+                    <strong style="color:#fbbf24">الطاقة = القدرة على عمل شغل.</strong>
+                    <br>يعني لو جسم قادر يعمل شغل، نقول عنده طاقة. مثلاً:
+                    <br>• الماء فوق السد عنده طاقة كامنة — لو نزل يقدر يشغل تربينة (يعمل شغل). ✅
+                    <br>• عربية بتتحرك عندها طاقة حركية — لو اصطدمت تعمل تغيير (شغل). ✅
+                    <br>وحدة الطاقة = الجول (J) — نفس وحدة الشغل!
+                    <br>الطاقة كمية <strong style="color:#fbbf24">قياسية (Scalar)</strong> — ليها مقدار بس ومالهاش اتجاه.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ENERGY FORMS -->
+    <section id="forms" class="py-12 px-6">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center mb-10" data-aos="fade-up">
+                <span class="inline-block px-4 py-1 rounded-full bg-yellow-500/10 text-yellow-400 text-xs font-mono border border-yellow-500/20 mb-4">FORMS</span>
+                <h2 class="text-3xl font-black text-white">Forms of Energy</h2>
+                <p class="text-slate-400 mt-2">There are many different forms of energy, including:</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6" data-aos="fade-up">
+                <div class="glass-card rounded-xl p-5 text-center border-yellow-500/20"><div class="text-3xl mb-2">🔥</div><p class="text-yellow-400 font-bold text-sm">Heat (Thermal)</p><p class="text-slate-400 text-xs mt-1">Melting ice, heating soup</p></div>
+                <div class="glass-card rounded-xl p-5 text-center border-yellow-500/20"><div class="text-3xl mb-2">💡</div><p class="text-yellow-400 font-bold text-sm">Light</p><p class="text-slate-400 text-xs mt-1">Visible light, radiation</p></div>
+                <div class="glass-card rounded-xl p-5 text-center border-yellow-500/20"><div class="text-3xl mb-2">⚙️</div><p class="text-yellow-400 font-bold text-sm">Mechanical</p><p class="text-slate-400 text-xs mt-1">Leaping frog, moving car</p></div>
+                <div class="glass-card rounded-xl p-5 text-center border-yellow-500/20"><div class="text-3xl mb-2">⚡</div><p class="text-yellow-400 font-bold text-sm">Electrical</p><p class="text-slate-400 text-xs mt-1">Lightning, power lines</p></div>
+                <div class="glass-card rounded-xl p-5 text-center border-yellow-500/20"><div class="text-3xl mb-2">🧪</div><p class="text-yellow-400 font-bold text-sm">Chemical</p><p class="text-slate-400 text-xs mt-1">Food, striking a match</p></div>
+                <div class="glass-card rounded-xl p-5 text-center border-yellow-500/20"><div class="text-3xl mb-2">🌍</div><p class="text-yellow-400 font-bold text-sm">Gravitational</p><p class="text-slate-400 text-xs mt-1">Object above ground</p></div>
+                <div class="glass-card rounded-xl p-5 text-center border-yellow-500/20"><div class="text-3xl mb-2">☢️</div><p class="text-yellow-400 font-bold text-sm">Nuclear</p><p class="text-slate-400 text-xs mt-1">Fission (Earth's core), Fusion (Sun)</p></div>
+                <div class="glass-card rounded-xl p-5 text-center border-yellow-500/20"><div class="text-3xl mb-2">📡</div><p class="text-yellow-400 font-bold text-sm">Electromagnetic</p><p class="text-slate-400 text-xs mt-1">Radio waves, X-rays, IR, UV</p></div>
+            </div>
+            <div class="glass-card rounded-2xl p-6" data-aos="fade-up">
+                <p class="text-slate-300 text-sm">In the following section we are going to discuss two forms of energy which are <strong class="text-yellow-400">kinetic energy</strong> and <strong class="text-yellow-400">potential energy</strong>.</p>
+                <div class="egyptian-expl">
+                    <div class="expl-header"><i class="fas fa-comment-dots"></i> شرح بالعربي</div>
+                    فيه أشكال كتير للطاقة — بس هنركز دلوقتي على نوعين:
+                    <br>• <strong style="color:#fbbf24">طاقة الحركة (Kinetic Energy)</strong> — الطاقة اللي الجسم عندها بسبب حركته
+                    <br>• <strong style="color:#34d399">طاقة الوضع (Potential Energy)</strong> — الطاقة اللي الجسم عندها بسبب موضعه أو حالته
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- KINETIC ENERGY -->
+    <section id="ke" class="py-12 px-6">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center mb-10" data-aos="fade-up">
+                <span class="inline-block px-4 py-1 rounded-full bg-green-500/10 text-green-400 text-xs font-mono border border-green-500/20 mb-4">FIRST</span>
+                <h2 class="text-3xl font-black text-white">Kinetic Energy (K.E)</h2>
+            </div>
+            <div class="glass-card rounded-2xl p-8" data-aos="fade-up">
+                <p class="text-slate-300 leading-relaxed mb-4">When an object is acted upon by a force and the object starts to move by the impact of this force, we can say that this object has energy called kinetic energy (K.E).</p>
+                <div class="definition-box">
+                    <strong>Kinetic Energy:</strong> The energy possessed by the object due to its motion.
+                </div>
+                <p class="text-slate-300 text-sm mb-1">Generally, kinetic energy of an object moving at velocity (v) and its mass (m) is calculated by the relation:</p>
+                <div class="formula-box">$$ K.E = \frac{1}{2} m v^2 $$</div>
+                <p class="text-slate-300 text-sm">From the previous relation, we conclude that the kinetic energy is <strong class="text-yellow-400">directly proportional to the object mass</strong> and <strong class="text-yellow-400">the square of the object speed</strong>.</p>
+
+                <!-- KE SVG diagram -->
+                <svg viewBox="0 0 480 130" class="w-full my-4">
+                    <rect width="480" height="130" fill="#0f172a" rx="10"/>
+                    <line x1="20" y1="100" x2="460" y2="100" stroke="#334155" stroke-width="1.5"/>
+                    <!-- Slow car -->
+                    <rect x="40" y="68" width="60" height="32" rx="5" fill="#1e293b" stroke="#fbbf24" stroke-width="2"/>
+                    <circle cx="55" cy="102" r="8" fill="#0f172a" stroke="#fbbf24" stroke-width="1.5"/>
+                    <circle cx="88" cy="102" r="8" fill="#0f172a" stroke="#fbbf24" stroke-width="1.5"/>
+                    <text x="70" y="88" text-anchor="middle" fill="#fbbf24" font-size="9">v = 30 km/h</text>
+                    <text x="70" y="60" text-anchor="middle" fill="#94a3b8" font-size="9">KE = ½mv²</text>
+                    <!-- Arrow -->
+                    <line x1="110" y1="84" x2="145" y2="84" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#aY)"/>
+                    <!-- Fast car -->
+                    <rect x="250" y="60" width="80" height="40" rx="5" fill="#1e293b" stroke="#ef4444" stroke-width="2"/>
+                    <circle cx="268" cy="102" r="9" fill="#0f172a" stroke="#ef4444" stroke-width="1.5"/>
+                    <circle cx="315" cy="102" r="9" fill="#0f172a" stroke="#ef4444" stroke-width="1.5"/>
+                    <text x="290" y="84" text-anchor="middle" fill="#f87171" font-size="9">v = 60 km/h</text>
+                    <text x="290" y="52" text-anchor="middle" fill="#94a3b8" font-size="9">KE = 4 × (½mv²)</text>
+                    <!-- Double arrow -->
+                    <line x1="340" y1="80" x2="420" y2="80" stroke="#ef4444" stroke-width="2.5" marker-end="url(#aY)"/>
+                    <text x="380" y="70" text-anchor="middle" fill="#f87171" font-size="9">4× more KE!</text>
+                    <text x="240" y="120" text-anchor="middle" fill="#64748b" font-size="9">Double speed → 4× kinetic energy (v² effect)</text>
+                </svg>
+
+                <div class="note-box">
+                    <div class="note-title">📝 Note</div>
+                    <p class="text-slate-300 text-sm">The work done (the energy required to move the object) equals the kinetic energy. The work done is directly proportional to the square of the object speed. If we'd like to stop a car moving at velocity (60 km/h) by applying the brakes, the car would slide for a distance before stopping. <strong class="text-yellow-400">This distance is four times longer than that needed if the car moves at velocity (30 km/h).</strong></p>
+                </div>
+
+                <div class="egyptian-expl">
+                    <div class="expl-header"><i class="fas fa-comment-dots"></i> شرح بالعربي</div>
+                    <strong style="color:#fbbf24">طاقة الحركة (KE)</strong> = الطاقة اللي عند الجسم بسبب إنه بيتحرك.
+                    <br><br>
+                    المعادلة: <strong>KE = ½ × m × v²</strong>
+                    <br><br>
+                    المهم جداً: الطاقة بتتناسب مع <strong style="color:#f87171">مربع السرعة!</strong>
+                    <br>• لو السرعة اتضاعفت (×2) → الطاقة بتتضاعف 4 مرات (×4)!
+                    <br>• لو السرعة اتضاعفت 3 مرات → الطاقة بتبقى 9 أضعاف!
+                    <br><br>
+                    <strong style="color:#fbbf24">التطبيق العملي:</strong> عربية بتمشي 60 كم/ساعة محتاجة مسافة فرملة <strong>4 أضعاف</strong> العربية اللي بتمشي 30 كم/ساعة. عشان كده السرعة خطيرة على الطريق!
+                </div>
+
+                <!-- KE Symbol Table -->
+                <table class="custom-table w-full mt-4 text-sm">
+                    <thead><tr><th>Symbol</th><th>Name</th><th>Unit</th><th>Notes</th></tr></thead>
+                    <tbody>
+                        <tr><td class="text-yellow-400 font-bold">K.E</td><td>Kinetic Energy</td><td>Joule (J)</td><td>Always positive (≥ 0)</td></tr>
+                        <tr><td class="text-green-400 font-bold">m</td><td>Mass</td><td>kg</td><td>Mass of the moving object</td></tr>
+                        <tr><td class="text-red-400 font-bold">v</td><td>Velocity (speed)</td><td>m/s</td><td>Must convert km/h → m/s (÷ 3.6)</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- POTENTIAL ENERGY -->
+    <section id="pe" class="py-12 px-6">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center mb-10" data-aos="fade-up">
+                <span class="inline-block px-4 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs font-mono border border-blue-500/20 mb-4">SECOND</span>
+                <h2 class="text-3xl font-black text-white">Potential Energy (P.E)</h2>
+            </div>
+            <div class="glass-card rounded-2xl p-8" data-aos="fade-up">
+                <p class="text-slate-300 leading-relaxed mb-3">Energy can be stored in objects because of their new positions. This energy is called potential energy (PE).</p>
+                <div class="definition-box">
+                    <strong>Potential Energy:</strong> The energy possessed by the object due to its position or state.
+                </div>
+
+                <h3 class="text-base font-bold text-white my-4">Two Types of Potential Energy:</h3>
+                <div class="grid md:grid-cols-2 gap-4 mb-4">
+                    <div class="bg-slate-800/40 rounded-xl p-5 border border-blue-500/20">
+                        <p class="text-blue-400 font-bold mb-2">🌀 Elastic Potential Energy</p>
+                        <p class="text-slate-300 text-sm">Compression or elongation of a spring makes its particles have new positions and hence extra potential energy known as <strong>elastic potential energy</strong>. The spring then does work to release this energy, restoring its original position.</p>
+                    </div>
+                    <div class="bg-slate-800/40 rounded-xl p-5 border border-green-500/20">
+                        <p class="text-green-400 font-bold mb-2">🌍 Gravitational Potential Energy</p>
+                        <p class="text-slate-300 text-sm">When an object is raised higher above the ground, it acquires potential energy known as <strong>gravitational potential energy</strong>. This energy is related to the object position relative to the surface of Earth.</p>
+                    </div>
+                </div>
+
+                <p class="text-slate-300 text-sm mb-2">Generally, <strong>Potential energy</strong> of an object of its mass (m) at height (h) from the ground:</p>
+                <div class="formula-box">$$ P.E = m \times g \times h $$</div>
+                <p class="text-slate-300 text-sm">From the previous relation, we conclude that the potential energy is <strong class="text-yellow-400">directly proportional to the object mass</strong> and the <strong class="text-yellow-400">height from the ground</strong>.</p>
+
+                <!-- PE SVG -->
+                <svg viewBox="0 0 300 200" class="w-full max-w-xs mx-auto my-4">
+                    <rect width="300" height="200" fill="#0f172a" rx="8"/>
+                    <line x1="30" y1="170" x2="270" y2="170" stroke="#334155" stroke-width="2"/>
+                    <text x="150" y="187" text-anchor="middle" fill="#64748b" font-size="10">Earth's surface (PE = 0)</text>
+                    <!-- Object at height -->
+                    <rect x="130" y="60" width="40" height="30" rx="4" fill="#1e293b" stroke="#fbbf24" stroke-width="2"/>
+                    <text x="150" y="79" text-anchor="middle" fill="#fbbf24" font-size="10">m</text>
+                    <!-- Height arrow -->
+                    <line x1="90" y1="170" x2="90" y2="60" stroke="#34d399" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#aG)"/>
+                    <text x="75" y="118" fill="#34d399" font-size="10">h</text>
+                    <!-- Gravity arrow -->
+                    <line x1="175" y1="90" x2="175" y2="140" stroke="#ef4444" stroke-width="2" marker-end="url(#aR)"/>
+                    <text x="185" y="120" fill="#f87171" font-size="9">mg</text>
+                    <!-- Labels -->
+                    <text x="150" y="45" text-anchor="middle" fill="#fbbf24" font-size="10" font-weight="bold">PE = mgh</text>
+                    <defs>
+                        <marker id="aG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#34d399"/></marker>
+                        <marker id="aR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#ef4444"/></marker>
+                    </defs>
+                </svg>
+
+                <div class="note-box">
+                    <div class="note-title">📝 Note</div>
+                    <p class="text-slate-300 text-sm">The work done to lift the object to a certain point = potential energy of this object at that point.</p>
+                    <p class="text-slate-300 text-sm mt-1">i.e. <strong class="text-yellow-400">W = PE = mgh</strong> when lifting an object to height h.</p>
+                </div>
+
+                <div class="egyptian-expl">
+                    <div class="expl-header"><i class="fas fa-comment-dots"></i> شرح بالعربي</div>
+                    <strong style="color:#fbbf24">طاقة الوضع (PE)</strong> = الطاقة اللي عند الجسم بسبب موضعه أو حالته.
+                    <br><br>
+                    نوعين أساسيين:
+                    <br>🌀 <strong style="color:#60a5fa">طاقة المرونة:</strong> لما زنبرك (spring) يتضغط أو يتمد — بيخزّن طاقة وضع → لما يترخّص يطلع الطاقة ويرجع لشكله الأصلي.
+                    <br>🌍 <strong style="color:#34d399">طاقة الجاذبية:</strong> لما ترفع جسم لفوق — بيخزّن طاقة. كل ما ارتفع أكتر، الطاقة أكبر.
+                    <br><br>
+                    المعادلة: <strong>PE = m × g × h</strong>
+                    <br>• m = الكتلة (kg)
+                    <br>• g = عجلة الجاذبية (10 م/ث²)
+                    <br>• h = الارتفاع عن الأرض (m)
+                    <br><br>
+                    <strong style="color:#fbbf24">مهم:</strong> الشغل المبذول لرفع الجسم = طاقة الوضع اللي اكتسبها الجسم.
+                </div>
+
+                <table class="custom-table w-full mt-4 text-sm">
+                    <thead><tr><th>Symbol</th><th>Name</th><th>Unit</th><th>Notes</th></tr></thead>
+                    <tbody>
+                        <tr><td class="text-yellow-400 font-bold">P.E</td><td>Potential Energy</td><td>Joule (J)</td><td>Depends on position</td></tr>
+                        <tr><td class="text-green-400 font-bold">m</td><td>Mass</td><td>kg</td><td>Mass of the object</td></tr>
+                        <tr><td class="text-blue-400 font-bold">g</td><td>Gravitational acceleration</td><td>m/s²</td><td>g = 10 m/s² (or 9.8)</td></tr>
+                        <tr><td class="text-red-400 font-bold">h</td><td>Height</td><td>meter (m)</td><td>Above reference level (ground)</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOLVED EXAMPLES -->
+    <section id="examples" class="py-12 px-6">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center mb-10" data-aos="fade-up">
+                <span class="inline-block px-4 py-1 rounded-full bg-amber-500/10 text-amber-400 text-xs font-mono border border-amber-500/20 mb-4">SOLVED EXAMPLES</span>
+                <h2 class="text-3xl font-black text-white">Step-by-Step Solutions</h2>
+            </div>
+
+            <!-- KE Example -->
+            <div class="glass-card rounded-2xl p-8 mb-6" data-aos="fade-up">
+                <h3 class="text-lg font-bold text-amber-400 mb-4"><i class="fas fa-pen"></i> Example 1 — Kinetic Energy of a Car</h3>
+                <p class="text-slate-300 mb-4">Find the kinetic energy of a car of mass <strong class="text-yellow-400">2000 kg</strong> traveling at <strong class="text-yellow-400">72 km/h</strong>.</p>
+                <div class="bg-slate-800/40 rounded-xl p-5 border border-slate-700 text-sm text-slate-200 space-y-2">
+                    <p><strong class="text-amber-400">Given:</strong> m = 2000 kg, v = 72 km/h</p>
+                    <p><strong class="text-amber-400">Step 1 — Convert velocity to m/s:</strong></p>
+                    <p>$$v = 72 \times \frac{1000}{60 \times 60} = 72 \times \frac{1}{3.6} = 20 \text{ m/s}$$</p>
+                    <p><strong class="text-amber-400">Step 2 — Apply K.E formula:</strong></p>
+                    <p>$$K.E = \frac{1}{2} m v^2 = \frac{1}{2} \times 2000 \times (20)^2 = \frac{1}{2} \times 2000 \times 400 = \boxed{4 \times 10^5 \text{ J} = 400{,}000 \text{ J}}$$</p>
+                </div>
+                <div class="egyptian-expl">
+                    <div class="expl-header"><i class="fas fa-comment-dots"></i> شرح بالعربي</div>
+                    <strong style="color:#fbbf24">الخطوة الأولى مهمة جداً:</strong> تحويل السرعة من كم/ساعة لمتر/ثانية!
+                    <br>72 كم/ساعة ÷ 3.6 = 20 متر/ثانية
+                    <br><br>
+                    بعدين: KE = ½ × 2000 × (20)² = 1000 × 400 = <strong style="color:#fbbf24">400,000 جول = 4 × 10⁵ جول</strong>
+                    <br><strong style="color:#f87171">دي طاقة ضخمة!</strong> عشان كده الحوادث بتكون خطيرة.
+                </div>
+            </div>
+
+            <!-- PE Example -->
+            <div class="glass-card rounded-2xl p-8" data-aos="fade-up">
+                <h3 class="text-lg font-bold text-amber-400 mb-4"><i class="fas fa-pen"></i> Example 2 — Potential Energy (Work Done Lifting)</h3>
+                <p class="text-slate-300 mb-4">Calculate the work done to lift an object of mass <strong class="text-yellow-400">50 kg</strong> to <strong class="text-yellow-400">2.2 m</strong> high above the ground. (g = 10 m/s²)</p>
+                <div class="bg-slate-800/40 rounded-xl p-5 border border-slate-700 text-sm text-slate-200 space-y-2">
+                    <p><strong class="text-amber-400">Given:</strong> m = 50 kg, h = 2.2 m, g = 10 m/s²</p>
+                    <p><strong class="text-amber-400">Note:</strong> Work done to lift = PE gained by the object.</p>
+                    <p>$$P.E = m \times g \times h = 50 \times 10 \times 2.2 = \boxed{1100 \text{ J}}$$</p>
+                </div>
+                <div class="egyptian-expl">
+                    <div class="expl-header"><i class="fas fa-comment-dots"></i> شرح بالعربي</div>
+                    الشغل المبذول في رفع الجسم = طاقة الوضع اللي الجسم اكتسبها.
+                    <br>PE = 50 × 10 × 2.2 = <strong style="color:#fbbf24">1100 جول</strong>
+                    <br><br>
+                    يعني محتاجين 1100 جول عشان نرفع جسم 50 كيلو ارتفاع 2.2 متر — ده نفس الشغل اللي هيعمله الجسم لما ينزل من الارتفاع ده.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUIZ -->
+    <section id="quiz" class="py-16 px-6">
+        <div class="container mx-auto max-w-5xl">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <span class="inline-block px-4 py-1 rounded-full bg-yellow-500/10 text-yellow-400 text-xs font-mono border border-yellow-500/20 mb-4">ASSESSMENT</span>
+                <h2 class="text-4xl font-black text-white mb-2">Test Your Knowledge</h2>
+                <p class="text-slate-400">24 questions — conceptual + calculation</p>
+            </div>
+            <div id="quiz-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+        </div>
+    </section>
+</main>
+
+<footer class="border-t border-slate-800 py-8 text-center text-sm text-slate-500">
+    <p>Physics Year 1 (STEM) © 2026 — Prepared by <span class="text-yellow-400">Osama Zinhom</span></p>
+    <p class="mt-2"><a href="lect03.html" class="text-purple-400 hover:underline">← Lesson 3</a> · <a href="index.html" class="text-slate-400 hover:text-white">Home</a> · <a href="lect05.html" class="text-blue-400 hover:underline">Lesson 5 →</a></p>
+</footer>
+
+<script>
+AOS.init({duration:600,once:true,offset:60});
+const questions=[
+    {text:"Energy is defined as:",ans:1,expl:"Energy is the ability to do work.",opts:["The force applied to an object","The ability to do work","The rate of doing work","The product of force and time"]},
+    {text:"The SI unit of energy is:",ans:2,expl:"Since energy = capacity to do work, its unit is the same as work: Joule.",opts:["Watt","Newton","Joule (J)","Pascal"]},
+    {text:"Kinetic energy is:",ans:0,expl:"KE = energy due to motion.",opts:["Energy due to motion","Energy due to position","Energy due to temperature","Energy due to electric charge"]},
+    {text:"Potential energy is:",ans:3,expl:"PE = energy due to position or state.",opts:["Energy due to motion","Energy due to temperature","Energy due to electric charge","Energy due to position or state"]},
+    {text:"The formula for kinetic energy is:",ans:1,expl:"KE = ½mv² — half the mass times the square of velocity.",opts:["KE = mv","KE = ½mv²","KE = mgh","KE = mv²"]},
+    {text:"The formula for gravitational potential energy is:",ans:2,expl:"PE = mgh — mass × gravity × height.",opts:["PE = ½mv²","PE = mgh²","PE = mgh","PE = mg/h"]},
+    {text:"If a car's speed doubles, its kinetic energy:",ans:2,expl:"KE ∝ v². Double speed → 4× KE.",opts:["Doubles","Triples","Quadruples (×4)","Stays the same"]},
+    {text:"A stationary object has:",ans:1,expl:"v = 0 → KE = ½m(0)² = 0. But it can still have PE if above ground.",opts:["Kinetic energy","Zero kinetic energy","Negative kinetic energy","Maximum kinetic energy"]},
+    {text:"Which is NOT a form of energy?",ans:3,expl:"Momentum is not a form of energy — it's mass × velocity.",opts:["Thermal energy","Chemical energy","Nuclear energy","Momentum"]},
+    {text:"Work done to lift an object equals:",ans:0,expl:"Work against gravity = mgh = PE gained.",opts:["Potential energy gained (mgh)","Kinetic energy lost","Electrical energy","Power × velocity"]},
+    {text:"Energy is a ___ quantity:",ans:1,expl:"Like work, energy is scalar — magnitude only, no direction.",opts:["Vector","Scalar","Base","Dimensionless"]},
+    {text:"The source of most energy on Earth is:",ans:2,expl:"The sun is the direct or indirect source of almost all Earth's energy.",opts:["The Moon","Fossil fuels","The Sun","Earthquakes"]},
+    // Calculations
+    {text:"🔢 m=4 kg, v=10 m/s. Find KE.",ans:1,expl:"KE = ½×4×100 = 200 J.",opts:["100 J","200 J","400 J","40 J"]},
+    {text:"🔢 m=2000 kg, v=72 km/h (20 m/s). Find KE.",ans:2,expl:"KE = ½×2000×400 = 400,000 J = 4×10⁵ J.",opts:["200,000 J","2×10⁵ J","4×10⁵ J","8×10⁵ J"]},
+    {text:"🔢 m=50 kg, g=10, h=2.2 m. Find PE.",ans:0,expl:"PE = 50×10×2.2 = 1100 J.",opts:["1100 J","110 J","550 J","2200 J"]},
+    {text:"🔢 m=10 kg, g=10, h=5 m. Find PE.",ans:3,expl:"PE = 10×10×5 = 500 J.",opts:["50 J","100 J","250 J","500 J"]},
+    {text:"🔢 m=5 kg, v=4 m/s. Find KE.",ans:1,expl:"KE = ½×5×16 = 40 J.",opts:["20 J","40 J","80 J","100 J"]},
+    {text:"🔢 A 1 kg ball at h=20 m. Find PE. (g=10)",ans:2,expl:"PE = 1×10×20 = 200 J.",opts:["20 J","100 J","200 J","2000 J"]},
+    {text:"🔢 KE = 450 J, m = 2 kg. Find v.",ans:0,expl:"v = √(2KE/m) = √(900/2) = √450 ≈ 21.2 m/s. Wait — 450 = ½×2×v² → v²=450 → v≈21.2. Closest: v²=450.",opts:["v² = 450 (v ≈ 21.2 m/s)","v = 15 m/s","v = 10 m/s","v = 225 m/s"]},
+    {text:"🔢 m=3 kg falls from h=10 m. Find PE at top. (g=10)",ans:1,expl:"PE = 3×10×10 = 300 J.",opts:["30 J","300 J","150 J","600 J"]},
+    {text:"🔢 v = 36 km/h in m/s is:",ans:2,expl:"36 ÷ 3.6 = 10 m/s.",opts:["36 m/s","3.6 m/s","10 m/s","100 m/s"]},
+    {text:"🔢 m=1500 kg, v=20 m/s. Find KE.",ans:3,expl:"KE = ½×1500×400 = 300,000 J = 3×10⁵ J.",opts:["1.5×10⁵ J","6×10⁵ J","7.5×10⁴ J","3×10⁵ J"]},
+    {text:"🔢 PE=980 J, m=10 kg, g=9.8. Find h.",ans:0,expl:"h = PE/(mg) = 980/(10×9.8) = 10 m.",opts:["10 m","5 m","100 m","1 m"]},
+    {text:"🔢 A 200g ball (0.2 kg) at h=5 m. Find PE. (g=10)",ans:1,expl:"PE = 0.2×10×5 = 10 J.",opts:["1 J","10 J","100 J","0.1 J"]}
+];
+const grid=document.getElementById('quiz-grid');
+questions.forEach((q,i)=>{
+    const c=document.createElement('div');
+    c.className="glass-card p-6 rounded-xl hover:bg-slate-800/80 transition flex flex-col";
+    c.innerHTML=`<div class="flex justify-between items-start mb-3"><span class="text-sm font-mono text-yellow-500">Q${i+1}</span></div><p class="text-base font-semibold text-white mb-5">${q.text}</p><div class="grid gap-2 mb-4 text-sm text-slate-300">${q.opts.map((o,j)=>`<div onclick="chk(this,${j},${q.ans})" class="p-3 rounded bg-slate-900/50 border border-slate-700 hover:bg-slate-800 cursor-pointer transition">${String.fromCharCode(65+j)}) ${o}</div>`).join('')}</div><div class="mt-auto"><button onclick="this.nextElementSibling.classList.toggle('show')" class="text-xs text-slate-500 hover:text-yellow-400 font-bold uppercase tracking-wider cursor-pointer"><i class="fas fa-eye mr-1"></i>Show Answer</button><div class="answer-container"><p class="text-yellow-400 font-bold mb-1">Correct: ${String.fromCharCode(65+q.ans)}</p><p class="text-xs text-slate-300">${q.expl}</p></div></div>`;
+    grid.appendChild(c);
+});
+function chk(el,sel,cor){const p=el.parentElement;Array.from(p.children).forEach(c=>{c.classList.remove('bg-emerald-500/20','border-emerald-500','bg-red-500/20','border-red-500');c.classList.add('bg-slate-900/50','border-slate-700');});if(sel===cor){el.classList.add('bg-emerald-500/20','border-emerald-500');}else{el.classList.add('bg-red-500/20','border-red-500');}el.classList.remove('bg-slate-900/50','border-slate-700');}
+</script>
+</body>
+</html>

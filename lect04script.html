@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سكريبت الشرح - درس 4: الطاقة وأشكالها</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <style>
+        *{box-sizing:border-box}
+        body{font-family:'Cairo',sans-serif;background:linear-gradient(135deg,#0a0a1a,#14100a,#0a1200);min-height:100vh;margin:0;padding:2rem 1rem;color:#e0e0e0;direction:rtl}
+        .container{max-width:920px;margin:0 auto}
+        h1{text-align:center;color:#fff;font-size:2rem;margin-bottom:.5rem;text-shadow:0 0 30px rgba(234,179,8,.4)}
+        .subtitle{text-align:center;color:#64748b;font-size:.95rem;margin-bottom:2.5rem}
+        .section{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:1.5rem 2rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);transition:all .3s ease}
+        .section:hover{border-color:rgba(234,179,8,.35);box-shadow:0 8px 32px rgba(234,179,8,.1);transform:translateY(-2px)}
+        .section-title{font-size:1.2rem;font-weight:700;color:#fbbf24;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;cursor:pointer;user-select:none}
+        .section-title .toggle-icon{margin-right:auto;margin-left:0;color:#64748b;font-size:.85rem;transition:transform .3s}
+        .script-body{overflow:hidden;transition:max-height .4s ease}
+        .script-text{font-size:1.12rem;line-height:2.2;color:#f0f4f8;background:rgba(0,0,0,.25);padding:1.2rem 1.5rem;border-radius:10px;border-right:4px solid #eab308}
+        .note{font-size:.92rem;color:#fbbf24;margin-top:1rem;padding:.6rem 1.1rem;background:rgba(251,191,36,.07);border-radius:8px;border-right:3px solid #fbbf24;line-height:1.8}
+        .note::before{content:"📌 ملاحظة: ";font-weight:bold}
+        .law-box{font-size:.95rem;color:#ede9fe;margin-top:1rem;padding:.8rem 1.2rem;background:rgba(234,179,8,.08);border-radius:8px;border-right:3px solid #eab308;line-height:1.9}
+        .law-box::before{content:"📖 التعريف: ";font-weight:bold;color:#fbbf24}
+        .formula-note{font-size:.95rem;color:#d1fae5;margin-top:1rem;padding:.8rem 1.2rem;background:rgba(16,185,129,.07);border-radius:8px;border-right:3px solid #10b981;line-height:1.9}
+        .formula-note::before{content:"🔢 المعادلة: ";font-weight:bold;color:#34d399}
+        .example-box{font-size:.95rem;color:#fde68a;margin-top:1rem;padding:.8rem 1.2rem;background:rgba(245,158,11,.07);border-radius:8px;border-right:3px solid #f59e0b;line-height:1.9}
+        .solved-box{font-size:.95rem;color:#c4b5fd;margin-top:1rem;padding:.8rem 1.2rem;background:rgba(139,92,246,.07);border-radius:8px;border-right:3px solid #8b5cf6;line-height:1.9}
+        .solved-box::before{content:"🖊️ حل: ";font-weight:bold;color:#a78bfa}
+        .highlight{color:#fbbf24;font-weight:700}
+        .hl-green{color:#34d399;font-weight:700}
+        .hl-amber{color:#fbbf24;font-weight:700}
+        .hl-red{color:#f87171;font-weight:700}
+        .hl-blue{color:#60a5fa;font-weight:700}
+        .english{direction:ltr;display:inline-block;font-family:'Segoe UI',sans-serif;color:#c4b5fd;font-style:italic}
+        .pause{color:#fb923c;font-size:.82rem;display:block;margin:.5rem 0;font-style:italic}
+        .symbol-table{width:100%;border-collapse:collapse;margin-top:.8rem;font-size:.9rem}
+        .symbol-table th{background:rgba(234,179,8,.15);color:#fbbf24;padding:.6rem 1rem;text-align:right;border-bottom:1px solid rgba(234,179,8,.2)}
+        .symbol-table td{padding:.55rem 1rem;border-bottom:1px solid rgba(255,255,255,.05);line-height:1.6}
+        .symbol-table tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+        a.back-btn{display:inline-flex;align-items:center;gap:.5rem;margin-bottom:2rem;padding:.7rem 1.4rem;background:rgba(234,179,8,.1);border:1px solid rgba(234,179,8,.3);border-radius:8px;color:#fbbf24;text-decoration:none;font-size:.9rem;transition:all .3s}
+        a.back-btn:hover{background:rgba(234,179,8,.25);color:#fff}
+        .section-divider{text-align:center;color:#475569;font-size:.8rem;margin:1rem 0 1.5rem;letter-spacing:.1em}
+        .section-divider::before,.section-divider::after{content:" ── "}
+        .step-list{padding-right:1.2rem;margin:.5rem 0}
+        .step-list li{margin-bottom:.5rem;line-height:1.9}
+        .toc{background:rgba(15,23,42,.6);border:1px solid rgba(234,179,8,.2);border-radius:12px;padding:1.2rem 1.8rem;margin-bottom:2rem}
+        .toc h3{color:#fbbf24;font-size:1rem;margin-bottom:.8rem}
+        .toc a{display:block;color:#94a3b8;text-decoration:none;padding:.25rem 0;font-size:.9rem;transition:color .2s}
+        .toc a:hover{color:#fbbf24}
+        .toc a::before{content:"• ";color:#eab308}
+        .form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.8rem;margin-top:.8rem}
+        .form-item{background:rgba(234,179,8,.06);border:1px solid rgba(234,179,8,.15);border-radius:8px;padding:.6rem .9rem;font-size:.88rem;line-height:1.7}
+        @media(max-width:600px){.form-grid{grid-template-columns:1fr}}
+    </style>
+</head>
+<body>
+<div class="container">
+    <a href="lect04.html" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع للدرس</a>
+    <a href="index.html" class="back-btn" style="margin-right:.75rem"><i class="fas fa-home"></i> الصفحة الرئيسية</a>
+
+    <h1>📜 سكريبت الشرح — الدرس الرابع</h1>
+    <p class="subtitle">الطاقة وأشكالها (Energy & Energy Forms) · الوحدة الثالثة · بشمهندس أسامة زينهم</p>
+
+    <div class="toc">
+        <h3>📋 محتويات الدرس</h3>
+        <a href="#s1">المقدمة — الطاقة في حياتنا</a>
+        <a href="#s2">تعريف الطاقة — لماذا وحدتها الجول؟</a>
+        <a href="#s3">أشكال الطاقة الثمانية</a>
+        <a href="#s4">أولاً: طاقة الحركة (KE) — المعادلة والرموز</a>
+        <a href="#s5">تأثير السرعة على KE — مربع السرعة!</a>
+        <a href="#s6">ثانياً: طاقة الوضع (PE) — الجاذبية والمرونة</a>
+        <a href="#s7">مثال 1 — طاقة حركة السيارة (72 كم/ساعة)</a>
+        <a href="#s8">مثال 2 — الشغل المبذول لرفع جسم</a>
+        <a href="#s9">الملخص والخاتمة</a>
+    </div>
+
+    <!-- S1: INTRO -->
+    <div class="section" id="s1">
+        <div class="section-title" onclick="tog(this)">المقدمة — الطاقة في حياتنا اليومية <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+        <div class="script-body">
+            <div class="script-text">
+                السلام عليكم ورحمة الله وبركاته 🌟
+                <span class="pause">[وقفة — ابتسامة]</span>
+                أهلاً بيكم في الدرس الرابع — <span class="highlight">الطاقة وأشكالها</span>.
+                <br><br>
+                قبل ما نبدأ التعريفات، فكّر معايا: إيه أهم حاجة بتشغّل حياتنا كلها؟
+                <span class="pause">[وقفة — خلّي الطلاب يفكروا]</span>
+                الجواب: <span class="hl-amber">الطاقة!</span>
+                <br><br>
+                في البيت: <span class="highlight">كهرباء</span> (إضاءة، تكييف، سخان مياه، ميكروويف، غسالة).
+                <br>المواصلات: <span class="hl-green">بنزين، ديزل، غاز طبيعي</span>.
+                <br>في الزراعة والصناعة: كميات ضخمة من الطاقة.
+                <br>في المكاتب: تكييف، كمبيوتر، آلات تصوير.
+                <span class="pause">[وقفة]</span>
+                الطاقة <strong>أساسية للحياة</strong> — حتى جسمك بيحتاج طاقة من الأكل عشان يشتغل!
+                <br>الشمس، بشكل مباشر أو غير مباشر، هي <strong>مصدر كل الطاقة</strong> على الأرض.
+            </div>
+        </div>
+    </div>
+
+    <!-- S2: DEFINITION -->
+    <div class="section-divider" id="s2">تعريف الطاقة</div>
+    <div class="section">
+        <div class="section-title" onclick="tog(this)">تعريف الطاقة — لماذا وحدتها الجول؟ <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+        <div class="script-body">
+            <div class="law-box">
+                <strong>الطاقة (Energy): هي القدرة على عمل شغل (It is the ability to do work)</strong>
+                <br><br>
+                يعني: لو جسم ما قادر يعمل شغل → عنده طاقة. لو ما قدرش → مفيش طاقة.
+                <br>"The energy of a body is its capacity to do work."
+            </div>
+            <div class="script-text" style="margin-top:1rem">
+                <span class="pause">[وقفة — أكّد]</span>
+                الطاقة كمية <span class="hl-amber">قياسية مشتقة (Derived Scalar)</span>.
+                <br>وحدة قياسها: <span class="highlight">الجول (Joule) = (kg.m²/s²)</span>
+                <br><br>
+                <span class="hl-red">إيه العلاقة بين الطاقة والشغل؟</span>
+                <span class="pause">[وقفة]</span>
+                <br>الطاقة = قدرة على شغل. الشغل = تحويل الطاقة. عشان كده <strong>وحدتهم واحدة = الجول!</strong>
+                <br><br>
+                <span class="highlight">مثال واضح:</span>
+                <br>• المياه فوق السد → عندها طاقة كامنة → لو نزلت تدار تربينة → عملت شغل ✅
+                <br>• عربية بتتحرك → عندها طاقة حركية → لو اصطدمت → بتغيّر شكل الجسم الاتاني ✅
+            </div>
+        </div>
+    </div>
+
+    <!-- S3: FORMS -->
+    <div class="section-divider" id="s3">أشكال الطاقة</div>
+    <div class="section">
+        <div class="section-title" onclick="tog(this)">أشكال الطاقة الثمانية <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+        <div class="script-body">
+            <div class="script-text">
+                الطاقة ليها أشكال كتير:
+                <span class="pause">[وقفة — اقراهم واحدة واحدة]</span>
+            </div>
+            <div class="form-grid">
+                <div class="form-item">🔥 <strong>الطاقة الحرارية (Thermal)</strong><br>مثال: ذوبان الجليد، تسخين الشوربة</div>
+                <div class="form-item">💡 <strong>طاقة الضوء (Light)</strong><br>مثال: الضوء المرئي، الأشعة تحت الحمراء</div>
+                <div class="form-item">⚙️ <strong>الطاقة الميكانيكية (Mechanical)</strong><br>مثال: ضفدع بيقفز، عربية بتتحرك</div>
+                <div class="form-item">⚡ <strong>الطاقة الكهربائية (Electrical)</strong><br>مثال: البرق، خطوط الكهرباء</div>
+                <div class="form-item">🧪 <strong>الطاقة الكيميائية (Chemical)</strong><br>مثال: الأكل، حرق كبريت</div>
+                <div class="form-item">🌍 <strong>طاقة الجاذبية (Gravitational)</strong><br>مثال: جسم مرفوع فوق الأرض</div>
+                <div class="form-item">☢️ <strong>الطاقة النووية (Nuclear)</strong><br>مثال: انشطار نووي (مركز الأرض)، اندماج (الشمس)</div>
+                <div class="form-item">📡 <strong>الطاقة الكهرومغناطيسية (EM)</strong><br>مثال: موجات راديو، أشعة X، UV</div>
+            </div>
+            <div class="note" style="margin-top:1rem">
+                هنركز في الدرس ده على نوعين أساسيين: <strong>طاقة الحركة (KE)</strong> وطاقة الوضع (PE).
+            </div>
+        </div>
+    </div>
+
+    <!-- S4: KE FORMULA -->
+    <div class="section-divider" id="s4">طاقة الحركة</div>
+    <div class="section">
+        <div class="section-title" onclick="tog(this)">أولاً: طاقة الحركة (K.E) — المعادلة والرموز <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+        <div class="script-body">
+            <div class="law-box">
+                <strong>طاقة الحركة (Kinetic Energy):</strong> الطاقة اللي عند الجسم بسبب حركته.
+                <br>"The energy possessed by the object due to its motion."
+            </div>
+            <div class="formula-note">
+                <span style="font-size:1.4rem;display:block;text-align:center;margin:.5rem 0"><strong>K.E = ½ × m × v²</strong></span>
+            </div>
+            <div class="script-text" style="margin-top:1rem">
+                خلينا نشرح كل رمز:
+                <table class="symbol-table">
+                    <tr><th>الرمز</th><th>الاسم</th><th>الوحدة</th><th>المعنى</th></tr>
+                    <tr><td><strong style="color:#fbbf24">K.E</strong></td><td>طاقة الحركة</td><td>جول (J)</td><td>دايماً موجبة أو صفر. لو الجسم واقف → KE = 0</td></tr>
+                    <tr><td><strong style="color:#34d399">m</strong></td><td>الكتلة</td><td>كيلوجرام (kg)</td><td>كتلة الجسم المتحرك</td></tr>
+                    <tr><td><strong style="color:#f87171">v</strong></td><td>السرعة</td><td>متر/ثانية (m/s)</td><td>⚠️ لازم تحوّل كم/ساعة → متر/ثانية (÷ 3.6)</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- S5: V-squared -->
+    <div class="section-divider" id="s5">تأثير مربع السرعة</div>
+    <div class="section">
+        <div class="section-title" onclick="tog(this)">تأثير السرعة على الطاقة — مربع السرعة! <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+        <div class="script-body">
+            <div class="script-text">
+                <span class="hl-red">ده أهم جزء في الموضوع — افهمه كويس!</span>
+                <span class="pause">[وقفة — اقعد قبالهم]</span>
+                <br><br>
+                طاقة الحركة بتتناسب مع <strong>مربع السرعة (v²)</strong> مش السرعة نفسها.
+                <br>يعني:
+                <ul class="step-list">
+                    <li>لو السرعة اتضاعفت (×2) → KE بتتضاعف <span class="hl-red">4 مرات (×4)</span></li>
+                    <li>لو السرعة اتلَتَّت (×3) → KE بتبقى <span class="hl-red">9 أضعاف (×9)</span></li>
+                    <li>لو السرعة اتضاعفت (×4) → KE بتبقى <span class="hl-red">16 ضعف!</span></li>
+                </ul>
+                <span class="pause">[وقفة — أكّد على الخطورة]</span>
+                <br>
+                <span class="hl-amber">التطبيق العملي على الطريق:</span> عربية بتمشي 60 كم/ساعة محتاجة مسافة فرملة <strong>4 أضعاف</strong> العربية اللي بتمشي 30 كم/ساعة — عشان الطاقة اتضاعفت 4 مرات!
+                <br><br>
+                <strong>ده بيفسر ليه السرعة الزيادة على الطريق خطيرة جداً!</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- S6: PE -->
+    <div class="section-divider" id="s6">طاقة الوضع</div>
+    <div class="section">
+        <div class="section-title" onclick="tog(this)">ثانياً: طاقة الوضع (P.E) — الجاذبية والمرونة <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+        <div class="script-body">
+            <div class="law-box">
+                <strong>طاقة الوضع (Potential Energy):</strong> الطاقة اللي عند الجسم بسبب موضعه أو حالته.
+                <br>"The energy possessed by the object due to its position or state."
+            </div>
+            <div class="script-text" style="margin-top:1rem">
+                فيه نوعين:
+                <span class="pause">[وقفة]</span>
+                <br><br>
+                🌀 <span class="hl-blue">طاقة الوضع المرنة (Elastic PE):</span>
+                <br>لما زنبرك (spring) يتضغط أو يتمد — بيخزّن طاقة في مكان الجزيئات الجديدة. لما يترخّص يطلع الطاقة ويرجع لشكله الأصلي.
+                <br>مثال: لعبة الزنبرك، القوس والسهم.
+                <br><br>
+                🌍 <span class="hl-green">طاقة الوضع بالجاذبية (Gravitational PE):</span>
+                <br>لما ترفع جسم لفوق — بيكتسب طاقة بسبب موضعه فوق الأرض. كل ما ارتفع أكتر، الطاقة أكبر.
+            </div>
+            <div class="formula-note">
+                <span style="font-size:1.4rem;display:block;text-align:center;margin:.5rem 0"><strong>P.E = m × g × h</strong></span>
+            </div>
+            <div class="script-text" style="margin-top:1rem">
+                <table class="symbol-table">
+                    <tr><th>الرمز</th><th>الاسم</th><th>الوحدة</th><th>المعنى</th></tr>
+                    <tr><td><strong style="color:#fbbf24">P.E</strong></td><td>طاقة الوضع</td><td>جول (J)</td><td>بتعتمد على الموضع النسبي للأرض</td></tr>
+                    <tr><td><strong style="color:#34d399">m</strong></td><td>الكتلة</td><td>كيلوجرام (kg)</td><td>كتلة الجسم</td></tr>
+                    <tr><td><strong style="color:#60a5fa">g</strong></td><td>عجلة الجاذبية</td><td>م/ث²</td><td>g = 10 م/ث² (أو 9.8 لو مذكور)</td></tr>
+                    <tr><td><strong style="color:#f87171">h</strong></td><td>الارتفاع</td><td>متر (m)</td><td>المسافة الرأسية عن مستوى مرجعي (الأرض)</td></tr>
+                </table>
+                <br>
+                <span class="note" style="display:block;padding:.6rem 1rem">الشغل المبذول لرفع الجسم = طاقة الوضع المكتسبة → W = PE = mgh</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- S7: EXAMPLE 1 -->
+    <div class="section-divider" id="s7">مثال 1</div>
+    <div class="section">
+        <div class="section-title" onclick="tog(this)">🖊️ مثال 1 — طاقة حركة سيارة (72 كم/ساعة) <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+        <div class="script-body">
+            <div class="example-box" style="margin-bottom:.8rem">
+                <strong>السؤال:</strong> اوجد طاقة الحركة لسيارة كتلتها <strong>2000 kg</strong> تسير بسرعة <strong>72 كم/ساعة</strong>.
+            </div>
+            <div class="solved-box">
+                <strong>الخطوة 1 — تحويل السرعة لمتر/ثانية (مهم جداً!):</strong>
+                <br>v = 72 × (1000 ÷ 3600) = 72 ÷ 3.6 = <span class="hl-amber">20 م/ثانية</span>
+                <br><br>
+                <strong>الخطوة 2 — تطبيق المعادلة:</strong>
+                <br>K.E = ½ × m × v²
+                <br>K.E = ½ × 2000 × (20)²
+                <br>K.E = 1000 × 400
+                <br>K.E = <span class="hl-amber">400,000 جول = 4 × 10⁵ جول</span>
+            </div>
+            <div class="note" style="margin-top:.8rem">
+                تحويل الوحدات: كم/ساعة ÷ 3.6 = م/ثانية. دائماً اتأكد من الوحدات قبل التطبيق!
+                <br>طاقة 400,000 جول ضخمة جداً — ده بيفسر ليه حوادث السرعة العالية مدمّرة.
+            </div>
+        </div>
+    </div>
+
+    <!-- S8: EXAMPLE 2 -->
+    <div class="section-divider" id="s8">مثال 2</div>
+    <div class="section">
+        <div class="section-title" onclick="tog(this)">🖊️ مثال 2 — الشغل المبذول لرفع جسم <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+        <div class="script-body">
+            <div class="example-box" style="margin-bottom:.8rem">
+                <strong>السؤال:</strong> احسب الشغل المبذول لرفع جسم كتلته <strong>50 kg</strong> ارتفاع <strong>2.2 م</strong> عن الأرض. (g = 10 م/ث²)
+            </div>
+            <div class="solved-box">
+                <strong>ملاحظة:</strong> الشغل المبذول لرفع الجسم = طاقة الوضع المكتسبة.
+                <br><br>
+                P.E = m × g × h
+                <br>P.E = 50 × 10 × 2.2
+                <br>P.E = <span class="hl-amber">1100 جول</span>
+                <br><br>
+                يعني لرفع جسم 50 كيلو لارتفاع 2.2 متر، محتاج 1100 جول من الطاقة.
+            </div>
+        </div>
+    </div>
+
+    <!-- S9: SUMMARY -->
+    <div class="section-divider" id="s9">الملخص</div>
+    <div class="section">
+        <div class="section-title" onclick="tog(this)">ملخص الدرس والخاتمة <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+        <div class="script-body">
+            <div class="script-text">خلصنا الدرس الرابع يا جماعة 🎓<span class="pause">[وقفة — ابتسامة]</span></div>
+            <div class="formula-note">
+                <table class="symbol-table">
+                    <tr><th>المفهوم</th><th>المعادلة</th><th>الملاحظة الأهم</th></tr>
+                    <tr><td>الطاقة</td><td>القدرة على الشغل</td><td>وحدتها جول — كمية قياسية</td></tr>
+                    <tr><td>طاقة الحركة</td><td>K.E = ½mv²</td><td>تتناسب مع v² — مربع السرعة!</td></tr>
+                    <tr><td>طاقة الوضع</td><td>P.E = mgh</td><td>W لرفع الجسم = P.E المكتسبة</td></tr>
+                </table>
+            </div>
+            <div class="script-text" style="margin-top:1rem">
+                المهم تفتكروا: <span class="highlight">الطاقة بتتحول من شكل لشكل — مش بتختفي ومش بتتخلق من عدم.</span>
+                <br>اللي فوق (PE) → لما ينزل يتحول لـ(KE) → لما يصطدم يتحول لحرارة وصوت.
+                <br><br>
+                حلوا الكويز في الدرس! شكراً لمتابعتكم 🎓 — درس جاي: <strong>القدرة (Power)</strong>
+                <br>السلام عليكم.
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align:center;margin-top:2rem;color:#475569;font-size:.85rem;padding-bottom:2rem">
+        فيزياء — الصف الأول ثانوي (STEM) · الوحدة 3 · الدرس 4<br>بشمهندس أسامة زينهم
+    </div>
+</div>
+<script>
+    function tog(t){const b=t.nextElementSibling,i=t.querySelector('.toggle-icon i'),o=b.style.maxHeight&&b.style.maxHeight!=='0px';if(o){b.style.maxHeight='0px';b.style.overflow='hidden';i.className='fas fa-chevron-left'}else{b.style.maxHeight=b.scrollHeight+300+'px';b.style.overflow='visible';i.className='fas fa-chevron-down'}}
+    document.querySelectorAll('.script-body').forEach(b=>{b.style.maxHeight='none';b.style.overflow='visible'});
+    document.querySelectorAll('.toc a').forEach(l=>{l.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(l.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})});
+</script>
+</body>
+</html>

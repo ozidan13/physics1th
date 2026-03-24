@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سكريبت الشرح - درس 6: أنواع الموجات</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <style>
+        *{box-sizing:border-box}
+        body{font-family:'Cairo',sans-serif;background:linear-gradient(135deg,#0a0814,#08101a,#0d0a18);min-height:100vh;margin:0;padding:2rem 1rem;color:#e0e0e0;direction:rtl}
+        .container{max-width:920px;margin:0 auto}
+        h1{text-align:center;color:#fff;font-size:2rem;margin-bottom:.5rem;text-shadow:0 0 30px rgba(139,92,246,.4)}
+        .subtitle{text-align:center;color:#64748b;font-size:.95rem;margin-bottom:2.5rem}
+        .section{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:1.5rem 2rem;margin-bottom:1.5rem;backdrop-filter:blur(10px);transition:all .3s ease}
+        .section:hover{border-color:rgba(139,92,246,.35);box-shadow:0 8px 32px rgba(139,92,246,.1);transform:translateY(-2px)}
+        .section-title{font-size:1.2rem;font-weight:700;color:#a78bfa;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;cursor:pointer;user-select:none}
+        .toggle-icon{margin-right:auto;margin-left:0;color:#64748b;font-size:.85rem}
+        .script-body{overflow:hidden;transition:max-height .4s ease}
+        .script-text{font-size:1.1rem;line-height:2.2;color:#f0f4f8;background:rgba(0,0,0,.25);padding:1.2rem 1.5rem;border-radius:10px;border-right:4px solid #8b5cf6}
+        .note{font-size:.92rem;color:#fbbf24;margin-top:1rem;padding:.6rem 1.1rem;background:rgba(251,191,36,.07);border-radius:8px;border-right:3px solid #fbbf24;line-height:1.8}
+        .note::before{content:"📌 ملاحظة: ";font-weight:bold}
+        .law-box{font-size:.95rem;color:#ede9fe;margin-top:1rem;padding:.8rem 1.2rem;background:rgba(139,92,246,.08);border-radius:8px;border-right:3px solid #8b5cf6;line-height:1.9}
+        .law-box::before{content:"📖 التعريف: ";font-weight:bold;color:#c4b5fd}
+        .formula-note{font-size:.95rem;color:#d1fae5;margin-top:1rem;padding:.8rem 1.2rem;background:rgba(16,185,129,.07);border-radius:8px;border-right:3px solid #10b981;line-height:1.9}
+        .formula-note::before{content:"🔢 المعادلة: ";font-weight:bold;color:#34d399}
+        .example-box{font-size:.95rem;color:#fde68a;margin-top:1rem;padding:.8rem 1.2rem;background:rgba(245,158,11,.07);border-radius:8px;border-right:3px solid #f59e0b;line-height:1.9}
+        .solved-box{font-size:.95rem;color:#c4b5fd;margin-top:1rem;padding:.8rem 1.2rem;background:rgba(139,92,246,.07);border-radius:8px;border-right:3px solid #8b5cf6;line-height:1.9}
+        .solved-box::before{content:"🖊️ حل: ";font-weight:bold;color:#a78bfa}
+        .hl{color:#a78bfa;font-weight:700}
+        .hl-g{color:#34d399;font-weight:700}
+        .hl-y{color:#fbbf24;font-weight:700}
+        .hl-r{color:#f87171;font-weight:700}
+        .hl-c{color:#22d3ee;font-weight:700}
+        .pause{color:#fb923c;font-size:.82rem;display:block;margin:.5rem 0;font-style:italic}
+        .symbol-table{width:100%;border-collapse:collapse;margin-top:.8rem;font-size:.9rem}
+        .symbol-table th{background:rgba(139,92,246,.15);color:#a78bfa;padding:.6rem 1rem;text-align:right;border-bottom:1px solid rgba(139,92,246,.2)}
+        .symbol-table td{padding:.55rem 1rem;border-bottom:1px solid rgba(255,255,255,.05);line-height:1.6}
+        .symbol-table tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+        a.back-btn{display:inline-flex;align-items:center;gap:.5rem;margin-bottom:2rem;padding:.7rem 1.4rem;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.3);border-radius:8px;color:#a78bfa;text-decoration:none;font-size:.9rem;transition:all .3s}
+        a.back-btn:hover{background:rgba(139,92,246,.25);color:#fff}
+        .divider{text-align:center;color:#475569;font-size:.8rem;margin:1rem 0 1.5rem;letter-spacing:.1em}
+        .divider::before,.divider::after{content:" ── "}
+        .li{margin-bottom:.5rem;line-height:1.9}
+        .toc{background:rgba(15,23,42,.6);border:1px solid rgba(139,92,246,.2);border-radius:12px;padding:1.2rem 1.8rem;margin-bottom:2rem}
+        .toc h3{color:#a78bfa;font-size:1rem;margin-bottom:.8rem}
+        .toc a{display:block;color:#94a3b8;text-decoration:none;padding:.25rem 0;font-size:.9rem;transition:color .2s}
+        .toc a:hover{color:#a78bfa}
+        .toc a::before{content:"• ";color:#8b5cf6}
+    </style>
+</head>
+<body>
+<div class="container">
+    <a href="lect06.html" class="back-btn"><i class="fas fa-arrow-right"></i> رجوع للدرس</a>
+    <a href="index.html" class="back-btn" style="margin-right:.75rem"><i class="fas fa-home"></i> الصفحة الرئيسية</a>
+
+    <h1>📜 سكريبت الشرح — الدرس السادس</h1>
+    <p class="subtitle">أنواع الموجات (Types of Waves) · الوحدة الرابعة · بشمهندس أسامة زينهم</p>
+
+    <div class="toc">
+        <h3>📋 محتويات الدرس</h3>
+        <a href="#s1">المقدمة — مفهوم الحركة ونوعيها</a>
+        <a href="#s2">تعريف الموجة — الطاقة تتنقل، المادة لأ!</a>
+        <a href="#s3">نوعا الموجات — ميكانيكية وكهرومغناطيسية</a>
+        <a href="#s4">خاصية 1 و2 — الإزاحة (x) والسعة (A)</a>
+        <a href="#s5">خاصية 3 — الطول الموجي (λ)</a>
+        <a href="#s6">خاصية 4 و5 — الدور (T) والتردد (f)</a>
+        <a href="#s7">جدول مقارنة الموجتين</a>
+        <a href="#s8">أمثلة محلولة وملخص</a>
+    </div>
+
+    <!-- S1: MOTION -->
+    <div class="section" id="s1">
+        <div class="section-title" onclick="tog(this)">المقدمة — مفهوم الحركة ونوعيها <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+        <div class="script-body">
+            <div class="script-text">
+                السلام عليكم ورحمة الله وبركاته 🌊
+                <span class="pause">[وقفة — مرحبة]</span>
+                أهلاً بيكم في الدرس السادس — <span class="hl">أنواع الموجات</span>.
+                <br><br>
+                قبل ما نتكلم عن الموجات، لازم نفهم الفرق بين أنواع الحركة.
+                <br>لو الجسم مش بيتحرك → في <strong>سكون</strong>. لو بيغير مكانه مع الوقت → في <strong>حركة</strong>.
+            </div>
+            <div class="law-box">
+                <strong>الحركة (Motion):</strong> تغيّر موضع الجسم بالنسبة لنقطة ثابتة مع مرور الوقت.
+                <br><em>"Motion is the change in the position of the object with respect to a fixed point as the time passes."</em>
+            </div>
+            <div class="script-text" style="margin-top:.8rem">
+                الحركة نوعين:
+                <br><br>
+                1️⃣ <span class="hl">الحركة الانتقالية (Translational):</span>
+                <br>من نقطة بداية لنقطة نهاية — زي العربية على الطريق، رمي كرة، المواصلات.
+                <br><br>
+                2️⃣ <span class="hl-c">الحركة الدورية (Periodic):</span>
+                <br>الجسم بيرجع لنفس موضعه بعد فترة زمنية ثابتة.
+                <br>مثال: <strong>اهتزاز البندول</strong>، <strong>دوران الأرض حول محورها</strong>، <strong>حركة الأمواج</strong>.
+            </div>
+            <div class="note">
+                <strong>الحركة الدائرية:</strong> بتتكرر في فترات منتظمة — مثل دوران الأرض حول الشمس.
+                <br><strong>الحركة الاهتزازية:</strong> بتتكرر في فترات منتظمة — مثل البندول البسيط.
+            </div>
+        </div>
+    </div>
+
+    <!-- S2: WAVE DEFINITION -->
+    <div class="divider" id="s2">تعريف الموجة</div>
+    <div class="section">
+        <div class="section-title" onclick="tog(this)">تعريف الموجة — الطاقة تتنقل، المادة لأ! <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+        <div class="script-body">
+            <div class="script-text">
+                فكّر معايا: لما تحط حجر في ميه ساكنة — إيه اللي بيحصل؟
+                <span class="pause">[وقفة]</span>
+                بتشوف دوائر بتكبر وبتنتشر للخارج. كل دايرة = موجة.
+                <br><br>
+                "Many of us enjoy watching waves on the surface of water pushing a fishing float or a boat up and down..."
+                <br>الفلّينة بتيجي لفوق وتروح لتحت — بس مش بتتحرك مع الموجة!
+            </div>
+            <div class="law-box">
+                <strong>الموجة (Wave):</strong> اضطراب ينتشر وينقل طاقة في اتجاه انتشاره عبر وسط أو الفضاء.
+                <br><em>"A disturbance that propagates and transports energy in the direction of its propagation through medium or space."</em>
+            </div>
+            <div class="script-text" style="margin-top:.8rem">
+                <span class="hl-y">أهم جملة في الموضوع:</span>
+                <br><strong>"Wave motion: energy is transferred over a distance, but matter is not."</strong>
+                <br><br>
+                الطاقة بتتنقل — المادة لأ!
+                <br>مثال: لما تصفق في غرفة — الصوت بيوصل لأذنك عبر هواء. الهواء نفسه ما انتقلش — الطاقة هي اللي انتقلت.
+            </div>
+            <div class="note">
+                أمثلة على الموجات:
+                <br>• موجات على سطح سائل، موجات صوتية، موجات على وتر مشدود.
+                <br>• إشعاعات كهرومغناطيسية: <strong>ضوء، أشعة X، موجات راديو، تحت حمراء، فوق بنفسجية.</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- S3: TYPES -->
+    <div class="divider" id="s3">نوعا الموجات</div>
+    <div class="section">
+        <div class="section-title" onclick="tog(this)">نوعا الموجات — ميكانيكية وكهرومغناطيسية <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+        <div class="script-body">
+            <div class="script-text">
+                في نوعين رئيسيين من الموجات في الطبيعة:
+                <span class="pause">[وقفة — قسّمهم]</span>
+            </div>
+            <div class="law-box" style="margin-bottom:.8rem">
+                <strong>1️⃣ الأمواج الميكانيكية:</strong> اضطراب ينتشر <strong>عبر وسط مادي</strong>، مثل موجات الصوت، موجات الماء.
+                <br><em>"The disturbance that propagates through a medium, such as sound waves, water waves."</em>
+            </div>
+            <div class="law-box">
+                <strong>2️⃣ الأمواج الكهرومغناطيسية:</strong> اضطراب ينتشر عبر <strong>وسط أو الفضاء</strong>، مثل الضوء، موجات راديو، أشعة X، إشارات التلفزيون.
+                <br><span class="hl-y">(لا تحتاج لوسط مادي للانتشار)</span>
+            </div>
+            <div class="script-text" style="margin-top:.8rem">
+                <span class="hl-r">مقارنة مهمة:</span>
+                <table class="symbol-table">
+                    <tr><th>الأمواج الميكانيكية</th><th>الأمواج الكهرومغناطيسية</th></tr>
+                    <tr><td>تحتاج وسط مادي</td><td>لا تحتاج وسط</td></tr>
+                    <tr><td>ناتجة عن اهتزاز جزيئات الوسط</td><td>ناتجة عن تغير الحقول الكهربائية والمغناطيسية</td></tr>
+                    <tr><td>سرعة منخفضة نسبياً</td><td>سرعة عالية (سرعة الضوء 3×10⁸ م/ث)</td></tr>
+                    <tr><td>أمواج طولية وعرضية</td><td>أمواج عرضية فقط</td></tr>
+                    <tr><td>مثال: صوت، ماء</td><td>مثال: ضوء، راديو، X-rays</td></tr>
+                </table>
+                <br>
+                <span class="hl-y">لماذا ما فيش صوت في الفضاء؟</span> لأن الصوت موجة ميكانيكية — محتاجة وسط زي الهواء — والفضاء فراغ!
+            </div>
+        </div>
+    </div>
+
+    <!-- S4: x and A -->
+    <div class="divider" id="s4">الإزاحة والسعة</div>
+    <div class="section">
+        <div class="section-title" onclick="tog(this)">خاصية 1 و2 — الإزاحة (x) والسعة (A) <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+        <div class="script-body">
+            <div class="law-box">
+                <strong>1️⃣ الإزاحة (x):</strong> المسافة من أي نقطة على الموجة إلى وضع الاتزان (الوضع غير المضطرب).
+                <br><em>"The distance of a point on the wave from its undisturbed position or equilibrium position."</em>
+            </div>
+            <div class="law-box" style="margin-top:.5rem">
+                <strong>2️⃣ السعة (A):</strong> أقصى إزاحة لأي نقطة على الموجة من وضع الاتزان.
+                <br><em>"The maximum displacement of any point on the wave from its undisturbed position."</em>
+            </div>
+            <div class="note">
+                <strong>السعة الكبيرة</strong> → صوت أعلى أو بحر أعنف!
+                <br>"The greater the amplitude of the wave, the louder the sound or the rougher the sea."
+            </div>
+            <div class="script-text" style="margin-top:.8rem">
+                <span class="hl-c">فرّق بين الإزاحة والسعة:</span>
+                <br>• الإزاحة (x) بتتغير مع الوقت — مرة موجبة، مرة سالبة.
+                <br>• السعة (A) ثابتة — هي القيمة القصوى.
+                <br>مثال: زنبرك بيتأرجح → x = وضعه الحالي، A = أبعد وضع يوصله.
+            </div>
+        </div>
+    </div>
+
+    <!-- S5: Wavelength -->
+    <div class="divider" id="s5">الطول الموجي</div>
+    <div class="section">
+        <div class="section-title" onclick="tog(this)">خاصية 3 — الطول الموجي (λ) <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+        <div class="script-body">
+            <div class="law-box">
+                <strong>3️⃣ الطول الموجي (λ — lambda):</strong> المسافة من أي نقطة على الموجة إلى أقرب نقطة متشابهة لها (قمة لقمة أو قاع لقاع).
+                <br><em>"The distance from any point on a wave to the next exactly similar point (e.g. crest to crest)."</em>
+            </div>
+            <div class="formula-note">
+                <strong>λ = المسافة الكلية ÷ عدد الموجات</strong>
+                <br>λ = d / n
+            </div>
+            <div class="script-text" style="margin-top:.8rem">
+                <span class="pause">[وقفة — ارسم على السبورة]</span>
+                <span class="hl-y">مثال:</span> لو 10 موجات طالت مسافة 50 متر → λ = 50 ÷ 10 = <strong>5 متر</strong>
+                <br><br>
+                الطول الموجي وحدته <strong>متر (m)</strong> — هو مسافة، مش وقت.
+            </div>
+        </div>
+    </div>
+
+    <!-- S6: T and f -->
+    <div class="divider" id="s6">الدور والتردد</div>
+    <div class="section">
+        <div class="section-title" onclick="tog(this)">خاصية 4 و5 — الدور (T) والتردد (f) <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+        <div class="script-body">
+            <div class="law-box">
+                <strong>4️⃣ الدور / الزمن الدوري (T — Period):</strong>
+                <br>• <strong>الزمن اللازم لاهتزازة كاملة واحدة لأي نقطة على الموجة.</strong>
+                <br>• <em>"The time taken for a point to move from one particular position and return to that same position, moving in the same direction."</em>
+                <br>• وحدته: <strong>ثانية (s)</strong>
+            </div>
+            <div class="formula-note" style="margin-top:.5rem">
+                T = الزمن الكلي ÷ عدد الموجات = 1/f
+            </div>
+            <div class="law-box" style="margin-top:.8rem">
+                <strong>5️⃣ التردد (f — Frequency):</strong>
+                <br>• <strong>عدد الاهتزازات في وحدة الزمن (ثانية واحدة).</strong>
+                <br>• <em>"The number of oscillations per unit time of a point in a wave."</em>
+                <br>• وحدته: <strong>هرتز (Hz)</strong> — 1 Hz = اهتزازة واحدة في الثانية.
+            </div>
+            <div class="formula-note" style="margin-top:.5rem">
+                f = عدد الموجات ÷ الزمن الكلي = 1/T
+            </div>
+            <div class="script-text" style="margin-top:.8rem">
+                <span class="hl-r">العلاقة بين T و f:</span>
+                <br>• كل ما زاد التردد → قلّ الدور (والعكس). علاقة عكسية تامة.
+                <br>• مثال: لو f = 5 Hz → T = 1/5 = 0.2 ثانية
+                <br>• مثال: لو T = 0.02 ثانية → f = 1/0.02 = 50 Hz
+                <br><br>
+                <span class="hl-y">أمثلة من الحياة:</span>
+                <br>• صوت منخفض (صوت رجل): تردد منخفض (~100 Hz)
+                <br>• صوت حاد (صوت مرأة): تردد أعلى (~250 Hz)
+                <br>• موجات الراديو FM: ملايين الهرتز (MHz)!
+            </div>
+        </div>
+    </div>
+
+    <!-- S7: COMPARISON -->
+    <div class="divider" id="s7">جدول المقارنة</div>
+    <div class="section">
+        <div class="section-title" onclick="tog(this)">جدول مقارنة الموجتين <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+        <div class="script-body">
+            <div class="script-text">
+                دي نقطة مهمة في الامتحانات — لازم تحفظ الفرق:
+                <span class="pause">[وقفة — اقرأ الجدول]</span>
+            </div>
+            <table class="symbol-table">
+                <tr><th>الأمواج الميكانيكية</th><th>الأمواج الكهرومغناطيسية</th></tr>
+                <tr><td>تحتاج وسط مادي ✅</td><td>لا تحتاج وسط ❌</td></tr>
+                <tr><td>بسبب اهتزاز جزيئات الوسط</td><td>بسبب تغير الحقول الكهربائية والمغناطيسية</td></tr>
+                <tr><td>الجزيئات تهتز في اتجاه الموجة أو عمودي عليه</td><td>الجزيئات تهتز عمودياً فقط على اتجاه الموجة</td></tr>
+                <tr><td>سرعة منخفضة نسبياً</td><td>سرعة عالية جداً (سرعة الضوء)</td></tr>
+                <tr><td>طولية وعرضية</td><td>عرضية فقط</td></tr>
+                <tr><td>صوت، ماء</td><td>ضوء، راديو، X-rays</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- S8: EXAMPLES + SUMMARY -->
+    <div class="divider" id="s8">أمثلة وملخص</div>
+    <div class="section">
+        <div class="section-title" onclick="tog(this)">🖊️ أمثلة محلولة وملخص الدرس <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+        <div class="script-body">
+            <div class="example-box">مثال 1: 10 موجات عدّت في 2 ثانية. أوجد f و T.</div>
+            <div class="solved-box">
+                f = n/t = 10/2 = <span class="hl-y">5 Hz</span>
+                <br>T = 1/f = 1/5 = <span class="hl-y">0.2 ثانية</span>
+            </div>
+            <div class="example-box" style="margin-top:.8rem">مثال 2: موجات انتقلت 60 متر وعددها 20 موجة. أوجد λ.</div>
+            <div class="solved-box">
+                λ = d/n = 60/20 = <span class="hl-y">3 متر</span>
+            </div>
+            <div class="example-box" style="margin-top:.8rem">مثال 3: T = 0.05 ثانية. أوجد f.</div>
+            <div class="solved-box">f = 1/T = 1/0.05 = <span class="hl-y">20 Hz</span></div>
+
+            <div class="formula-note" style="margin-top:1.2rem">
+                <table class="symbol-table">
+                    <tr><th>الرمز</th><th>المعنى</th><th>الوحدة</th><th>المعادلة</th></tr>
+                    <tr><td>x</td><td>الإزاحة</td><td>متر</td><td>بُعد عن الاتزان</td></tr>
+                    <tr><td>A</td><td>السعة</td><td>متر</td><td>أقصى إزاحة</td></tr>
+                    <tr><td>λ</td><td>الطول الموجي</td><td>متر</td><td>λ = d/n</td></tr>
+                    <tr><td>T</td><td>الدور</td><td>ثانية</td><td>T = t/n = 1/f</td></tr>
+                    <tr><td>f</td><td>التردد</td><td>هرتز Hz</td><td>f = n/t = 1/T</td></tr>
+                </table>
+            </div>
+
+            <div class="script-text" style="margin-top:1rem">
+                خلصنا الدرس السادس 🎓
+                <span class="pause">[وقفة — ابتسامة]</span>
+                الموجات حواليكم في كل حاجة — الضوء، الصوت، الراديو، المايكروويف.
+                <br>الدرس الجاي: أنواع الموجات الميكانيكية (طولية وعرضية).
+                <br>حلوا الكويز! السلام عليكم.
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align:center;margin-top:2rem;color:#475569;font-size:.85rem;padding-bottom:2rem">
+        فيزياء — الصف الأول ثانوي (STEM) · الوحدة 4 · الدرس 1<br>بشمهندس أسامة زينهم
+    </div>
+</div>
+<script>
+    function tog(t){const b=t.nextElementSibling,i=t.querySelector('.toggle-icon i'),o=b.style.maxHeight&&b.style.maxHeight!=='0px';if(o){b.style.maxHeight='0px';b.style.overflow='hidden';i.className='fas fa-chevron-left'}else{b.style.maxHeight=b.scrollHeight+300+'px';b.style.overflow='visible';i.className='fas fa-chevron-down'}}
+    document.querySelectorAll('.script-body').forEach(b=>{b.style.maxHeight='none';b.style.overflow='visible'});
+    document.querySelectorAll('.toc a').forEach(l=>{l.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(l.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})});
+</script>
+</body>
+</html>

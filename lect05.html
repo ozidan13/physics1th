@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics - Lesson 5: Power</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={theme:{extend:{colors:{dark:{bg:'#020617',card:'#0F172A'}},fontFamily:{sans:['Inter','sans-serif'],arabic:['Cairo','sans-serif'],mono:['JetBrains Mono','monospace']}}}}</script>
+    <style>
+        body{background-color:#020617;color:#E2E8F0;overflow-x:hidden;background-image:radial-gradient(circle at 20% 20%,rgba(56,189,248,0.06) 0%,transparent 25%),radial-gradient(circle at 80% 80%,rgba(99,102,241,0.05) 0%,transparent 25%)}
+        .glass-card{background:rgba(15,23,42,0.7);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.08);transition:all 0.3s cubic-bezier(0.4,0,0.2,1)}
+        .glass-card:hover{border-color:rgba(56,189,248,0.4);box-shadow:0 10px 40px -10px rgba(56,189,248,0.15);transform:translateY(-4px)}
+        .glass-header{background:rgba(2,6,23,0.85);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,0.05)}
+        .text-gradient{background:linear-gradient(135deg,#38bdf8 0%,#818cf8 50%,#34d399 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+        .formula-box{background:rgba(56,189,248,0.05);border:1px solid rgba(56,189,248,0.2);border-radius:12px;padding:1.5rem;text-align:center;font-size:1.3rem;margin:1rem 0}
+        .answer-container{max-height:0;overflow:hidden;transition:max-height 0.4s ease-out,padding 0.3s ease;background:rgba(56,189,248,0.05);border-radius:0.5rem}
+        .answer-container.show{max-height:300px;padding:1rem;margin-top:1rem;border:1px solid rgba(56,189,248,0.3)}
+        .definition-box{background:rgba(56,189,248,0.05);border-left:4px solid #38bdf8;border-radius:0.5rem;padding:1rem 1.25rem;margin:1rem 0}
+        .definition-box strong{color:#7dd3fc}
+        .note-box{background:rgba(251,191,36,0.05);border-left:4px solid #fbbf24;border-radius:0.5rem;padding:1rem 1.25rem;margin:1rem 0}
+        .note-box .note-title{color:#fbbf24;font-weight:700;font-size:.9rem;margin-bottom:.5rem}
+        .egyptian-expl{direction:rtl;text-align:right;font-family:'Cairo',sans-serif;background:rgba(251,191,36,0.04);border:1px solid rgba(251,191,36,0.15);border-right:4px solid #f59e0b;border-radius:.75rem;padding:1.25rem 1.5rem;margin:1.25rem 0;line-height:2;color:#cbd5e1}
+        .egyptian-expl .expl-header{color:#fbbf24;font-weight:700;font-size:.95rem;margin-bottom:.5rem;display:flex;align-items:center;gap:.5rem;justify-content:flex-end}
+        ul.custom-list{list-style:none;padding-left:0}
+        ul.custom-list li{position:relative;padding-left:1.5rem;margin-bottom:.5rem}
+        ul.custom-list li::before{content:"•";color:#38bdf8;font-weight:bold;display:inline-block;width:1em;margin-left:-1em}
+        .custom-table tr:nth-child(even){background-color:rgba(30,41,59,.3)}
+        .custom-table td,.custom-table th{padding:.75rem 1rem;border-bottom:1px solid rgba(255,255,255,.05)}
+        .custom-table th{text-transform:uppercase;letter-spacing:.05em;font-size:.75rem;color:#94A3B8}
+        .step-block{background:rgba(30,41,59,0.5);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:1rem 1.25rem;margin:.75rem 0;font-size:.92rem}
+        .step-block .step-label{color:#38bdf8;font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.4rem}
+    </style>
+</head>
+<body class="antialiased font-sans flex flex-col min-h-screen">
+
+<!-- Navbar -->
+<nav class="fixed top-0 w-full z-50 glass-header">
+    <div class="container mx-auto px-6 h-16 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <a href="index.html" class="w-8 h-8 rounded bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center text-white font-bold text-xs shadow-lg">⚛</a>
+            <span class="font-bold text-lg text-slate-200">Lesson<span class="text-sky-400">05</span></span>
+        </div>
+        <div class="hidden lg:flex gap-6 text-sm font-medium text-slate-400">
+            <a href="#intro" class="hover:text-sky-400 transition">Intro</a>
+            <a href="#definition" class="hover:text-sky-400 transition">Power</a>
+            <a href="#formula" class="hover:text-sky-400 transition">Formula</a>
+            <a href="#unit" class="hover:text-sky-400 transition">Units</a>
+            <a href="#avg" class="hover:text-sky-400 transition">Avg Power</a>
+            <a href="#kwh" class="hover:text-sky-400 transition">kWh</a>
+            <a href="#example" class="hover:text-sky-400 transition">Example</a>
+            <a href="#quiz" class="px-5 py-2 rounded-full bg-sky-600/10 text-sky-400 border border-sky-500/20 hover:bg-sky-600 hover:text-white transition">Quiz</a>
+        </div>
+    </div>
+</nav>
+
+<main class="flex-grow pt-24">
+
+    <!-- HERO -->
+    <header id="intro" class="relative pb-16 px-6">
+        <div class="container mx-auto text-center" data-aos="fade-up">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/50 border border-slate-700 text-xs font-mono text-sky-400 mb-6">
+                <span class="w-2 h-2 rounded-full bg-sky-500 animate-pulse"></span> UNIT 3 — LESSON 5
+            </div>
+            <h1 class="text-5xl md:text-7xl font-black mb-3 tracking-tight text-white"><span class="text-gradient">Power</span></h1>
+            <p class="text-lg text-slate-400 max-w-2xl mx-auto mb-1">Unit Three: Motion and Force</p>
+            <p class="text-slate-400 mb-2">بشمهندس أسامة زينهم</p>
+            <a href="https://chat.whatsapp.com/FWUBrybJ3RO4MfUyX9MoPD?mode=gi_t" target="_blank" class="text-sky-400 font-bold text-lg hover:underline">انضم لجروب الشرح واتساب</a>
+
+            <!-- Power meter SVG -->
+            <div class="max-w-sm mx-auto mt-8">
+                <svg viewBox="0 0 400 160" class="w-full">
+                    <defs>
+                        <marker id="aB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#38bdf8"/></marker>
+                    </defs>
+                    <!-- Background -->
+                    <rect width="400" height="160" fill="#0f172a" rx="12"/>
+                    <!-- Gauge arc -->
+                    <path d="M60,130 A90,90 0 0,1 340,130" fill="none" stroke="#1e293b" stroke-width="16" stroke-linecap="round"/>
+                    <path id="powerArc" d="M60,130 A90,90 0 0,1 200,40" fill="none" stroke="#38bdf8" stroke-width="16" stroke-linecap="round">
+                        <animate attributeName="stroke-dasharray" from="0 300" to="210 300" dur="2s" fill="freeze"/>
+                    </path>
+                    <!-- Needle -->
+                    <line id="needle" x1="200" y1="130" x2="200" y2="48" stroke="#f87171" stroke-width="3" stroke-linecap="round">
+                        <animateTransform attributeName="transform" type="rotate" from="-80 200 130" to="10 200 130" dur="2s" fill="freeze"/>
+                    </line>
+                    <circle cx="200" cy="130" r="7" fill="#ef4444"/>
+                    <!-- Labels -->
+                    <text x="55" y="148" fill="#64748b" font-size="10">0</text>
+                    <text x="185" y="28" fill="#38bdf8" font-size="10" text-anchor="middle">max</text>
+                    <text x="340" y="148" fill="#64748b" font-size="10">P</text>
+                    <text x="200" y="108" text-anchor="middle" fill="#38bdf8" font-size="18" font-weight="bold">Power</text>
+                    <text x="200" y="128" text-anchor="middle" fill="#7dd3fc" font-size="11">P = W / t</text>
+                </svg>
+            </div>
+        </div>
+    </header>
+
+    <!-- INTRODUCTION (exact content.md) -->
+    <section class="py-10 px-6">
+        <div class="container mx-auto max-w-4xl">
+            <div class="glass-card rounded-2xl p-8" data-aos="fade-up">
+                <h2 class="text-2xl font-bold text-white mb-4"><i class="fas fa-bolt text-sky-400"></i> Introduction</h2>
+                <p class="text-slate-300 leading-relaxed mb-3">Energy is the capacity to do work and <strong class="text-sky-400">power is the rate of energy delivery.</strong></p>
+                <p class="text-slate-300 leading-relaxed">Power is always dependent on work done, so if a person does work at different rates his power also differs at different times. This is where the concept of <strong class="text-sky-400">average power</strong> comes into the picture.</p>
+                <div class="egyptian-expl">
+                    <div class="expl-header"><i class="fas fa-comment-dots"></i> شرح بالعربي</div>
+                    الطاقة = القدرة على الشغل. بس <span style="color:#7dd3fc;font-weight:bold">القدرة (Power)</span> = معدل إيصال الطاقة.
+                    <br>يعني السؤال مش بس "قد إيه شغل اتعمل؟" — لكن <strong>"في قد إيه وقت؟"</strong>
+                    <br><br>
+                    مثال: لو اتنين شالوا نفس الحمل لنفس المكان:
+                    <br>• الأول عمل ده في دقيقة واحدة
+                    <br>• التاني عمل ده في 10 دقايق
+                    <br>الشغل واحد، بس <strong style="color:#7dd3fc">القدرة مختلفة!</strong> الأول قواه أعلى.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- POWER DEFINITION -->
+    <section id="definition" class="py-10 px-6">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center mb-10" data-aos="fade-up">
+                <span class="inline-block px-4 py-1 rounded-full bg-sky-500/10 text-sky-400 text-xs font-mono border border-sky-500/20 mb-4">DEFINITION</span>
+                <h2 class="text-4xl font-black text-white">What is Power?</h2>
+            </div>
+            <div class="glass-card rounded-2xl p-8" data-aos="fade-up">
+                <div class="definition-box">
+                    <strong>Power:</strong>
+                    <br>• <strong>(The rate of doing work)</strong>
+                    <br>• <strong>(It is the work done in unit time)</strong>
+                </div>
+                <p class="text-slate-300 text-sm mt-3">The SI unit of power is <strong class="text-sky-400">Watt (W)</strong> which is joules per second (J/s).</p>
+                <p class="text-slate-300 text-sm mt-2">Sometimes the power of motor vehicles and other machines is given in terms of <strong class="text-amber-400">Horsepower (hp)</strong>, which is approximately equal to <strong class="text-amber-400">745.7 watts</strong>.</p>
+
+                <!-- Comparison SVG: two workers -->
+                <svg viewBox="0 0 480 150" class="w-full my-5">
+                    <rect width="480" height="150" fill="#0f172a" rx="10"/>
+                    <!-- Worker A -->
+                    <rect x="30" y="90" width="45" height="40" rx="5" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+                    <circle cx="52" cy="75" r="12" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+                    <text x="52" y="115" text-anchor="middle" fill="#7dd3fc" font-size="9">A</text>
+                    <text x="52" y="140" text-anchor="middle" fill="#34d399" font-size="9">60 s → HIGH power</text>
+                    <!-- Box A -->
+                    <rect x="85" y="100" width="30" height="25" rx="3" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+                    <line x1="80" y1="112" x2="115" y2="112" stroke="#38bdf8" stroke-width="1.5" marker-end="url(#aB)"/>
+                    <!-- Worker B -->
+                    <rect x="220" y="100" width="45" height="30" rx="5" fill="#1e293b" stroke="#64748b" stroke-width="1.5"/>
+                    <circle cx="242" cy="85" r="12" fill="#1e293b" stroke="#64748b" stroke-width="1.5"/>
+                    <text x="242" y="120" text-anchor="middle" fill="#94a3b8" font-size="9">B</text>
+                    <text x="242" y="140" text-anchor="middle" fill="#f87171" font-size="9">600 s → LOW power</text>
+                    <!-- Box B -->
+                    <rect x="270" y="108" width="30" height="22" rx="3" fill="#1e293b" stroke="#64748b" stroke-width="1.5"/>
+                    <line x1="265" y1="119" x2="300" y2="119" stroke="#64748b" stroke-width="1.5"/>
+                    <!-- Same work label -->
+                    <text x="390" y="60" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="bold">Same Work (W)</text>
+                    <text x="390" y="78" text-anchor="middle" fill="#94a3b8" font-size="10">Different Time → Different Power</text>
+                    <line x1="340" y1="90" x2="420" y2="90" stroke="#334155" stroke-width="1"/>
+                    <text x="390" y="108" text-anchor="middle" fill="#38bdf8" font-size="10">P_A = W/60 (HIGH)</text>
+                    <text x="390" y="124" text-anchor="middle" fill="#f87171" font-size="10">P_B = W/600 (LOW)</text>
+                </svg>
+
+                <div class="egyptian-expl">
+                    <div class="expl-header"><i class="fas fa-comment-dots"></i> شرح بالعربي</div>
+                    <strong style="color:#7dd3fc">القدرة</strong> = معدل الشغل = الشغل ÷ الزمن.
+                    <br><br>
+                    يعني مش بس قد إيه شغل عملت — لكن في قد إيه من الوقت!
+                    <br>• الشخص السريع: شغل كتير في وقت قليل → <strong style="color:#34d399">قدرة عالية</strong>
+                    <br>• الشخص البطيء: نفس الشغل في وقت أكتر → <strong style="color:#f87171">قدرة أقل</strong>
+                    <br><br>
+                    <strong style="color:#fbbf24">الحصان (Horsepower):</strong> وحدة قديمة بتُستخدم في العربيات والآلات. 1 hp ≈ 745.7 وات.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FORMULA -->
+    <section id="formula" class="py-10 px-6">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center mb-10" data-aos="fade-up">
+                <span class="inline-block px-4 py-1 rounded-full bg-sky-500/10 text-sky-400 text-xs font-mono border border-sky-500/20 mb-4">FORMULA</span>
+                <h2 class="text-3xl font-black text-white">Mathematical Formula of Power</h2>
+            </div>
+            <div class="glass-card rounded-2xl p-8" data-aos="fade-up">
+                <p class="text-slate-300 text-sm mb-2">The mathematical formula of Power:</p>
+                <div class="formula-box">$$ P = \frac{W}{t} $$</div>
+                <p class="text-slate-300 text-sm mt-3 mb-4">This can also be written as: <strong class="text-sky-400">Energy = Power × Time</strong> → $E = P \times t$</p>
+
+                <!-- 3 rearrangements -->
+                <div class="grid md:grid-cols-3 gap-4 text-center">
+                    <div class="bg-slate-800/40 rounded-xl p-4 border border-sky-500/20">
+                        <p class="text-xs text-slate-400 mb-2">Find Power</p>
+                        <p class="text-xl font-bold text-sky-400">$P = \dfrac{W}{t}$</p>
+                    </div>
+                    <div class="bg-slate-800/40 rounded-xl p-4 border border-green-500/20">
+                        <p class="text-xs text-slate-400 mb-2">Find Work (Energy)</p>
+                        <p class="text-xl font-bold text-green-400">$W = P \times t$</p>
+                    </div>
+                    <div class="bg-slate-800/40 rounded-xl p-4 border border-amber-500/20">
+                        <p class="text-xs text-slate-400 mb-2">Find Time</p>
+                        <p class="text-xl font-bold text-amber-400">$t = \dfrac{W}{P}$</p>
+                    </div>
+                </div>
+
+                <!-- Symbol table -->
+                <table class="custom-table w-full mt-6 text-sm">
+                    <thead><tr><th>Symbol</th><th>Name</th><th>Unit</th><th>Notes</th></tr></thead>
+                    <tbody>
+                        <tr><td class="text-sky-400 font-bold">P</td><td>Power</td><td>Watt (W)</td><td>1 W = 1 J/s</td></tr>
+                        <tr><td class="text-green-400 font-bold">W</td><td>Work / Energy</td><td>Joule (J)</td><td>Total work done</td></tr>
+                        <tr><td class="text-amber-400 font-bold">t</td><td>Time</td><td>Second (s)</td><td>Duration over which work is done</td></tr>
+                    </tbody>
+                </table>
+
+                <!-- Interactive slider -->
+                <div class="mt-6 p-4 bg-slate-800/40 rounded-xl border border-sky-500/20">
+                    <h4 class="text-sm font-bold text-white mb-3"><i class="fas fa-sliders-h text-sky-400"></i> Interactive: Work done in 5 s at this power:</h4>
+                    <div class="flex items-center gap-4 mb-2">
+                        <label class="text-sm text-slate-400">Power (W):</label>
+                        <input type="range" id="pSlider" min="10" max="500" value="100" class="w-48 accent-sky-500 cursor-pointer">
+                        <span id="pVal" class="text-sky-400 font-mono font-bold">100 W</span>
+                    </div>
+                    <p class="text-sm text-slate-300">Energy in 5 s = <span id="eResult" class="text-green-400 font-bold text-lg">500 J</span></p>
+                    <p class="text-sm text-slate-300">Energy in 1 hour = <span id="eHour" class="text-amber-400 font-bold text-lg">360,000 J</span></p>
+                </div>
+
+                <div class="egyptian-expl">
+                    <div class="expl-header"><i class="fas fa-comment-dots"></i> شرح بالعربي</div>
+                    المعادلة الأساسية: <strong style="color:#7dd3fc">القدرة = الشغل ÷ الزمن</strong>
+                    <br><br>
+                    المعادلة ممكن نقلبها بـ3 طرق:
+                    <br>• عاوز القدرة؟ اقسم الشغل على الزمن.
+                    <br>• عاوز الشغل (الطاقة)؟ اضرب القدرة في الزمن.
+                    <br>• عاوز الزمن؟ اقسم الشغل على القدرة.
+                    <br><br>
+                    مثال يومي: مكيف 2000 وات شغال ساعتين → الطاقة = 2000 × 7200 = 14,400,000 جول!
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- UNIT OF POWER -->
+    <section id="unit" class="py-10 px-6">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center mb-10" data-aos="fade-up">
+                <span class="inline-block px-4 py-1 rounded-full bg-sky-500/10 text-sky-400 text-xs font-mono border border-sky-500/20 mb-4">UNITS</span>
+                <h2 class="text-3xl font-black text-white">Unit of Power — The Watt</h2>
+            </div>
+            <div class="glass-card rounded-2xl p-8" data-aos="fade-up">
+                <p class="text-slate-300 leading-relaxed mb-3">The unit for standard metric work is the <u>Joule</u> and the standard metric unit for time is the <u>second</u>, so the standard metric unit for power is a <u>Joule / second</u>, defined as a <u><strong class="text-sky-400">Watt</strong></u> and abbreviated <strong class="text-sky-400">W</strong>.</p>
+                <div class="formula-box">$$ 1\;\text{Watt} = 1\;\frac{\text{Joule}}{\text{second}} = 1\;\text{W} = 1\;\text{J/s} $$</div>
+
+                <div class="grid md:grid-cols-2 gap-4 mt-4">
+                    <div class="bg-slate-800/40 rounded-xl p-4 border border-sky-500/20">
+                        <p class="text-sky-400 font-bold mb-2"><i class="fas fa-plug"></i> SI unit: Watt (W)</p>
+                        <p class="text-slate-300 text-sm">1 Watt = 1 Joule per second.<br>Named after James Watt, inventor of the steam engine.</p>
+                    </div>
+                    <div class="bg-slate-800/40 rounded-xl p-4 border border-amber-500/20">
+                        <p class="text-amber-400 font-bold mb-2"><i class="fas fa-horse"></i> Horsepower (hp)</p>
+                        <p class="text-slate-300 text-sm">Used for vehicles and machines.<br><strong class="text-amber-400">1 hp ≈ 745.7 W</strong></p>
+                    </div>
+                </div>
+
+                <div class="egyptian-expl">
+                    <div class="expl-header"><i class="fas fa-comment-dots"></i> شرح بالعربي</div>
+                    وحدة القدرة = <strong style="color:#7dd3fc">الوات (Watt)</strong> — اتسمت على اسم العالم جيمس وات.
+                    <br>1 وات = 1 جول ÷ ثانية (يعني جهاز بيستهلك طاقة بمعدل 1 جول كل ثانية).
+                    <br><br>
+                    في الحياة:
+                    <br>• لمبة عادية: 60-100 وات
+                    <br>• مكيف: 1000-3000 وات
+                    <br>• عربية عادية: حوالي 100-200 حصان (hp)
+                    <br>• 1 hp ≈ 745.7 وات
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AVERAGE POWER -->
+    <section id="avg" class="py-10 px-6">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center mb-10" data-aos="fade-up">
+                <span class="inline-block px-4 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-xs font-mono border border-indigo-500/20 mb-4">AVERAGE POWER</span>
+                <h2 class="text-3xl font-black text-white">What is Average Power?</h2>
+            </div>
+            <div class="glass-card rounded-2xl p-8" data-aos="fade-up">
+                <p class="text-slate-300 leading-relaxed mb-3">We can define average power as the <strong class="text-sky-400">total energy consumed divided by the total time taken.</strong> In simple language, we can say that average power is the average amount of work done or energy converted per unit of time.</p>
+                <div class="formula-box">$$ \bar{P} = \frac{\text{Total Energy Consumed}}{\text{Total Time Taken}} $$</div>
+                <div class="egyptian-expl">
+                    <div class="expl-header"><i class="fas fa-comment-dots"></i> شرح بالعربي</div>
+                    <strong style="color:#7dd3fc">متوسط القدرة</strong> = إجمالي الطاقة المستهلكة ÷ إجمالي الوقت.
+                    <br><br>
+                    بنستخدمه لما القدرة مش ثابتة طول الوقت — زي لو أجهزة بتشتغل وتقفل في أوقات مختلفة.
+                    <br>مثال: لو شغّلت مكيف ساعتين وتليفزيون ساعة — القدرة مش ثابتة — فنحسب متوسط القدرة.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- kWh NOTE -->
+    <section id="kwh" class="py-10 px-6">
+        <div class="container mx-auto max-w-4xl">
+            <div class="glass-card rounded-2xl p-8" data-aos="fade-up">
+                <h3 class="text-xl font-bold text-white mb-4"><i class="fas fa-tachometer-alt text-amber-400"></i> kWh — Kilowatt-hour (Unit of Energy)</h3>
+                <div class="note-box">
+                    <div class="note-title">⚡ Important Note from Curriculum</div>
+                    <p class="text-slate-300 text-sm">You must have noticed that electrical components and energy meters in homes use a unit called <strong class="text-amber-400">kWh (kilowatt-hour)</strong>, which stands for 1 kilowatt of power has been consumed every 1 hour. <strong class="text-amber-400">kWh is the unit of energy.</strong></p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-4 mt-4">
+                    <div class="bg-slate-800/40 rounded-xl p-4 border border-amber-500/20">
+                        <p class="text-amber-400 font-bold text-sm mb-2">What is 1 kWh?</p>
+                        <p class="text-slate-300 text-sm">1 kWh = 1 kilowatt × 1 hour = 1000 W × 3600 s</p>
+                        <p class="text-slate-300 text-sm mt-1">= <strong class="text-amber-400">3,600,000 J = 3.6 × 10⁶ J</strong></p>
+                    </div>
+                    <div class="bg-slate-800/40 rounded-xl p-4 border border-sky-500/20">
+                        <p class="text-sky-400 font-bold text-sm mb-2">Energy Formula</p>
+                        <p class="text-slate-300 text-sm">$E = P \times t$</p>
+                        <p class="text-slate-300 text-sm mt-1">Units: kW × hours = kWh</p>
+                        <p class="text-slate-300 text-sm">Or: W × seconds = J</p>
+                    </div>
+                </div>
+                <div class="egyptian-expl">
+                    <div class="expl-header"><i class="fas fa-comment-dots"></i> شرح بالعربي</div>
+                    الـ<strong style="color:#fbbf24">كيلوواط·ساعة (kWh)</strong> ده اللي بتشوفه في فاتورة الكهرباء!
+                    <br><br>
+                    1 kWh = جهاز شغال بقدرة 1 كيلوواط (1000 وات) لمدة ساعة كاملة.
+                    <br>= 1000 وات × 3600 ثانية = <strong>3,600,000 جول</strong>
+                    <br><br>
+                    مثال: لمبة 100 وات شغالة 10 ساعات:
+                    <br>الطاقة = 0.1 كيلوواط × 10 ساعة = <strong style="color:#fbbf24">1 kWh</strong> — ده وحدة الفاتورة!
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOLVED EXAMPLE (exact from content.md) -->
+    <section id="example" class="py-10 px-6">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center mb-10" data-aos="fade-up">
+                <span class="inline-block px-4 py-1 rounded-full bg-amber-500/10 text-amber-400 text-xs font-mono border border-amber-500/20 mb-4">SOLVED EXAMPLE</span>
+                <h2 class="text-3xl font-black text-white">Step-by-Step Solution</h2>
+            </div>
+            <div class="glass-card rounded-2xl p-8" data-aos="fade-up">
+                <h3 class="text-lg font-bold text-amber-400 mb-4"><i class="fas fa-pen"></i> Example — Two Bulbs, Average Power</h3>
+                <p class="text-slate-300 mb-5">A <strong class="text-sky-400">60-watt bulb (A)</strong> is switched on <strong class="text-sky-400">24 hours a day</strong> and there is another <strong class="text-amber-400">60-watt bulb (B)</strong> that is turned on for only <strong class="text-amber-400">12 hours</strong>. Find the energy consumed by both the bulbs in one day.</p>
+
+                <!-- Bulb diagram SVG -->
+                <svg viewBox="0 0 460 130" class="w-full max-w-md mx-auto mb-5">
+                    <rect width="460" height="130" fill="#0f172a" rx="10"/>
+                    <!-- Timeline -->
+                    <line x1="30" y1="80" x2="430" y2="80" stroke="#334155" stroke-width="1.5"/>
+                    <text x="30" y="98" fill="#64748b" font-size="10">0h</text>
+                    <text x="225" y="98" fill="#64748b" font-size="10">12h</text>
+                    <text x="415" y="98" fill="#64748b" font-size="10">24h</text>
+                    <!-- Bulb A: full 24h -->
+                    <rect x="30" y="55" width="390" height="14" rx="4" fill="#38bdf8" opacity="0.6"/>
+                    <text x="25" y="67" text-anchor="end" fill="#7dd3fc" font-size="9">A</text>
+                    <text x="225" y="67" text-anchor="middle" fill="#fff" font-size="8">Bulb A ON (60W) — 24 hours</text>
+                    <!-- Bulb B: first 12h -->
+                    <rect x="30" y="35" width="195" height="14" rx="4" fill="#fbbf24" opacity="0.6"/>
+                    <text x="25" y="47" text-anchor="end" fill="#fbbf24" font-size="9">B</text>
+                    <text x="128" y="47" text-anchor="middle" fill="#fff" font-size="8">Bulb B ON (60W) — 12h</text>
+                    <!-- Divider line -->
+                    <line x1="225" y1="25" x2="225" y2="90" stroke="#475569" stroke-width="1" stroke-dasharray="4,3"/>
+                    <text x="120" y="120" text-anchor="middle" fill="#38bdf8" font-size="9">Both ON: 120W</text>
+                    <text x="340" y="120" text-anchor="middle" fill="#94a3b8" font-size="9">Only A: 60W</text>
+                </svg>
+
+                <div class="space-y-3">
+                    <div class="step-block">
+                        <div class="step-label">Step 1 — First 12 hours (both bulbs ON)</div>
+                        <p class="text-slate-200 text-sm">Power = 60 + 60 = <strong class="text-sky-400">120 watts</strong></p>
+                        <p class="text-slate-200 text-sm">Energy = Power × Time = 120 × 12 = <strong class="text-sky-400">1.44 kWh</strong></p>
+                    </div>
+                    <div class="step-block">
+                        <div class="step-label">Step 2 — Next 12 hours (only bulb A ON)</div>
+                        <p class="text-slate-200 text-sm">Power = <strong class="text-amber-400">60 watts</strong></p>
+                        <p class="text-slate-200 text-sm">Energy = 60 × 12 = <strong class="text-amber-400">0.72 kWh</strong></p>
+                    </div>
+                    <div class="step-block">
+                        <div class="step-label">Step 3 — Average Power (whole day)</div>
+                        <p class="text-slate-200 text-sm">In this scenario, the power consumed during the whole day varies as one bulb is turned ON for only 12 hours, so we have to calculate average power:</p>
+                        <p class="text-slate-200 text-sm mt-2"><strong class="text-green-400">Average Power = Total energy consumed / Total time taken</strong></p>
+                        <p class="text-slate-200 text-sm mt-1">$$\bar{P} = \frac{1.44 + 0.72}{24} = \frac{2.16}{24} = \boxed{0.09\;\text{kW} = 90\;\text{W}}$$</p>
+                    </div>
+                </div>
+
+                <div class="egyptian-expl">
+                    <div class="expl-header"><i class="fas fa-comment-dots"></i> شرح بالعربي</div>
+                    <strong style="color:#7dd3fc">الـ12 ساعة الأولى:</strong> الاتنين شغالين → القدرة الكلية = 60 + 60 = 120 وات.
+                    <br>الطاقة = 120 × 12 = <strong>1.44 kWh</strong>
+                    <br><br>
+                    <strong style="color:#fbbf24">الـ12 ساعة التانية:</strong> بس A شغال → القدرة = 60 وات.
+                    <br>الطاقة = 60 × 12 = <strong>0.72 kWh</strong>
+                    <br><br>
+                    <strong style="color:#34d399">متوسط القدرة لليوم كله:</strong>
+                    <br>= (1.44 + 0.72) ÷ 24 = 2.16 ÷ 24 = <strong style="color:#34d399">0.09 كيلوواط = 90 وات</strong>
+                    <br><br>
+                    لاحظ: بنقسم على 24 ساعة (الوقت الكلي لليوم كله).
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUIZ -->
+    <section id="quiz" class="py-16 px-6">
+        <div class="container mx-auto max-w-5xl">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <span class="inline-block px-4 py-1 rounded-full bg-sky-500/10 text-sky-400 text-xs font-mono border border-sky-500/20 mb-4">ASSESSMENT</span>
+                <h2 class="text-4xl font-black text-white mb-2">Test Your Knowledge</h2>
+                <p class="text-slate-400">24 questions — conceptual + calculation</p>
+            </div>
+            <div id="quiz-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+        </div>
+    </section>
+</main>
+
+<footer class="border-t border-slate-800 py-8 text-center text-sm text-slate-500">
+    <p>Physics Year 1 (STEM) © 2026 — Prepared by <span class="text-sky-400">Osama Zinhom</span></p>
+    <p class="mt-2"><a href="lect04.html" class="text-yellow-400 hover:underline">← Lesson 4</a> · <a href="index.html" class="text-slate-400 hover:text-white">Home</a> · <a href="lect05script.html" class="text-amber-400 hover:underline">📜 سكريبت الشرح</a></p>
+</footer>
+
+<script>
+AOS.init({duration:600,once:true,offset:60});
+const slider=document.getElementById('pSlider');
+if(slider){slider.addEventListener('input',function(){const p=parseInt(this.value);document.getElementById('pVal').textContent=p+' W';document.getElementById('eResult').textContent=(p*5).toLocaleString()+' J';document.getElementById('eHour').textContent=(p*3600).toLocaleString()+' J';});}
+
+const questions=[
+    {text:"Power is defined as:",ans:2,expl:"Power = rate of doing work = work done per unit time.",opts:["The ability to do work","The total energy stored","The rate of doing work","The product of force and velocity"]},
+    {text:"The SI unit of power is:",ans:1,expl:"1 Watt = 1 Joule/second.",opts:["Joule","Watt (W)","Newton","Pascal"]},
+    {text:"1 Watt equals:",ans:0,expl:"1 W = 1 J/s by definition.",opts:["1 J/s","1 J·s","1 N/s","1 kg·m/s"]},
+    {text:"1 Horsepower is approximately equal to:",ans:2,expl:"1 hp ≈ 745.7 W as stated in the curriculum.",opts:["100 W","1000 W","745.7 W","500 W"]},
+    {text:"Average power is calculated as:",ans:3,expl:"Average power = Total energy consumed / Total time taken.",opts:["Maximum work / minimum time","Force × velocity","Work / displacement","Total energy consumed / total time"]},
+    {text:"kWh is a unit of:",ans:1,expl:"kWh (kilowatt-hour) is a unit of energy, not power.",opts:["Power","Energy","Force","Time"]},
+    {text:"1 kWh in Joules equals:",ans:2,expl:"1 kWh = 1000 W × 3600 s = 3,600,000 J = 3.6×10⁶ J.",opts:["1000 J","360,000 J","3,600,000 J","1,000,000 J"]},
+    {text:"If you do more work in less time, your power output is:",ans:0,expl:"P = W/t. More W and less t both increase P.",opts:["Higher","Lower","The same","Zero"]},
+    {text:"A machine that does 1000 J of work per second has a power of:",ans:1,expl:"P = W/t = 1000/1 = 1000 W = 1 kW.",opts:["100 W","1000 W (1 kW)","10 W","1 W"]},
+    {text:"Energy = Power × Time. If P = 60 W for 1 hour, energy = ?",ans:3,expl:"E = 60 W × 3600 s = 216,000 J = 0.06 kWh.",opts:["60 J","3600 J","60 kWh","216,000 J"]},
+    {text:"Power is a ___ quantity:",ans:1,expl:"Power is a scalar quantity — magnitude only.",opts:["Vector","Scalar","Base","Dimensionless"]},
+    {text:"Two people lift the same box to the same height. Person A takes 5s, Person B takes 10s. Who has more power?",ans:0,expl:"Same work, less time → more power. P_A = W/5, P_B = W/10, so P_A = 2×P_B.",opts:["Person A","Person B","They have the same power","Cannot be determined"]},
+    // Calculations
+    {text:"🔢 W = 500 J, t = 5 s. Find Power.",ans:1,expl:"P = W/t = 500/5 = 100 W.",opts:["2500 W","100 W","0.01 W","50 W"]},
+    {text:"🔢 P = 200 W, t = 10 s. Find work done.",ans:2,expl:"W = P×t = 200×10 = 2000 J.",opts:["20 J","200 J","2000 J","20000 J"]},
+    {text:"🔢 A motor does 6000 J of work in 2 minutes. Find power.",ans:0,expl:"t = 2×60 = 120 s. P = 6000/120 = 50 W.",opts:["50 W","100 W","3000 W","500 W"]},
+    {text:"🔢 A 60W bulb runs for 24 hours. Find energy in kWh.",ans:3,expl:"E = 0.06 kW × 24 h = 1.44 kWh.",opts:["60 kWh","24 kWh","0.06 kWh","1.44 kWh"]},
+    {text:"🔢 Both 60W bulbs run for 12h. Energy = ?",ans:1,expl:"P_total = 120 W = 0.12 kW. E = 0.12 × 12 = 1.44 kWh.",opts:["0.72 kWh","1.44 kWh","2.88 kWh","120 kWh"]},
+    {text:"🔢 Average power = (1.44 + 0.72) / 24. Result = ?",ans:2,expl:"2.16 ÷ 24 = 0.09 kW = 90 W.",opts:["0.12 kW","0.072 kW","0.09 kW","0.045 kW"]},
+    {text:"🔢 P = 1500 W for 4 hours. Energy in kWh?",ans:0,expl:"E = 1.5 kW × 4 h = 6 kWh.",opts:["6 kWh","1.5 kWh","4 kWh","0.375 kWh"]},
+    {text:"🔢 W = 9000 J, P = 300 W. Find time.",ans:1,expl:"t = W/P = 9000/300 = 30 s.",opts:["0.033 s","30 s","2,700,000 s","3 s"]},
+    {text:"🔢 A pump lifts 500 kg of water to 10m in 50s. Find power. (g=10)",ans:2,expl:"W = mgh = 500×10×10 = 50,000 J. P = 50,000/50 = 1000 W.",opts:["100 W","500 W","1000 W","5000 W"]},
+    {text:"🔢 1 hp = 745.7 W. A car engine has 100 hp. Power in kW?",ans:3,expl:"100 × 745.7 = 74,570 W ≈ 74.57 kW.",opts:["7.457 kW","100 kW","745.7 kW","74.57 kW"]},
+    {text:"🔢 Energy meter reads 3 kWh over 6 hours. Average power?",ans:1,expl:"P_avg = 3/6 = 0.5 kW = 500 W.",opts:["3 kW","0.5 kW","18 kW","2 kW"]},
+    {text:"🔢 A 2000W air conditioner runs 8 hours/day for 30 days. Total energy?",ans:0,expl:"E = 2 kW × 8 h × 30 = 480 kWh.",opts:["480 kWh","160 kWh","240 kWh","60 kWh"]}
+];
+
+const grid=document.getElementById('quiz-grid');
+questions.forEach((q,i)=>{
+    const c=document.createElement('div');
+    c.className="glass-card p-6 rounded-xl hover:bg-slate-800/80 transition flex flex-col";
+    c.innerHTML=`<div class="mb-3"><span class="text-sm font-mono text-sky-500">Q${i+1}</span></div><p class="text-base font-semibold text-white mb-5">${q.text}</p><div class="grid gap-2 mb-4 text-sm text-slate-300">${q.opts.map((o,j)=>`<div onclick="chk(this,${j},${q.ans})" class="p-3 rounded bg-slate-900/50 border border-slate-700 hover:bg-slate-800 cursor-pointer transition">${String.fromCharCode(65+j)}) ${o}</div>`).join('')}</div><div class="mt-auto"><button onclick="this.nextElementSibling.classList.toggle('show')" class="text-xs text-slate-500 hover:text-sky-400 font-bold uppercase tracking-wider cursor-pointer"><i class="fas fa-eye mr-1"></i>Show Answer</button><div class="answer-container"><p class="text-sky-400 font-bold mb-1">Correct: ${String.fromCharCode(65+q.ans)}</p><p class="text-xs text-slate-300">${q.expl}</p></div></div>`;
+    grid.appendChild(c);
+});
+function chk(el,sel,cor){const p=el.parentElement;Array.from(p.children).forEach(c=>{c.classList.remove('bg-emerald-500/20','border-emerald-500','bg-red-500/20','border-red-500');c.classList.add('bg-slate-900/50','border-slate-700');});if(sel===cor){el.classList.add('bg-emerald-500/20','border-emerald-500');}else{el.classList.add('bg-red-500/20','border-red-500');}el.classList.remove('bg-slate-900/50','border-slate-700');}
+</script>
+</body>
+</html>
