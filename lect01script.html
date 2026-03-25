@@ -167,6 +167,43 @@
             font-weight: bold;
         }
 
+        /* Video Cues Classes */
+        .camera-cue {
+            font-size: 0.85rem;
+            color: #fca5a5;
+            display: block;
+            margin: 0.5rem 0;
+            font-weight: bold;
+            background: rgba(239, 68, 68, 0.1);
+            padding: 0.3rem 0.5rem;
+            border-radius: 4px;
+            border-right: 2px solid #ef4444;
+        }
+
+        .vfx-cue {
+            font-size: 0.85rem;
+            color: #93c5fd;
+            display: block;
+            margin: 0.5rem 0;
+            font-weight: bold;
+            background: rgba(59, 130, 246, 0.1);
+            padding: 0.3rem 0.5rem;
+            border-radius: 4px;
+            border-right: 2px solid #3b82f6;
+        }
+
+        .sfx-cue {
+            font-size: 0.85rem;
+            color: #d8b4fe;
+            display: block;
+            margin: 0.5rem 0;
+            font-weight: bold;
+            background: rgba(168, 85, 247, 0.1);
+            padding: 0.3rem 0.5rem;
+            border-radius: 4px;
+            border-right: 2px solid #a855f7;
+        }
+
         .highlight {
             color: #34d399;
             font-weight: 700;
@@ -198,6 +235,7 @@
             font-family: 'Segoe UI', sans-serif;
             color: #93c5fd;
             font-style: italic;
+            font-weight: bold;
         }
 
         .pause {
@@ -316,40 +354,45 @@
         <a href="index.html" class="back-btn" style="margin-right:0.75rem"><i class="fas fa-home"></i> الصفحة الرئيسية</a>
 
         <h1>📜 سكريبت الشرح — الدرس الأول</h1>
-        <p class="subtitle">قوانين نيوتن للحركة · الوحدة الثالثة: الحركة والقوة · بشمهندس أسامة زينهم</p>
+        <p class="subtitle">قوانين نيوتن للحركة · أسلوب مخصص للمونتاج والتصوير التفاعلي · بشمهندس أسامة زينهم</p>
 
         <!-- Table of Contents -->
         <div class="toc">
-            <h3>📋 محتويات الدرس</h3>
-            <a href="#intro">المقدمة والترحيب</a>
-            <a href="#force">مفهوم القوة (F)</a>
-            <a href="#first-law">قانون نيوتن الأول — قانون القصور الذاتي</a>
-            <a href="#inertia">القصور الذاتي (Inertia)</a>
-            <a href="#momentum">كمية الحركة الخطية (P)</a>
-            <a href="#mass-weight">الكتلة والوزن</a>
-            <a href="#third-law">قانون نيوتن الثالث — الفعل ورد الفعل</a>
-            <a href="#summary">ملخص الدرس والخاتمة</a>
+            <h3>📋 محتويات السكريبت وتوجيهات التصوير</h3>
+            <a href="#intro">تفاحة نيوتن والكسل الكوني (المقدمة)</a>
+            <a href="#force">مين البلطجي اللي بيمشي كلامه هنا؟ (القوة)</a>
+            <a href="#first-law">أرسطو كان بيهبد.. ونيوتن ظبط الأداء (القانون الأول)</a>
+            <a href="#inertia">فرامل الميكروباص والـ Inertia بتاعتك</a>
+            <a href="#momentum">رصاصة سريعة ولا قطر بطيء؟ (كمية الحركة)</a>
+            <a href="#mass-weight">أكبر كذبة في الصيدلية (الـ Mass والـ Weight)</a>
+            <a href="#third-law">قانون الغدر والـ Reaction المرعب (القانون الثالث)</a>
+            <a href="#summary">الخلاصة اللي هتنجحك</a>
         </div>
 
-        <!-- ───────── OPENING ───────── -->
-        <div class="section" id="intro">
+        <!-- ───────── HOOK & INTRO ───────── -->
+        <div class="section-divider" id="intro">المقدمة</div>
+        <div class="section">
             <div class="section-title" onclick="toggleSection(this)">
-                المقدمة والترحيب
+                تفاحة نيوتن والكسل الكوني (المقدمة)
                 <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
             </div>
             <div class="script-body">
                 <div class="script-text">
-                    السلام عليكم ورحمة الله وبركاته 🌟
-                    <span class="pause">[وقفة — ابتسامة وترحيب]</span>
-                    أهلاً وسهلاً بيكم في الدرس الأول من وحدة الحركة والقوة.
+                    <span class="camera-cue">🎥 [Shot واسع، إضاءة خافتة، وأنت قاعد على كرسي خشب جنبه شجرة صغيرة أو ماسك تفاحة]</span>
+                    أغسطس 1665، إنجلترا بتقفل بيبانها كلها بسبب الطاعون العظيم. جامعة كامبريدج قررت تقفل وتسرّح الطلبة بتوعها عشان الوباء ميخلصش عليهم. 
+                    <span class="vfx-cue">✨ [VFX: صور أرشيفية سريعة أبيض وأسود لطاعون لندن مع تأثير قديم]</span>
+                    من ضمن الطلبة دول، كان فيه شاب انطوائي مفيش حد مهتم بوجوده، رجع مزرعة أمه في قرية معزولة.. قعد هناك فاضي، والفراغ القاتل ده خلاه قاعد تحت شجرة، مستني أي حاجة تحصل. 
                     <br><br>
-                    النهارداه هنتكلم عن موضوع مهم جداً: <span class="highlight">قوانين نيوتن للحركة</span>.
-                    <br>
-                    اللي هيجاوبنا على سؤال مهم جداً: <span class="hl-amber">ليه الأجسام بتتحرك أصلاً؟ ومين اللي بيخليها تتحرك أو وقف؟</span>
-                    <span class="pause">[وقفة]</span>
-                    في الفصل اللي فات، اتكلمنا عن الحركة في خط مستقيم — إزاحة، سرعة، وعجلة. بس كنا بنوصف الحركة بس من غير ما نسأل <span class="hl-red">ليه</span>.
+                    وفجأة.. <span class="sfx-cue">🔊 [SFX: صوت خبطة تفاحة بتقع على الأرض "طُب"]</span> التفاحة وقعت.
+                    <span class="camera-cue">🎥 [Zoom in بطيء على وشك وتعبيراتك بتبدأ تتغير للجدية]</span>
+                    بص، القصة دي اتهرست لدرجة إنها بقت كليشيه ممل جداً. بس اللي محدش بيقولهولك، إن الشاب ده مسألش نفسه "التفاحة وقعت ليه؟".. هو سأل سؤال أرعب بكتير.
                     <br><br>
-                    دلوقتي إحنا هنعرف السبب — وهو اللي اسمه <span class="highlight">القوة (Force)</span>!
+                    هو سأل: هو إيه أصلاً اللي بيتحكم في الكون ده؟ إيه اللي بيخلي الكرسي ده ثابت، وإيه اللي بيخلي الكوكب العبقري بتاعنا ده يلف من غير ما يقع؟ مين المخرج اللي بيوزع الأدوار دي؟
+                    <br>النهارده بقى، هندخل دماغ الشاب ده.. إيزاك نيوتن.
+                    <br><br>
+                    <span class="camera-cue">🎥 [الضحكة المعتادة وبداية حيوية وانطلاقة سريعة]</span>
+                    أهلاً بيك في عالم الميكانيكا الكلاسيكية.. أنا بشمهندس أسامة زينهم، وكوباية الشاي الجميلة بتاعتك، ويلا نفهم הـ <span class="highlight">Newton's Laws of Motion</span>!
+                    <span class="sfx-cue">🔊 [SFX: تتر بداية ديناميكي]</span>
                 </div>
             </div>
         </div>
@@ -358,493 +401,220 @@
         <div class="section-divider" id="force">القوة</div>
         <div class="section">
             <div class="section-title" onclick="toggleSection(this)">
-                مفهوم القوة (F) — Force
+                مين البلطجي اللي بيمشي كلامه هنا؟ (القوة)
                 <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
             </div>
             <div class="script-body">
                 <div class="script-text">
-                    طيب، إيه هي <span class="highlight">القوة</span>؟
-                    <span class="pause">[وقفة]</span>
-                    القوة — <span class="english">Force</span> — هي <span class="hl-amber">تأثير خارجي</span> بيأثر على الجسم ويغيّر حالته.
-                    <br>
-                    يعني ممكن تخلّيه يتحرك، أو تغيّر سرعته، أو تغيّر اتجاهه.
-                    <span class="pause">[وقفة]</span>
-                    ببساطة كده: أي حاجة بتزقّها أو بتشدّها — <span class="hl-red">دي قوة!</span> 💪
+                    <span class="camera-cue">🎥 [أنت واقف ماسك سبورة صغيرة أو تابلت وبتشخبط عليه بخطوط عشوائية]</span>
+                    الكون ده يا سيدي عامل زي الموظف الحكومي اللي قاعد على المكتب.. مابيعملش أي حاجة خالص، مابيتلحلحش من مكانه، من غير "واسطة".. أو بتعبير فيزيائي أصح، من غير "زقة".
+                    <br><br>
+                    عشان أي <span class="english">Object</span> في الدنيا ييجي له مزاج إنه يتحرك لو كان واقف، أو يوقّف لو كان بيجري، أو حتى يغير رأيه ويلف يمين بدل شمال.. محتاج تأثير خارجي. التأثير البلطجي ده احنا بنسميه הـ <span class="highlight">Force</span>.
                 </div>
 
                 <div class="law-box">
-                    تعريف القوة: هي <strong>تأثير خارجي يؤثر على الجسم فيغير أو يحاول أن يغير حالته أو اتجاهه.</strong>
-                    <br>أو: هي فعل ينتج أو يحاول أن ينتج تغييراً في حالة سكون الجسم أو حركته.
+                    <strong>الـ Definition الرسمي:</strong>
+                    <br>An external effect that affects the object, it changes or attempts to change its state or direction.
                 </div>
 
                 <div class="script-text" style="margin-top:1rem">
-                    خلونا نفهم الكلمات الصعبة دي واحدة واحدة:
-                    <span class="pause">[وقفة]</span>
-                    <ul class="step-list">
-                        <li><span class="hl-amber">تأثير خارجي</span>: يعني القوة بتيجي من برّه الجسم — مش من جوّاه.</li>
-                        <li><span class="hl-amber">تغيير الحالة</span>: إما تخليه يتحرك لو كان واقف، أو تغيّر سرعته لو كان متحرك، أو تغيّر اتجاهه.</li>
-                        <li><span class="hl-amber">يحاول</span>: حتى لو الجسم ما اتحركش (زي حيطة ما بتتحركش لما تدفعها)، القوة لسه موجودة!</li>
-                    </ul>
-                </div>
-
-                <div class="formula-note">
-                    رمز القوة: <strong>F</strong> (من كلمة Force)
-                    <br>وحدة قياسها: <strong>نيوتن (N)</strong>
-                    <br>نوعها: <strong>كمية متجهة مشتقة</strong> — يعني ليها مقدار (رقم) واتجاه (يمين، شمال، فوق، تحت...)
-                    <br>بتتقاس بـ: <strong>الميزان الزنبركي (Spring Balance)</strong>
-                </div>
-
-                <div class="script-text" style="margin-top:1rem">
-                    كده بقى عارفين إيه القوة. خلونا نتكلم عن أول قانون اكتشفه نيوتن عشان يفسّر الحركة...
+                    <span class="vfx-cue">✨ [VFX: کلمة "attempts" بتنور بلون أحمر وبيتعمل عليها دائرة]</span>
+                    خدلي بالك من كلمة <span class="english">attempts</span> دي.. يعني "بيحاول". إنت ممكن تروح بكل صحتك دلوقتي تزق حيطة خرسانة بكتفك.. هل الحيطة هتتحرك؟ لأ. هل ده معناه إن مفيش <span class="english">Force</span>؟ لأ طبعاً فيه! إنت بس اللي صحتك على قدها ومقدرتش تتفوق على ثبات الحيطة.
+                    <br><br>
+                    <span class="camera-cue">🎥 [بتاخد خطوة للكاميرا وبترتب كلامك بصباعك]</span>
+                    الـ <span class="english">Force</span> دي مش كمية غشيمة بتمشي تخبط وخلاص.. دي <strong class="hl-blue">Derived Vector Quantity</strong>. يعني ليها مقدار، وليها اتجاه. زي ما بتشوط كورة بالظبط، إنت بتحدد هتشوطها بقوة قد إيه <span class="english">(Magnitude)</span> وهتشوطها في الجون اليمين ولا الشمال <span class="english">(Direction)</span>. والكمية المحترمة دي بنقيسها بجهاز اسمه الـ <strong class="hl-purple">Spring Balance</strong> ووحدتها هي الـ <span class="hl-amber">Newton</span> طبعاً تيمناً بعمنا إبراهيم نيوتن.. قصدي إسحاق نيوتن.
                 </div>
             </div>
         </div>
 
         <!-- ───────── FIRST LAW ───────── -->
-        <div class="section-divider" id="first-law">قانون نيوتن الأول</div>
+        <div class="section-divider" id="first-law">القانون الأول</div>
         <div class="section">
             <div class="section-title" onclick="toggleSection(this)">
-                قانون نيوتن الأول — قانون القصور الذاتي
+                أرسطو كان بيهبد.. ونيوتن ظبط الأداء (القانون الأول)
                 <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
             </div>
             <div class="script-body">
                 <div class="script-text">
-                    تخيل معايا كده: دحرجت كورة على الأرض...
-                    <span class="pause">[وقفة]</span>
-                    الكورة بدأت تبطّئ ومشيت مسافة وبعدين وقفت.
-                    <br>
-                    ليه وقفت؟ ليه ما فضلتيش ماشية؟
-                    <span class="pause">[وقفة]</span>
-                    السبب هو <span class="hl-amber">قوة الاحتكاك</span> — الأرض بتكبّح الكورة وتوقفها.
+                    <span class="camera-cue">🎥 [Low angle shot وأنت باصص لفوق كأنك بتتكلم عن حاجة قديمة]</span>
+                    زمان خالص، كان عم أرسطو مقنع البشرية بنظرية بديهية جداً.. بيقولك الطبيعي بتاع الحاجات في الكون إنها تبطأ وتقف وتستكين. رميت كورة على الأرض، هتدحرج شوية، وبعدين تتعب فتقف. وكلنا اقتنعنا.
                     <br><br>
-                    طيب لو مفيش احتكاك خالص؟ الكورة هتفضل ماشية <span class="highlight">للأبد!</span> 🎱
-                    <span class="pause">[وقفة — اسمح للفكرة تاخد وقتها]</span>
-                    ده بالظبط اللي قاله <span class="hl-amber">إسحاق نيوتن</span> في قانونه الأول!
+                    <span class="sfx-cue">🔊 [SFX: صوت قلم بيشخبط بقوة أو إزاز بيتكسر للتعبير عن كسر الفكرة]</span>
+                    لحد ما جه نيوتن، وقال إيه الهبد ده! الكورة دي ماكانتش هتقف أبداً.. هي وقفت عشان فيه قوة تانية رخمة اتدخلت وعرقلتها، اسمها الـ <span class="english">Friction Force</span> أو الاحتكاك! لو مكنش في احتكاك، الكورة دي كانت هتكمل في طريقها لساعة القيامة.
+                    <br><br>
+                    ومن هنا، حط <span class="highlight">Newton's First Law</span>.
                 </div>
 
                 <div class="law-box">
-                    <strong>نص القانون الأول لنيوتن:</strong>
-                    <br>«الجسم الساكن يفضل ساكن، والجسم المتحرك يفضل متحرك بسرعة ثابتة في خط مستقيم — إلا إذا أثرت عليه قوة محصلة خارجية.»
+                    <strong>نص القانون:</strong>
+                    <br>A static object keeps its state of rest, and a moving object keeps its state of motion at uniform velocity in a straight line... <strong>UNLESS acted upon by a resultant force.</strong>
                 </div>
 
                 <div class="script-text" style="margin-top:1rem">
-                    خلينا نفهم الكلمات الصعبة دي:
-                    <span class="pause">[وقفة]</span>
-                    <ul class="step-list">
-                        <li><span class="hl-amber">ساكن</span> = واقف في مكانه مش بيتحرك.</li>
-                        <li><span class="hl-amber">سرعة ثابتة</span> = سرعته مش بتزيد ولا بتنقص — ماشي بنفس السرعة دايماً.</li>
-                        <li><span class="hl-amber">خط مستقيم</span> = مش بيلف ومش بيلوي — اتجاهه مستقيم.</li>
-                        <li><span class="hl-amber">قوة محصلة</span> = جمع كل القوى اللي بتأثر على الجسم. لو كانوا بيلغوا بعض يبقى المحصلة صفر.</li>
-                    </ul>
-                </div>
-
-                <div class="formula-note">
-                    الشرط: لو <strong>ΣF = صفر</strong> (مجموع القوى = صفر)
-                    <br>النتيجة: السرعة مبتتغيرش ← العجلة = صفر
-                    <br>
-                    <br>الرمز <strong>Σ</strong> (سيجما) معناه «مجموع كل».
-                    <br>يعني ΣF = مجموع كل القوى المؤثرة على الجسم.
-                </div>
-
-                <div class="example-box">
-                    كتاب على الترابيزة مش بيتحرك — وزنه نازل لتحت وقوة الترابيزة دافعاه لفوق. المحصلة = صفر. فهو ساكن!
+                    <span class="vfx-cue">✨ [VFX: Equation pop-up (ΣF = 0 → a = 0)]</span>
+                    الخلاصة المريحة للكسالى: الكسلان هيفضل كسلان وعاجبه السرير، والمتحرك هيفضل ماشي في <span class="english">straight line</span> لا بيحود يمين ولا شمال، بسرعة ثابتة مابتتغيرش. إمتى الكلام ده يتكسر؟ لو ظهرت <span class="english">Resultant force</span>!
                     <br><br>
-                    السيارة ماشية بسرعة ثابتة — قوة المحرك لقدام بتتساوى مع قوة الاحتكاك للورا. المحصلة = صفر. ماشية بدون عجلة!
-                </div>
-
-                <div class="note">
-                    القانون ده اسمه كمان <strong>قانون القصور الذاتي (Law of Inertia)</strong> — وهنفهم إيه يعني قصور ذاتي دلوقتي.
+                    <span class="camera-cue">🎥 [بتشاور على كتاب قدامك على المكتب]</span>
+                    يعني موبايلك لو رميته في الفضاء الخارجي، بعيد عن هوا واحتكاك وأي جاذبية، هيفضل مكمل بسرعة ثابتة للـ <span class="english">Infinity</span>. طب الكتاب اللي على المكتب ده ساكن ليه ومبتتلحلحش؟ عشان وزنه بيشده لتحت، والترابيزة بتزقه لفوق (الـ <span class="english">Normal force</span>). الاتنين قد بعض بالظبط فعاملين <span class="english">Equilibrium</span>. الـ <span class="hl-red">Sigma F</span> بـ صفر!
                 </div>
             </div>
         </div>
 
         <!-- ───────── INERTIA ───────── -->
-        <div class="section-divider" id="inertia">القصور الذاتي</div>
+        <div class="section-divider" id="inertia">الـ Inertia</div>
         <div class="section">
             <div class="section-title" onclick="toggleSection(this)">
-                القصور الذاتي (Inertia) — مقاومة التغيير
+                فرامل الميكروباص والـ Inertia بتاعتك
                 <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
             </div>
             <div class="script-body">
                 <div class="script-text">
-                    عارفين الناس اللي صعب تغيّر رأيهم أو عاداتهم؟
-                    <span class="pause">[وقفة — ربط بالحياة]</span>
-                    الأجسام زيّهم بالظبط! — قاوم أي تغيير في حالتها.
-                    <br>
-                    ده اللي بنسميه <span class="highlight">القصور الذاتي (Inertia)</span>.
-                </div>
-
-                <div class="law-box">
-                    <strong>تعريف القصور الذاتي:</strong>
-                    <br>هو ميل الجسم للاحتفاظ بحالته — إما السكون أو الحركة بسرعة ثابتة في خط مستقيم.
+                    <span class="camera-cue">🎥 [بتمسك كوباية شاي مليانة على الآخر، وبتعمل نفسك هتمشي بيها بسرعة وهتدلق]</span>
+                    القانون الأول ده بقى، هو التفسير العلمي لمبدأ عظيم اسمه <span class="highlight">الـ Inertia</span> المشهور بالقصور الذاتي.
+                    <br><br>
+                    الأجسام يا صديقي تنحة جداً. مبتحبش تغير حالتها نهائي.. هي في <span class="english">Comfort zone</span> وبتحارب عشان تفضل جواها.
+                    <span class="vfx-cue">✨ [VFX: مقطع درامي صامت لبني آدم طاير قدام جوه عربية لما بتخبط]</span>
                 </div>
 
                 <div class="script-text" style="margin-top:1rem">
-                    يعني إيه بالتفصيل؟
-                    <span class="pause">[وقفة]</span>
                     <ul class="step-list">
-                        <li><span class="hl-amber">لو الجسم ساكن</span> → بيحب يفضل ساكن ومبيتحركش إلا لو حاجة تحركه.</li>
-                        <li><span class="hl-amber">لو الجسم متحرك</span> → بيحب يفضل ماشي بنفس السرعة في نفس الاتجاه إلا لو حاجة تغيّره.</li>
+                        <li>لو إنت راكب عربية، وصاحبك المتسربع دس بنزين وطلع فجأة.. تلاقي ضهرك لزق في الكرسي لورا. ليه؟ جسمك كان ساكن، كان مرتاح، وفجأة العربية اتسحبت لقدام وهو بيقاوم وعايز يفضل مكانه.</li>
+                        <li>طب لو السواق ده ضرب فرامل فجأة؟ <span class="sfx-cue">🔊 [SFX: فرامل حادة]</span> تلاقي وشك بيبوس التابلوه! جسمك كان واخد سرعة العربية، العربية استجابت للفرامل ووقفت، بس إنت مفيش جواك تيل فرامل! جسمك مكمل بسرعة العربية لقدام في خط مستقيم.</li>
                     </ul>
-                    <span class="pause">[وقفة]</span>
-                    ودي ظاهرة بنشوفها في حياتنا كل يوم...
-                </div>
-
-                <div class="example-box">
-                    🚌 <strong>مثال 1 — الفرملة المفاجئة:</strong>
-                    <br>لو ركبت أوتوبيس وفجأة فرمل — جسمك بيندفع للأمام. ليه؟
-                    <br>لأن جسمك كان ماشي والقصور الذاتي خلّاه عايز يفضل ماشي حتى لو الأوتوبيس وقف!
-                    <br>عشان كده لازم تربط حزام الأمان 🟠
-                    <br><br>
-                    🚌 <strong>مثال 2 — الانطلاق المفاجئ:</strong>
-                    <br>الأوتوبيس بيتحرك فجأة — جسمك بينكفئ للورا. ليه؟
-                    <br>لأن جسمك كان واقف والقصور الذاتي خلّاه عايز يفضل واقف!
-                    <br><br>
-                    🔄 <strong>مثال 3 — المنحنى:</strong>
-                    <br>السيارة بتلف في منحنى — جسمك بيتحرك ناحية الباب. ليه؟
-                    <br>لأن جسمك بيحاول يفضل ماشي في خط مستقيم بدل ما يلف مع السيارة!
-                </div>
-
-                <div class="note">
-                    القصور الذاتي بيكبر مع <strong>الكتلة والسرعة:</strong>
-                    <br>• الشاحنة الكبيرة أصعب في الإيقاف من العجلة الصغيرة عند نفس السرعة.
-                    <br>• السيارة بسرعة 120 كم/ساعة أصعب في الإيقاف من سيارة بسرعة 30 كم/ساعة.
+                    <span class="pause">[وقفة صارمة]</span>
+                    عشان كدة، اللي اخترع حزام الأمان ده مقالش نحطه زينة عشان المخالفات.. ده عمله عشان يكتف הـ <span class="english">Inertia</span> بتاعتك قبل ما جمجمتك تتكسر.
                 </div>
             </div>
         </div>
 
         <!-- ───────── MOMENTUM ───────── -->
-        <div class="section-divider" id="momentum">كمية الحركة الخطية</div>
+        <div class="section-divider" id="momentum">الـ Momentum</div>
         <div class="section">
             <div class="section-title" onclick="toggleSection(this)">
-                كمية الحركة الخطية (Linear Momentum — P)
+                رصاصة سريعة ولا قطر بطيء؟ (كمية الحركة)
                 <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
             </div>
             <div class="script-body">
                 <div class="script-text">
-                    سؤال سريع: إيه أخطر على نفسك — كرة صغيرة بتجري بسرعة، ولا طوبة كبيرة بتمشي ببطء؟
-                    <span class="pause">[وقفة — خلّي الطلاب يفكروا]</span>
-                    ممكن يكون الجوابين متساويين في الخطر! وده لأن الاتنين ممكن يكون ليهم نفس <span class="highlight">كمية الحركة</span>.
-                    <span class="pause">[وقفة]</span>
-                    <span class="highlight">كمية الحركة الخطية (P)</span> هي الكمية اللي بتجمع بين الكتلة والسرعة في كمية واحدة.
+                    <span class="camera-cue">🎥 [الكاميرا بتسحب لزاوية Wide شوية، وبتشاور بإيدك كأنك بتنظم سباق]</span>
+                    ناخد سؤال فلسفي بس خطر شوية. مين اللي يخبطك وتبقى نسبة نجاتك أقل: عجلة بسكليتة وزنها 15 كيلو بتمشي ببطء جداً.. ولا رصاصة وزنها يا دوب 20 جرام بس طالعة بسرعة الضوء من مسدس؟
+                    <br><br>
+                    الإجابة البديهية: الرصاصة! طب ليه الرصاصة مميتة رغم إنها خفيفة كدة؟
+                    ولو سألتك: مين يموتك أكتر، عجلة ماشية ببطء، ولا قطر بضاعة ماشي ببطء؟ هتقول قطار البضاعة طبعاً من غير تفكير، عشان ضخم جداً!
+                    <span class="pause">[وقفة وبتبتسم]</span>
+                    الفيزياء ريحت دماغها من الجدال ده، وحطت الـ <span class="english">Mass</span> والـ <span class="english">Velocity</span> في الخلاط، وطلعت بكمية مرعبة اسمها الـ <span class="highlight">Linear Momentum (P)</span>.
                 </div>
 
                 <div class="formula-note">
-                    <strong>المعادلة:</strong>
+                    <strong>السرعة في الكتلة = كارثة!</strong>
                     <br><strong style="font-size:1.2rem">P = m × v</strong>
                     <br><br>
-                    <table class="symbol-table">
-                        <tr>
-                            <th>الرمز</th>
-                            <th>الاسم</th>
-                            <th>الوحدة</th>
-                            <th>المعنى</th>
-                        </tr>
-                        <tr>
-                            <td><strong style="color:#34d399">P</strong></td>
-                            <td>كمية الحركة الخطية</td>
-                            <td>kg·m/s</td>
-                            <td>كمية الحركة الكلية للجسم</td>
-                        </tr>
-                        <tr>
-                            <td><strong style="color:#60a5fa">m</strong></td>
-                            <td>الكتلة</td>
-                            <td>kg (كيلوجرام)</td>
-                            <td>كمية المادة في الجسم</td>
-                        </tr>
-                        <tr>
-                            <td><strong style="color:#f87171">v</strong></td>
-                            <td>السرعة</td>
-                            <td>m/s (متر/ثانية)</td>
-                            <td>مقدار التغيير في المكان مع الزمن</td>
-                        </tr>
-                    </table>
+                    وحدتها <strong style="color:#fbbf24">kg·m/s</strong> وهي Vector طبعاً عشان فيها Velocity.
                 </div>
 
                 <div class="script-text" style="margin-top:1rem">
-                    كمية الحركة كمية متجهة — يعني ليها مقدار واتجاه زي السرعة تماماً.
-                    <span class="pause">[وقفة]</span>
-                    ودي فكرة مهمة جداً: لو الجسم بيتحرك في اتجاهين مختلفين، كميات الحركة بتتقابل ببعض!
-                </div>
-
-                <div class="example-box">
-                    عربية كتلتها 1000 kg ماشية بسرعة 20 m/s:
-                    <br>P = 1000 × 20 = <strong>20,000 kg·m/s</strong>
-                    <br><br>
-                    كورة كتلتها 0.5 kg لو بتجري بسرعة 40,000 m/s (مش مستحيل في الفيزياء!) هيكون ليها:
-                    <br>P = 0.5 × 40,000 = <strong>20,000 kg·m/s</strong> — نفس كمية الحركة!
+                    الـ <span class="english">Momentum</span> دي هي مقياس التدمير! هي اللي بتعرفك صعوبة إنك توقف جسم متحرك. القطر الـ <span class="english">Mass</span> بتاعته جبارة فـ הـ <span class="english">Momentum</span> عالى جداً وميوقفش بسهولة. الرصاصة الـ <span class="english">Velocity</span> بتاعتها مجنونة فبتخترق أي حاجة، הـ <span class="english">Momentum</span> شغال في الحالتين!
                 </div>
             </div>
         </div>
 
         <!-- ───────── MASS VS WEIGHT ───────── -->
-        <div class="section-divider" id="mass-weight">الكتلة والوزن</div>
+        <div class="section-divider" id="mass-weight">Mass vs Weight</div>
         <div class="section">
             <div class="section-title" onclick="toggleSection(this)">
-                الكتلة والوزن — الفرق المهم!
+                أكبر كذبة في الصيدلية (الـ Mass والـ Weight)
                 <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
             </div>
             <div class="script-body">
                 <div class="script-text">
-                    سؤال: هل وزنك على القمر هيكون نفس وزنك على الأرض؟
-                    <span class="pause">[وقفة — اسمح للطلاب يجاوبوا]</span>
-                    لأه! وزنك هيبقى أقل بكتير على القمر. بس كتلتك هتفضل نفسها!
-                    <br>
-                    ليه؟ لأن الكتلة والوزن حاجتين مختلفتين تماماً.
-                    <span class="pause">[وقفة]</span>
-                    خلينا نفهمهم كويس...
-                </div>
-
-                <div class="law-box">
-                    <strong>الكتلة (m — Mass):</strong>
-                    <br>هي مقاومة الجسم لتغيير حالته الحركية. بنقيسها بالكيلوجرام (kg) بالميزان ذو الكفتين أو الميزان الرقمي.
-                    <br>🔑 الكتلة <strong>لا تتغير</strong> من مكان لآخر — نفسها على الأرض وعلى القمر وفي الفضاء!
+                    <span class="camera-cue">🎥 [بتمسك ميزان حمام عادي وتخبط عليه بإيدك]</span>
+                    في كذبة إحنا عايشين فيها من يوم ما اتولدنا. تدخل الصيدلية وتقف على البتاع ده، تلاقي المؤشر بيقول 80، فتطلع تقول لأصحابك "أنا وزني 80 كيلو".. علمياً الجملة دي جريمة ومحتاجة يتحط عليها <span class="english">Censorship</span>!
+                    <span class="sfx-cue">🔊 [SFX: Error buzzer]</span>
+                    <br><br>
+                    خلينا نفرّق بين حاجتين مبيرحموش بعض:
+                    <br><br>
+                    <strong class="hl-blue">أولاً، الـ Mass (الكتلة):</strong> ودي كمية المادة اللي فيك. إنت جواك كرش ولحم وعضم ومياة قد إيه؟ دي הـ <span class="english">Mass</span> ووحدتها الـ <span class="english">Kilogram</span>. والمفاجأة؟ <span class="highlight">مبتتغيرش نهائياً لو سافرت آخر الكون!</span> إنت هنا كتلتك 80 كيلو، وهناك على المريخ 80 كيلو! هي دي الـ 80 اللي الميزان طلعها لك.
                 </div>
 
                 <div class="law-box" style="border-right-color:#ef4444; background:rgba(239,68,68,0.07);">
-                    <strong style="color:#f87171">الوزن (Fg — Weight):</strong>
-                    <br>هو قوة جذب الأرض (أو أي كوكب) للجسم، واتجاهها دايماً نازل لأسفل نحو مركز الأرض. بنقيسه بالنيوتن (N) بالميزان الزنبركي.
-                    <br>🔑 الوزن <strong>يتغير</strong> من مكان لآخر حسب عجلة الجاذبية (g).
-                </div>
-
-                <div class="formula-note">
-                    <strong>معادلة الوزن:</strong>
-                    <br><strong style="font-size:1.15rem">Fg = m × g</strong>
-                    <br><br>
-                    <table class="symbol-table">
-                        <tr>
-                            <th>الرمز</th>
-                            <th>الاسم</th>
-                            <th>القيمة / الوحدة</th>
-                        </tr>
-                        <tr>
-                            <td><strong style="color:#f87171">Fg</strong></td>
-                            <td>الوزن (Weight)</td>
-                            <td>نيوتن (N)</td>
-                        </tr>
-                        <tr>
-                            <td><strong style="color:#60a5fa">m</strong></td>
-                            <td>الكتلة (Mass)</td>
-                            <td>كيلوجرام (kg)</td>
-                        </tr>
-                        <tr>
-                            <td><strong style="color:#34d399">g</strong></td>
-                            <td>عجلة الجاذبية الأرضية</td>
-                            <td>على الأرض = 9.8 m/s² ≈ 10 m/s²</td>
-                        </tr>
-                    </table>
+                    <strong style="color:#f87171">ثانياً، הـ Weight (الوزن):</strong>
+                    <br>الـ Weight ده قوة يا مؤمن.. قوة! הـ <span class="english">Force of Gravity</span>. الأرض ككوكب بتشد اللحم والعضم بتاعك ده لتحت بقوة كام نيوتن؟
+                    <br><strong style="color:#fca5a5; font-size:1.1rem;">Fg = m × g</strong>
                 </div>
 
                 <div class="script-text" style="margin-top:1rem">
-                    طيب على القمر، عجلة الجاذبية g = 1.6 m/s² بس. لذلك...
-                    <span class="pause">[وقفة]</span>
-                    شخص كتلته 70 kg على الأرض: Fg = 70 × 9.8 = <span class="hl-red">686 نيوتن</span>
-                    <br>
-                    نفس الشخص على القمر: Fg = 70 × 1.6 = <span class="hl-amber">112 نيوتن</span> بس!
-                    <br>
-                    الكتلة <span class="highlight">فاضلت 70 kg</span> في الحالتين.
-                </div>
-
-                <div class="note">
-                    الفرق بين الكتلة والوزن: <br>
-                    • الكتلة بتتقاس بالميزان ذو الكفتين (Balance) — وحدتها kg <br>
-                    • الوزن بيتقاس بالميزان الزنبركي (Spring Balance) — وحدته Newton (N)
+                    عشان تحسب وزنك الحقيقي، تضرب كتلتك في الـ <span class="english">Gravity</span> بتاعت الكوكب. كوكب الأرض جاذبيته تقريباً 9.8. يعني (70 كجم × 9.8) هتطلع حوالي 686 نيوتن! وزنك 686 نيوتن يا بطل!
+                    <br><br>
+                    <span class="vfx-cue">✨ [VFX: المشهد بيتحول لسطح القمر، جاذبية قليلة وبتمشي بالراحة]</span>
+                    تروح القمر بقى؟ الجاذبية ميتة هناك 1.6 بس.. فتضربها في الـ 70 كجم، تلاقي وزنك نزل لـ 112 نيوتن! هتحسسك إنك فراشة، هتنط 3 متر لفوق وانت مرتاح، ده لأن الوزن قل، لكن كتلتك الـ 70 كيلو كرش زي ما هما مفيش جرام نزل!
                 </div>
             </div>
         </div>
 
         <!-- ───────── THIRD LAW ───────── -->
-        <div class="section-divider" id="third-law">قانون نيوتن الثالث</div>
+        <div class="section-divider" id="third-law">Newton's Third Law</div>
         <div class="section">
             <div class="section-title" onclick="toggleSection(this)">
-                قانون نيوتن الثالث — الفعل ورد الفعل
+                قانون الغدر والـ Reaction المرعب (القانون الثالث)
                 <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
             </div>
             <div class="script-body">
                 <div class="script-text">
-                    آخر قانون في درسنا النهارده هو الأكتر إثارة!
-                    <span class="pause">[وقفة]</span>
-                    لما بتشوط كورة بقدمك — بتحس إن قدمك بتأثر عليها. ولكن هل الكورة بتأثر على قدمك؟
-                    <span class="pause">[وقفة — اسمح للطلاب يفكروا]</span>
-                    أيوه! ده بالظبط قانون نيوتن الثالث. الكورة بتأثر على قدمك بنفس القوة!
+                    <span class="camera-cue">🎥 [العودة لكادر الاستوديو، بتخبط خبطة قوية بكف إيدك على الترابيزة]</span>
+                    آآآه!
+                    <span class="pause">[وقفة، بتبص لإيدك اللي لخبطت بيها الترابيزة باستغراب مصطنع]</span>
+                    أنا اللي ضربت الترابيزة.. الترابيزة جماد خشب، الترابيزة وجعتني ليه؟ 
+                    هنا بنيجي لأسطورة نيوتن.. <span class="highlight">Newton's Third Law</span>. القانون اللي أثبت إن الكون ده مبيمشيش فيه البلطجة من طرف واحد أبضاً!
                 </div>
 
                 <div class="law-box">
-                    <strong>نص قانون نيوتن الثالث:</strong>
-                    <br>«عندما يؤثر جسم (A) على جسم (B) بقوة، فإن الجسم (B) يؤثر على جسم (A) بقوة مساوية في المقدار ومضادة في الاتجاه.»
-                    <br><br>
-                    أو ببساطة: <strong>لكل فعل رد فعل مساوٍ له في المقدار ومضاد له في الاتجاه.</strong>
-                </div>
-
-                <div class="formula-note">
-                    <strong>المعادلة:</strong>
-                    <br><strong style="font-size:1.15rem">F(A على B) = ‒ F(B على A)</strong>
-                    <br><br>
-                    العلامة (‒) تعني عكس الاتجاه. المقدار واحد بس الاتجاه معاكس.
+                    <strong>الإثبات العلمي إن مفيش حد بيسيب حقه:</strong>
+                    <br>لكل فعل (Action)، رد فعل (Reaction)، مساوٍ له في المقدار ومضاد له في الاتجاه!
+                    <br><strong style="font-size:1.15rem; color:#f87171;">FA_on_B = - F_B_on_A</strong>
                 </div>
 
                 <div class="script-text" style="margin-top:1rem">
-                    خلينا نشوف أمثلة من حياتنا:
-                    <span class="pause">[وقفة]</span>
-                    ⚽ <strong>تشوت الكورة:</strong> قدمك بتأثر على الكورة للأمام (الفعل)، والكورة بتأثر على قدمك للورا (رد الفعل) — عشان كده بتحس بالضربة في رجلك!
-                    <span class="pause">[وقفة]</span>
-                    🔫 <strong>البندقية:</strong> لما تنطلق الرصاصة للأمام (الفعل)، البندقية بترجع للورا (رد الفعل) — واللي بنسميه الارتداد.
-                    <span class="pause">[وقفة]</span>
-                    🚀 <strong>الصاروخ:</strong> الغازات بتندفع من تحت للأسفل (الفعل)، والصاروخ بيتحرك لفوق (رد الفعل)!
-                    <span class="pause">[وقفة]</span>
-                    🚗 <strong>العجلات على الطريق:</strong> عجلة السيارة بتدفع الأرض للورا (الفعل)، والأرض بتدفع السيارة للأمام (رد الفعل) — ده اللي بيخلي السيارة تتحرك!
-                </div>
-
-                <div class="note">
-                    <strong>سؤال مهم جداً في الامتحانات:</strong>
-                    <br>ليه الفعل ورد الفعل مش بيلغوا بعض؟
+                    <span class="vfx-cue">✨ [VFX: صاروخ بيطير والأسهم بتبين اتجاه الغاز واتجاه الانطلاق]</span>
+                    دي مش مقولة بتكتبها في التيك توك لما صاحبك يغدر بيك.. ده قانون بيحكم الميكرة والمجرة! الطيارة لما بتطير، بتزق الهوا لورا جامد، فالهوا بيزقها لقدام بنفس القوة فتندفع! 
+                    الصاروخ الـ <span class="english">Rocket</span> بيحرق غاز وينطره لتحت بعنف، فالصاروخ كـ رد فعل بيطير لفوق للفضاء.
+                    حتى وإنت بتشوط الكورة، رجلك بتزق الكورة لقدام، الكورة في نفس التانية بتزق رجلك لورا بنفس الـ <span class="english">Magnitude</span> عشان كدة بتحس بالخبطة في صباعك.
                     <br><br>
-                    الجواب: لأن الاتزان محتاج القوتين يأثروا على <strong>نفس الجسم</strong>. أما الفعل ورد الفعل فبيأثروا على <strong>جسمين مختلفين</strong>!
-                    <br>• الفعل على الجسم B
-                    <br>• رد الفعل على الجسم A
-                    <br>إذن مستحيل يلغوا بعض!
-                </div>
-
-                <div class="note" style="border-right-color:#a78bfa; background:rgba(139,92,246,0.07); color:#c4b5fd;">
-                    <strong style="color:#a78bfa">💜 ملاحظات الامتحان:</strong>
-                    <br>• الفعل ورد الفعل دايماً في نفس اللحظة — بيظهروا مع بعض ويختفوا مع بعض.
-                    <br>• الفعل ورد الفعل من نفس النوع — لو الفعل قوة جاذبية، رد الفعل قوة جاذبية.
-                    <br>• في الكون مفيش قوة واحدة منفردة — القوى دايماً بتيجي في أزواج!
-                </div>
-            </div>
-        </div>
-
-        <!-- ───────── WORKED EXAMPLE ───────── -->
-        <div class="section">
-            <div class="section-title" onclick="toggleSection(this)">
-                🖊️ مثال محلول — تمرين الفيلة والبنت
-                <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
-            </div>
-            <div class="script-body">
-                <div class="script-text">
-                    خلينا نحل التمرين اللي في الدرس خطوة بخطوة:
-                    <span class="pause">[وقفة]</span>
-                    <strong>السيناريو:</strong> بنت على عربية سكيت ربطت حبل بفيل على سكيت تاني — كل منهم بيشد التاني.
-                </div>
-
-                <div class="script-text" style="margin-top:1rem; background: rgba(16,185,129,0.06); border-right-color:#34d399;">
-                    <strong style="color:#34d399;">السؤال الأول: ما العلاقة بين القوة المؤثرة على الفيل وتلك المؤثرة على البنت؟</strong>
-                    <span class="pause">[وقفة]</span>
-                    بتطبيق <span class="hl-amber">قانون نيوتن الثالث</span>:
-                    <br>القوة اللي البنت بتمارسها على الفيل (الفعل) = بالظبط نفس القوة اللي الفيل بيمارسها على البنت (رد الفعل)، بس في اتجاه عكسي.
-                    <br><br>
-                    <span class="hl-red">F البنت على الفيل = ‒ F الفيل على البنت</span>
-                </div>
-
-                <div class="script-text" style="margin-top:1rem; background: rgba(59,130,246,0.06); border-right-color:#3b82f6;">
-                    <strong style="color:#60a5fa;">السؤال الثاني: ليه الفعل ورد الفعل مش في حالة اتزان؟</strong>
-                    <span class="pause">[وقفة]</span>
-                    الإجابة: لأن شرط الاتزان يقول إن القوتين لازم يأثروا على <span class="hl-amber">نفس الجسم</span>.
-                    <br>بس هنا:
-                    <br>• قوة البنت على الفيل بتأثر على <span class="hl-red">الفيل</span>
-                    <br>• قوة الفيل على البنت بتأثر على <span class="hl-purple">البنت</span>
-                    <br>إذن هما على <strong>جسمين مختلفين</strong> ← مش اتزان!
-                </div>
-
-                <div class="script-text" style="margin-top:1rem; background: rgba(251,191,36,0.06); border-right-color:#f59e0b;">
-                    <strong style="color:#fbbf24;">السؤال الثالث: كتلة الفيل 6 أمثال كتلة البنت. البنت بتتحرك بعجلة 2 m/s². إيه عجلة الفيل؟</strong>
-                    <span class="pause">[وقفة]</span>
-                    <strong>الحل خطوة بخطوة:</strong>
-                    <br>
-                    1. القوتان متساويتان (قانون 3): F = F
-                    <br>
-                    2. F = m × a
-                    <br>
-                    3. إذن: m_بنت × a_بنت = M_فيل × a_فيل
-                    <br>
-                    4. نسمي كتلة البنت m → كتلة الفيل M = 6m
-                    <br>
-                    5. m × 2 = 6m × a_فيل
-                    <br>
-                    6. a_فيل = (m × 2) ÷ (6m) = 2 ÷ 6 = <span class="hl-red">1/3 m/s² ≈ 0.33 m/s²</span>
-                    <br><br>
-                    <strong>ليه العجلة سالبة؟</strong>
-                    <br>لأن الفيل بيتحرك في الاتجاه المعاكس للبنت — لو البنت ماشية لليمين، الفيل ماشي لليسار.
-                    <br>وفي الفيزياء، الاتجاه المعاكس بيبقى سالب!
+                    <span class="camera-cue">🎥 [بتقرب وشك من الكاميرا شوية بنبرة تحذير]</span>
+                    <strong class="hl-amber">هنا هيجي يسألك سؤال خبيث في الامتحان:</strong> 
+                    يا بشمهندس.. طالما القوتين قد بعض بالظبط، وعكس بعض.. ليه مبيعملوش <span class="english">Equilibrium</span>؟ ليه مابيكنسلوش بعض والكون يقف؟
+                    <br>عشان الـ <span class="english">Ation</span> بيحصل على <span class="hl-red">جسم</span>، والـ <span class="english">Reaction</span> بيحصل على <span class="hl-red">جسم تاني خالص!</span>
+                    أنا زقيت الحيطة.. الفعل على החיطة، الحيطة زقتني.. رد الفعل عليا أنا! مستحيل يكنسلوا بعض إلا لو بيأثروا على نفس الجسم بالظبط.
                 </div>
             </div>
         </div>
 
         <!-- ───────── SUMMARY ───────── -->
-        <div class="section-divider" id="summary">الملخص</div>
+        <div class="section-divider" id="summary">الخلاصة</div>
         <div class="section">
             <div class="section-title" onclick="toggleSection(this)">
-                ملخص الدرس والخاتمة
+                الخلاصة اللي هتنجحك
                 <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
             </div>
             <div class="script-body">
                 <div class="script-text">
-                    تمام يا جماعة، خلصنا الدرس الأول!
-                    <span class="pause">[وقفة — ابتسامة]</span>
-                    خلونا نلخص أهم نقط الدرس:
-                </div>
-
-                <div class="formula-note">
-                    <strong>ملخص المفاهيم والرموز:</strong>
+                    <span class="camera-cue">🎥 [الكاميرا بتاخد Medium Shot، وأنت باصص بثقة]</span>
+                    قصة نيوتن دي يا صديقي شقلبت علم الميكانيكا وبقت أساس كل حاجة بنبنيها لغاية النهارده، من أول العجلة للمحطة الفضائية. 
                     <br><br>
-                    <table class="symbol-table">
-                        <tr>
-                            <th>المفهوم</th>
-                            <th>الرمز</th>
-                            <th>المعادلة</th>
-                            <th>الوحدة</th>
-                        </tr>
-                        <tr>
-                            <td>القوة</td>
-                            <td>F</td>
-                            <td>—</td>
-                            <td>نيوتن (N)</td>
-                        </tr>
-                        <tr>
-                            <td>القانون الأول (ΣF=0)</td>
-                            <td>ΣF</td>
-                            <td>ΣF = 0 → a = 0</td>
-                            <td>—</td>
-                        </tr>
-                        <tr>
-                            <td>كمية الحركة</td>
-                            <td>P</td>
-                            <td>P = m × v</td>
-                            <td>kg·m/s</td>
-                        </tr>
-                        <tr>
-                            <td>الوزن</td>
-                            <td>Fg</td>
-                            <td>Fg = m × g</td>
-                            <td>نيوتن (N)</td>
-                        </tr>
-                        <tr>
-                            <td>القانون الثالث</td>
-                            <td>F_A,B</td>
-                            <td>F(A→B) = −F(B→A)</td>
-                            <td>—</td>
-                        </tr>
-                    </table>
-                </div>
-
-                <div class="script-text" style="margin-top:1rem">
-                    الدرس ده كله بيقولنا حاجة واحدة مهمة:
-                    <span class="pause">[وقفة]</span>
-                    <span class="highlight">القوة هي السبب وراء كل تغيير في الحركة!</span>
-                    <br>من قانون نيوتن الأول عرفنا إن الجسم بيقاوم التغيير (القصور الذاتي).
-                    <br>ومن قانون نيوتن الثالث عرفنا إن القوى دايماً بتيجي في أزواج.
-                    <span class="pause">[وقفة]</span>
-                    المهم دلوقتي تراجع الأمثلة وتحل الكويز اللي في الدرس لحد ما كل حاجة تبقى زي الفل!
+                    فهمنا إن الـ <span class="english">Force</span> هي البوس الكبير اللي بيأمر الحركة تتخلق أو تقف. وإن الأجسام كلها فيزيائياً بتحب الأنتخة والـ <span class="english">Inertia</span>. وعرفنا الإيفيه البايخ بتاع إن <span class="english">Mass</span> مش هي הـ <span class="english">Weight</span>، وإن كل حاجة بتديها <span class="english">Action</span> بتردهولك بـ <span class="english">Reaction</span>.
                     <br><br>
-                    شكراً لمتابعتكم 🎓 وإلى اللقاء في الدرس الجاي إن شاء الله.
-                    <br>السلام عليكم ورحمة الله وبركاته.
+                    <span class="vfx-cue">✨ [VFX: أيقونات منصة الكورس والكويزات بتطلع ورا بعض Graphics 3D]</span>
+                    الفيزياء يا شباب مش شوية حروف وأرقام هتتبصمج وتخش ترصها في الورقة.. الفيزياء دي اللغة اللي الكون بيكلمك بيها عشان تفهم هو شغال إزاي.
+                    <br><br>
+                    عايزك تطبق على الكلام ده دلوقت حالا، انزل تحت وبص على الـ <span class="english">Quiz</span> اللي في الموقع. أنا مش عاملها عشان أختبرك، أنا عاملها عشان أثبتلك الفكرة في دماغك بمواقف كلها من الحياة العادية. ولو وقفت قدامك حاجة احنا موجودين في أي وقت، اللينكات كلها متسابة لك..
+                    <br><br>
+                    كان معاكم بشمهندس أسامة زينهم.. نتقابل الفيديو الجاي وحوار جديد في फिजिक्स! سلام 👋
+                    <span class="sfx-cue">🔊 [SFX: Whoosh sound و End screen Outro]</span>
                 </div>
             </div>
         </div>
 
         <div style="text-align:center; margin-top:2rem; color:#475569; font-size:0.85rem; padding-bottom:2rem;">
-            فيزياء — الصف الأول ثانوي (STEM) · الوحدة 3 · الدرس 1<br>
-            بشمهندس أسامة زينهم
+            فيزياء — الصف الأول ثانوي (STEM) · الدحيح Style Script · بشمهندس أسامة زينهم
         </div>
 
     </div>
