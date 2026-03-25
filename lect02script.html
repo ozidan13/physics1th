@@ -18,6 +18,7 @@
         .section-title { font-size: 1.2rem; font-weight: 700; color: #60a5fa; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; user-select: none; }
         .section-title::before { content: "🎬"; }
         .section-title .toggle-icon { margin-right: auto; margin-left: 0; color: #64748b; font-size: 0.85rem; transition: transform 0.3s; }
+        .section-title.collapsed .toggle-icon { transform: rotate(-90deg); }
         .script-body { overflow: hidden; transition: max-height 0.4s ease; }
         .script-text { font-size: 1.12rem; line-height: 2.2; color: #f0f4f8; background: rgba(0,0,0,0.25); padding: 1.2rem 1.5rem; border-radius: 10px; border-right: 4px solid #3b82f6; }
         .note { font-size: 0.92rem; color: #fbbf24; margin-top: 1rem; padding: 0.6rem 1.1rem; background: rgba(251,191,36,0.07); border-radius: 8px; border-right: 3px solid #fbbf24; line-height: 1.8; }
@@ -27,15 +28,21 @@
         .formula-note { font-size: 0.95rem; color: #d1fae5; margin-top: 1rem; padding: 0.8rem 1.2rem; background: rgba(16,185,129,0.07); border-radius: 8px; border-right: 3px solid #10b981; line-height: 1.9; }
         .formula-note::before { content: "🔢 المعادلة: "; font-weight: bold; color: #34d399; }
         .example-box { font-size: 0.95rem; color: #fde68a; margin-top: 1rem; padding: 0.8rem 1.2rem; background: rgba(245,158,11,0.07); border-radius: 8px; border-right: 3px solid #f59e0b; line-height: 1.9; }
-        .example-box::before { content: "💡 مثال: "; font-weight: bold; }
+        .example-box::before { content: "💡 سيناريو الشارع: "; font-weight: bold; }
         .solved-box { font-size: 0.95rem; color: #c4b5fd; margin-top: 1rem; padding: 0.8rem 1.2rem; background: rgba(139,92,246,0.07); border-radius: 8px; border-right: 3px solid #8b5cf6; line-height: 1.9; }
-        .solved-box::before { content: "🖊️ حل: "; font-weight: bold; color: #a78bfa; }
+        .solved-box::before { content: "🖊️ فك الشفرة: "; font-weight: bold; color: #a78bfa; }
+        
+        /* Video Cues */
+        .camera-cue { font-size: 0.85rem; color: #fca5a5; display: block; margin: 0.5rem 0; font-weight: bold; background: rgba(239, 68, 68, 0.1); padding: 0.3rem 0.5rem; border-radius: 4px; border-right: 2px solid #ef4444; }
+        .vfx-cue { font-size: 0.85rem; color: #93c5fd; display: block; margin: 0.5rem 0; font-weight: bold; background: rgba(59, 130, 246, 0.1); padding: 0.3rem 0.5rem; border-radius: 4px; border-right: 2px solid #3b82f6; }
+        .sfx-cue { font-size: 0.85rem; color: #d8b4fe; display: block; margin: 0.5rem 0; font-weight: bold; background: rgba(168, 85, 247, 0.1); padding: 0.3rem 0.5rem; border-radius: 4px; border-right: 2px solid #a855f7; }
+
         .highlight { color: #60a5fa; font-weight: 700; }
         .hl-green { color: #34d399; font-weight: 700; }
         .hl-amber { color: #fbbf24; font-weight: 700; }
         .hl-red { color: #f87171; font-weight: 700; }
         .hl-purple { color: #a78bfa; font-weight: 700; }
-        .english { direction: ltr; display: inline-block; font-family: 'Segoe UI', sans-serif; color: #93c5fd; font-style: italic; }
+        .english { direction: ltr; display: inline-block; font-family: 'Segoe UI', sans-serif; color: #93c5fd; font-style: italic; font-weight: bold; }
         .pause { color: #fb923c; font-size: 0.82rem; display: block; margin: 0.5rem 0; font-style: italic; }
         .symbol-table { width: 100%; border-collapse: collapse; margin-top: 0.8rem; font-size: 0.9rem; }
         .symbol-table th { background: rgba(59,130,246,0.15); color: #60a5fa; padding: 0.6rem 1rem; text-align: right; border-bottom: 1px solid rgba(59,130,246,0.2); }
@@ -61,266 +68,242 @@
         <a href="index.html" class="back-btn" style="margin-right:0.75rem"><i class="fas fa-home"></i> الصفحة الرئيسية</a>
 
         <h1>📜 سكريبت الشرح — الدرس الثاني</h1>
-        <p class="subtitle">قانون نيوتن الثاني · الوحدة الثالثة: الحركة والقوة · بشمهندس أسامة زينهم</p>
+        <p class="subtitle">قانون نيوتن الثاني · أسلوب مخصص للمونتاج (Daheeh Style) · بشمهندس أسامة زينهم</p>
 
         <!-- TOC -->
         <div class="toc">
-            <h3>📋 محتويات الدرس</h3>
-            <a href="#intro">المقدمة — مراجعة سريعة</a>
-            <a href="#statement">نص القانون الثاني لنيوتن</a>
-            <a href="#fma">المعادلة F = ma — الرموز والوحدات</a>
-            <a href="#relations">العلاقات — القوة والكتلة والعجلة</a>
-            <a href="#insights">استنتاجات من القانون الثاني</a>
-            <a href="#ex1">مثال محلول 1 — مقارنة جسمين</a>
-            <a href="#ex2">مثال محلول 2 — إيجاد القوة</a>
-            <a href="#ex3">مثال محلول 3 — إيجاد العجلة</a>
-            <a href="#summary">الملخص والخاتمة</a>
+            <h3>📋 محتويات السكريبت وتوجيهات التصوير</h3>
+            <a href="#intro">عربية عطلانة في الشارع (المقدمة)</a>
+            <a href="#statement">نيوتن بيفك الشفرة (النص الرسمي)</a>
+            <a href="#fma">أشهر معادلة في التاريخ الفعلي P=mv و F=ma</a>
+            <a href="#relations">التلاجة وبسكوت الويفر (المسخوط والعملاق)</a>
+            <a href="#insights">قطر البضائع وقاذفة الصواريخ</a>
+            <a href="#ex1">فك شفرة الأرقام - 1 (الكتلة ضد العجلة)</a>
+            <a href="#ex2">فك شفرة الأرقام - 2 (هنزق بكام نيوتن؟)</a>
+            <a href="#ex3">فك شفرة الأرقام - 3 (سباق التريلات)</a>
+            <a href="#summary">القفلة اللذيذة</a>
         </div>
 
         <!-- ───── INTRO ───── -->
-        <div class="section" id="intro">
-            <div class="section-title" onclick="toggleSection(this)">المقدمة — مراجعة سريعة من الدرس الأول<span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+        <div class="section-divider" id="intro">المقدمة</div>
+        <div class="section">
+            <div class="section-title" onclick="toggleSection(this)">عربية عطلانة في الشارع (المقدمة)<span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
             <div class="script-body">
                 <div class="script-text">
-                    السلام عليكم ورحمة الله وبركاته 🌟
-                    <span class="pause">[وقفة — ابتسامة وترحيب]</span>
-                    أهلاً بيكم في الدرس الثاني من وحدة الحركة والقوة.
+                    <span class="camera-cue">🎥 [Shot قريب جداً وأنت بتشمر كُم القميص كأنك داخل خناقة أو مجهود بدني]</span>
+                    تخيل معايا إنك ماشي في الشارع بليل، لقيت جارك عربيته الملاكي عطلانة.. قمت إنت كشاب مصري أصيل وجدع قولتله "يا باشا عليا الطلاق لأزق معاك". 
+                    <span class="vfx-cue">✨ [VFX: رسمة كوميدية سريعة لواحد بيزق عربية وبيتنفخ من المجهود]</span>
+                    بدأت تزق لوحدك.. العربية بتتحرك بالعافية وبطلوع الروح.. قمت منادي 3 من صحابك كانوا قاعدين على القهوة، زقيتوا مع بعض.. العربية فجأة طارت لقدام! ليه؟ عشان الـ <span class="english">Force</span> أو القوة زادت. دي بديهيات الشارع المصري.
                     <br><br>
-                    خلونا نراجع بسرعة اللي اتعلمناه في الدرس الأول:
-                    <span class="pause">[وقفة]</span>
-                    <ul class="step-list">
-                        <li>عرفنا إن <span class="highlight">القوة</span> هي تأثير خارجي بيغيّر حالة الجسم.</li>
-                        <li>قانون نيوتن الأول قالنا: لو <span class="hl-green">المحصلة = صفر</span>، الجسم مش بيتسارع.</li>
-                        <li>عرفنا <span class="hl-amber">القصور الذاتي</span> — الجسم بيقاوم التغيير.</li>
-                        <li>عرفنا <span class="hl-red">كمية الحركة P = mv</span> والفرق بين الكتلة والوزن.</li>
-                    </ul>
-                    <span class="pause">[وقفة]</span>
-                    طيب السؤال المهم النهارده: <span class="hl-amber">لو المحصلة مش صفر — يعني فيه قوة محصلة فعلاً بتأثر على الجسم — إيه اللي هيحصل؟</span>
-                    <br>الجواب: الجسم <span class="hl-red">هيتسارع!</span> وقانون نيوتن الثاني بيقولنا بالظبط العجلة دي قد إيه.
+                    <span class="sfx-cue">🔊 [SFX: صوت فرامل تريلا ضخمة بتوقف]</span>
+                    طب تخيل لو اللي عطلان ده مش عربية ملاكي.. ده أتوبيس نقل عام مفصلي! إنت وصحابك التلاتة وصحابك اللي في القهوة والشارع كله لو زقيتوا من هنا لبكرة، الأتوبيس يا دوب هيتحرك كام سنتي. 
+                    <span class="camera-cue">🎥 [Zoom in على وشك بنظرة خبيثة]</span>
+                    ليه؟ مع إن الـ <span class="english">Force</span> هي هياها وكلكم بتزقوا بضمير؟ عشان الـ <span class="hl-red">Mass</span> أو الكتلة اختلفت يا بطل!
+                    <br><br>
+                    <span class="camera-cue">🎥 [بتاخد خطوة لورا وتبدأ الانطلاقة]</span>
+                    الدرس اللي فات احنا عرفنا إن لو الـ <span class="english">Net Force</span> المحصلة بصفر، الجسم بيفضل مبلط في مكانه.. السؤال هنا بقى: طب إفرط إنها مش بصفر؟ إفرض إننا زقينا بجد؟
+                    <br>أهلاً بيك في المعادلة اللي قلبت موازين الفيزيا وبقت بتتحكم في تصنيع كل حاجة من أول الموتوسيكل لحد الصاروخ الفضائي.. <b class="highlight">Newton's Second Law</b>. أنا بشمهندس أسامة زينهم.. هات شايَك، وتعالى نلعب بالفيزيا!
+                    <span class="vfx-cue">✨ [VFX: تتر الانترو سريع بديناميكية]</span>
                 </div>
             </div>
         </div>
 
         <!-- ───── STATEMENT ───── -->
-        <div class="section-divider" id="statement">نص القانون</div>
+        <div class="section-divider" id="statement">نيوتن بيفك الشفرة</div>
         <div class="section">
-            <div class="section-title" onclick="toggleSection(this)">نص قانون نيوتن الثاني<span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+            <div class="section-title" onclick="toggleSection(this)">نيوتن بيفك الشفرة (النص الرسمي)<span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
             <div class="script-body">
                 <div class="script-text">
-                    نيوتن لاحظ إن لما بتدفع عربية تسوق بقوة أكبر، بتتسارع أكتر. ولما العربية تكون محملة (أثقل)، بتتسارع أقل.
-                    <span class="pause">[وقفة]</span>
-                    من الملاحظات دي، صاغ القانون الثاني:
+                    <span class="camera-cue">🎥 [واقف قدام شاشة أو ماسك تابلت]</span>
+                    نيوتن بعد ما حط قانون الكسل الكوني (القانون الأول)، جه في التاني وقال لك "العب معايا بقى".
+                    <br>هو لاحظ نفس اللي إحنا لاحظناه في الشارع بالظبط: تزق أقوى، تتسارع أكتر. تزق حاجة تقيلة، تتسارع أقل. فقام مصيغها في جملة تاريخية حطت حجر الأساس للميكانيكا الحديثة:
                 </div>
 
                 <div class="law-box">
-                    <strong>النص الأول:</strong> «القوة المحصلة المؤثرة على جسم تساوي معدل التغير في كمية حركته بالنسبة للزمن.»
+                    <strong>النص الأول الأوريجينال:</strong> 
+                    <br>The net force acting on an object is equal to the rate of change of its momentum.
+                    <br>«القوة المحصلة المؤثرة على جسم بتساوي معدل التغير في كمية حركته بالنسبة للزمن.»
                     <br><br>
-                    <strong>النص الثاني (الأبسط):</strong> «القوة المحصلة المؤثرة على جسم تساوي حاصل ضرب كتلة الجسم في عجلته.»
+                    <strong>النص التاني السالك (واللي هنشتغل بيه للصبح):</strong>
+                    <br>The rate of acceleration of a body is directly proportional to the applied force, and inversely proportional to its mass.
+                    <br>«عجلة الجسم بتتناسب طردياً مع القوة، وعكسياً مع كتلته.»
                 </div>
 
                 <div class="script-text" style="margin-top:1rem">
-                    خلينا نفهم كل كلمة:
-                    <span class="pause">[وقفة]</span>
-                    <ul class="step-list">
-                        <li><span class="hl-amber">القوة المحصلة</span> = مجموع كل القوى المؤثرة على الجسم (ΣF). مش قوة واحدة — كل القوى مع بعض.</li>
-                        <li><span class="hl-amber">معدل التغير في كمية الحركة</span> = يعني كمية الحركة بتتغير بقد إيه في الثانية الواحدة.</li>
-                        <li><span class="hl-amber">الكتلة × العجلة</span> = ده الشكل المبسط واللي هنستخدمه أكتر.</li>
-                    </ul>
+                    <span class="vfx-cue">✨ [VFX: كلمات بتنور على الشاشة: Force المحصلة - معدل التغير - Acceleration]</span>
+                    نفك الطلاسم دي؟ 
+                    يعني الـ <span class="english">Resultant Force</span> اللي هي (مجموع كل العضلات اللي بتزق، مطروح منها الاحتكاك) هي دي اللي بتخلق הـ <span class="english">Acceleration</span> في الكون. ومعدل التغير في הـ <span class="english">Momentum</span> مقصود بيه كمية الحركة بتاعة الجسم بتتغير قد إيه كل ثانية.
                 </div>
             </div>
         </div>
 
         <!-- ───── F = ma ───── -->
-        <div class="section-divider" id="fma">المعادلة</div>
+        <div class="section-divider" id="fma">F = ma قلب الفيزياء</div>
         <div class="section">
-            <div class="section-title" onclick="toggleSection(this)">المعادلة F = ma — الرموز والوحدات<span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+            <div class="section-title" onclick="toggleSection(this)">أشهر معادلة في التاريخ الفعلي P=mv و F=ma<span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
             <div class="script-body">
                 <div class="formula-note">
-                    <strong style="font-size:1.3rem; display:block; text-align:center; margin-bottom:0.5rem;">F = m × a</strong>
-                    <br>أو بالصيغة الأصلية:
-                    <strong style="display:block; text-align:center; margin-top:0.3rem;">F = ΔP / Δt</strong>
+                    <span class="vfx-cue">✨ [VFX: المعادلة بتظهر بلوك ضخم 3D وكأنها بتتختم على الشاشة]</span>
+                    <strong style="font-size:1.6rem; display:block; text-align:center; margin-bottom:0.5rem; text-shadow: 0 0 10px #34d399;">F = m × a</strong>
+                    <br>ومنها نقدر نقول:
+                    <strong style="display:block; text-align:center; font-size:1.2rem; margin-top:0.3rem;">a = F / m</strong>
                 </div>
 
                 <div class="script-text" style="margin-top:1rem">
-                    خلينا نشرح كل رمز لوحده:
-                    <span class="pause">[وقفة]</span>
-                    <table class="symbol-table">
-                        <tr><th>الرمز</th><th>الاسم بالعربي</th><th>الاسم بالإنجليزي</th><th>الوحدة</th><th>المعنى</th></tr>
-                        <tr><td><strong style="color:#60a5fa">F</strong></td><td>القوة المحصلة</td><td>Resultant Force</td><td>نيوتن (N)</td><td>مجموع كل القوى المؤثرة على الجسم</td></tr>
-                        <tr><td><strong style="color:#34d399">m</strong></td><td>الكتلة</td><td>Mass</td><td>كيلوجرام (kg)</td><td>كمية المادة في الجسم — مبتتغيرش</td></tr>
-                        <tr><td><strong style="color:#f87171">a</strong></td><td>العجلة (التسارع)</td><td>Acceleration</td><td>م/ث² (m/s²)</td><td>معدل تغير السرعة — كل ثانية السرعة بتزيد قد إيه</td></tr>
-                        <tr><td><strong style="color:#a78bfa">ΔP</strong></td><td>التغير في كمية الحركة</td><td>Change in Momentum</td><td>kg·m/s</td><td>الفرق بين كمية الحركة الأولى والأخيرة</td></tr>
-                        <tr><td><strong style="color:#fbbf24">Δt</strong></td><td>الزمن</td><td>Time interval</td><td>ثانية (s)</td><td>المدة الزمنية اللي القوة اتأثرت فيها</td></tr>
-                    </table>
+                    <span class="camera-cue">🎥 [بتقرب للكاميرا وبترقص حواجبك]</span>
+                    المعادلة دي مش مجرد حروف بتتحفظ عشان تحل بيها الشيت وتجري.. المعادلة دي هي "الإجابة" لأي حاجة بتسارع في الكون.
                 </div>
 
+                <table class="symbol-table" style="margin-top:1rem;">
+                    <tr><th>الرمز</th><th>يعني إيه في الشارع؟</th><th>الوحدة</th></tr>
+                    <tr><td><strong style="color:#60a5fa">F</strong></td><td>القوة الصافية (صافي الزقة بعد ما تطرح الاحتكاك والهوا)</td><td>Newton (N)</td></tr>
+                    <tr><td><strong style="color:#34d399">m</strong></td><td>الكرش، الكتلة، مدى تناحة الجسم</td><td>Kilogram (kg)</td></tr>
+                    <tr><td><strong style="color:#f87171">a</strong></td><td>الـ Acceleration! سرعته بتزيد كام متر/ثانية كل ثانية!</td><td>m/s²</td></tr>
+                </table>
+
                 <div class="script-text" style="margin-top:1rem">
-                    <span class="highlight">ملحوظة مهمة:</span> المعادلة دي ممكن نقلبها بـ3 طرق:
-                    <span class="pause">[وقفة]</span>
-                    <ul class="step-list">
-                        <li>عاوز تعرف <span class="highlight">القوة</span>؟ → <span class="english">F = m × a</span></li>
-                        <li>عاوز تعرف <span class="hl-red">العجلة</span>؟ → <span class="english">a = F ÷ m</span></li>
-                        <li>عاوز تعرف <span class="hl-green">الكتلة</span>؟ → <span class="english">m = F ÷ a</span></li>
-                    </ul>
+                    يعني من الآخر، لو عاوز تخلق عظمة (اللي هي <span class="english">Acceleration</span>)، إنت معاك زراير بتلعب فيها.. تعلي الزقة (<span class="english">Force</span>) العظمة تزيد.. تقلل الكتلة وتخلي الجسم خفيف (<span class="english">Mass</span>)، العظمة برضه تزيد!
                 </div>
             </div>
         </div>
 
         <!-- ───── RELATIONSHIPS ───── -->
-        <div class="section-divider" id="relations">العلاقات</div>
+        <div class="section-divider" id="relations">المسخوط والعملاق</div>
         <div class="section">
-            <div class="section-title" onclick="toggleSection(this)">العلاقات بين القوة والكتلة والعجلة<span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+            <div class="section-title" onclick="toggleSection(this)">التلاجة وبسكوت الويفر (المسخوط والعملاق)<span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
             <div class="script-body">
                 <div class="script-text">
-                    من المعادلة <span class="english">a = F/m</span> نستنتج حاجتين مهمين جداً:
-                    <span class="pause">[وقفة]</span>
-                    <strong style="color:#60a5fa">العلاقة الأولى: العجلة والقوة (عند ثبات الكتلة)</strong>
-                    <br>لو الكتلة ثابتة — كل ما القوة تزيد، العجلة تزيد. علاقة <span class="hl-green">طردية</span>!
-                    <br>يعني: ادفع أقوى ← تسارع أكبر 🚀
+                    <span class="camera-cue">🎥 [الكاميرا بتسحب لزاوية Wide]</span>
+                    هنا بنيجي لمتعة القانون التاني.. التناسبات.
+                    <span class="sfx-cue">🔊 [SFX: صوت درامز بسيط لشد الانتباه]</span>
+                    المعادلة <span class="english">a = F/m</span> بتديك علاقتين بيحكموا حياتك اليومية وإنت مش حاسس:
                 </div>
 
-                <div class="example-box">
-                    تخيل إنك بتدفع عربية سوبر ماركت فاضية:
-                    <br>• دفعة خفيفة → تتحرك ببطء (عجلة صغيرة)
-                    <br>• دفعة قوية → تتحرك بسرعة (عجلة كبيرة)
-                    <br>الكتلة واحدة — اللي اتغير هو القوة!
+                <div class="example-box" style="border-right-color:#34d399; background:rgba(52,211,153,0.07);">
+                    <strong style="color:#10b981; font-size:1.1rem;">العلاقة الأولى: الزقة والتسارع (Relationship between 'a' and 'F')</strong>
+                    <br><br>
+                    تخيل قدامك علبة بسكوت ويفر خفيفة جداً، مسكتها بإيد واحدة وزقتها زقة خفيفة.. هتتحرك بالراحة. 
+                    طب نفس العلبة روحت مديها شلوط بكل صحتك؟ <span class="sfx-cue">🔊 [SFX: صوت شوطة طايرة]</span> هطير في السما!
+                    <br>الكتلة ثابتة (هي هياها علبة البسكوت)، بس إنت كبّرت الـ <span class="english">Force</span>، فالتسارع كبر بشكل مرعب. علاقة <strong>Directly Proportional (طردية)</strong> يا باشا.
                 </div>
 
-                <div class="script-text" style="margin-top:1rem">
-                    <strong style="color:#f87171">العلاقة الثانية: العجلة والكتلة (عند ثبات القوة)</strong>
-                    <br>لو القوة ثابتة — كل ما الكتلة تزيد، العجلة تقل. علاقة <span class="hl-red">عكسية</span>!
-                    <br>يعني: الجسم الأثقل أصعب في تسارعه 🏋️
-                </div>
-
-                <div class="example-box">
-                    بنفس القوة:
-                    <br>• عربية سوبر ماركت فاضية → تتحرك بسهولة (كتلة صغيرة → عجلة كبيرة)
-                    <br>• عربية سوبر ماركت مليانة علب → صعب تتحرك (كتلة كبيرة → عجلة صغيرة)
-                    <br>القوة واحدة — اللي اتغير هو الكتلة!
+                <div class="example-box" style="border-right-color:#ef4444; background:rgba(239,68,68,0.07); margin-top:1rem;">
+                    <strong style="color:#f87171; font-size:1.1rem;">العلاقة التانية: التلاجة والكتلة (Relationship between 'a' and 'm')</strong>
+                    <br><br>
+                    إنت دلوقتي صحتك جايبة آخرها (الـ <span class="english">Force</span> بتاعتك ثابتة). 
+                    لو روحت تزق ترابيزة بلاستيك بنفس صحتك دي، هتطير معاك (كتلة صغيرة فـ تسارع عالي).
+                    طب لو روحت تزق تلاجة أربعة باب مليانة تفاح بنفس الصمود والقوة بتاعتك؟ <span class="sfx-cue">🔊 [SFX: صوت صرير حاجة تقيلة بتزحف بالعافية]</span> التلاجة يا دوب هتتحرك ببطء قاتل! 
+                    <br>نفس الـ <span class="english">Force</span> بس رميناها على كتلة جبارة، فالعجلة بقت في الأرض. علاقة <strong>Inversely Proportional (عكسية)</strong>.
                 </div>
 
                 <div class="note">
-                    في الرسم البياني: لو رسمنا العجلة (a) على المحور الرأسي والقوة (F) على المحور الأفقي — هنلاقي خط مستقيم يبدأ من الأصل. ميل الخط = 1/m. يعني الخط الأكثر ميلاً = كتلة أقل!
+                    <span class="vfx-cue">✨ [VFX: جراف بيترسم للعلاقة الطردية (خط مستقيم)]</span>
+                    لما بنيجي نرسمها بياني: الـ Acceleration على الـ Y-axis والـ Force على הـ X-axis بيطلع خط مستقيم طالع لفوق (Directly). الـ <strong>Slope (الميل)</strong> بتاع الخط ده بيساوي <strong class="hl-red">1/m</strong>. يعني الخط اللي نايم لتحت أكتر، كتلته أكبر!
                 </div>
             </div>
         </div>
 
         <!-- ───── INSIGHTS ───── -->
-        <div class="section-divider" id="insights">استنتاجات</div>
+        <div class="section-divider" id="insights">قطر البضائع وقاذفة الصواريخ</div>
         <div class="section">
-            <div class="section-title" onclick="toggleSection(this)">استنتاجات مهمة من القانون الثاني<span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+            <div class="section-title" onclick="toggleSection(this)">خلاصة الكلام في الاستنتاجات<span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
             <div class="script-body">
                 <div class="script-text">
-                    القانون الثاني بيقولنا حاجات مهمة جداً عن العالم:
-                    <span class="pause">[وقفة]</span>
-                    <ul class="step-list">
-                        <li>تحريك أو إيقاف <span class="highlight">قطار ثقيل</span> أصعب بكتير من <span class="hl-green">عجلة خفيفة</span> — لأن كتلته أكبر بكتير فمحتاجين قوة أكبر لنفس العجلة.</li>
-                        <li>أي جسم بيتسارع لازم يكون فيه <span class="hl-red">قوة محصلة</span> بتأثر عليه. مفيش تسارع من غير قوة!</li>
-                        <li>لما الجسم <span class="hl-amber">بيسقط</span> بيتسارع بعجلة الجاذبية g — وده معناه إن الجاذبية دي قوة اسمها <strong>الوزن (Fg = mg)</strong>.</li>
-                    </ul>
+                    <span class="camera-cue">🎥 [Shot قريب، إضاءة درامية]</span>
+                    القانون ده بيفهمنا ليه عربيات الـ Formula 1 بتتصنع من الـ Carbon fiber الخفيف جداً.. عشان المهندسين هناك بيلعبوا على الـ <span class="english">Mass</span>.. كل ما أخفف وزن العربية، الموتور (اللي قوته ثابتة) هيديها <span class="english">Acceleration</span> جنوني!
+                    <br><br>
+                    وهو نفس السبب اللي بيخلينا نقول إن الجاذبية الأرضية هي في الحقيقة مسألة <span class="english">Acceleration</span> بس بالمقلوب.. مش الجسم وهو بيقع سرعته بتزيد 9.8 متر كل ثانية؟ 
+                    يعني بيتسارع.. وطالما فيه عجلة، يبقى فيه قوة بلطجية بتشده. القوة دي هي قوة الجاذبية اللي بنقول عليها **وزنك (Fg = m × g)**.
                 </div>
             </div>
         </div>
 
-        <!-- ───── EXAMPLE 1 ───── -->
-        <div class="section-divider" id="ex1">مثال 1</div>
+        <!-- ───── EXAMPLES ───── -->
+        <div class="section-divider" id="ex1">سبورة الأمثلة</div>
         <div class="section">
-            <div class="section-title" onclick="toggleSection(this)">🖊️ مثال محلول 1 — مقارنة جسمين بنفس القوة<span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+            <div class="section-title" onclick="toggleSection(this)">🖊️ فك شفرة الأرقام - 1 (الكتلة ضد العجلة)<span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
             <div class="script-body">
                 <div class="script-text">
-                    <strong>السؤال:</strong> قوتان متساويتان بتأثران على جسمين: الأول كتلته <span class="highlight">10 kg</span> وبيتحرك بعجلة <span class="highlight">5 m/s²</span>، والثاني كتلته <span class="hl-red">25 kg</span>. أوجد عجلة الجسم الثاني.
+                    <span class="camera-cue">🎥 [بتظهر جنبك سبورة شفافة أو شاشة بتكتب عليها]</span>
+                    تعالى نلعب بالأرقام شوية عشان الامتحانات مبترحمش.
+                    <br>
+                    <strong>السؤال:</strong> معانا قوتين متساويتين! واحدة أثرت على جسم كتلته <span class="highlight">10 kg</span> خليته يتسارع بعجلة <span class="highlight">5 m/s²</span>.. والتانية أثرت على دُمية تقيلة كتلتها <span class="hl-red">25 kg</span>.. ياترى الـ 25 كيلو دول العجلة بتاعتهم هتبقى كام؟
+                    <span class="vfx-cue">✨ [VFX: رقم 10 كيلو بيطير وجنبه سرعة، ورقم 25 كيلو تقيل على الأرض]</span>
                 </div>
 
                 <div class="solved-box">
-                    <strong>الحل خطوة بخطوة:</strong>
+                    <strong>فك الشفرة:</strong>
                     <br><br>
-                    <strong>الخطوة 1:</strong> نحسب القوة على الجسم الأول.
-                    <br>F = m₁ × a₁ = 10 × 5 = <span class="highlight">50 N</span>
+                    <strong>أولاً:</strong> القوة اللي زقت الـ 10 كيلو دي كام أصلاً؟ نضربهم في بعض!
+                    <br><span class="english">F = m₁ × a₁ = 10 × 5 = <span class="hl-purple">50 N</span></span>
                     <br><br>
-                    <strong>الخطوة 2:</strong> القوتان متساويتان → القوة على الجسم الثاني = 50 N كمان.
+                    <strong>ثانياً:</strong> الباشا قالك إن القوتين قد بعض، يعني أنا برضوا معايا <span class="hl-purple">50 N</span> أزق بيهم الكيان التقيل اللي كتلته 25 كيلو.
                     <br><br>
-                    <strong>الخطوة 3:</strong> نحسب عجلة الجسم الثاني.
-                    <br>a₂ = F / m₂ = 50 / 25 = <span class="hl-red">2 m/s²</span>
+                    <strong>ثالثاً:</strong> العجلة المعذبة التانية هتساوي إيه؟
+                    <br><span class="english">a₂ = F / m₂ = 50 / 25 = <span class="hl-red">2 m/s²</span></span>
                     <br><br>
-                    <strong style="color:#34d399">الملاحظة:</strong> الجسم الأثقل (25 kg) اتسارع أقل (2 بدل 5) بنفس القوة — وده بيأكد إن العلاقة بين العجلة والكتلة <strong>عكسية</strong>.
+                    <strong style="color:#fbbf24">بص النتيجة؟</strong> الـ 10 كيلو جريت بـ 5.. الـ 25 كيلو الثقيلة جريت بـ 2 بس! تناسب عكسي حرفياً!
                 </div>
             </div>
         </div>
 
-        <!-- ───── EXAMPLE 2 ───── -->
-        <div class="section-divider" id="ex2">مثال 2</div>
         <div class="section">
-            <div class="section-title" onclick="toggleSection(this)">🖊️ مثال محلول 2 — إيجاد القوة المطلوبة<span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+            <div class="section-title" onclick="toggleSection(this)">🖊️ فك شفرة الأرقام - 2 (هنزق بكام نيوتن؟)<span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
             <div class="script-body">
                 <div class="script-text">
-                    <strong>السؤال:</strong> ما القوة المطلوبة لتحريك سيارة كتلتها <span class="highlight">1.6 × 10³ kg</span> (يعني 1600 kg) بعجلة <span class="highlight">2 m/s²</span>؟
+                    <strong>السيناريو:</strong> قدامك عربية ملاكي كتلتها <span class="highlight">1600 kg</span> (تتكتب <span class="english">1.6 × 10³</span>).. وعايزينك تزقها بحيث تسارعها يبقى <span class="highlight">2 m/s²</span>.. هتحتاج كام نيوتن؟
                 </div>
 
                 <div class="solved-box">
-                    <strong>الحل:</strong>
-                    <br>F = m × a = 1600 × 2 = <span class="hl-red">3200 N = 3.2 × 10³ N</span>
-                    <br><br>
-                    يعني محتاجين قوة 3200 نيوتن عشان السيارة تتسارع بـ 2 م/ث².
+                    <span class="camera-cue">🎥 [بص للكاميرا وابتسم كأن الموضوع تافه]</span>
+                    تعويض مباشر ومفيش أسهل من كدة. الباشا بيسأل على הـ <span class="english">Force</span>.. ارزعله المعادلة:
+                    <br><span class="english">F = m × a</span>
+                    <br><span class="english">F = 1600 × 2 = <span class="hl-red">3200 N</span> (أو <span class="english">3.2 × 10³ N</span>)</span>
+                    <br>هتحتاج 3200 نيوتن، يعني شوف بقى كام واحد من القهوة ييجي يزق معاك!
                 </div>
             </div>
         </div>
 
-        <!-- ───── EXAMPLE 3 ───── -->
-        <div class="section-divider" id="ex3">مثال 3</div>
         <div class="section">
-            <div class="section-title" onclick="toggleSection(this)">🖊️ مثال محلول 3 — إيجاد العجلة<span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+            <div class="section-title" onclick="toggleSection(this)">🖊️ فك شفرة الأرقام - 3 (سباق التريلات)<span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
             <div class="script-body">
                 <div class="script-text">
-                    <strong>السؤال:</strong> سيارة كتلتها <span class="highlight">5000 kg</span> بدأت حركتها من السكون تحت تأثير قوة <span class="highlight">4000 N</span>. أوجد العجلة.
+                    <strong>السيناريو:</strong> تريلا ضخمة مركونة (السكون) كتلتها <span class="highlight">5000 kg</span>.. دوسنا بنزين أديناها قوة موتور <span class="highlight">4000 N</span> صافية. العجلة هتبقى كام؟ وسرعتها بعد 10 ثواني هتبقى كام؟
                 </div>
 
                 <div class="solved-box">
-                    <strong>الحل:</strong>
-                    <br>a = F / m = 4000 / 5000 = <span class="hl-red">0.8 m/s²</span>
+                    <strong>أولاً: هنجيب الـ Acceleration</strong>
+                    <br><span class="english">a = F / m = 4000 / 5000 = <span class="hl-red">0.8 m/s²</span></span>
+                    <br>الرقم ده معناه إن التريلا بتزيد سرعتها حتة حتة (0.8 متر كل ثانية).
                     <br><br>
-                    يعني كل ثانية سرعتها بتزيد 0.8 متر/ثانية.
-                    <br>بعد 10 ثواني سرعتها = 0.8 × 10 = <span class="hl-green">8 m/s</span> (حوالي 29 كم/ساعة).
+                    <strong>ثانياً: سرعة التريلا البطيئة بعد 10 ثواني هتبقى؟</strong>
+                    <br>הـ <span class="english">vf = vi + at</span> (معادلة الحركة بتاعة الترم اللي فات يا وحش)
+                    <br><span class="english">vf = 0 + (0.8 × 10) = <span class="hl-green">8 m/s</span></span>
+                    <br>يعني ماشية على الهادي خالص.
                 </div>
             </div>
         </div>
 
         <!-- ───── SUMMARY ───── -->
-        <div class="section-divider" id="summary">الملخص</div>
+        <div class="section-divider" id="summary">نقفل الميكروباص</div>
         <div class="section">
-            <div class="section-title" onclick="toggleSection(this)">ملخص الدرس والخاتمة<span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
+            <div class="section-title" onclick="toggleSection(this)">القفلة اللذيذة<span class="toggle-icon"><i class="fas fa-chevron-down"></i></span></div>
             <div class="script-body">
                 <div class="script-text">
-                    تمام يا جماعة، خلصنا الدرس الثاني! 🎓
-                    <span class="pause">[وقفة]</span>
-                    خلونا نلخص:
-                </div>
-
-                <div class="formula-note">
-                    <strong>ملخص:</strong>
+                    <span class="camera-cue">🎥 [الكاميرا بتاخد Medium Close-up وإضاءة هادية]</span>
+                    وبكده نكون هضمنا القانون التاني لنيوتن اللي حرفياً بنى جزء كبير من الحضارة الحديثة اللي إحنا عايشين فيها. 
+                    <br>التناسبات دي هتاخدك وتوديك في أسئلة الامتحانات.. خليك فاكر دايماً إن الكرش عالة على الحركة (الكتلة) وإن الصحة والزقة هما اللي بيخلقوا العظمة (القوة والعجلة).
                     <br><br>
-                    <table class="symbol-table">
-                        <tr><th>المفهوم</th><th>المعادلة</th><th>المعنى</th></tr>
-                        <tr><td>القانون الثاني</td><td>F = m × a</td><td>القوة = الكتلة × العجلة</td></tr>
-                        <tr><td>إيجاد العجلة</td><td>a = F / m</td><td>العجلة = القوة ÷ الكتلة</td></tr>
-                        <tr><td>إيجاد الكتلة</td><td>m = F / a</td><td>الكتلة = القوة ÷ العجلة</td></tr>
-                        <tr><td>العلاقة الطردية</td><td>a ∝ F</td><td>كل ما القوة تزيد، العجلة تزيد</td></tr>
-                        <tr><td>العلاقة العكسية</td><td>a ∝ 1/m</td><td>كل ما الكتلة تزيد، العجلة تقل</td></tr>
-                    </table>
-                </div>
-
-                <div class="script-text" style="margin-top:1rem">
-                    المهم تفتكروا: <span class="highlight">F = ma</span> هي أهم معادلة في الفيزياء الكلاسيكية!
-                    <span class="pause">[وقفة]</span>
-                    راجعوا الأمثلة وحلوا الكويز اللي في الدرس لحد ما كل حاجة تبقى واضحة.
-                    <br><br>
-                    شكراً لمتابعتكم 🎓 وإلى اللقاء في الدرس الجاي إن شاء الله.
-                    <br>السلام عليكم ورحمة الله وبركاته.
+                    لو حسيت إن الدماغ لفت شوية، الكويز اللي تحت الفيديو ده أنا حاطط فيه الخلاصة كلها. حلوا من غير ما تخافوا تغلطوا. 
+                    <br>أنا بشمهندس أسامة زينهم، وكالعادة، كان حوار ممتع، نشوفكم في الدرس الجاي!
+                    <br>سلام 👋!
+                    <span class="sfx-cue">🔊 [SFX: Whoosh Outro transition]</span>
                 </div>
             </div>
         </div>
 
         <div style="text-align:center; margin-top:2rem; color:#475569; font-size:0.85rem; padding-bottom:2rem;">
-            فيزياء — الصف الأول ثانوي (STEM) · الوحدة 3 · الدرس 2<br>بشمهندس أسامة زينهم
+            فيزياء — الصف الأول ثانوي (STEM) · الدحيح Style Script · الوحدة 3 الدرس 2<br>بشمهندس أسامة زينهم
         </div>
     </div>
 
